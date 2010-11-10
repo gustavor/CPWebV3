@@ -8,6 +8,29 @@ Seja Bem-Vindo ao repositório do sistema. Lembre-se que este é um repositório
 
 Cuide das chaves e do seu caminho!
 
+Por favor incluir o cabeçalho padrão em todos os arquivos editados, a não ser de vendors e do core cake. (php, ctp, etc)
+
+/**
+ * CPWeb - Controle Virtual de Processos
+ * Versão 3.0 - Setembro de 2010
+ *
+ * /caminho/completo/do/arquivo ( /app/models/foo.php ou /app/controllers/bars_controller.php )
+ *
+ * A reprodução de qualquer parte desse arquivo sem a prévia autorização
+ * do detentor dos direitos autorais constitui crime de acordo com
+ * a legislação brasileira.
+ *
+ * This product is protected by copyright and distributed under licenses restricting
+ * copying, distribution, and non-allowed selling/trading
+ *
+ * @copyright   Copyright 2010, Valéria Esteves Advogados Associados ( www.veadvogados.com.br )
+ * @copyright   Copyright 2010, Gustavo Dias Duarte Ramos ( gustavo at gustavo-ramos dot com )
+ * @link http://cpweb.veadvogados.adv.br
+ * @package cpweb
+ * @subpackage cpweb.v3
+ * @since CPWeb V3
+ */
+
 Qualquer problema, entre em contato por e-mail gustavo [at] gustavo-ramos [dot] com
 
 Atenciosamente
