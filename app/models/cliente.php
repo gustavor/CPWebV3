@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Cliente extends AppModel{
+    class Cliente extends AppModel {
 
         var $nome = 'Cliente';
 

@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Estado extends AppModel{
+    class Estado extends AppModel {
 
         var $name = 'Estado';
 

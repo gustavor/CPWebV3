@@ -20,7 +20,7 @@
  * @since CPWeb V3
  */
 
-    class Cidade extends AppModel{
+    class Cidade extends AppModel {
 
         var $name = 'Cidade';
 
