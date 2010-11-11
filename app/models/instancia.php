@@ -20,5 +20,16 @@
  * @since CPWeb V3
  */
     class Instancia extends AppModel {
-        
+
+        var $name = 'Instancia';
+
+        var $hasMany = 'Processo';
+
+        var $validate = array(
+            'nome' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'É necessário informar o nome da Instância!'
+            )
+        );
     }
