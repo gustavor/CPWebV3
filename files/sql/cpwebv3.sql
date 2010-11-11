@@ -27,7 +27,6 @@ COLLATE = utf8_general_ci;
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`comarcas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
-  `codigo` INT(11) NOT NULL ,
   `nome` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
