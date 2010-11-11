@@ -26,6 +26,11 @@
         var $belongsTo = 'Processo';
 
         var $validate = array(
-            
-        )
+            'evento' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'É necessário informar o texto do Evento!'
+            )
+        );
+
     }
