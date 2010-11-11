@@ -8,6 +8,11 @@ Para qualquer problema no repositório, entrar em contato via e-mail com gustavo
 
 O repositório é privado! Não revele seu keypair para ninguém!
 
+Design Patterns adotadas no projeto:
+
+    1)Todos os arquivos terão de ter o cabeçalho padrão após a tag de início do código
+    2)Não é preciso o fechamento das tags php no fim do código
+
 Abaixo o cabeçalho padrão para todos os arquivos, exceto vendors criados no projeto:
 
 /**
