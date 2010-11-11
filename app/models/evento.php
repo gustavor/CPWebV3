@@ -26,6 +26,8 @@
         var $belongsTo = 'Processo';
 
         var $validate = array(
-            
+            'data' => array(
+                'rule' => 
+            )
         )
     }
