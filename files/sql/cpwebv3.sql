@@ -324,10 +324,10 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos` (
   `id` INT(11) NOT NULL ,
-  `created` DATETIME NULL DEFAULT NULL ,
-  `modified` DATETIME NULL DEFAULT NULL ,
-  `processo_id` INT(11) NULL DEFAULT NULL ,
-  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `processo_id` INT(11) NOT NULL ,
+  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
   CONSTRAINT `fk_movimentos_processos1`
@@ -469,6 +469,8 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`solicitacoes` (
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `tipo_solicitacao_id` INT(11) NOT NULL ,
+  `parent_code` INT(5) NOT NULL ,
+  `children_code` INT(5) NOT NULL ,
   `solicitacao` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_solicitacoes_tipos_solicitacoes1` (`tipo_solicitacao_id` ASC) ,
@@ -596,6 +598,27 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
   `acessos` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `i_login` (`login` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`eventos_acordo`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordo` (
+  `id` INT(11) NOT NULL ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `processo_id` INT(11) NOT NULL ,
+  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
+  CONSTRAINT `fk_movimentos_processos10`
+    FOREIGN KEY (`processo_id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
