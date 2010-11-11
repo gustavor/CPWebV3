@@ -23,6 +23,6 @@
 
 class UsuariosController extends AppController {
 
-	var $name = 'Usuarios';
-	var $scaffold;
+	public $name = 'Usuarios';
+	public $scaffold;
 }
