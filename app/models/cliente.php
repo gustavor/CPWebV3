@@ -49,5 +49,5 @@
                 'required' => true,
                 'message' => 'É necessário informar a Cidade de domicílio do Cliente!'
             )
-        )
+        );
     }

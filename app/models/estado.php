@@ -30,5 +30,5 @@
                 'rule' => 'notEmpty',
                 'message' => 'É necessário informar o nome do Estado!'
             )
-        )
+        );
     }
