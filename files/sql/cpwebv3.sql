@@ -326,6 +326,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos` (
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `processo_id` INT(11) NOT NULL ,
+  `data` DATE NOT NULL ,
   `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
