@@ -43,6 +43,11 @@
                 'rule' => 'notEmpty',
                 'required' => true,
                 'message' => 'É necessário informar o endereço do Cliente!'
+            ),
+            'cidade_id' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'É necessário informar a Cidade de domicílio do Cliente!'
             )
         )
     }
