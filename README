@@ -8,6 +8,24 @@ Para qualquer problema no repositório, entrar em contato via e-mail com gustavo
 
 O repositório é privado! Não revele seu keypair para ninguém!
 
+Branches utilizados no projeto:
+
+    1) cp-experimental #primeiro branch para novas implantações - instável
+    2) cp-testing #segundo branch para novas implantações - instável
+    3) cp-candidate #branch para candidatos de implantação (merging) no branch master - estável
+    4) cp-data #branch para implementos relacionados a controle de dados (models, controllers) - estável
+    5) cp-visual #branch para implementos relacionados à 3ª camada (V) - estável
+    6) master #branch principal da aplicação
+
+Ordem de merging natural dos branches:
+
+cp-experimental -> cp-testing -> cp-candidate        cp-data
+                                                =>               =>   master
+                                                     cp-visual
+
+Crescimento de estabilidade de módulo nesta direção ==============>
+
+
 Design Patterns adotadas no projeto:
 
     1)Todos os arquivos terão de ter o cabeçalho padrão após a tag de início do código
