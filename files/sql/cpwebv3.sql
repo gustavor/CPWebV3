@@ -129,7 +129,9 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`estados` (
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `nome` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
-  PRIMARY KEY (`id`) )
+  `uf` VARCHAR(2) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_nome` (`nome` ASC) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
@@ -186,6 +188,21 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`modelos`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`modelos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NULL ,
+  `modified` DATETIME NULL ,
+  `nome` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`processos`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
@@ -203,6 +220,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `natureza_id` INT(11) NOT NULL ,
   `status_id` INT(11) NOT NULL ,
   `tipo_processo_id` INT(11) NOT NULL ,
+  `modelos_id` INT NOT NULL ,
   `obs` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_comarcas1` (`comarca_id` ASC) ,
@@ -214,6 +232,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   INDEX `fk_processos_naturezas1` (`natureza_id` ASC) ,
   INDEX `fk_processos_tipos_partes1` (`tipo_parte_id` ASC) ,
   INDEX `fk_processos_clientes1` (`cliente_id` ASC) ,
+  INDEX `fk_processos_modelos1` (`modelos_id` ASC) ,
   CONSTRAINT `fk_processos_comarcas1`
     FOREIGN KEY (`comarca_id` )
     REFERENCES `cpwebv3`.`comarcas` (`id` )
@@ -257,6 +276,11 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   CONSTRAINT `fk_processos_clientes1`
     FOREIGN KEY (`cliente_id` )
     REFERENCES `cpwebv3`.`clientes` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_processos_modelos1`
+    FOREIGN KEY (`modelos_id` )
+    REFERENCES `cpwebv3`.`modelos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -506,21 +530,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
     REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
--- Table `cpwebv3`.`modelos`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`modelos` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NULL ,
-  `modified` DATETIME NULL ,
-  `nome` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `i_nome` (`nome` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;

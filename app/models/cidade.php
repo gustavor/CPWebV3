@@ -20,13 +20,9 @@
  * @since CPWeb V3
  */
 
-    class Cidade extends AppModel {
+class Cidade extends AppModel {
 
         var $name = 'Cidade';
-
-        var $belongsTo = 'Estado';
-
-        var $hasMany = 'Cliente';
 
         var $validate = array(
             'estado_id' => array(
@@ -40,4 +36,15 @@
                 'message' => 'É necessário informar o nome da Cidade!'
             )
         );
+        
+        public $belongsTo = array(
+		'Estado' => array(
+			'className' => 'Estado',
+			'foreignKey' => 'estado_id',
+			'conditions' => '',
+			'fields' => 'Estado.nome, Estado.uf',
+			'order' => 'Estado.uf'
+		)
+	);
+        
     }
