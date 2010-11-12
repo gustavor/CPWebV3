@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/usuarios_controller.php
+ * app/controllers/clientes_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -20,8 +20,8 @@
  * @since CPWeb V3
  */
 
-class UsuariosController extends AppController {
+class ClientesController extends AppController {
 
-	public $name = 'Usuarios';
+	public $name = 'Clientes';
 	public $scaffold;
 }

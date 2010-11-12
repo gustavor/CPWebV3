@@ -19,15 +19,12 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Cliente extends AppModel {
+class Cliente extends AppModel {
 
-        var $nome = 'Cliente';
+        public $nome 			= 'Cliente';
+        public $displayField	= 'nome';
 
-        var $belongsTo = 'Cidade';
-
-        var $hasMany = array( 'Telefone', 'Processo' );
-
-        var $validate = array(
+        public $validate = array(
             'nome' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
@@ -50,4 +47,43 @@
                 'message' => 'É necessário informar a Cidade de domicílio do Cliente!'
             )
         );
-    }
+        
+	public $belongsTo = array(
+		'Cidade' => array(
+			'className' => 'Cidade',
+			'foreignKey' => 'cidade_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+
+	public $hasMany = array(
+		'Processo' => array(
+			'className' => 'Processo',
+			'foreignKey' => 'cliente_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Telefone' => array(
+			'className' => 'Telefone',
+			'foreignKey' => 'cliente_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+ }
