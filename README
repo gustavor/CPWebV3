@@ -19,8 +19,8 @@ Branches utilizados no projeto:
 
 Ordem de merging natural dos branches:
 
-cp-experimental -> cp-testing -> cp-candidate        cp-data
-                                                =>               =>   master
+                                                      cp-data
+cp-experimental -> cp-testing -> cp-candidate   =>               =>   master
                                                      cp-visual
 
 Crescimento de estabilidade de módulo nesta direção ==============>
