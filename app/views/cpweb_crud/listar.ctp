@@ -1,23 +1,18 @@
+<?php $this->Html->css('lista.css', null, array('inline' => false)); ?>
+<?php $this->Html->script('lista.js', array('inline' => false)); ?>
 <div class="lista">
 <h2>
 	<img src='<?php echo Router::url('/',true); ?>img/advocacia.png' style='float: left; ' border='0' />
 	<span>CPWeb : Lista : <?php echo $pluralHumanName;?></span>
 </h2>
-<table class="cabecalho" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
+<table class="paginas" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
 <tr>
-	<td class="cabecalho_td">
-		<?php
-		if (count($form->data)>$this->params['paging'][$modelo]['options']['limit'])
-		{
-			echo "\n";
-			if (isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro'))."\n";
-			if (isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->prev('Anterior',array('class'=>'bt_anterior'))."\n";
-			if (isset($paginator->options)) echo $paginator->numbers(array('separator'=>"\n",'class'=>'num_pag'))."\n";
-			if (isset($paginator->options)) echo $paginator->next('Próxima',array('class'=>'bt_proximo'))."&nbsp;\n";
-			if (isset($paginator->options)) echo $paginator->last('Última',array('class'=>'bt_ultimo'))."&nbsp;\n\n";
-		}
-		?>
-	</td>
+	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro')); ?></td>
+	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->prev('Anterior',array('class'=>'bt_anterior')); ?></td>
+	<td width="280px" align="center"><ul class="pags"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->numbers(array('separator'=>"\n",'class'=>'num_pag','tag'=>'li')); ?></ul></td>
+	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->next('Próxima',array('class'=>'bt_proximo')); ?></td>
+	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->last('Última',array('class'=>'bt_ultimo')); ?></td>
+	<td width="*"     align="center"></td>
 </tr>
 </table>
 

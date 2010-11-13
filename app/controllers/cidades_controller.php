@@ -67,16 +67,31 @@ class CidadesController extends AppController {
 	
 	public function beforeRender()
 	{
-		// Destacando as cidades de MG
-		foreach($this->data as $_linha => $_modelos)
+		//echo '<pre>'.print_r($this,true).'</pre>';
+		
+		// somente para lista
+		if ($this->action=='listar')
 		{
-			foreach($_modelos as $_modelo => $_campos)
+			foreach($this->data as $_linha => $_modelos)
 			{
-				foreach($_campos as $_campo => $_valor)
+				foreach($_modelos as $_modelo => $_campos)
 				{
-					if ($_modelo=='Estado' && $_campo=='uf' && $_valor=='MG')
+					foreach($_campos as $_campo => $_valor)
 					{
-						$this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = 'style="background-color: #ddd;"';
+						$destaque = '';
+						
+						// Destacando as cidades de MG
+						if ($_modelo=='Estado' && $_campo=='uf' && $_valor=='MG')
+						{
+							if (!isset($this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) $destaque = 'style="background-color: #f2f378;"';
+						}
+						// Destacando Belo Horizonte
+						if ($_modelo=='Cidade' && $_campo=='nome' && mb_strtolower($_valor)=='belo horizonte')
+						{
+							$destaque = 'style="background-color: #9fed9f;"';
+						}
+						
+						if ($destaque) $this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = $destaque;
 					}
 				}
 			}
