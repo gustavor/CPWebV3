@@ -5,7 +5,19 @@
 </h2>
 <table class="cabecalho" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
 <tr>
-	<td></td>
+	<td class="cabecalho_td">
+		<?php
+		if (count($form->data)>$this->params['paging'][$modelo]['options']['limit'])
+		{
+			echo "\n";
+			if (isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro'))."\n";
+			if (isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->prev('Anterior',array('class'=>'bt_anterior'))."\n";
+			if (isset($paginator->options)) echo $paginator->numbers(array('separator'=>"\n",'class'=>'num_pag'))."\n";
+			if (isset($paginator->options)) echo $paginator->next('Próxima',array('class'=>'bt_proximo'))."&nbsp;\n";
+			if (isset($paginator->options)) echo $paginator->last('Última',array('class'=>'bt_ultimo'))."&nbsp;\n\n";
+		}
+		?>
+	</td>
 </tr>
 </table>
 
@@ -13,7 +25,7 @@
 <tr>
 <?php
 
-	// cabeçalho
+	// cabeçalho da lista
 	foreach($listaCampos as $_field)
 	{
 		$titulo = isset($campos[$_field]['label']['text']) ? $campos[$_field]['label']['text'] : $_field;
@@ -26,7 +38,7 @@
 </tr>
 
 <?php
-	// exibindo o conteúdo
+	// linha a linha da lista
 	foreach($this->data as $_line => $_dataModel)
 	{
 		$id 		= $_dataModel[$modelClass][$primaryKey];

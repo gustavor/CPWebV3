@@ -67,15 +67,18 @@ class CidadesController extends AppController {
 	
 	public function beforeRender()
 	{
-		//echo '<pre>'.print_r($this->data,true).'</pre>';
-		if (isset($this->data[1]['Estado']['nome']))
+		// Destacando as cidades de MG
+		foreach($this->data as $_linha => $_modelos)
 		{
-			if ($this->data[1]['Estado']['nome']=='Rio de Janeiro')
+			foreach($_modelos as $_modelo => $_campos)
 			{
-				/* $this->viewVars['campos']['Estado.uf']['estilo_td'] 			= 'style="background-color: #ddd;"';
-				$this->viewVars['campos']['Estado.uf']['estilo_td_3_uf'] 		= 'style="background-color: green;"';
-				$this->viewVars['lista']['estilo_tr_3'] 			= 'style="background-color: #ddd;"';
-				*/
+				foreach($_campos as $_campo => $_valor)
+				{
+					if ($_modelo=='Estado' && $_campo=='uf' && $_valor=='MG')
+					{
+						$this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = 'style="background-color: #ddd;"';
+					}
+				}
 			}
 		}
 	}
@@ -93,6 +96,7 @@ class CidadesController extends AppController {
 		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.uf','Cidade.modified','Cidade.created');
 		$this->viewVars['campos']['Cidade.modified']['estilo_th'] 		= 'width="220px"';
 		$this->viewVars['campos']['Cidade.created']['estilo_th'] 		= 'width="220px"';
+		$this->viewVars['campos']['Estado.uf']['estilo_th'] 			= 'width="110px"';
 		$this->viewVars['tamLista'] 									= '80%';
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 		//$this->viewVars['campos']['Estado.uf']['estilo_td'] 			= 'style="background-color: #ddd;"';

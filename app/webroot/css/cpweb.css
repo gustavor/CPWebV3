@@ -29,10 +29,33 @@
 {
 	margin: 10px auto;
 	background-color: #acc4e6;
-	height: 40px;
-	line-height: 40px;
+	height: 20px;
+	line-height: 20px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+}
+
+.lista .cabecalho_td
+{
+	padding: 0px 0px 0px 20px;
+}
+
+.lista .cabecalho_td span
+{
+	float: left;
+}
+
+.lista .current,
+.lista .num_pag
+{
+	width: 30px;
+	text-align: center;	
+	border: 1px solid #ccc;
+}
+.lista .num_pag
+{
+	color: #aaa;
+	display: block;
 }
 
 .lista .linhas
