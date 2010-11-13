@@ -92,6 +92,7 @@ class CidadesController extends AppController {
 	{
 		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.uf','Cidade.modified','Cidade.created');
 		$this->viewVars['campos']['Cidade.modified']['estilo_th'] 		= 'width="220px"';
+		$this->viewVars['campos']['Cidade.created']['estilo_th'] 		= 'width="220px"';
 		$this->viewVars['tamLista'] 									= '80%';
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 		//$this->viewVars['campos']['Estado.uf']['estilo_td'] 			= 'style="background-color: #ddd;"';

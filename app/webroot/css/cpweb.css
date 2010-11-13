@@ -25,13 +25,23 @@
 	letter-spacing: 4px;
 }
 
-.lista table
+.lista .cabecalho
 {
 	margin: 10px auto;
+	background-color: #acc4e6;
+	height: 40px;
+	line-height: 40px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.lista .linhas
+{
+	margin: 0px auto;
 	border-top: 1px solid #bbb;
 	border-right: 1px solid #bbb;
 }
-.lista table th
+.lista .linhas th
 {
 	border-left: 1px solid #bbb;
 	border-bottom: 1px solid #bbb;
@@ -46,7 +56,7 @@
 	color: red;
 }
 
-.lista table th a
+.lista .linhas th a
 {
 	display: block;
 	text-decoration: none;
@@ -58,12 +68,12 @@
 	border: 1px solid #fff;
 }
 
-.lista table th a:hover
+.lista .linhas th a:hover
 {
 	background-color: #acc4e6;
 }
 
-.lista table td
+.lista .linhas td
 {
 	padding: 2px;
 	border-left: 1px solid #bbb;
