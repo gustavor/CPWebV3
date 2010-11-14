@@ -1,21 +1,22 @@
-<?php //echo '<pre>'.print_r($this,true).'</pre>'; ?>
+<?php //echo '<pre>'.print_r($campos,true).'</pre>'; ?>
 <?php $this->Html->css('edicao.css', null, array('inline' => false)); ?>
 <?php $this->Html->script('edicao.js', array('inline' => false)); ?>
+<?php $id = isset($this->data[$modelClass][$primaryKey]) ? $this->data[$modelClass][$primaryKey] : 0; ?>
 
 <div id='edicao'>
 
-<h2>
-	<img src='<?php echo Router::url('/',true); ?>img/advocacia.png' style='float: left; ' border='0' />
-	<span>CPWeb : Edição : <?php echo $pluralHumanName;?></span>
-</h2>
+<?php echo $this->element('cpweb_cab'); ?>
+
+<?php echo $this->Form->create($modelClass)."\n"; ?>
+<?php echo $this->Form->input($primaryKey)."\n"; ?>
 
 <div id="formFerramentas">
+	<div id="botoesEdicao">
+	<?php foreach($botoesEdicao as $_label => $_arrOpcoes) echo "\t".$form->button($_label,$_arrOpcoes)."\n"; ?>
+	</div>
 </div>
 
 <div id="formEdicao">
-<?php //echo '<pre>'.print_r($this->viewVars,true).'</pre>'; ?>
-<?php echo $this->Form->create($modelClass)."\n"; ?>
-<?php echo $this->Form->input($primaryKey)."\n"; ?>
 <?php
 	// campo a campo
 	foreach($edicaoCampos as $campo)

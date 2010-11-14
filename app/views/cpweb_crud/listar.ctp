@@ -1,11 +1,8 @@
-<?php //echo '<pre>'.print_r($this,true).'</pre>'; ?>
+<?php //echo '<pre>'.print_r($this->data,true).'</pre>'; ?>
 <?php $this->Html->css('lista.css', null, array('inline' => false)); ?>
 <?php $this->Html->script('lista.js', array('inline' => false)); ?>
 <div class="lista">
-<h2>
-	<img src='<?php echo Router::url('/',true); ?>img/advocacia.png' style='float: left; ' border='0' />
-	<span>CPWeb : Lista : <?php echo $pluralHumanName;?></span>
-</h2>
+<?php echo $this->element('cpweb_cab'); ?>
 <table class="paginas" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
 <tr>
 	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro')); ?></td>
@@ -24,8 +21,9 @@
 	// cabeçalho da lista
 	foreach($listaCampos as $_field)
 	{
-		$titulo = isset($campos[$_field]['options']['label']['text']) ? $campos[$_field]['options']['label']['text'] : $_field;
-		$estilo = isset($campos[$_field]['estilo_th']) ? $campos[$_field]['estilo_th'] : '';
+		$_arrField = explode('.',$_field);
+		$titulo = isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_field;
+		$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_th']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_th'] : '';
 		echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
 	}
 	$totFerramentas = count($listaFerramentas);
@@ -46,12 +44,14 @@
 		// campo a campo
 		foreach($listaCampos as $_field)
 		{
-			$_campo = explode('.',$_field);
-			$estilo = isset($campos[$_field]['estilo_td']) ? $campos[$_field]['estilo_td'] : '';
-			$titulo = isset($campos[$_field]['label']['text']) ? $campos[$_field]['label']['text'] : $_field;
+			$_arrField = explode('.',$_field);
+			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_td']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_td'] : '';
+			$titulo = isset($campos[$_arrField[0]][$_arrField[1]]['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['label']['text'] : $_field;
 			$idTd	= 'td_'.$id.'_'.mb_strtolower(Inflector::slug($titulo));
-			$estilo = isset($campos[$_field]['estilo_'.$idTd]) ? $campos[$_field]['estilo_'.$idTd] : $estilo;
-			$valor 	= $_dataModel[$_campo[0]][$_campo[1]];
+			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd]) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd] : $estilo;
+			$masc	= isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'] : '';
+			$valor 	= $_dataModel[$_arrField[0]][$_arrField[1]];
+			if ($masc) $valor = $this->Formatacao->dataHora($valor, $segundos=false);
 			echo "\t<td id='$idTd' $estilo>$valor</td>\n";
 		}
 

@@ -21,7 +21,7 @@
  */
  
 class CpwebCrudComponent extends Object {
-	 
+
 	 /**
 	 * método start
 	 * @return void
@@ -50,45 +50,46 @@ class CpwebCrudComponent extends Object {
 	 public function listar($pag=1)
 	 {
 		$this->controller->data = $this->controller->paginate();
-		$this->controller->set('listaFerramentas',$this->getListaFerramentas());
+		$this->setListaFerramentas();
 		$this->controller->render('../cpweb_crud/listar');
 	 }
 	 
 	 /**
+	  * Executa a edição do registro
 	  * 
-	  * 
+	  * @return void
 	  */
 	  public function editar($id=null)
 	  {
+		// parâmetros
 		$modelClass 	= $this->controller->modelClass;
-		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : '';
+		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
 		$erros			= '';
 		$msgFlash		= '';
+		$dadosForm		= array();
 
+		// salvando os dados do formulário
 		if (!empty($this->controller->data))
 		{
-			if (!empty($camposSalvar))
-			{
-				$this->Controller->$modelClass->save($this->controller->data,true,$campos_salvar);
-			} else
-			{
-				$this->controller->$modelClass->save($this->controller->data,true);
-			}
-			$dataForm = $this->controller->data;
-			if ($this->controller->$modelClass->validates()) 
+			if ($this->controller->$modelClass->save($this->controller->data))
 			{
 				$msgFlash 	= 'Registro atualizado com sucesso ...';
 			} else
 			{
 				$msgFlash 	= 'O Formulário ainda contém erros !!!';
 				$erros 		= $this->controller->$modelClass->validationErrors;
+				$msgFlash	= '<pre>'.print_r($erros,true).'</pre>';
 			}
+			$dataForm = $this->controller->data;
 		}
 
+		// recuperando os atualizados, configurando os relacionamentos, configurando os erros caso ocorra, 
+		// configurando os botões da edição, atualizando a msg e renderizando a página
 		$this->controller->data = $this->controller->$modelClass->read(null,$id);
-		$this->setRelacionamentos();
 		if ($erros) foreach($erros as $_campo => $_erro) $this->controller->data[$modelClass][$_campo] = $dataForm[$modelClass][$_campo];
-		$this->controller->set('edicaoFerramentas',$this->getEdicaoFerramentas());  
+		$this->setBotoesEdicao();
+		$this->setRelacionamentos();
+		$this->controller->Session->setFlash($msgFlash);
 		$this->controller->render('../cpweb_crud/editar');
 	  }
 	  
@@ -113,27 +114,77 @@ class CpwebCrudComponent extends Object {
 			}
 		}
 	}
+	
+	/**
+	 * Configura os botões para a edição
+	 * 
+	 * @return void
+	 */
+	private function setBotoesEdicao()
+	{
+		// parâmetros
+		$pluralVar 		= Inflector::variable($this->controller->name);
+		$modelClass 	= $this->controller->modelClass;
+		$primaryKey 	= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
+		$id 			= isset($this->controller->data[$modelClass][$primaryKey]) ? : '';
+
+		// botões padrão (podem ser re-escritos pelo controller pai)
+		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+		$botoes['Novo']['title']		= 'Insere um novo registro ...';
+		$botoes['Salvar']['type']		= 'submit';
+		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
+		$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
+		$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
+		$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
+		$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
+		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar\'';
+		$botoes['Listar']['title']		= 'Volta para a Lista ...';
+
+		// recuperando os botões do controller pai
+		if (isset($this->controller->viewVars['botoesEdicao']))
+		{
+			$_botoes = $this->controller->viewVars['botoesEdicao'];
+			foreach($_botoes as $_label => $_arrOpcao)
+			{
+				foreach($_arrOpcao as $_opcao => $_conteudo)
+				{
+					$botoes[$_label][$_opcao] = $_conteudo;
+				}
+			}
+		}
+
+		// configurando as propriedades padrão
+		foreach($botoes as $_label => $_arrOpcao)
+		{
+			$botoes[$_label]['type']		= isset($botoes[$_label]['type'])    ? $botoes[$_label]['type']    : 'button';
+			$botoes[$_label]['class']		= isset($botoes[$_label]['class'])   ? $botoes[$_label]['class']   : 'btEdicao';
+			$botoes[$_label]['id']			= isset($botoes[$_label]['id'])      ? $botoes[$_label]['id']      : 'btEdicao'.$_label;
+			$botoes[$_label]['onClick']		= isset($botoes[$_label]['onClick']) ? $botoes[$_label]['onClick'] : null;
+		}
+
+		// atualizando a view
+		$this->controller->viewVars['botoesEdicao'] = $botoes;
+	}
 	 
 	 /**
-	  * Retorna um matriz contendo as ferramentas usadas na lista
+	  * Configura as ferramentas que serão usadas na Lista.
 	  * 
-	  * @return array $ferramentas Matriz com ferramentas
+	  * @return void
 	  */
-	  private function getListaFerramentas()
+	  private function setListaFerramentas()
 	  {
 		$pluralVar 					= Inflector::variable($this->controller->name);
 		$ferramentas[0]['link']		= Router::url('/',true).$pluralVar.'/imprimir/{id}';
 		$ferramentas[0]['title']	= 'Imprimir';
 		$ferramentas[0]['icone']	= 'bt_imprimir.png';
-		
 		$ferramentas[1]['link']		= Router::url('/',true).$pluralVar.'/editar/{id}';
 		$ferramentas[1]['title']	= 'Editar';
-		$ferramentas[1]['icone']	= 'bt_editar.png';
-		
+		$ferramentas[1]['icone']	= 'bt_editar.png';		
 		$ferramentas[2]['link']		= Router::url('/',true).$pluralVar.'/excluir/{id}';
 		$ferramentas[2]['title']	= 'Excluir';
 		$ferramentas[2]['icone']	= 'bt_excluir.png';
-		
+
+		// recuperando as ferramentas do controller pai
 		if (isset($this->controller->viewVars['listaFerramentas']))
 		{
 			$_listaFerramentas = $this->controller->viewVars['listaFerramentas'];
@@ -145,51 +196,7 @@ class CpwebCrudComponent extends Object {
 				}
 			}
 		}
-		return $ferramentas;
+		$this->controller->viewVars['listaFerramentas'] = $ferramentas;
 	  }
-	  
-	  /**
-	   * Retorna as ferramentas para o formulário de edição
-	   * 
-	   * @return array $ferramentas Matriz com as ferramentas de edição
-	   */
-	   private function getEdicaoFerramentas()
-	   {
-		$pluralVar 					= Inflector::variable($this->controller->name);
-		
-		$ferramentas[0]['link']		= Router::url('/',true).$pluralVar.'/novo';
-		$ferramentas[0]['valor']	= 'Novo';
-		$ferramentas[0]['title']	= 'Insere um novo registro ...';
-		$ferramentas[0]['icone']	= 'bt_novo.png';
-		
-		$ferramentas[1]['link']		= Router::url('/',true).$pluralVar.'/editar/{id}';
-		$ferramentas[1]['valor']	= 'Salvar';
-		$ferramentas[1]['title']	= 'Salva as alterações do registro ...';
-		$ferramentas[1]['icone']	= 'bt_salvar.png';
-		
-		$ferramentas[2]['link']		= Router::url('/',true).$pluralVar.'/excluir/{id}';
-		$ferramentas[2]['valor']	= 'Excluir';
-		$ferramentas[2]['title']	= 'Excluir o registro corrente ...';
-		$ferramentas[2]['icone']	= 'bt_excluir.png';
-		
-		$ferramentas[3]['link']		= Router::url('/',true).$pluralVar.'/listar';
-		$ferramentas[3]['valor']	= 'Listar';
-		$ferramentas[3]['title']	= 'Volta para a Lista ...';
-		$ferramentas[3]['icone']	= 'bt_listar.png';
-		
-		if (isset($this->controller->viewVars['edicaoFerramentas']))
-		{
-			$_listaFerramentas = $this->controller->viewVars['edicaoFerramentas'];
-			foreach($_listaFerramentas as $_item => $_arrOpcao)
-			{
-				foreach($_arrOpcao as $_opcao => $_conteudo)
-				{
-					$ferramentas[$_item][$_opcao] = $_conteudo;
-				}
-			}
-		}
-
-		return $ferramentas;
-	   }
 }
 ?>

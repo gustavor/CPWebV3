@@ -37,6 +37,11 @@ class CidadesController extends AppController {
 	public $uses = 'Cidade';
 	
 	/**
+	 * Ajudantes 
+	 */
+	public $helpers = array('CakePtbr.Formatacao');
+	
+	/**
 	 * componentes
 	 * @var array Componentes
 	 * @access public
@@ -51,21 +56,17 @@ class CidadesController extends AppController {
 	 */
 	 public function beforeFilter()
 	 {
-		 $this->viewVars['campos']['Cidade.nome']['options']['label']['text'] 			= 'Cidade';
-		 $this->viewVars['campos']['Estado.uf']['options']['label']['text'] 			= 'Uf';
-		 $this->viewVars['campos']['Cidade.modified']['options']['label']['text'] 		= 'Data da Última Atualiazação';
-		 $this->viewVars['campos']['Cidade.created']['options']['label']['text'] 		= 'Data de Criação';
-		 $this->viewVars['campos']['Cidade.created']['options']['label']['text'] 		= 'Data de Criação';
+		$this->viewVars['campos']['Cidade']['nome']['options']['label']['text'] 		= 'Cidade';
+		$this->viewVars['campos']['Cidade']['modified']['options']['label']['text'] 	= 'Data da Última Atualiazação';
+		$this->viewVars['campos']['Cidade']['created']['options']['label']['text'] 		= 'Data de Criação';
+		$this->viewVars['campos']['Cidade']['created']['options']['label']['text'] 		= 'Data de Criação';
+		$this->viewVars['campos']['Cidade']['modified']['options']['dateFormat'] 		= 'DMY';
+		$this->viewVars['campos']['Cidade']['created']['options']['dateFormat'] 		= 'DMY';
+		$this->viewVars['campos']['Estado']['uf']['options']['label']['text'] 			= 'Uf';
 	 }
-	
 	/**
-	 * método start
+	 * 
 	 */
-	public function index()
-	{
-		$this->redirect('listar');
-	}
-	
 	public function beforeRender()
 	{
 		//echo '<pre>'.print_r($this,true).'</pre>';
@@ -73,6 +74,17 @@ class CidadesController extends AppController {
 		// somente para lista
 		if ($this->action=='listar')
 		{
+			// personalização de alguns campos
+			$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.uf','Cidade.modified','Cidade.created');
+			$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="220px"';
+			$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
+			$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="220px"';
+			$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
+			$this->viewVars['campos']['Estado']['uf']['estilo_th'] 			= 'width="110px"';
+			$this->viewVars['campos']['Estado']['uf']['estilo_td'] 			= 'style="text-align: center; "';
+			$this->viewVars['tamLista'] 									= '80%';
+
+			// destacando algumas linhas
 			foreach($this->data as $_linha => $_modelos)
 			{
 				foreach($_modelos as $_modelo => $_campos)
@@ -97,10 +109,24 @@ class CidadesController extends AppController {
 				}
 			}
 		}
-		
+
 		// somente para edição
+		if ($this->action=='editar')
+		{
+			//$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.created','#','Cidade.modified');
+			$this->viewVars['campos']['Cidade']['nome']['options']['style'] = 'readonly="readonly"';
+			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
+		}
 	}
 	
+	/**
+	 * método start
+	 */
+	public function index()
+	{
+		$this->redirect('listar');
+	}
+
 	/**
 	 * Lista os dados em paginação
 	 * 
@@ -111,25 +137,14 @@ class CidadesController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
-		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.uf','Cidade.modified','Cidade.created');
-		$this->viewVars['campos']['Cidade.modified']['estilo_th'] 		= 'width="220px"';
-		$this->viewVars['campos']['Cidade.modified']['estilo_td'] 		= 'style="text-align: center; "';
-		$this->viewVars['campos']['Cidade.created']['estilo_th'] 		= 'width="220px"';
-		$this->viewVars['campos']['Cidade.created']['estilo_td'] 		= 'style="text-align: center; "';
-		$this->viewVars['campos']['Estado.uf']['estilo_th'] 			= 'width="110px"';
-		$this->viewVars['campos']['Estado.uf']['estilo_td'] 			= 'style="text-align: center; "';
-		$this->viewVars['tamLista'] 									= '80%';
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
-	
+
 	/**
 	 * método para edição
 	 */
 	public function editar($id=null)
 	{
-		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.created','#','Cidade.modified');
-		$this->viewVars['campos']['Cidade.modified']['options']['dateFormat'] = 'DMY';
-		$this->viewVars['campos']['Cidade.created']['options']['dateFormat'] = 'DMY';
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -168,5 +183,4 @@ class CidadesController extends AppController {
 	{
 		$this->CpwebCrud->pesquisar($texto,$campo);
 	}
-
 }
