@@ -86,10 +86,33 @@ class CpwebCrudComponent extends Object {
 		}
 
 		$this->controller->data = $this->controller->$modelClass->read(null,$id);
+		$this->setRelacionamentos();
 		if ($erros) foreach($erros as $_campo => $_erro) $this->controller->data[$modelClass][$_campo] = $dataForm[$modelClass][$_campo];
 		$this->controller->set('edicaoFerramentas',$this->getEdicaoFerramentas());  
 		$this->controller->render('../cpweb_crud/editar');
 	  }
+	  
+	 /**
+	  * Configura os relacionamentos do model corrente, joga na view a lista 
+	  * 
+	  * @return void
+	  */
+	private function setRelacionamentos()
+	{
+		$modelClass = $this->controller->modelClass;
+		foreach($this->controller->$modelClass->__associations as $associacao)
+		{
+			if (count($this->controller->$modelClass->$associacao))
+			{
+				foreach($this->controller->$modelClass->$associacao as $assoc => $arr_opcoes)
+				{
+					$parametros = array();
+					if (isset($arr_opcoes['fields'])) $parametros['fields'] = $arr_opcoes['fields'];
+					$this->controller->viewVars[Inflector::pluralize(strtolower($assoc))] = $this->controller->$modelClass->$assoc->find('list',$parametros);
+				}
+			}
+		}
+	}
 	 
 	 /**
 	  * Retorna um matriz contendo as ferramentas usadas na lista

@@ -51,10 +51,11 @@ class CidadesController extends AppController {
 	 */
 	 public function beforeFilter()
 	 {
-		 $this->viewVars['campos']['Cidade.nome']['label']['text'] 			= 'Cidade';
-		 $this->viewVars['campos']['Estado.uf']['label']['text'] 			= 'Uf';
-		 $this->viewVars['campos']['Cidade.modified']['label']['text'] 		= 'Data da Última Atualiazação';
-		 $this->viewVars['campos']['Cidade.created']['label']['text'] 		= 'Data de Criação';
+		 $this->viewVars['campos']['Cidade.nome']['options']['label']['text'] 			= 'Cidade';
+		 $this->viewVars['campos']['Estado.uf']['options']['label']['text'] 			= 'Uf';
+		 $this->viewVars['campos']['Cidade.modified']['options']['label']['text'] 		= 'Data da Última Atualiazação';
+		 $this->viewVars['campos']['Cidade.created']['options']['label']['text'] 		= 'Data de Criação';
+		 $this->viewVars['campos']['Cidade.created']['options']['label']['text'] 		= 'Data de Criação';
 	 }
 	
 	/**
@@ -96,6 +97,8 @@ class CidadesController extends AppController {
 				}
 			}
 		}
+		
+		// somente para edição
 	}
 	
 	/**
@@ -110,11 +113,13 @@ class CidadesController extends AppController {
 	{
 		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.uf','Cidade.modified','Cidade.created');
 		$this->viewVars['campos']['Cidade.modified']['estilo_th'] 		= 'width="220px"';
+		$this->viewVars['campos']['Cidade.modified']['estilo_td'] 		= 'style="text-align: center; "';
 		$this->viewVars['campos']['Cidade.created']['estilo_th'] 		= 'width="220px"';
+		$this->viewVars['campos']['Cidade.created']['estilo_td'] 		= 'style="text-align: center; "';
 		$this->viewVars['campos']['Estado.uf']['estilo_th'] 			= 'width="110px"';
+		$this->viewVars['campos']['Estado.uf']['estilo_td'] 			= 'style="text-align: center; "';
 		$this->viewVars['tamLista'] 									= '80%';
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
-		//$this->viewVars['campos']['Estado.uf']['estilo_td'] 			= 'style="background-color: #ddd;"';
 	}
 	
 	/**
@@ -122,6 +127,9 @@ class CidadesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.created','#','Cidade.modified');
+		$this->viewVars['campos']['Cidade.modified']['options']['dateFormat'] = 'DMY';
+		$this->viewVars['campos']['Cidade.created']['options']['dateFormat'] = 'DMY';
 		$this->CpwebCrud->editar($id);
 	}
 	

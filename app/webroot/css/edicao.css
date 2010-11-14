@@ -1,0 +1,45 @@
+#edicao
+{
+	margin: 0px auto;
+	width: 100%;
+}
+
+#edicao h2
+{
+	background: #5483dd url('../img/fundo1.png') repeat left;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 2px solid #000;
+	color: #fff;
+}
+
+#edicao #formFerramentas,
+#edicao #formEdicao
+{
+	margin: 10px auto;
+	width: 90%;
+}
+
+#edicao #formEdicao
+{
+	padding: 5px;
+}
+
+#edicao #formFerramentas
+{
+	background-color: #acc4e6;
+	height: 40px;
+	line-height: 40px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.edicaoDiv
+{
+	float: left;
+}
+
+.quebraLinha
+{
+	line-height: 26px;
+}

@@ -31,8 +31,8 @@
 	background-color: #acc4e6;
 	height: 20px;
 	line-height: 20px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
 }
 
 .lista .paginas a
@@ -129,15 +129,4 @@
 {
 	background-color: #acc4e6;
 	cursor: pointer;
-}
-
-.cake-sql-log
-{
-	font-size: 9px;
-	margin-top: 50px;
-}
-
-#footer
-{
-	text-align: right;
 }

@@ -4,7 +4,14 @@
 	padding:0;
 }
 
+.cake-sql-log
+{
+	font-size: 9px;
+	margin-top: 50px;
+}
+
 #footer
 {
+	clear: both;
 	text-align: right;
 }
