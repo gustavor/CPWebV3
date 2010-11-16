@@ -19,17 +19,26 @@
 <div id="formEdicao">
 <?php
 	// campo a campo
-	foreach($edicaoCampos as $campo)
+	foreach($edicaoCampos as $_field)
 	{
-		if ($campo=='#') 
+		if ($_field=='#') 
 		{
 			echo "<br class='quebraLinha' />\n";
 		}
 		else
 		{
-			$opcoes = isset($campos[$campo]['options']) ? $campos[$campo]['options'] : array();
-			$opcoes['div'] = null;
-			echo '<div id="div'.$this->Form->domId($campo).'" class="edicaoDiv">'.$this->Form->input($campo,$opcoes)."</div>\n";
+			$_arrField 		= explode('.',$_field);
+			$opcoes 		= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
+			$opcoes['div'] 	= null;
+			$tipo 			= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
+			switch($tipo)
+			{
+				default:
+				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes);
+				break;
+			}
+			if (isset($campos[$_arrField[0]][$_arrField[1]]['erro'])) echo "<div id='div'".$this->Form->domId($_field)."Erro class='edicaoDivErro'>".$campos[$_arrField[0]][$_arrField[1]]['erro']."</div>\n";
+			echo "</div>\n";
 		}
 	}
 ?>

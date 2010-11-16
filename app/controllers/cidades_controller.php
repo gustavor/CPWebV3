@@ -19,7 +19,6 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-
 class CidadesController extends AppController {
 
 	/**
@@ -113,9 +112,12 @@ class CidadesController extends AppController {
 		// somente para edição
 		if ($this->action=='editar')
 		{
-			//$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.created','#','Cidade.modified');
-			$this->viewVars['campos']['Cidade']['nome']['options']['style'] = 'readonly="readonly"';
+			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
+			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 150px; display:block; text-align: right; margin-right: 5px; float: left;';
+			$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
+			$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
+			$this->viewVars['campos']['Cidade']['modified']['options']['readonly'] = 'disabled';
 		}
 	}
 	

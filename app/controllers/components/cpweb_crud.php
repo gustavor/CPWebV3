@@ -49,8 +49,9 @@ class CpwebCrudComponent extends Object {
 	 */
 	 public function listar($pag=1)
 	 {
-		$this->controller->data = $this->controller->paginate();
+		$this->setListaParametros();
 		$this->setListaFerramentas();
+		$this->controller->data = $this->controller->paginate();
 		$this->controller->render('../cpweb_crud/listar');
 	 }
 	 
@@ -127,6 +128,9 @@ class CpwebCrudComponent extends Object {
 		$modelClass 	= $this->controller->modelClass;
 		$primaryKey 	= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
 		$id 			= isset($this->controller->data[$modelClass][$primaryKey]) ? : '';
+		$page			= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
+		$sort			= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
+		$dire			= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
 
 		// botões padrão (podem ser re-escritos pelo controller pai)
 		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
@@ -137,7 +141,11 @@ class CpwebCrudComponent extends Object {
 		$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
 		$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
 		$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
-		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar\'';
+		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar';
+		if ($page) $botoes['Listar']['onClick']	.= '/page:'.$page;
+		if ($sort) $botoes['Listar']['onClick']	.= '/sort:'.$sort;
+		if ($dire) $botoes['Listar']['onClick']	.= '/direction:'.$dire;
+		$botoes['Listar']['onClick'] 	.= '\'';
 		$botoes['Listar']['title']		= 'Volta para a Lista ...';
 
 		// recuperando os botões do controller pai
@@ -198,5 +206,17 @@ class CpwebCrudComponent extends Object {
 		}
 		$this->controller->viewVars['listaFerramentas'] = $ferramentas;
 	  }
+	  
+	 /**
+	  * Joga na sessão os parâmetros da lista, que são, página, ordem e ordanação (asc/desc).
+	  * 
+	  * @return void
+	  */
+	 private function setListaParametros()
+	 {
+		if (isset($this->controller->params['named']['page']))  $this->controller->Session->write($this->controller->name.'.Page',$this->controller->params['named']['page']);
+		if (isset($this->controller->params['named']['sort']))  $this->controller->Session->write($this->controller->name.'.Sort',$this->controller->params['named']['sort']);
+		if (isset($this->controller->params['named']['direction']))  $this->controller->Session->write($this->controller->name.'.Dire',$this->controller->params['named']['direction']);
+	 }
 }
 ?>

@@ -45,7 +45,7 @@
 		foreach($listaCampos as $_field)
 		{
 			$_arrField = explode('.',$_field);
-			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_td']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_td'] : '';
+			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_td'])     ? $campos[$_arrField[0]][$_arrField[1]]['estilo_td'] : '';
 			$titulo = isset($campos[$_arrField[0]][$_arrField[1]]['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['label']['text'] : $_field;
 			$idTd	= 'td_'.$id.'_'.mb_strtolower(Inflector::slug($titulo));
 			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd]) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd] : $estilo;
