@@ -92,6 +92,39 @@ class CpwebCrudComponent extends Object {
 		$this->controller->Session->setFlash($msgFlash);
 		$this->controller->render('../cpweb_crud/editar');
 	  }
+	 /**
+	  * 
+	  */
+	 public function novo()
+	 {
+		 // parâmetros
+		$modelClass 	= $this->controller->modelClass;
+		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
+		$erros			= '';
+		$msgFlash		= '';
+		$dadosForm		= array();
+
+		// inclui o novo registro e redireciona para sua tela de edição
+		if (!empty($this->controller->data))
+		{
+			if ($this->controller->$modelClass->save($this->controller->data))
+			{
+				$msgFlash 	= 'Registro incluído com sucesso ...';
+				$id			= 3;
+				$this->redirect('editar/'.$id);
+			} else
+			{
+				$msgFlash 	= 'O Formulário ainda contém erros !!!';
+				$erros 		= $this->controller->$modelClass->validationErrors;
+			}
+		}
+
+		// configurando os botões do formulário, os relacionamentos, a mensagem e renderizando.
+		$this->setBotoesEdicao();
+		$this->setRelacionamentos();
+		$this->controller->Session->setFlash($msgFlash);
+		$this->controller->render('../cpweb_crud/editar');
+	 }
 	  
 	 /**
 	  * Configura os relacionamentos do model corrente, joga na view a lista 
@@ -132,14 +165,17 @@ class CpwebCrudComponent extends Object {
 		$dire			= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
 
 		// botões padrão (podem ser re-escritos pelo controller pai)
-		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
-		$botoes['Novo']['title']		= 'Insere um novo registro ...';
+		if ($this->controller->action=='editar')
+		{
+			$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+			$botoes['Novo']['title']		= 'Insere um novo registro ...';
+			$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
+			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
+			$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
+			$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
+		}
 		$botoes['Salvar']['type']		= 'submit';
 		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
-		$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
-		$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
-		$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
-		$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
 		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar';
 		if ($page) $botoes['Listar']['onClick']	.= '/page:'.$page;
 		if ($sort) $botoes['Listar']['onClick']	.= '/sort:'.$sort;
