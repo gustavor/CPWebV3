@@ -62,6 +62,7 @@ class CidadesController extends AppController {
 		$this->viewVars['campos']['Cidade']['modified']['options']['dateFormat'] 		= 'DMY';
 		$this->viewVars['campos']['Cidade']['created']['options']['dateFormat'] 		= 'DMY';
 		$this->viewVars['campos']['Estado']['uf']['options']['label']['text'] 			= 'Uf';
+		$this->viewVars['campos']['Estado']['nome']['options']['label']['text'] 		= 'Estado';
 	 }
 	/**
 	 * 
@@ -74,7 +75,7 @@ class CidadesController extends AppController {
 		if ($this->action=='listar')
 		{
 			// personalização de alguns campos
-			$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.uf','Cidade.modified','Cidade.created');
+			$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
 			$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="220px"';
 			$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 			$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="220px"';
@@ -93,7 +94,7 @@ class CidadesController extends AppController {
 						$destaque = '';
 						
 						// Destacando as cidades de MG
-						if ($_modelo=='Estado' && $_campo=='uf' && $_valor=='MG')
+						if ($_modelo=='Estado' && $_campo=='nome' && $_valor=='Minas Gerais')
 						{
 							if (!isset($this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) $destaque = 'style="background-color: #f2f378;"';
 						}

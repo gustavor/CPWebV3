@@ -24,7 +24,7 @@ class Cidade extends AppModel {
 
         public $name 			= 'Cidade';
         public $displayFields 	= 'nome';
-        public $order		 	= 'nome';
+        public $order		 	= 'Cidade.nome';
 
         public $validate = array(
             'estado_id' => array(
@@ -44,7 +44,7 @@ class Cidade extends AppModel {
 			'className' => 'Estado',
 			'foreignKey' => 'estado_id',
 			'conditions' => '',
-			'fields' => 'id, uf'
+			'fields' => 'id, nome'
 		)
 	);
 }

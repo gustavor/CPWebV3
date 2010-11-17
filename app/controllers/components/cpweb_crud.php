@@ -111,7 +111,7 @@ class CpwebCrudComponent extends Object {
 			{
 				$msgFlash 	= 'Registro incluído com sucesso ...';
 				$id			= 3;
-				$this->redirect('editar/'.$id);
+				$this->controller->redirect('editar/'.$id);
 			} else
 			{
 				$msgFlash 	= 'O Formulário ainda contém erros !!!';
@@ -163,16 +163,16 @@ class CpwebCrudComponent extends Object {
 		$page			= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
 		$sort			= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
 		$dire			= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
-
+		
 		// botões padrão (podem ser re-escritos pelo controller pai)
+		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+		$botoes['Novo']['title']		= 'Insere um novo registro ...';
 		if ($this->controller->action=='editar')
 		{
-			$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
-			$botoes['Novo']['title']		= 'Insere um novo registro ...';
-			$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
-			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
 			$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
 			$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
+			$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
+			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
 		}
 		$botoes['Salvar']['type']		= 'submit';
 		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
@@ -204,6 +204,9 @@ class CpwebCrudComponent extends Object {
 			$botoes[$_label]['id']			= isset($botoes[$_label]['id'])      ? $botoes[$_label]['id']      : 'btEdicao'.$_label;
 			$botoes[$_label]['onClick']		= isset($botoes[$_label]['onClick']) ? $botoes[$_label]['onClick'] : null;
 		}
+		
+		// colocando tudo em ordem alfabética
+		//sort($botoes);
 
 		// atualizando a view
 		$this->controller->viewVars['botoesEdicao'] = $botoes;

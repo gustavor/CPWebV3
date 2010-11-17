@@ -19,6 +19,12 @@
 	margin-top: 50px;
 }
 
+// edição e lista
+.btEdicao
+{
+	width: 100px;
+}
+
 #footer
 {
 	clear: both;
