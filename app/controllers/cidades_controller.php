@@ -56,9 +56,8 @@ class CidadesController extends AppController {
 	 public function beforeFilter()
 	 {
 		$this->viewVars['campos']['Cidade']['nome']['options']['label']['text'] 		= 'Cidade';
-		$this->viewVars['campos']['Cidade']['modified']['options']['label']['text'] 	= 'Data da Última Atualiazação';
-		$this->viewVars['campos']['Cidade']['created']['options']['label']['text'] 		= 'Data de Criação';
-		$this->viewVars['campos']['Cidade']['created']['options']['label']['text'] 		= 'Data de Criação';
+		$this->viewVars['campos']['Cidade']['modified']['options']['label']['text'] 	= 'Última Atualiazação';
+		$this->viewVars['campos']['Cidade']['created']['options']['label']['text'] 		= 'Criação';
 		$this->viewVars['campos']['Cidade']['modified']['options']['dateFormat'] 		= 'DMY';
 		$this->viewVars['campos']['Cidade']['created']['options']['dateFormat'] 		= 'DMY';
 		$this->viewVars['campos']['Estado']['uf']['options']['label']['text'] 			= 'Uf';
@@ -76,13 +75,13 @@ class CidadesController extends AppController {
 		{
 			// personalização de alguns campos
 			$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
-			$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="220px"';
+			$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="150px"';
 			$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
-			$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="220px"';
+			$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="140px"';
 			$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
-			$this->viewVars['campos']['Estado']['uf']['estilo_th'] 			= 'width="110px"';
-			$this->viewVars['campos']['Estado']['uf']['estilo_td'] 			= 'style="text-align: center; "';
-			$this->viewVars['tamLista'] 									= '80%';
+			$this->viewVars['campos']['Estado']['nome']['estilo_th'] 		= 'width="150px"';
+			$this->viewVars['campos']['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
+			$this->viewVars['tamLista'] 									= '880px';
 
 			// destacando algumas linhas
 			foreach($this->data as $_linha => $_modelos)

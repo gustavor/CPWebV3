@@ -165,10 +165,10 @@ class CpwebCrudComponent extends Object {
 		$dire			= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
 		
 		// botões padrão (podem ser re-escritos pelo controller pai)
-		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
-		$botoes['Novo']['title']		= 'Insere um novo registro ...';
 		if ($this->controller->action=='editar')
 		{
+			$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+			$botoes['Novo']['title']		= 'Insere um novo registro ...';
 			$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
 			$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
 			$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
