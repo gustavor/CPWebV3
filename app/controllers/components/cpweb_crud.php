@@ -19,7 +19,6 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
- 
 class CpwebCrudComponent extends Object {
 
 	 /**
@@ -127,7 +126,7 @@ class CpwebCrudComponent extends Object {
 		$pluralVar 		= Inflector::variable($this->controller->name);
 		$modelClass 	= $this->controller->modelClass;
 		$primaryKey 	= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
-		$id 			= isset($this->controller->data[$modelClass][$primaryKey]) ? : '';
+		$id 			= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$page			= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
 		$sort			= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
 		$dire			= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';

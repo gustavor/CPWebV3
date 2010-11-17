@@ -110,11 +110,12 @@ class CidadesController extends AppController {
 		}
 
 		// somente para edição
-		if ($this->action=='editar')
+		if ($this->action=='editar' || $this->action=='novo' || $this->action=='excluir')
 		{
 			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
-			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 150px; display:block; text-align: right; margin-right: 5px; float: left;';
+			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 110px; display:block; text-align: right; margin-right: 5px; float: left;';
+			$this->viewVars['campos']['Cidade']['nome']['options']['style'] 	= 'width: 400px; margin-left: 5px;';
 			$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
 			$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
 			$this->viewVars['campos']['Cidade']['modified']['options']['readonly'] = 'disabled';
