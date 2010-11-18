@@ -27,9 +27,10 @@
 		}
 		else
 		{
-			$_arrField 		= explode('.',$_field);
-			$opcoes 		= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
-			$opcoes['div'] 	= null;
+			$_arrField 					= explode('.',$_field);
+			$opcoes 					= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
+			$opcoes['div'] 				= isset($opcoes['div']) ? $opcoes['div'] : null;
+			$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
 			$tipo 			= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
 			switch($tipo)
 			{

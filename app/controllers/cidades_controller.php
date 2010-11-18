@@ -63,65 +63,7 @@ class CidadesController extends AppController {
 		$this->viewVars['campos']['Estado']['uf']['options']['label']['text'] 			= 'Uf';
 		$this->viewVars['campos']['Estado']['nome']['options']['label']['text'] 		= 'Estado';
 	 }
-	/**
-	 * 
-	 */
-	public function beforeRender()
-	{
-		//echo '<pre>'.print_r($this,true).'</pre>';
-		
-		// somente para lista
-		if ($this->action=='listar')
-		{
-			// personalização de alguns campos
-			$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
-			$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="150px"';
-			$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
-			$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="140px"';
-			$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
-			$this->viewVars['campos']['Estado']['nome']['estilo_th'] 		= 'width="150px"';
-			$this->viewVars['campos']['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
-			$this->viewVars['tamLista'] 									= '880px';
 
-			// destacando algumas linhas
-			foreach($this->data as $_linha => $_modelos)
-			{
-				foreach($_modelos as $_modelo => $_campos)
-				{
-					foreach($_campos as $_campo => $_valor)
-					{
-						$destaque = '';
-						
-						// Destacando as cidades de MG
-						if ($_modelo=='Estado' && $_campo=='nome' && $_valor=='Minas Gerais')
-						{
-							if (!isset($this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) $destaque = 'style="background-color: #f2f378;"';
-						}
-						// Destacando Belo Horizonte
-						if ($_modelo=='Cidade' && $_campo=='nome' && mb_strtolower($_valor)=='belo horizonte')
-						{
-							$destaque = 'style="background-color: #9fed9f;"';
-						}
-						
-						if ($destaque) $this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = $destaque;
-					}
-				}
-			}
-		}
-
-		// somente para edição
-		if ($this->action=='editar' || $this->action=='novo' || $this->action=='excluir')
-		{
-			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
-			$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
-			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 110px; display:block; text-align: right; margin-right: 5px; float: left;';
-			$this->viewVars['campos']['Cidade']['nome']['options']['style'] 	= 'width: 400px; margin-left: 5px;';
-			$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
-			$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
-			$this->viewVars['campos']['Cidade']['modified']['options']['readonly'] = 'disabled';
-		}
-	}
-	
 	/**
 	 * método start
 	 */
@@ -140,14 +82,66 @@ class CidadesController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
+		// personalização de alguns campos
+		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
+		$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="150px"';
+		$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
+		$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="140px"';
+		$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
+		$this->viewVars['campos']['Estado']['nome']['estilo_th'] 		= 'width="150px"';
+		$this->viewVars['campos']['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
+		$this->viewVars['tamLista'] 									= '880px';
+
+		// executando lista pelo componente
+		$this->CpwebCrud->renderizar = 0;
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
+
+		// destacando algumas linhas
+		foreach($this->data as $_linha => $_modelos)
+		{
+			foreach($_modelos as $_modelo => $_campos)
+			{
+				foreach($_campos as $_campo => $_valor)
+				{
+					$destaque = '';
+					
+					// Destacando as cidades de MG
+					if ($_modelo=='Estado' && $_campo=='nome' && $_valor=='Minas Gerais')
+					{
+						if (!isset($this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) $destaque = 'style="background-color: #f2f378;"';
+					}
+					// Destacando Belo Horizonte
+					if ($_modelo=='Cidade' && $_campo=='nome' && mb_strtolower($_valor)=='belo horizonte')
+					{
+						$destaque = 'style="background-color: #9fed9f;"';
+					}
+					
+					if ($destaque) $this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = $destaque;
+				}
+			}
+		}
+
+		// renderizando a lista pelo layout do cpwebCrud
+		$this->render('../cpweb_crud/listar');
 	}
 
 	/**
-	 * método para edição
+	 * Exibe formulário de edição para o model
+	 * 
+	 * @parameter	integer 	$id 	Chave única do registro da model
+	 * @return 		void
 	 */
 	public function editar($id=null)
 	{
+		// personalizando alguns campos na view
+		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
+		$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 80px; ';
+		$this->viewVars['campos']['Cidade']['nome']['options']['style'] 	= 'width: 400px; ';
+		$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
+		$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
+		$this->viewVars['campos']['Cidade']['modified']['options']['readonly'] = 'readonly';
+		
+		// editando pelo componente CpwebCrud
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -156,6 +150,7 @@ class CidadesController extends AppController {
 	 */
 	public function novo()
 	{
+		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
 		$this->CpwebCrud->novo();
 	}
 	
@@ -164,6 +159,7 @@ class CidadesController extends AppController {
 	 */
 	public function excluir($id = null)
 	{
+		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->excluir($id);
 	}
 	
@@ -172,15 +168,16 @@ class CidadesController extends AppController {
 	 **/
 	public function imprimir($id=null)
 	{
+		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->imprimir($id);
 	}
 	
 	/**
 	 * Realiza uma pesquisa no banco de dados
 	 * 
-	 * @parameter string $texto Texto de pesquisa
-	 * @parameter string $campo Campo de pesquisa
-	 * @return void
+	 * @parameter 	string 	$texto 	Texto de pesquisa
+	 * @parameter 	string 	$campo 	Campo de pesquisa
+	 * @return 		array 	$lista 	Array com lista de retorno
 	 */
 	public function pesquisar($texto='',$campo=null)
 	{

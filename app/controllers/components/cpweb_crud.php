@@ -37,6 +37,7 @@ class CpwebCrudComponent extends Object {
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
+		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
 		$this->controller->set(compact('title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
@@ -51,7 +52,7 @@ class CpwebCrudComponent extends Object {
 		$this->setListaParametros();
 		$this->setListaFerramentas();
 		$this->controller->data = $this->controller->paginate();
-		$this->controller->render('../cpweb_crud/listar');
+		if ($this->renderizar) $this->controller->render('../cpweb_crud/listar');
 	 }
 	 
 	 /**
@@ -90,7 +91,7 @@ class CpwebCrudComponent extends Object {
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
 		$this->controller->Session->setFlash($msgFlash);
-		$this->controller->render('../cpweb_crud/editar');
+		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	  }
 	 /**
 	  * 
@@ -123,7 +124,7 @@ class CpwebCrudComponent extends Object {
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
 		$this->controller->Session->setFlash($msgFlash);
-		$this->controller->render('../cpweb_crud/editar');
+		if ($this->rendenrizar) $this->controller->render('../cpweb_crud/editar');
 	 }
 	  
 	 /**
@@ -213,7 +214,8 @@ class CpwebCrudComponent extends Object {
 	}
 	 
 	 /**
-	  * Configura as ferramentas que serão usadas na Lista.
+	  * Configura as ferramentas que serão usadas na Lista. Implementando as opções que são padrão
+	  * bem como, implementando as opções que vem co controller pai.
 	  * 
 	  * @return void
 	  */
