@@ -38,7 +38,9 @@ class CpwebCrudComponent extends Object {
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
 		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
-		$this->controller->set(compact('title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
+		$action				= 'Listar';
+		if ($this->controller->action != 'listar') $action = 'Edição';
+		$this->controller->set(compact('action','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
 	/**
@@ -93,8 +95,11 @@ class CpwebCrudComponent extends Object {
 		$this->controller->Session->setFlash($msgFlash);
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	  }
+
 	 /**
+	  * Exibe o formulário de inclusão do model
 	  * 
+	  * @retur void
 	  */
 	 public function novo()
 	 {
@@ -126,12 +131,12 @@ class CpwebCrudComponent extends Object {
 		$this->controller->Session->setFlash($msgFlash);
 		if ($this->rendenrizar) $this->controller->render('../cpweb_crud/editar');
 	 }
-	  
-	 /**
-	  * Configura os relacionamentos do model corrente, joga na view a lista 
+
+	/**
+	 * Configura os relacionamentos do model corrente, joga na view a lista 
 	  * 
-	  * @return void
-	  */
+	 * @return void
+	 */
 	private function setRelacionamentos()
 	{
 		$modelClass = $this->controller->modelClass;

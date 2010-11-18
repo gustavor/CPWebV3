@@ -31,12 +31,16 @@
 			$opcoes 					= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
 			$opcoes['div'] 				= isset($opcoes['div']) ? $opcoes['div'] : null;
 			$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
-			$tipo 			= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
+			$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
+			//if (isset($this->campos[$singularVar][$_field]['options']['readonly']=='readonly' ))
 			switch($tipo)
 			{
+				'leitura':
+					echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->data[$singularVar][$_field].'</div>'."\n";
+					break
 				default:
-				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes);
-				break;
+					echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n";
+					break;
 			}
 			if (isset($campos[$_arrField[0]][$_arrField[1]]['erro'])) echo "<div id='div'".$this->Form->domId($_field)."Erro class='edicaoDivErro'>".$campos[$_arrField[0]][$_arrField[1]]['erro']."</div>\n";
 			echo "</div>\n";

@@ -37,6 +37,8 @@ class CidadesController extends AppController {
 	
 	/**
 	 * Ajudantes 
+	 * @var array
+	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
 	
@@ -66,6 +68,8 @@ class CidadesController extends AppController {
 
 	/**
 	 * método start
+	 * 
+	 * @return void
 	 */
 	public function index()
 	{
@@ -146,7 +150,9 @@ class CidadesController extends AppController {
 	}
 	
 	/**
-	 * método para novo
+	 * Exibe formulário de inclusão para o model
+	 * 
+	 * @return 		void
 	 */
 	public function novo()
 	{
@@ -155,7 +161,9 @@ class CidadesController extends AppController {
 	}
 	
 	/**
-	 * método para exclusão
+	 * Exibe formulário de exclusão para o model
+	 * 
+	 * @return 		void
 	 */
 	public function excluir($id = null)
 	{
@@ -164,8 +172,10 @@ class CidadesController extends AppController {
 	}
 	
 	/**
-	 * método para impressão
-	 **/
+	 * Exibe formulário de impressão para o model
+	 * 
+	 * @return 		void
+	 */
 	public function imprimir($id=null)
 	{
 		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
