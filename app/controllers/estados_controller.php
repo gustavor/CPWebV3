@@ -72,13 +72,16 @@ class EstadosController extends AppController {
 	 */
 	public function beforeRender()
 	{
-		$this->viewVars['botoesEdicao']['Novo'] = array();
+		$this->viewVars['botoesEdicao']['Novo'] 	= array();
+		$this->viewVars['botoesEdicao']['Excluir'] 	= array();
+		$this->viewVars['botoesEdicao']['Salvar'] 	= array();
+		$this->viewVars['botoesLista']['Novo'] = array();
 		if ($this->action=='editar' || $this->action=='novo')
 		{
 			$this->viewVars['campos']['Estado']['nome']['options']['style'] 		= 'width: 400px; ';
 			$this->viewVars['campos']['Estado']['uf']['options']['label']['style'] 	= 'width: 80px;';
-			$this->viewVars['campos']['Estado']['uf']['options']['style'] 	= 'width: 40px; text-align: center;';
-			$this->viewVars['on_read_view'] .= '$("#EstadoNome").focus();';
+			$this->viewVars['campos']['Estado']['uf']['options']['style'] 			= 'width: 40px; text-align: center;';
+			$this->viewVars['on_read_view'] .= '$("#EstadoNome").focus();'."\n";
 		}
 	}
 
@@ -142,8 +145,7 @@ class EstadosController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->viewVars['edicaoCampos']	= array('Estado.nome','Estado.uf');
-		$this->CpwebCrud->novo();
+		$this->CpwebCrud->semPermissao();
 	}
 	
 	/**

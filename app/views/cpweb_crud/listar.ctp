@@ -5,7 +5,13 @@
 <?php echo $this->element('cpweb_cab'); ?>
 <table class="paginas" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
 <tr>
-	<td width="150px" align="center"><?php echo $form->button('Novo', array('class'=>'btEdicao','onclick'=>'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\''.'')); ?></td>
+	<td width="150px" align="center">
+	<?php foreach($botoesLista as $_label => $_arrOpcoes)
+	{
+		if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n";
+	}
+	?>
+	</td>
 	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro')); ?></td>
 	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->prev('Anterior',array('class'=>'bt_anterior')); ?></td>
 	<td width="280px" align="center"><ul class="pags"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->numbers(array('separator'=>"\n",'class'=>'num_pag','tag'=>'li')); ?></ul></td>
@@ -27,7 +33,7 @@
 		$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_th']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_th'] : '';
 		echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
 	}
-	$totFerramentas = count($listaFerramentas);
+	$totFerramentas = count($ferramentasLista);
 	echo "<th colspan='$totFerramentas'>Ferramentas</th>";
 ?>
 </tr>
@@ -57,7 +63,7 @@
 		}
 
 		// ferramentas
-		foreach($listaFerramentas as $_item => $_ferramenta)
+		foreach($ferramentasLista as $_item => $_ferramenta)
 		{
 			$link = str_replace('{id}',$id,$_ferramenta['link']);
 			echo "\t<td width='35px' align='center'><a href='".$link."' title='".$_ferramenta['title']."'><img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/></a></td>\n";

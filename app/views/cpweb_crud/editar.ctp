@@ -53,4 +53,3 @@
 </div>
 
 </div>
-<?php echo '<pre>'.print_r($this->viewVars['botoesEdicao']['Novo'],true).'</pre>'; ?>

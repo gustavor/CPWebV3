@@ -73,6 +73,8 @@ class CidadesController extends AppController {
 	 */
 	public function beforeRender()
 	{
+		/*$this->viewVars['botoesEdicao']['Novo'] = array();
+		$this->viewVars['botoesLista']['Novo'] = array();*/
 		if ($this->action=='editar' || $this->action=='novo')
 		{
 			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 80px;';
@@ -107,7 +109,7 @@ class CidadesController extends AppController {
 		$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="140px"';
 		$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
-		$this->viewVars['campos']['Estado']['nome']['estilo_th'] 		= 'width="150px"';
+		$this->viewVars['campos']['Estado']['nome']['estilo_th'] 		= 'width="150px";';
 		$this->viewVars['campos']['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
 		$this->viewVars['tamLista'] 									= '880px';
 

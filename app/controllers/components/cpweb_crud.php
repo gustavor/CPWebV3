@@ -52,8 +52,9 @@ class CpwebCrudComponent extends Object {
 	 */
 	 public function listar($pag=1)
 	 {
-		$this->setListaParametros();
-		$this->setListaFerramentas();
+		$this->setParametrosLista();
+		$this->setBotoesLista();
+		$this->setFerramentasLista();
 		$this->controller->data = $this->controller->paginate();
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/listar');
 	 }
@@ -75,14 +76,16 @@ class CpwebCrudComponent extends Object {
 		// salvando os dados do formulário
 		if (!empty($this->controller->data))
 		{
+			$this->controller->viewVars['on_read_view'] .= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
 			if ($this->controller->$modelClass->save($this->controller->data))
 			{
 				$msgFlash 	= 'Registro atualizado com sucesso ...';
+				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
 			} else
 			{
 				$msgFlash 	= 'O Formulário ainda contém erros !!!';
+				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
 				$erros 		= $this->controller->$modelClass->validationErrors;
-				$msgFlash	= '<pre>'.print_r($erros,true).'</pre>';
 			}
 			$dataForm = $this->controller->data;
 		}
@@ -122,6 +125,8 @@ class CpwebCrudComponent extends Object {
 			} else
 			{
 				$msgFlash 	= 'O Formulário ainda contém erros !!!';
+				$this->controller->viewVars['on_read_view'] .= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
+				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
 				$erros 		= $this->controller->$modelClass->validationErrors;
 			}
 		}
@@ -132,6 +137,14 @@ class CpwebCrudComponent extends Object {
 		$this->controller->Session->setFlash($msgFlash);
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	 }
+	 
+	/**
+	 * 
+	 */
+	public function semPermissao()
+	{
+		if ($this->renderizar) $this->controller->render('../cpweb_crud/sem_permissao');
+	}
 
 	/**
 	 * Configura os relacionamentos do model corrente, joga na view a lista 
@@ -218,6 +231,46 @@ class CpwebCrudComponent extends Object {
 		// atualizando a view
 		$this->controller->viewVars['botoesEdicao'] = $botoes;
 	}
+	
+	/**
+	 * Configura os botões para a edição
+	 * 
+	 * @return void
+	 */
+	private function setBotoesLista()
+	{
+		// parâmetros
+		$pluralVar 		= Inflector::variable($this->controller->name);
+		
+		// botões padrão (podem ser re-escritos pelo controller pai)
+		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+		$botoes['Novo']['title']		= 'Insere um novo registro ...';
+
+		// recuperando os botões do controller pai
+		if (isset($this->controller->viewVars['botoesLista']))
+		{
+			$_botoes = $this->controller->viewVars['botoesLista'];
+			foreach($_botoes as $_label => $_arrOpcao)
+			{
+				foreach($_arrOpcao as $_opcao => $_conteudo)
+				{
+					$botoes[$_label][$_opcao] = $_conteudo;
+				}
+			}
+		}
+
+		// configurando as propriedades padrão
+		foreach($botoes as $_label => $_arrOpcao)
+		{
+			$botoes[$_label]['type']		= isset($botoes[$_label]['type'])    ? $botoes[$_label]['type']    : 'button';
+			$botoes[$_label]['class']		= isset($botoes[$_label]['class'])   ? $botoes[$_label]['class']   : 'btEdicao';
+			$botoes[$_label]['id']			= isset($botoes[$_label]['id'])      ? $botoes[$_label]['id']      : 'btEdicao'.$_label;
+			$botoes[$_label]['onClick']		= isset($botoes[$_label]['onClick']) ? $botoes[$_label]['onClick'] : null;
+		}
+
+		// atualizando a view
+		$this->controller->viewVars['botoesLista'] = $botoes;
+	}
 	 
 	 /**
 	  * Configura as ferramentas que serão usadas na Lista. Implementando as opções que são padrão
@@ -225,7 +278,7 @@ class CpwebCrudComponent extends Object {
 	  * 
 	  * @return void
 	  */
-	  private function setListaFerramentas()
+	  private function setFerramentasLista()
 	  {
 		$pluralVar 					= Inflector::variable($this->controller->name);
 		$ferramentas[0]['link']		= Router::url('/',true).$pluralVar.'/imprimir/{id}';
@@ -250,7 +303,7 @@ class CpwebCrudComponent extends Object {
 				}
 			}
 		}
-		$this->controller->viewVars['listaFerramentas'] = $ferramentas;
+		$this->controller->viewVars['ferramentasLista'] = $ferramentas;
 	  }
 	  
 	 /**
@@ -258,7 +311,7 @@ class CpwebCrudComponent extends Object {
 	  * 
 	  * @return void
 	  */
-	 private function setListaParametros()
+	 private function setParametrosLista()
 	 {
 		if (isset($this->controller->params['named']['page']))  $this->controller->Session->write($this->controller->name.'.Page',$this->controller->params['named']['page']);
 		if (isset($this->controller->params['named']['sort']))  $this->controller->Session->write($this->controller->name.'.Sort',$this->controller->params['named']['sort']);

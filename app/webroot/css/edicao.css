@@ -6,24 +6,6 @@
 	font-family: verdana;
 }
 
-#edicao h2
-{
-	background: #5483dd url('../img/fundo1.png') repeat left;
-	height: 50px;
-	line-height: 50px;
-	border-bottom: 2px solid #000;
-	color: #fff;
-}
-
-#edicao h2 span
-{
-	margin: 0px 0px 0px 30px;
-	color: #fff;
-	font-weight: bold;
-	letter-spacing: 4px;
-}
-
-
 #edicao #formFerramentas,
 #edicao #formEdicao
 {
