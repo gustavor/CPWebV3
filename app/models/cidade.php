@@ -19,14 +19,13 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-
 class Cidade extends AppModel {
 
-        public $name 			= 'Cidade';
-        public $displayFields 	= 'nome';
-        public $order		 	= 'Cidade.nome';
+	public $name 			= 'Cidade';
+	public $displayFields 	= 'nome';
+	public $order		 	= 'Cidade.nome';
 
-        public $validate = array(
+	public $validate = array(
             'estado_id' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
@@ -39,7 +38,7 @@ class Cidade extends AppModel {
             )
         );
         
-        public $belongsTo = array(
+	public $belongsTo = array(
 		'Estado' => array(
 			'className' => 'Estado',
 			'foreignKey' => 'estado_id',

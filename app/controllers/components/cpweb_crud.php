@@ -33,6 +33,7 @@ class CpwebCrudComponent extends Object {
 		$primaryKey 		= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
 		$displayField 		= isset($this->$modelClass->displayField) ? $this->$modelClass->displayField : 'id';
 		$tamLista			= isset($this->controller->viewVars['tamLista']) ? $this->controller->viewVars['tamLista'] : '90%';
+		$on_read_view		= isset($this->controller->viewVars['on_read_view']) ? $this->controller->viewVars['on_read_view'] : '';
 		$singularVar 		= Inflector::variable($modelClass);
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
@@ -40,7 +41,7 @@ class CpwebCrudComponent extends Object {
 		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
 		$action				= 'Listar';
 		if ($this->controller->action != 'listar') $action = 'Edição';
-		$this->controller->set(compact('action','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
+		$this->controller->set(compact('action','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
 	/**
@@ -129,7 +130,7 @@ class CpwebCrudComponent extends Object {
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
 		$this->controller->Session->setFlash($msgFlash);
-		if ($this->rendenrizar) $this->controller->render('../cpweb_crud/editar');
+		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	 }
 
 	/**

@@ -19,16 +19,20 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Estado extends AppModel {
+class Estado extends AppModel {
 
-        var $name = 'Estado';
+    public $name 			= 'Estado';
+    public $displayFields 	= 'nome';
+	public $order		 	= 'Estado.nome';
 
-        var $hasMany = 'Cidade';
-
-        var $validate = array(
+        public $validate = array(
             'nome' => array(
                 'rule' => 'notEmpty',
-                'message' => 'É necessário informar o nome do Estado!'
+                'message' => 'É necessário informar o nome do Estado !!!'
+            ),
+            'uf' => array(
+                'rule' => 'notEmpty',
+                'message' => 'É necessário informar a siga do Estado !!!'
             )
         );
-    }
+}

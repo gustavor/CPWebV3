@@ -65,6 +65,21 @@ class CidadesController extends AppController {
 		$this->viewVars['campos']['Estado']['uf']['options']['label']['text'] 			= 'Uf';
 		$this->viewVars['campos']['Estado']['nome']['options']['label']['text'] 		= 'Estado';
 	 }
+	 
+	/**
+	 * Configura a visão antes de sua renderização
+	 * 
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		if ($this->action=='editar' || $this->action=='novo')
+		{
+			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 80px;';
+			$this->viewVars['campos']['Cidade']['nome']['options']['style'] 				= 'width: 400px; ';
+			$this->viewVars['on_read_view'] .= '$("#CidadeNome").focus();';
+		}
+	}
 
 	/**
 	 * método start
@@ -138,13 +153,10 @@ class CidadesController extends AppController {
 	public function editar($id=null)
 	{
 		// personalizando alguns campos na view
-		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
-		$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 80px; ';
-		$this->viewVars['campos']['Cidade']['nome']['options']['style'] 	= 'width: 400px; ';
-		$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
-		$this->viewVars['campos']['Cidade']['created']['options']['readonly'] = 'readonly';
-		$this->viewVars['campos']['Cidade']['modified']['options']['readonly'] = 'readonly';
-		
+		$this->viewVars['edicaoCampos']													= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
+		$this->viewVars['campos']['Cidade']['created']['options']['disabled'] 			= 'disabled';
+		$this->viewVars['campos']['Cidade']['modified']['options']['disabled'] 			= 'disabled';
+
 		// editando pelo componente CpwebCrud
 		$this->CpwebCrud->editar($id);
 	}

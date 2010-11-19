@@ -67,4 +67,6 @@
 	text-align: right;
 	margin-right: 5px;
 	float: left;
+	line-height: 24px;
+/*	background-color: #ddd;*/
 }
