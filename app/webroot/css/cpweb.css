@@ -46,3 +46,9 @@ h2 span
 	clear: both;
 	text-align: right;
 }
+
+#logoCake
+{
+	float: right;
+	margin: 32px 5px 0px 0px;
+}

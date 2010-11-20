@@ -81,6 +81,11 @@ class CidadesController extends AppController {
 			$this->viewVars['campos']['Cidade']['nome']['options']['style'] 				= 'width: 400px; ';
 			$this->viewVars['on_read_view'] .= '$("#CidadeNome").focus();';
 		}
+		if ($this->action=='editar' || $this->action=='excluir')
+		{
+			$this->viewVars['campos']['Cidade']['created']['options']['disabled'] 			= 'disabled';
+			$this->viewVars['campos']['Cidade']['modified']['options']['disabled'] 			= 'disabled';
+		}
 	}
 
 	/**
@@ -154,12 +159,7 @@ class CidadesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		// personalizando alguns campos na view
-		$this->viewVars['edicaoCampos']													= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
-		$this->viewVars['campos']['Cidade']['created']['options']['disabled'] 			= 'disabled';
-		$this->viewVars['campos']['Cidade']['modified']['options']['disabled'] 			= 'disabled';
-
-		// editando pelo componente CpwebCrud
+		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->editar($id);
 	}
 	
