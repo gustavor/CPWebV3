@@ -33,7 +33,7 @@
 		$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_th']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_th'] : '';
 		echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
 	}
-	$totFerramentas = count($ferramentasLista);
+	$totFerramentas = count($listaFerramentas);
 	echo "<th colspan='$totFerramentas'>Ferramentas</th>";
 ?>
 </tr>
@@ -63,10 +63,13 @@
 		}
 
 		// ferramentas
-		foreach($ferramentasLista as $_item => $_ferramenta)
+		foreach($listaFerramentas as $_item => $_ferramenta)
 		{
-			$link = str_replace('{id}',$id,$_ferramenta['link']);
-			echo "\t<td width='35px' align='center'><a href='".$link."' title='".$_ferramenta['title']."'><img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/></a></td>\n";
+			if (count($_ferramenta))
+			{
+				$link = str_replace('{id}',$id,$_ferramenta['link']);
+				echo "\t<td width='35px' align='center'><a href='".$link."' title='".$_ferramenta['title']."'><img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/></a></td>\n";
+			}
 		}
 		echo "</tr>\n\n";
 	}

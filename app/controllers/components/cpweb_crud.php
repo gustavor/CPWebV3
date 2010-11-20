@@ -242,19 +242,6 @@ class CpwebCrudComponent extends Object {
 		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar'.$urlLista.'\'';
 		$botoes['Listar']['title']		= 'Volta para a Lista ...';
 
-		// recuperando os botões do controller pai
-		if (isset($this->controller->viewVars['botoesEdicao']))
-		{
-			$_botoes = $this->controller->viewVars['botoesEdicao'];
-			foreach($_botoes as $_label => $_arrOpcao)
-			{
-				foreach($_arrOpcao as $_opcao => $_conteudo)
-				{
-					$botoes[$_label][$_opcao] = $_conteudo;
-				}
-			}
-		}
-
 		// configurando as propriedades padrão
 		foreach($botoes as $_label => $_arrOpcao)
 		{
@@ -319,30 +306,25 @@ class CpwebCrudComponent extends Object {
 	  */
 	  private function setFerramentasLista()
 	  {
-		$pluralVar 					= Inflector::variable($this->controller->name);
-		$ferramentas[0]['link']		= Router::url('/',true).$pluralVar.'/imprimir/{id}';
-		$ferramentas[0]['title']	= 'Imprimir';
-		$ferramentas[0]['icone']	= 'bt_imprimir.png';
-		$ferramentas[1]['link']		= Router::url('/',true).$pluralVar.'/editar/{id}';
-		$ferramentas[1]['title']	= 'Editar';
-		$ferramentas[1]['icone']	= 'bt_editar.png';		
-		$ferramentas[2]['link']		= Router::url('/',true).$pluralVar.'/excluir/{id}';
-		$ferramentas[2]['title']	= 'Excluir';
-		$ferramentas[2]['icone']	= 'bt_excluir.png';
-
-		// recuperando as ferramentas do controller pai
-		if (isset($this->controller->viewVars['listaFerramentas']))
+		if (!isset($this->controller->viewVars['listaFerramentas'][0]))
 		{
-			$_listaFerramentas = $this->controller->viewVars['listaFerramentas'];
-			foreach($_listaFerramentas as $_item => $_arrOpcao)
-			{
-				foreach($_arrOpcao as $_opcao => $_conteudo)
-				{
-					$ferramentas[$_item][$_opcao] = $_conteudo;
-				}
-			}
+			$ferramentas[0]['link']		= Router::url('/',true).$this->controller->viewVars['pluralVar'].'/imprimir/{id}';
+			$ferramentas[0]['title']	= 'Imprimir';
+			$ferramentas[0]['icone']	= 'bt_imprimir.png';
 		}
-		$this->controller->viewVars['ferramentasLista'] = $ferramentas;
+		if (!isset($this->controller->viewVars['listaFerramentas'][1]))
+		{
+			$ferramentas[1]['link']		= Router::url('/',true).$this->controller->viewVars['pluralVar'].'/editar/{id}';
+			$ferramentas[1]['title']	= 'Editar';
+			$ferramentas[1]['icone']	= 'bt_editar.png';
+		}
+		if (!isset($this->controller->viewVars['listaFerramentas'][2]))
+		{
+			$ferramentas[2]['link']		= Router::url('/',true).$this->controller->viewVars['pluralVar'].'/excluir/{id}';
+			$ferramentas[2]['title']	= 'Excluir';
+			$ferramentas[2]['icone']	= 'bt_excluir.png';
+		}
+		$this->controller->viewVars['listaFerramentas'] = $ferramentas;
 	  }
 	  
 	 /**

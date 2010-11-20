@@ -83,6 +83,11 @@ class EstadosController extends AppController {
 			$this->viewVars['campos']['Estado']['uf']['options']['style'] 			= 'width: 40px; text-align: center;';
 			$this->viewVars['on_read_view'] .= '$("#EstadoNome").focus();'."\n";
 		}
+		
+		if ($this->action=='listar')
+		{
+			//$this->viewVars['listaFerramentas'][2] = array();
+		}
 	}
 
 	/**
@@ -116,6 +121,7 @@ class EstadosController extends AppController {
 		$this->viewVars['campos']['Estado']['uf']['estilo_th'] 			= 'width="50px"';
 		$this->viewVars['campos']['Estado']['uf']['estilo_td'] 			= 'style="text-align: center; "';
 		$this->viewVars['tamLista'] 									= '880px';
+		$this->viewVars['listaFerramentas'][2] = array();
 
 		// executando lista pelo componente
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
