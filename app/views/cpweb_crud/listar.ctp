@@ -72,4 +72,9 @@
 	}
 ?>
 </table>
+<table class="listaRodape" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
+	<tr>
+		<td>Página <?php echo $this->params['paging'][$modelClass]['page']; ?> de <?php echo $this->params['paging'][$modelClass]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelClass]['count']; ?></td>
+	</tr>
+</table>
 </div>

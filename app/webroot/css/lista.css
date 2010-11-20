@@ -12,7 +12,7 @@
 
 .lista .paginas
 {
-	margin: 10px auto;
+	margin: 3px auto;
 	background-color: #acc4e6;
 	height: 40px;
 	line-height: 40px;
@@ -70,6 +70,7 @@
 	margin: 0px auto;
 	border-top: 1px solid #bbb;
 	border-right: 1px solid #bbb;
+	font-size: 11px;
 }
 .lista .linhas th
 {
@@ -91,10 +92,6 @@
 	display: block;
 	text-decoration: none;
 	color: #000;
-	/*height: 30px;
-	line-height: 30px;*/
-	/*-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;*/
 	border: 1px solid #fff;
 }
 
@@ -105,7 +102,7 @@
 
 .lista .linhas td
 {
-	padding: 2px;
+	padding: 1px;
 	border-left: 1px solid #bbb;
 	border-bottom: 1px solid #bbb;
 }
@@ -114,4 +111,15 @@
 {
 	background-color: #acc4e6;
 	cursor: pointer;
+}
+
+.lista .listaRodape
+{
+	margin: 3px auto;
+	background-color: #acc4e6;
+	border-top: 1px solid #757f8c;
+	color: #3e444d;
+	font-size: 10px;
+	text-align: right;
+	padding-right: 10px;
 }

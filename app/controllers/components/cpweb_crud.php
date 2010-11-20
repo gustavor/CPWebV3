@@ -34,6 +34,7 @@ class CpwebCrudComponent extends Object {
 		$displayField 		= isset($this->$modelClass->displayField) ? $this->$modelClass->displayField : 'id';
 		$tamLista			= isset($this->controller->viewVars['tamLista']) ? $this->controller->viewVars['tamLista'] : '90%';
 		$on_read_view		= isset($this->controller->viewVars['on_read_view']) ? $this->controller->viewVars['on_read_view'] : '';
+		if ($this->controller->Session->check('Message.flash')) $on_read_view .= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
 		$singularVar 		= Inflector::variable($modelClass);
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
@@ -52,10 +53,10 @@ class CpwebCrudComponent extends Object {
 	 */
 	 public function listar($pag=1)
 	 {
+		$this->controller->data = $this->controller->paginate();
 		$this->setParametrosLista();
 		$this->setBotoesLista();
 		$this->setFerramentasLista();
-		$this->controller->data = $this->controller->paginate();
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/listar');
 	 }
 	 
@@ -69,14 +70,12 @@ class CpwebCrudComponent extends Object {
 		// parâmetros
 		$modelClass 	= $this->controller->modelClass;
 		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
-		$erros			= '';
-		$msgFlash		= '';
-		$dadosForm		= array();
+		$msgFlash		= ($this->controller->Session->check('Message.flash')) ? $this->controller->Session->read('Message.flash') : 'Edição';
+		$msgFlash 		= (is_array($msgFlash)) ? $msgFlash['message'] : $msgFlash;
 
 		// salvando os dados do formulário
 		if (!empty($this->controller->data))
 		{
-			$this->controller->viewVars['on_read_view'] .= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
 			if ($this->controller->$modelClass->save($this->controller->data))
 			{
 				$msgFlash 	= 'Registro atualizado com sucesso ...';
@@ -87,13 +86,12 @@ class CpwebCrudComponent extends Object {
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
 				$erros 		= $this->controller->$modelClass->validationErrors;
 			}
-			$dataForm = $this->controller->data;
+		} else
+		{
+			$this->controller->data = $this->controller->$modelClass->read(null,$id);
 		}
 
-		// recuperando os atualizados, configurando os relacionamentos, configurando os erros caso ocorra, 
-		// configurando os botões da edição, atualizando a msg e renderizando a página
-		$this->controller->data = $this->controller->$modelClass->read(null,$id);
-		if ($erros) foreach($erros as $_campo => $_erro) $this->controller->data[$modelClass][$_campo] = $dataForm[$modelClass][$_campo];
+		// configurando os botões da edição, configurando os relacionamentos, atualizando a msg e renderizando a página
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
 		$this->controller->Session->setFlash($msgFlash);
@@ -109,10 +107,10 @@ class CpwebCrudComponent extends Object {
 	 {
 		 // parâmetros
 		$modelClass 	= $this->controller->modelClass;
+		$primaryKey 	= isset($this->$modelClass->primaryKey) ? $this->$modelClass->primaryKey : 'id';
 		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
-		$erros			= '';
-		$msgFlash		= '';
-		$dadosForm		= array();
+		$msgFlash		= ($this->controller->Session->check('Message.flash')) ? $this->controller->Session->read('Message.flash') : 'Novo';
+		$msgFlash 		= (is_array($msgFlash)) ? $msgFlash['message'] : $msgFlash;
 
 		// inclui o novo registro e redireciona para sua tela de edição
 		if (!empty($this->controller->data))
@@ -120,14 +118,12 @@ class CpwebCrudComponent extends Object {
 			if ($this->controller->$modelClass->save($this->controller->data))
 			{
 				$msgFlash 	= 'Registro incluído com sucesso ...';
-				$id			= 3;
-				$this->controller->redirect('editar/'.$id);
+				$this->controller->Session->setFlash($msgFlash);
+				$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/editar/'.$this->controller->$modelClass->$primaryKey);
 			} else
 			{
 				$msgFlash 	= 'O Formulário ainda contém erros !!!';
-				$this->controller->viewVars['on_read_view'] .= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
-				$erros 		= $this->controller->$modelClass->validationErrors;
 			}
 		}
 
@@ -137,9 +133,53 @@ class CpwebCrudComponent extends Object {
 		$this->controller->Session->setFlash($msgFlash);
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	 }
-	 
+	
 	/**
+	 * Deleta um registro do banco de dados. Em caso de sucesso retorna para a lista.
 	 * 
+	 * @parameter integer $id Id do registro a ser excluído
+	 * @return void
+	 */
+	public function delete($id=null)
+	{
+		// recuperando parãmetros
+		$modelClass	= $this->controller->viewVars['modelClass'];
+		$primaryKey	= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
+		$msgFlash		= ($this->controller->Session->check('Message.flash')) ? $this->controller->Session->read('Message.flash') : 'Novo';
+		$msgFlash 		= (is_array($msgFlash)) ? $msgFlash['message'] : $msgFlash;
+
+		// excluíndo o registro
+		if ($this->controller->$modelClass->delete($id)) 
+		{
+			$this->controller->Session->setFlash('Registro excluído com sucesso !!!');
+		} else
+		{
+			$this->controller->Session->setFlash('Não foi possível deletar o id '.$id);
+		}
+		$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/listar'.$this->getParametrosLista());
+	}
+	
+	/**
+	 * Exibe o formulário de exclusão de um registro.
+	 * 
+	 * @parameter integer $id Id do registro a ser excluído
+	 * @return void
+	 */
+	public function excluir($id=null)
+	{
+		$this->renderizar = false;
+		$this->editar($id);
+		$this->controller->viewVars['botoesEdicao']['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'\'';
+		$this->controller->viewVars['botoesEdicao']['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/excluir/'.$id.'\'';
+		$this->controller->viewVars['botoesEdicao']['Salvar'] = array();
+		$this->controller->Session->setFlash('Exclusão');
+		$this->controller->render('../cpweb_crud/editar');
+	}
+
+	/**
+	 * Redireciona para a tela de avisão se permissão.
+	 * 
+	 * @return void
 	 */
 	public function semPermissao()
 	{
@@ -148,7 +188,7 @@ class CpwebCrudComponent extends Object {
 
 	/**
 	 * Configura os relacionamentos do model corrente, joga na view a lista 
-	  * 
+	 * 
 	 * @return void
 	 */
 	private function setRelacionamentos()
@@ -180,27 +220,26 @@ class CpwebCrudComponent extends Object {
 		$modelClass 	= $this->controller->modelClass;
 		$primaryKey 	= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
 		$id 			= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
-		$page			= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
-		$sort			= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
-		$dire			= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
-		
+		$urlLista		= $this->getParametrosLista();
+
 		// botões padrão (podem ser re-escritos pelo controller pai)
-		if ($this->controller->action=='editar')
+		if ($this->controller->action=='editar' || $this->controller->action=='excluir')
 		{
-			$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
-			$botoes['Novo']['title']		= 'Insere um novo registro ...';
-			$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
-			$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
+			if ($this->controller->action=='editar')
+			{
+				$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+				$botoes['Novo']['title']		= 'Insere um novo registro ...';
+				$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
+				$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
+			}
 			$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
 			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
 		}
 		$botoes['Salvar']['type']		= 'submit';
 		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
-		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar';
-		if ($page) $botoes['Listar']['onClick']	.= '/page:'.$page;
-		if ($sort) $botoes['Listar']['onClick']	.= '/sort:'.$sort;
-		if ($dire) $botoes['Listar']['onClick']	.= '/direction:'.$dire;
-		$botoes['Listar']['onClick'] 	.= '\'';
+		if ($id) $botoes['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/editar/'.$id.'\'';
+		if ($id) $botoes['Atualizar']['title']		= 'Atualize o registro ...';		
+		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar'.$urlLista.'\'';
 		$botoes['Listar']['title']		= 'Volta para a Lista ...';
 
 		// recuperando os botões do controller pai
@@ -316,6 +355,25 @@ class CpwebCrudComponent extends Object {
 		if (isset($this->controller->params['named']['page']))  $this->controller->Session->write($this->controller->name.'.Page',$this->controller->params['named']['page']);
 		if (isset($this->controller->params['named']['sort']))  $this->controller->Session->write($this->controller->name.'.Sort',$this->controller->params['named']['sort']);
 		if (isset($this->controller->params['named']['direction']))  $this->controller->Session->write($this->controller->name.'.Dire',$this->controller->params['named']['direction']);
+	 }
+	 
+	 /**
+	  * Retorna a url de complementação da lista, informando página, ordem e ordenação
+	  * 
+	  * @return string $url
+	  */
+	 private function getParametrosLista()
+	 {
+		$url	= '';
+		$page	= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
+		$sort	= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
+		$dire	= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
+
+		if ($page) $url	.= '/page:'.$page;
+		if ($sort) $url	.= '/sort:'.$sort;
+		if ($dire) $url	.= '/direction:'.$dire;
+
+		return $url;
 	 }
 }
 ?>

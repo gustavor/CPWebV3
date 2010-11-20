@@ -105,7 +105,7 @@ class CidadesController extends AppController {
 	{
 		// personalização de alguns campos
 		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
-		$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="150px"';
+		$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="160px"';
 		$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="140px"';
 		$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
@@ -179,12 +179,22 @@ class CidadesController extends AppController {
 	 * 
 	 * @return 		void
 	 */
-	public function excluir($id = null)
+	public function excluir($id=null)
 	{
 		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->excluir($id);
 	}
-	
+
+	/**
+	 * Exclui a cidade do banco de dados
+	 * 
+	 * @return 		void
+	 */
+	public function delete($id=null)
+	{
+		$this->CpwebCrud->delete($id);
+	}
+
 	/**
 	 * Exibe formulário de impressão para o model
 	 * 

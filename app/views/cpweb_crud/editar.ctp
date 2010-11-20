@@ -20,7 +20,7 @@
 	</div>
 </div>
 
-<div id="formEdicao">
+<div id="formEdicao" class="camposEdicao">
 <?php
 	// campo a campo
 	foreach($edicaoCampos as $_field)
@@ -45,7 +45,7 @@
 					echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n";
 					break;
 			}
-			if (isset($campos[$_arrField[0]][$_arrField[1]]['erro'])) echo "<div id='div'".$this->Form->domId($_field)."Erro class='edicaoDivErro'>".$campos[$_arrField[0]][$_arrField[1]]['erro']."</div>\n";
+			//if (isset($campos[$_arrField[0]][$_arrField[1]]['erro'])) echo "<div id='div'".$this->Form->domId($_field)."Erro class='edicaoDivErro'>".$campos[$_arrField[0]][$_arrField[1]]['erro']."</div>\n";
 		}
 	}
 ?>

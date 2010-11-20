@@ -9,7 +9,7 @@
 #edicao #formFerramentas,
 #edicao #formEdicao
 {
-	margin: 10px auto;
+	margin: 3px auto;
 	width: 880px;
 }
 
@@ -50,5 +50,19 @@
 	margin-right: 5px;
 	float: left;
 	line-height: 24px;
+	position: relative;
 /*	background-color: #ddd;*/
+}
+
+.error-message
+{
+	color: red;
+}
+
+.camposEdicao
+{
+	border: 1px solid #bbb;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	display: table;
 }
