@@ -15,19 +15,26 @@
 
 h2
 {
-	background: #5483dd url('../img/fundo1.png') repeat left;
-	height: 50px;
-	line-height: 50px;
+	background: #5483dd url('../img/fundo2.png') repeat left;
+	height: 60px;
+	line-height: 40px;
 	border-bottom: 2px solid #000;
 	color: #fff;
 }
 
-h2 span
+h2 a
 {
 	margin: 0px 0px 0px 30px;
+	font-size: 16px;
 	color: #fff;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	letter-spacing: 4px;
+	text-decoration: none;
+}
+
+h2 a:hover
+{
+	color: #red;
 }
 
 .cake-sql-log
@@ -38,7 +45,7 @@ h2 span
 
 .btEdicao
 {
-	width: 100px;
+	width: 80px;
 }
 
 #footer
@@ -50,5 +57,13 @@ h2 span
 #logoCake
 {
 	float: right;
-	margin: 32px 5px 0px 0px;
+	margin: 42px 5px 0px 0px;
+}
+
+#logo
+{
+	background: url('../img/logo.png') no-repeat center;
+	width: 400px;
+	height: 400px;
+	margin: 10px auto;
 }

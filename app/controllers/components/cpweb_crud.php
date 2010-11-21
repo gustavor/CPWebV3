@@ -40,8 +40,7 @@ class CpwebCrudComponent extends Object {
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
 		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
-		$action				= 'Listar';
-		if ($this->controller->action != 'listar') $action = 'Edição';
+		$action				= $this->controller->action;
 		$this->controller->set(compact('action','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
@@ -106,7 +105,6 @@ class CpwebCrudComponent extends Object {
 		$modelClass 	= $this->controller->modelClass;
 		$primaryKey 	= isset($this->$modelClass->primaryKey) ? $this->$modelClass->primaryKey : 'id';
 		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
-		$this->controller->viewVars['action'] = 'Novo';
 
 		// inclui o novo registro e redireciona para sua tela de edição
 		if (!empty($this->controller->data))
@@ -169,7 +167,6 @@ class CpwebCrudComponent extends Object {
 		$this->controller->viewVars['botoesEdicao']['Atualizar']= array();
 		$this->controller->viewVars['botoesEdicao']['Salvar'] 	= array();
 		$this->controller->viewVars['botoesEdicao']['Listar'] 	= array();
-		$this->controller->viewVars['action'] = 'Excluir';
 		$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
 		$this->controller->viewVars['on_read_view'] .= '$("#msgEdicao").css("color","red")'."\n";
 		$this->controller->Session->setFlash('Excluindo '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);

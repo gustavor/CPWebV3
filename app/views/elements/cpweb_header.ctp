@@ -1,6 +1,6 @@
 <?php echo $this->Html->charset()."\n"; ?>
 
-<title><?php echo $title_for_layout; ?></title>
+<title><?php if (isset($title_for_layout)) echo $title_for_layout; else echo 'CPWeb'; ?></title>
 
 <?php echo $this->Html->meta('icon')."\n"; ?>
 

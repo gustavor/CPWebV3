@@ -48,46 +48,7 @@ class CidadesController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-	
-	/**
-	 * Método a ser executado antes de todos
-	 *
-	 * @access public
-	 * @return void
-	 */
-	 public function beforeFilter()
-	 {
-		$this->viewVars['campos']['Cidade']['nome']['options']['label']['text'] 		= 'Cidade';
-		$this->viewVars['campos']['Cidade']['modified']['options']['label']['text'] 	= 'Última Atualiazação';
-		$this->viewVars['campos']['Cidade']['created']['options']['label']['text'] 		= 'Criação';
-		$this->viewVars['campos']['Cidade']['modified']['options']['dateFormat'] 		= 'DMY';
-		$this->viewVars['campos']['Cidade']['created']['options']['dateFormat'] 		= 'DMY';
-		$this->viewVars['campos']['Estado']['uf']['options']['label']['text'] 			= 'Uf';
-		$this->viewVars['campos']['Estado']['nome']['options']['label']['text'] 		= 'Estado';
-	 }
-	 
-	/**
-	 * Configura a visão antes de sua renderização
-	 * 
-	 * @return void
-	 */
-	public function beforeRender()
-	{
-		/*$this->viewVars['botoesEdicao']['Novo'] = array();
-		$this->viewVars['botoesLista']['Novo'] = array();*/
-		if ($this->action=='editar' || $this->action=='novo')
-		{
-			$this->viewVars['campos']['Cidade']['estado_id']['options']['label']['style'] 	= 'width: 80px;';
-			$this->viewVars['campos']['Cidade']['nome']['options']['style'] 				= 'width: 400px; ';
-			$this->viewVars['on_read_view'] .= '$("#CidadeNome").focus();';
-		}
-		if ($this->action=='editar' || $this->action=='excluir')
-		{
-			$this->viewVars['campos']['Cidade']['created']['options']['disabled'] 			= 'disabled';
-			$this->viewVars['campos']['Cidade']['modified']['options']['disabled'] 			= 'disabled';
-		}
-	}
-
+ 
 	/**
 	 * método start
 	 * 
@@ -108,47 +69,7 @@ class CidadesController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
-		// personalização de alguns campos
-		$this->viewVars['listaCampos'] 									= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
-		$this->viewVars['campos']['Cidade']['modified']['estilo_th'] 	= 'width="160px"';
-		$this->viewVars['campos']['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
-		$this->viewVars['campos']['Cidade']['created']['estilo_th'] 	= 'width="140px"';
-		$this->viewVars['campos']['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
-		$this->viewVars['campos']['Estado']['nome']['estilo_th'] 		= 'width="150px";';
-		$this->viewVars['campos']['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
-		$this->viewVars['tamLista'] 									= '880px';
-
-		// executando lista pelo componente
-		$this->CpwebCrud->renderizar = 0;
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
-
-		// destacando algumas linhas
-		foreach($this->data as $_linha => $_modelos)
-		{
-			foreach($_modelos as $_modelo => $_campos)
-			{
-				foreach($_campos as $_campo => $_valor)
-				{
-					$destaque = '';
-					
-					// Destacando as cidades de MG
-					if ($_modelo=='Estado' && $_campo=='nome' && $_valor=='Minas Gerais')
-					{
-						if (!isset($this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) $destaque = 'style="background-color: #f2f378;"';
-					}
-					// Destacando Belo Horizonte
-					if ($_modelo=='Cidade' && $_campo=='nome' && mb_strtolower($_valor)=='belo horizonte')
-					{
-						$destaque = 'style="background-color: #9fed9f;"';
-					}
-					
-					if ($destaque) $this->viewVars['lista']['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = $destaque;
-				}
-			}
-		}
-
-		// renderizando a lista pelo layout do cpwebCrud
-		$this->render('../cpweb_crud/listar');
 	}
 
 	/**
@@ -159,7 +80,6 @@ class CidadesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -170,8 +90,6 @@ class CidadesController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
-		$this->viewVars['campos']['Cidade']['estado_id']['options']['selected'] = 1;
 		$this->CpwebCrud->novo();
 	}
 	
@@ -182,7 +100,6 @@ class CidadesController extends AppController {
 	 */
 	public function excluir($id=null)
 	{
-		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->excluir($id);
 	}
 
@@ -203,7 +120,6 @@ class CidadesController extends AppController {
 	 */
 	public function imprimir($id=null)
 	{
-		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id','#','Cidade.modified','#','Cidade.created');
 		$this->CpwebCrud->imprimir($id);
 	}
 	

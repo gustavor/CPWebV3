@@ -6,17 +6,17 @@
 	font-family: verdana;
 }
 
-#edicao a
+#edicao #formFerramentas a
 {
 	text-decoration: none;
 	color: #003d4c;
 }
 
-#edicao a:hover
+#edicao #formFerramentas a:hover
 {
 	color: red;
 	background-color: #c2c493;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 #edicao #formFerramentas,
@@ -28,7 +28,7 @@
 
 #edicao #formEdicao
 {
-	padding: 5px;
+	padding: 5px 0px 5px 0px;
 }
 
 #edicao #formFerramentas
@@ -38,16 +38,6 @@
 	line-height: 40px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
-}
-
-.edicaoDiv
-{
-	float: left;
-}
-
-.quebraLinha
-{
-	line-height: 26px;
 }
 
 #botoesEdicao
@@ -61,6 +51,16 @@
 	margin: 0px 0px 0px 20px;
 	float: left;
 	position: relative;
+}
+
+.edicaoDiv
+{
+	float: left;
+}
+
+.quebraLinha
+{
+	line-height: 26px;
 }
 
 .inEdicao
@@ -87,4 +87,3 @@
 	-webkit-border-radius: 6px;
 	display: table;
 }
-
