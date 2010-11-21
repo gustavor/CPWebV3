@@ -22,7 +22,7 @@
 class Cidade extends AppModel {
 
 	public $name 			= 'Cidade';
-	public $displayFields 	= 'nome';
+	public $displayField 	= 'nome';
 	public $order		 	= 'Cidade.nome';
 
 	public $validate = array(

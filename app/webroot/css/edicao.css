@@ -6,6 +6,19 @@
 	font-family: verdana;
 }
 
+#edicao a
+{
+	text-decoration: none;
+	color: #003d4c;
+}
+
+#edicao a:hover
+{
+	color: red;
+	background-color: #c2c493;
+	font-weight: bold;
+}
+
 #edicao #formFerramentas,
 #edicao #formEdicao
 {
@@ -40,6 +53,14 @@
 #botoesEdicao
 {
 	margin: 0px 0px 0px 20px;
+	float: left;
+}
+
+#msgEdicao
+{
+	margin: 0px 0px 0px 20px;
+	float: left;
+	position: relative;
 }
 
 .inEdicao
@@ -66,3 +87,4 @@
 	-webkit-border-radius: 6px;
 	display: table;
 }
+

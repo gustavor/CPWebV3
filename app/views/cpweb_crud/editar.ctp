@@ -12,12 +12,9 @@
 
 <div id="formFerramentas">
 	<div id="botoesEdicao">
-	<?php foreach($botoesEdicao as $_label => $_arrOpcoes)
-	{
-		if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n";
-	}
-	?>
+	<?php foreach($botoesEdicao as $_label => $_arrOpcoes) if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n"; ?>
 	</div>
+	<div id="msgEdicao"><?php if (isset($msgEdicao)) echo $msgEdicao; ?></div>
 </div>
 
 <div id="formEdicao" class="camposEdicao">

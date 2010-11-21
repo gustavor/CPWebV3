@@ -22,7 +22,7 @@
 class Estado extends AppModel {
 
     public $name 			= 'Estado';
-    public $displayFields 	= 'nome';
+    public $displayField 	= 'nome';
 	public $order		 	= 'Estado.nome';
 
         public $validate = array(

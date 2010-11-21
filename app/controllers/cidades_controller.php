@@ -171,6 +171,7 @@ class CidadesController extends AppController {
 	public function novo()
 	{
 		$this->viewVars['edicaoCampos']	= array('Cidade.nome','Cidade.estado_id');
+		$this->viewVars['campos']['Cidade']['estado_id']['options']['selected'] = 1;
 		$this->CpwebCrud->novo();
 	}
 	

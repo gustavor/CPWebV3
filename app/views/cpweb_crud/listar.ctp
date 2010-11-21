@@ -58,7 +58,7 @@
 			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd]) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd] : $estilo;
 			$masc	= isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'] : '';
 			$valor 	= $_dataModel[$_arrField[0]][$_arrField[1]];
-			if ($masc) $valor = $this->Formatacao->dataHora($valor, $segundos=false);
+			if ($masc) $valor = $this->Formatacao->dataHora($valor, $segundos=true);
 			echo "\t<td id='$idTd' $estilo>$valor</td>\n";
 		}
 

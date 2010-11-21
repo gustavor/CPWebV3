@@ -28,13 +28,13 @@ class CpwebCrudComponent extends Object {
 	function startup(&$controller) 
 	{
 		$this->controller 	=& $controller;
-		$title_for_layout 	= __('CPWeb :: ', true) . Inflector::humanize($this->controller->action).' :: '.Inflector::humanize($this->controller->viewPath);
+		$title_for_layout 	= __('CPWeb :: ', true).Inflector::humanize($this->controller->viewPath).' :: '.Inflector::humanize($this->controller->action);
 		$modelClass 		= $this->controller->modelClass;
-		$primaryKey 		= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
-		$displayField 		= isset($this->$modelClass->displayField) ? $this->$modelClass->displayField : 'id';
+		$primaryKey 		= isset($this->controller->$modelClass->primaryKey)   ? $this->controller->$modelClass->primaryKey : 'id';
+		$displayField 		= isset($this->controller->$modelClass->displayField) ? $this->controller->$modelClass->displayField : 'id';
 		$tamLista			= isset($this->controller->viewVars['tamLista']) ? $this->controller->viewVars['tamLista'] : '90%';
 		$on_read_view		= isset($this->controller->viewVars['on_read_view']) ? $this->controller->viewVars['on_read_view'] : '';
-		if ($this->controller->Session->check('Message.flash')) $on_read_view .= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
+		$on_read_view 		.= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
 		$singularVar 		= Inflector::variable($modelClass);
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
@@ -70,31 +70,28 @@ class CpwebCrudComponent extends Object {
 		// parâmetros
 		$modelClass 	= $this->controller->modelClass;
 		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
-		$msgFlash		= ($this->controller->Session->check('Message.flash')) ? $this->controller->Session->read('Message.flash') : 'Edição';
-		$msgFlash 		= (is_array($msgFlash)) ? $msgFlash['message'] : $msgFlash;
 
 		// salvando os dados do formulário
 		if (!empty($this->controller->data))
 		{
 			if ($this->controller->$modelClass->save($this->controller->data))
 			{
-				$msgFlash 	= 'Registro atualizado com sucesso ...';
+				$this->controller->Session->setFlash('Registro atualizado com sucesso ...');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
 			} else
 			{
-				$msgFlash 	= 'O Formulário ainda contém erros !!!';
+				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
-				$erros 		= $this->controller->$modelClass->validationErrors;
 			}
 		} else
 		{
 			$this->controller->data = $this->controller->$modelClass->read(null,$id);
+			$this->controller->Session->setFlash('Editando '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);
 		}
 
 		// configurando os botões da edição, configurando os relacionamentos, atualizando a msg e renderizando a página
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
-		$this->controller->Session->setFlash($msgFlash);
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	  }
 
@@ -109,28 +106,26 @@ class CpwebCrudComponent extends Object {
 		$modelClass 	= $this->controller->modelClass;
 		$primaryKey 	= isset($this->$modelClass->primaryKey) ? $this->$modelClass->primaryKey : 'id';
 		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
-		$msgFlash		= ($this->controller->Session->check('Message.flash')) ? $this->controller->Session->read('Message.flash') : 'Novo';
-		$msgFlash 		= (is_array($msgFlash)) ? $msgFlash['message'] : $msgFlash;
+		$this->controller->viewVars['action'] = 'Novo';
 
 		// inclui o novo registro e redireciona para sua tela de edição
 		if (!empty($this->controller->data))
 		{
 			if ($this->controller->$modelClass->save($this->controller->data))
 			{
-				$msgFlash 	= 'Registro incluído com sucesso ...';
-				$this->controller->Session->setFlash($msgFlash);
+				$this->controller->Session->setFlash('Registro incluído com sucesso ...');
+				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
 				$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/editar/'.$this->controller->$modelClass->$primaryKey);
 			} else
 			{
-				$msgFlash 	= 'O Formulário ainda contém erros !!!';
+				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
 			}
 		}
 
-		// configurando os botões do formulário, os relacionamentos, a mensagem e renderizando.
+		// configura os botões do formulário, os relacionamentos e renderiza.
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
-		$this->controller->Session->setFlash($msgFlash);
 		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	 }
 	
@@ -145,8 +140,6 @@ class CpwebCrudComponent extends Object {
 		// recuperando parãmetros
 		$modelClass	= $this->controller->viewVars['modelClass'];
 		$primaryKey	= isset($this->$modelClass->primaryKey)   ? $this->$modelClass->primaryKey : 'id';
-		$msgFlash		= ($this->controller->Session->check('Message.flash')) ? $this->controller->Session->read('Message.flash') : 'Novo';
-		$msgFlash 		= (is_array($msgFlash)) ? $msgFlash['message'] : $msgFlash;
 
 		// excluíndo o registro
 		if ($this->controller->$modelClass->delete($id)) 
@@ -156,6 +149,8 @@ class CpwebCrudComponent extends Object {
 		{
 			$this->controller->Session->setFlash('Não foi possível deletar o id '.$id);
 		}
+		
+		// redirecionando para a lista.
 		$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/listar'.$this->getParametrosLista());
 	}
 	
@@ -167,12 +162,17 @@ class CpwebCrudComponent extends Object {
 	 */
 	public function excluir($id=null)
 	{
-		$this->renderizar = false;
+		$this->renderizar 	= false;
 		$this->editar($id);
-		$this->controller->viewVars['botoesEdicao']['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'\'';
-		$this->controller->viewVars['botoesEdicao']['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/excluir/'.$id.'\'';
-		$this->controller->viewVars['botoesEdicao']['Salvar'] = array();
-		$this->controller->Session->setFlash('Exclusão');
+		$modelClass 											= $this->controller->modelClass;
+		$this->controller->viewVars['botoesEdicao']['Excluir']	= array();
+		$this->controller->viewVars['botoesEdicao']['Atualizar']= array();
+		$this->controller->viewVars['botoesEdicao']['Salvar'] 	= array();
+		$this->controller->viewVars['botoesEdicao']['Listar'] 	= array();
+		$this->controller->viewVars['action'] = 'Excluir';
+		$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
+		$this->controller->viewVars['on_read_view'] .= '$("#msgEdicao").css("color","red")'."\n";
+		$this->controller->Session->setFlash('Excluindo '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);
 		$this->controller->render('../cpweb_crud/editar');
 	}
 
@@ -272,26 +272,12 @@ class CpwebCrudComponent extends Object {
 		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
 		$botoes['Novo']['title']		= 'Insere um novo registro ...';
 
-		// recuperando os botões do controller pai
-		if (isset($this->controller->viewVars['botoesLista']))
-		{
-			$_botoes = $this->controller->viewVars['botoesLista'];
-			foreach($_botoes as $_label => $_arrOpcao)
-			{
-				foreach($_arrOpcao as $_opcao => $_conteudo)
-				{
-					$botoes[$_label][$_opcao] = $_conteudo;
-				}
-			}
-		}
-
 		// configurando as propriedades padrão
 		foreach($botoes as $_label => $_arrOpcao)
 		{
-			$botoes[$_label]['type']		= isset($botoes[$_label]['type'])    ? $botoes[$_label]['type']    : 'button';
-			$botoes[$_label]['class']		= isset($botoes[$_label]['class'])   ? $botoes[$_label]['class']   : 'btEdicao';
-			$botoes[$_label]['id']			= isset($botoes[$_label]['id'])      ? $botoes[$_label]['id']      : 'btEdicao'.$_label;
-			$botoes[$_label]['onClick']		= isset($botoes[$_label]['onClick']) ? $botoes[$_label]['onClick'] : null;
+			$botoes[$_label]['type']		= 'button';
+			$botoes[$_label]['class']		= 'btEdicao';
+			$botoes[$_label]['id']			= 'btEdicao'.$_label;
 		}
 
 		// atualizando a view
