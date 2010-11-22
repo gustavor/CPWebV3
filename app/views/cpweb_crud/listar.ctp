@@ -81,4 +81,4 @@
 	</tr>
 </table>
 </div>
-<?php include_once('../view/cpweb_crud/rodape.ctp'); ?>
+<?php include_once('../views/cpweb_crud/rodape.ctp'); ?>
