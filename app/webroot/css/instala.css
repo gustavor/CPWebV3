@@ -51,3 +51,18 @@
 	margin: 10px 0px 0px 10px;
 	color: red;
 }
+
+#instala .txt_msg
+{
+	margin: 10px 0px 0px 10px;
+	color: green;
+	font-weight: bold;
+}
+
+#instala .txt_erro
+{
+	margin: 10px 0px 0px 10px;
+	color: red;
+	font-weight: bold;
+}
+

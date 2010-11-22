@@ -16,7 +16,7 @@ Antes de enviar este formulário, certifique-se de que o arquivo 'config/databas
 	<li><?php echo $this->Form->input('ed_usuario',	array('div'=>null,'label'=>array('text'=>'Usuário Banco *'),'value'=>$db->config->default['login'], 'disabled'=>'disabled')); ?></li>
 	<li><?php echo $this->Form->input('ed_driver',	array('div'=>null,'label'=>array('text'=>'Driver *'),'value'=>$db->config->default['driver'], 'disabled'=>'disabled')); ?></li>
 	<li><?php echo $this->Form->input('ed_admin',	array('div'=>null,'label'=>array('text'=>'Administrador *'),'value'=>'administrador')); ?></li>
-	<li><?php echo $this->Form->input('ed_senha',	array('div'=>null,'label'=>array('text'=>'Senha *'))); ?></li>
+	<li><?php echo $this->Form->input('ed_senha',	array('div'=>null,'label'=>array('text'=>'Senha *'),'type'=>'password')); ?></li>
 	<li><?php echo $this->Form->input('ed_email',	array('div'=>null,'label'=>array('text'=>'e-mail *'))); ?></li>
 </ul>
 <?php echo $this->Form->end('Enviar'); ?>
@@ -33,6 +33,9 @@ flush privileges;
 *  Campos de preenchimento obrigatório
 ** A senha deve estar cadastrada no arquivo app/config/database.php
 </pre>
+
+<p class='txt_msg'><?php if (isset($msg)) echo $msg; ?></p>
+<p class='txt_erro'><?php if (isset($erro)) echo $erro; ?></p>
 
 </div>
 
