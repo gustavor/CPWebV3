@@ -633,6 +633,45 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`perfis`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`perfis` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NULL ,
+  `created` DATETIME NULL ,
+  `modified` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'tabela de perfis';
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`usuarios_perfis`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios_perfis` (
+  `usuarios_id` INT NOT NULL ,
+  `perfis_id` INT NOT NULL ,
+  PRIMARY KEY (`usuarios_id`, `perfis_id`) ,
+  INDEX `fk_usuarios_has_perfis_perfis1` (`perfis_id` ASC) ,
+  CONSTRAINT `fk_usuarios_has_perfis_usuarios1`
+    FOREIGN KEY (`usuarios_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuarios_has_perfis_perfis1`
+    FOREIGN KEY (`perfis_id` )
+    REFERENCES `cpwebv3`.`perfis` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

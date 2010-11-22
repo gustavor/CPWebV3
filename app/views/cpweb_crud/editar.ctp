@@ -45,7 +45,11 @@
 				}
 			}
 		}
-	} else echo '<center>É preciso definir quais campos serão editados aqui !!!<br /><br />Clique <a href="javascript:history.back(-1);">aqui</a> para voltar.</center>';
+	} else
+	{
+		echo '<center>É preciso definir quais campos serão editados !!!<br /><br />Clique <a href="javascript:history.back(-1);">aqui</a> para voltar.</center>';
+		$on_read_view .= 'setTimeout(function(){ $("#formFerramentas").fadeOut(1000); },1000);';
+	}
 ?>
 <?php echo $this->Form->end(); ?>
 

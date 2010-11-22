@@ -1,0 +1,53 @@
+#instala
+{
+	margin: 30px auto;
+	width: 800px;
+	border: 1px solid #ddd;
+	padding: 5px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#instala ul
+{
+	margin: 0px auto;
+	padding: 0px;
+	list-style: none;
+	width: 500px;
+}
+
+#instala ul li
+{
+	display: block;
+	margin-bottom: 3px;
+}
+
+#instala label
+{
+	display: block;
+	float: left;
+	width: 150px;
+	text-align: right;
+	margin-right: 5px;
+}
+
+#instala .txt_topo
+{
+	height: 60px;
+}
+
+#instala .txt_obs1
+{
+	margin: 10px 0px 0px 0px;
+}
+
+#instala .txt_sql
+{
+	background-color: #ddd;
+}
+
+#instala .txt_obs2
+{
+	margin: 10px 0px 0px 10px;
+	color: red;
+}
