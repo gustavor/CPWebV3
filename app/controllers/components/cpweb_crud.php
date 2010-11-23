@@ -77,6 +77,7 @@ class CpwebCrudComponent extends Object {
 			{
 				$this->controller->Session->setFlash('Registro atualizado com sucesso ...');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
+				$this->controller->data = $this->controller->$modelClass->read(null,$id);
 			} else
 			{
 				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
