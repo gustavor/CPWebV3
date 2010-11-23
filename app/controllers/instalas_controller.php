@@ -115,12 +115,12 @@ class InstalasController extends AppController {
 		$senha = Security::hash(Configure::read('Security.salt') . $senha);
 
 		// inclui usuário administrador
-		$sql  = 'INSERT INTO usuarios (login,senha,email,ativo,acessos,ultimo_acesso,created,modified) values ';
-		$sql .= '("'.$admin.'","'.$senha.'","'.$email.'",1,1,now(),now(),now())';
+		$sql  = 'INSERT INTO usuarios (login,senha,email,ativo,acessos,aniversario,ultimo_acesso,created,modified) values ';
+		$sql .= '("'.$admin.'","'.$senha.'","'.$email.'",1,1,"'.date('d/m').'",now(),now(),now())';
 		$this->Instala->query($sql, $cachequeries=false);
 		if ($db->lastError())
 		{
-			$this->erro = $db->lastError();
+			$this->erro = $db->lastError().'<br />'.$sql;
 			return false;
 		}
 

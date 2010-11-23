@@ -80,6 +80,12 @@
 	color: red;
 }
 
+.form-error
+{
+	background-color: #ddd;
+	float: left;
+}
+
 .camposEdicao
 {
 	border: 1px solid #bbb;

@@ -59,16 +59,13 @@
 				$valor 	= $_dataModel[$_arrField[0]][$_arrField[1]];
 				
 				// se é tipo data e possui máscara
-				if ($masc && isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'])) $valor = $this->Formatacao->dataHora($valor, $segundos=true);
-				
-				// se é um comboBox, exibe o vetor 1
-				if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options']))
+				if ($masc && isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']))
 				{
-					foreach($campos[$_arrField[0]][$_arrField[1]]['options']['options'] as $_item => $_valor)
-					{
-						if ($_item==$valor) $valor = $_valor;
-					}
+					$valor = ($valor!='0000-00-00 00:00:00') ? $this->Formatacao->dataHora($valor, $segundos=true) : '';
 				}
+
+				// se é um comboBox, exibe o vetor 1
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options'])) $valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
 
 				echo "\t<td id='$idTd' $estilo>$valor</td>\n";
 			}
@@ -79,8 +76,13 @@
 		{
 			if (count($_ferramenta))
 			{
-				$link = str_replace('{id}',$id,$_ferramenta['link']);
-				echo "\t<td width='35px' align='center'><a href='".$link."' title='".$_ferramenta['title']."'><img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/></a></td>\n";
+				$link = (isset($listaFerramentasId[$_item]['link'][$id]))  ? $listaFerramentasId[$_item]['link'][$id]  : str_replace('{id}',$id,$_ferramenta['link']);
+				$icon = (isset($listaFerramentasId[$_item]['icone'][$id])) ? $listaFerramentasId[$_item]['icone'][$id] : $_ferramenta['icone'];
+				echo "\t<td width='35px' align='center'>";
+				if ($link) echo "<a href='".$link."' title='".$_ferramenta['title']."'>";
+				if ($icon) echo "<img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/>";
+				if ($link) echo "</a>";
+				echo "</td>\n";
 			}
 		}
 		echo "</tr>\n\n";
