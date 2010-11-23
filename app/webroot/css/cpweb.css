@@ -30,11 +30,22 @@ h2 a
 	/*font-weight: bold;*/
 	letter-spacing: 4px;
 	text-decoration: none;
+	/*background-color: #ddd;
+	position: absolute;*/
 }
 
 h2 a:hover
 {
 	color: #red;
+}
+
+#logo_va
+{
+	background: url('../img/logo_va.png') no-repeat left;
+	width: 55px;
+	height: 30px;
+	float: left;
+	margin:  5px 0px 0px 8px;
 }
 
 .cake-sql-log

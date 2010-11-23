@@ -33,7 +33,8 @@ class InstalasController extends AppController {
 	/**
 	 * tabelas que serão populadas
 	 */
-	public $csv	= array('estados','perfis','usuarios_perfis','cidades');
+	//public $csv	= array('estados','perfis','usuarios_perfis','cidades');
+	public $csv	= array('estados','perfis','usuarios_perfis');
 	
 	/**
 	 * Modelo
@@ -50,12 +51,13 @@ class InstalasController extends AppController {
 		$msg 	= '';
 		if (!empty($this->data))
 		{
+			$nome		= $this->data['instala']['ed_nome'];
 			$admin		= $this->data['instala']['ed_admin'];
 			$senha		= $this->data['instala']['ed_senha'];
 			$email		= $this->data['instala']['ed_email'];
-			if ( !empty($admin) && !empty($senha) && !empty($email) )
+			if ( !empty($nome) && !empty($admin) && !empty($senha) && !empty($email) )
 			{
-				$msg = $this->getInstala($admin, $senha, $email);
+				$msg = $this->getInstala($nome, $admin, $senha, $email);
 			} else
 			{
 				$this->erro = 'Preencha todos os campos !!!';
@@ -77,7 +79,7 @@ class InstalasController extends AppController {
 	 * 
 	 * @return boolean
 	 */
-	private function getInstala($admin,$senha,$email)
+	private function getInstala($nome,$admin,$senha,$email)
 	{
 		// desligando o debug
 		Configure::write('debug', 0);
@@ -115,8 +117,8 @@ class InstalasController extends AppController {
 		$senha = Security::hash(Configure::read('Security.salt') . $senha);
 
 		// inclui usuário administrador
-		$sql  = 'INSERT INTO usuarios (login,senha,email,ativo,acessos,aniversario,ultimo_acesso,created,modified) values ';
-		$sql .= '("'.$admin.'","'.$senha.'","'.$email.'",1,1,"'.date('d/m').'",now(),now(),now())';
+		$sql  = 'INSERT INTO usuarios (nome,login,senha,email,ativo,acessos,aniversario,ultimo_acesso,created,modified) values ';
+		$sql .= '("'.$nome.'","'.$admin.'","'.$senha.'","'.$email.'",1,1,"'.date('d/m').'",now(),now(),now())';
 		$this->Instala->query($sql, $cachequeries=false);
 		if ($db->lastError())
 		{

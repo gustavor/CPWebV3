@@ -62,12 +62,12 @@
 		$on_read_view .= '$("#UsuarioNome").focus();';
 		
 		// destanco administrador
-		if ($this->data['Usuario']['id']==1) $campos['Usuario']['login']['options']['style']	= 'text-align: center; width: 120px; font-weight: bold; color: green;';
+		if ($this->data['Usuario']['id']==1) $campos['Usuario']['login']['options']['style']	= 'text-align: center; width: 120px; font-weight: bold; color: green; ';
 		
 		// limpando o campo ultimo acesso
 		if ($this->data['Usuario']['ultimo_acesso']=='0000-00-00 00:00:00')
 		{
-			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos');
+			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo');
 		}
 		
 		// usuário logado é diferente do registro a ser editado

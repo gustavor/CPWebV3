@@ -25,7 +25,7 @@
 <p>Aguarde um instante e vocẽ será redirecionado para a tela inicial.</p>
 <p>Clique <a href="<?php echo Router::url('/',true); ?>">aqui</a> para não esperar.</p>
 </div>
-<?php $on_read_view .= "\n".'setTimeout(function(){ window.location="'.Router::url('/',true).'";  },3000);'; ?>
+<?php $on_read_view .= "\n".'setTimeout(function(){ window.location="'.Router::url('/',true).'";  },4000);'; ?>
 <?php endif;?>
 
 <div id='aguarde'>Aguarde ...</div>
@@ -44,7 +44,8 @@
 	<li><?php echo $this->Form->input('ed_banco',	array('div'=>null,'label'=>array('text'=>'Banco *'),'value'=>$db->config->default['database'], 'disabled'=>'disabled')); ?></li>
 	<li><?php echo $this->Form->input('ed_usuario',	array('div'=>null,'label'=>array('text'=>'Usuário Banco *'),'value'=>$db->config->default['login'], 'disabled'=>'disabled')); ?></li>
 	<li><?php echo $this->Form->input('ed_driver',	array('div'=>null,'label'=>array('text'=>'Driver *'),'value'=>$db->config->default['driver'], 'disabled'=>'disabled')); ?></li>
-	<li><?php echo $this->Form->input('ed_admin',	array('div'=>null,'label'=>array('text'=>'Administrador *'),'value'=>'administrador')); ?></li>
+	<li><?php echo $this->Form->input('ed_admin',	array('div'=>null,'label'=>array('text'=>'Login *'),'value'=>'administrador')); ?></li>
+	<li><?php echo $this->Form->input('ed_nome',	array('div'=>null,'label'=>array('text'=>'Nome *'),'value'=>'')); ?></li>
 	<li><?php echo $this->Form->input('ed_senha',	array('div'=>null,'label'=>array('text'=>'Senha *'),'type'=>'password')); ?></li>
 	<li><?php echo $this->Form->input('ed_email',	array('div'=>null,'label'=>array('text'=>'e-mail *'))); ?></li>
 </ul>
@@ -63,7 +64,7 @@
 <?php endif;?>
 
 <?php
-	$on_read_view .= "\n".'$("#instalaEdSenha").focus();';
+	$on_read_view .= "\n".'$("#instalaEdNome").focus();';
 	$on_read_view .= "\n".'$("#instalaIndexForm").submit(function(){ $("#instala").fadeOut(1000); $("#aguarde").show(); });';
 	$this->Html->css('instala.css', null, array('inline' => false));
 	include_once('../views/cpweb_crud/rodape.ctp');
