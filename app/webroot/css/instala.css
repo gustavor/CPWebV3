@@ -1,3 +1,37 @@
+.txt_sql,
+.sql_obs,
+.sql_obs2
+{
+	width: 800px;
+	margin: 20px auto;
+}
+
+.txt_sql
+{
+	background-color: #ddd;
+}
+
+.sql_obs
+{
+	text-align: center;
+	color: red;
+}
+
+.sql_obs2
+{
+	color: red;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+#instala_ok
+{
+	/*display: none;*/
+	line-height: 40px;
+	text-align: center;
+}
+
+#instala_ok,
 #instala
 {
 	margin: 30px auto;
@@ -33,17 +67,20 @@
 
 #instala .txt_topo
 {
+	height: 40px;
+	text-align: center;
+}
+
+#instala .txt_obs
+{
 	height: 60px;
+	font-size: 12px;
+	font-style: italic;
 }
 
 #instala .txt_obs1
 {
 	margin: 10px 0px 0px 0px;
-}
-
-#instala .txt_sql
-{
-	background-color: #ddd;
 }
 
 #instala .txt_obs2
@@ -66,3 +103,12 @@
 	font-weight: bold;
 }
 
+#aguarde
+{
+	display: none;
+	margin: 0px auto;
+	width:100px;
+	color: red;
+	font-weight: bold;
+	font-style: italic;
+}

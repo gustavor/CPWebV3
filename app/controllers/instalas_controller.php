@@ -31,9 +31,15 @@ class InstalasController extends AppController {
 	public $erro = '';
 	
 	/**
+	 * 
+	 * 
+	 */
+	public $csv	= array('estados','cidades');
+	
+	/**
 	 * Modelo
 	 */
-	public $uses = null;
+	public $uses = 'Instala';
 	
 	/**
 	 * Método start
@@ -48,19 +54,27 @@ class InstalasController extends AppController {
 			$admin		= $this->data['instala']['ed_admin'];
 			$senha		= $this->data['instala']['ed_senha'];
 			$email		= $this->data['instala']['ed_email'];
-			if ( !empty($admin) && !empty($senha) && !empty($senha) )
+			if ( !empty($admin) && !empty($senha) && !empty($email) )
 			{
 				$msg = $this->getInstala($admin, $senha, $email);
 			} else
 			{
-				$msg = 'Preencha todos os campos !!!';
+				$this->erro = 'Preencha todos os campos !!!';
 			}
 		}
 		if (!empty($this->erro)) 
 		{
 			$erro = $this->erro;
 			$this->set(compact('erro'));
-		} else $this->set(compact('msg'));
+		} else
+		{
+			$this->set(compact('msg'));
+			if ($msg===true)
+			{
+				//$msg_ok = "\n".'$("#instala").fadeOut();';
+				$this->set('instala_ok',true);
+			}
+		}
 	}
 	
 	/**
@@ -70,21 +84,106 @@ class InstalasController extends AppController {
 	 */
 	private function getInstala($admin,$senha,$email)
 	{
+		Configure::write('debug', 0);
 		$retorno = '';
-
-		// conecta no banco
 		
-		// instala todas as tabelas
+		// instanco o datasource só pra pegar erros do banco
+		$db = ConnectionManager::getDataSource('default'); 
 
-		// atualiza usuário administrador
+		// instala todas as tabelas
+		$arq = ROOT.DS.'files'.DS.'sql'.DS.'cpwebv3.sql';
+		if (!file_exists($arq))
+		{
+			$this->erro = 'Não foi possível localicar o arquivo '.$arq;
+			return false;
+		}
+		$handle  = fopen($arq,"r");
+		$texto   = fread($handle, filesize($arq));
+		$sqls	 = explode(";",$texto);
+		fclose($handle);
+		foreach($sqls as $sql) // executando sql a sql
+		{
+			if (trim($sql))
+			{
+				$this->Instala->query($sql, $cachequeries=false);
+				if ($db->lastError())
+				{
+					$this->erro = $db->lastError();
+					return false;
+				}
+			}
+		}
+		
+		// encriptando a senha
+		$hash = Security::getInstance();
+		Security::setHash($hash->hashType);
+		$senha = Security::hash(Configure::read('Security.salt') . $senha);
+
+		// insere usuário administrador
 		$sql  = 'INSERT INTO usuarios (login,senha,email,ativo,acessos,ultimo_acesso,created,modified) values ';
 		$sql .= '("'.$admin.'","'.$senha.'","'.$email.'",1,1,now(),now(),now())';
-		$retorno = $sql;
+		$this->Instala->query($sql, $cachequeries=false);
+		if ($db->lastError())
+		{
+			$this->erro = $db->lastError();
+			return false;
+		}
 
-		// atualiza outras tabelas
+		// atualiza outras tabelas vias CSV
+		foreach($this->csv as $tabela)
+		{
+			$arq = ROOT.DS.'files'.DS.'sql'.DS.$tabela.'.csv';
+			if (!file_exists($arq))
+			{
+				$this->erro = 'Não foi possível localizar o arquivo '.$arq;
+				return false;
+			} else
+			{
+				$handle  	= fopen($arq,"r");
+				$l 			= 0;
+				$campos 	= '';
+				$valores 	= '';
+				while ($linha = fgetcsv($handle, 2048, ";"))
+				{
+					if (!$l)
+					{
+						$i = 0;
+						$t = count($linha);
+						foreach($linha as $campo)
+						{
+							$campos .= $campo;
+							$i++;
+							if ($i!=$t) $campos .= ',';
+						}
+						$arr_campos = explode(',',$campos);
+					} else
+					{
+						$valores  = '';
+						$i = 0;
+						$t = count($linha);
+						foreach($linha as $valor)
+						{
+							if ($arr_campos[$i]=='created' || $arr_campos[$i]=='modified') $valor = date("Y-m-d H:i:s");
+							$valores .= "'".str_replace("'","\'",$valor)."'";
+							$i++;
+							if ($i!=$t) $valores .= ',';
+						}
+						$sql = 'INSERT INTO '.$tabela.' ('.$campos.') VALUES ('.$valores.')';
+						$this->Instala->query($sql, $cachequeries=false);
+						if ($db->lastError())
+						{
+							$this->erro = $db->lastError();
+							return false;
+						}
+					}
+					$l++;
+				}
+				fclose($handle);
+			}
+		}
+		
+		
 
-		// desconecta no banco
-
-		return $retorno;
+		return true;
 	}
 }

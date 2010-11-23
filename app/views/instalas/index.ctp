@@ -1,15 +1,43 @@
-<?php
-require LIBS . 'model' . DS . 'connection_manager.php';
-$db = ConnectionManager::getInstance();
-echo $this->Form->create('instala')."\n";
-?>
 <h2>Instalação Cpweb</h2>
+<?php
+	$on_read_view = isset($on_read_view) ? $on_read_view : '';
+	require_once LIBS . 'model' . DS . 'connection_manager.php';
+	$db = ConnectionManager::getInstance();
+	@$connected = $db->getDataSource('default');
+	if (!$connected->isConnected())
+	{
+		echo "<p class='sql_obs'>Peça ao seu Administrador do Banco de dados para executar os comandos abaixo.</p>";
+		echo "<pre class='txt_sql'>";
+		echo "create database ".$db->config->default['database'].";\n";
+		echo "grant all privileges on ".$db->config->default['database'].".* to ";
+		echo $db->config->default['login']."@localhost identified by \"".$db->config->default['password']."\" with grant option;\n";
+		echo "flush privileges;\n";
+		echo "</pre>";
+		echo "<p class='sql_obs2'>* Para auterar as configurações do banco de dados, edite o arquivo app/config/database.php</p>";
+		$on_read_view .= "\n".'$("#instala").fadeOut();';
+	}
+?>
+
+<?php if (isset($instala_ok)): ?>
+<div id='instala_ok'>
+<p>A instalação foi executada com sucesso !!!</p>
+<p>Aguarde um instante e vocẽ será redirecionado para a tela inicial.</p>
+<p>Clique <a href="<?php echo Router::url('/',true); ?>">aqui</a> para não esperar.</p>
+</div>
+<?php $on_read_view .= "\n".'setTimeout(function(){ window.location="'.Router::url('/',true).'";  },3000);'; ?>
+<?php endif;?>
+
+<div id='aguarde'>Aguarde ...</div>
+
+<?php if (!isset($instala_ok)): ?>
 <div id='instala'>
 
-<p class='txt_topo'>
-Antes de enviar este formulário, certifique-se de que o arquivo 'config/database.php' foi criado e configurado corretamente, caso queira altera as configurações abaixo edite este mesmo arquivo.
+<p class='txt_topo'>Informe o login, senha e e-mail do usuário Administrador.</p>
+<p class='txt_obs'>
+	Este script irá executar as configurações básicas do sistema. Todos os dados serão apagados, então tenha certeza antes de prosseguir.
 </p>
 
+<?php echo $this->Form->create('instala')."\n"; ?>
 <ul>
 	<li><?php echo $this->Form->input('ed_host',	array('div'=>null,'label'=>array('text'=>'Host *'),'value'=>$db->config->default['host'], 'disabled'=>'disabled')); ?></li>
 	<li><?php echo $this->Form->input('ed_banco',	array('div'=>null,'label'=>array('text'=>'Banco *'),'value'=>$db->config->default['database'], 'disabled'=>'disabled')); ?></li>
@@ -21,17 +49,10 @@ Antes de enviar este formulário, certifique-se de que o arquivo 'config/databas
 </ul>
 <?php echo $this->Form->end('Enviar'); ?>
 
-<p class='txt_obs1'><span>OBSERVAÇÃO:</span> Certifique-se que o seu DBA tenho executado os comandos abaixo:</p>
-	
-<pre class='txt_sql'>
-create database <?php echo $db->config->default['database']; ?>;
-grant all privileges on <?php echo $db->config->default['database']; ?>.* to <?php echo $db->config->default['login']; ?>@localhost identified by "senha**" with grant option;
-flush privileges;
-</pre>
-
 <pre class='txt_obs2'>
 *  Campos de preenchimento obrigatório
-** A senha deve estar cadastrada no arquivo app/config/database.php
+** Para alterar as configurações do Banco de Dados, edite o arquivo app/config/database.php
+
 </pre>
 
 <p class='txt_msg'><?php if (isset($msg)) echo $msg; ?></p>
@@ -39,8 +60,11 @@ flush privileges;
 
 </div>
 
-<?
-	$on_read_view = "\n".'$("#instalaEdAdmin").focus();';
+<?php endif;?>
+
+<?php
+	$on_read_view .= "\n".'$("#instalaEdSenha").focus();';
+	$on_read_view .= "\n".'$("#instalaIndexForm").submit(function(){ $("#instala").fadeOut(1000); $("#aguarde").show(); });';
 	$this->Html->css('instala.css', null, array('inline' => false));
 	include_once('../views/cpweb_crud/rodape.ctp');
 ?>
