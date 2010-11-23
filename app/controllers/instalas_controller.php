@@ -26,15 +26,14 @@ class InstalasController extends AppController {
 	public $name = 'Instalas';
 	
 	/**
-	 * 
+	 * mensagens de erro
 	 */
 	public $erro = '';
 	
 	/**
-	 * 
-	 * 
+	 * tabelas que serão populadas
 	 */
-	public $csv	= array('estados','cidades');
+	public $csv	= array('estados','perfis','usuarios_perfis','cidades');
 	
 	/**
 	 * Modelo
@@ -69,29 +68,25 @@ class InstalasController extends AppController {
 		} else
 		{
 			$this->set(compact('msg'));
-			if ($msg===true)
-			{
-				//$msg_ok = "\n".'$("#instala").fadeOut();';
-				$this->set('instala_ok',true);
-			}
+			if ($msg===true) $this->set('instala_ok',true);
 		}
 	}
-	
+
 	/**
-	 * Executa a instalação do banco de dados Cpweb
+	 * Executa a instalação do banco de dados
 	 * 
-	 * @return string $retorno Mensagen do status da instalação
+	 * @return boolean
 	 */
 	private function getInstala($admin,$senha,$email)
 	{
+		// desligando o debug
 		Configure::write('debug', 0);
-		$retorno = '';
-		
-		// instanco o datasource só pra pegar erros do banco
+
+		// instancio o datasource só pra pegar erros do banco
 		$db = ConnectionManager::getDataSource('default'); 
 
-		// instala todas as tabelas
-		$arq = ROOT.DS.'files'.DS.'sql'.DS.'cpwebv3.sql';
+		// instala todas as tabelas do sistema
+		$arq = ROOT.DS.'files'.DS.'sql'.DS.mb_strtolower(SISTEMA).'.sql';
 		if (!file_exists($arq))
 		{
 			$this->erro = 'Não foi possível localicar o arquivo '.$arq;
@@ -113,13 +108,13 @@ class InstalasController extends AppController {
 				}
 			}
 		}
-		
+
 		// encriptando a senha
 		$hash = Security::getInstance();
 		Security::setHash($hash->hashType);
 		$senha = Security::hash(Configure::read('Security.salt') . $senha);
 
-		// insere usuário administrador
+		// inclui usuário administrador
 		$sql  = 'INSERT INTO usuarios (login,senha,email,ativo,acessos,ultimo_acesso,created,modified) values ';
 		$sql .= '("'.$admin.'","'.$senha.'","'.$email.'",1,1,now(),now(),now())';
 		$this->Instala->query($sql, $cachequeries=false);
@@ -181,8 +176,6 @@ class InstalasController extends AppController {
 				fclose($handle);
 			}
 		}
-		
-		
 
 		return true;
 	}

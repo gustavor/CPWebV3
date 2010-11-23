@@ -1,3 +1,8 @@
+a
+{
+	text-decoration: none;
+	color: #000;
+}
 .txt_sql,
 .sql_obs,
 .sql_obs2
@@ -6,9 +11,18 @@
 	margin: 20px auto;
 }
 
+.sql_tit
+{
+	margin-top: 10px;
+	text-align: center;
+}
+
 .txt_sql
 {
 	background-color: #ddd;
+	padding: 15px 5px 15px 15px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
 }
 
 .sql_obs
@@ -20,8 +34,15 @@
 .sql_obs2
 {
 	color: red;
-	font-size: 10px;
 	font-weight: bold;
+	font-size: 13px;
+}
+
+.sql_obs3
+{
+	color: green;
+	font-weight: bold;
+	text-align: center;
 }
 
 #instala_ok

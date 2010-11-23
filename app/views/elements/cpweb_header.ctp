@@ -1,10 +1,10 @@
 <?php echo $this->Html->charset()."\n"; ?>
 
-<title><?php if (isset($title_for_layout)) echo $title_for_layout; else echo 'CPWeb'; ?></title>
+<title><?php if (isset($title_for_layout)) echo $title_for_layout; else echo SISTEMA; ?></title>
 
 <?php echo $this->Html->meta('icon')."\n"; ?>
 
-<?php echo $this->Html->css('cpweb')."\n"; ?>
+<?php echo $this->Html->css(mb_strtolower(SISTEMA))."\n"; ?>
 
 <?php echo $this->Html->script('jquery-1.4.2.js')."\n"; ?>
 

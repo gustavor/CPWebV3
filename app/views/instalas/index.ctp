@@ -1,4 +1,4 @@
-<h2>Instalação Cpweb</h2>
+<h2>Instalação <?php echo SISTEMA; ?></h2>
 <?php
 	$on_read_view = isset($on_read_view) ? $on_read_view : '';
 	require_once LIBS . 'model' . DS . 'connection_manager.php';
@@ -6,7 +6,7 @@
 	@$connected = $db->getDataSource('default');
 	if (!$connected->isConnected())
 	{
-		echo "<p class='sql_obs'>Peça ao seu Administrador do Banco de dados para executar os comandos abaixo.</p>";
+		echo "<p class='sql_tit'>Peça ao Administrador do Banco de dados para executar os comandos abaixo.</p>";
 		echo "<pre class='txt_sql'>";
 		echo "create database ".$db->config->default['database'].";\n";
 		echo "grant all privileges on ".$db->config->default['database'].".* to ";
@@ -14,6 +14,7 @@
 		echo "flush privileges;\n";
 		echo "</pre>";
 		echo "<p class='sql_obs2'>* Para auterar as configurações do banco de dados, edite o arquivo app/config/database.php</p>";
+		echo "<p class='sql_obs3'>Cliquei <a href=".$this->here.">aqui</a> para atualizar.</p>";
 		$on_read_view .= "\n".'$("#instala").fadeOut();';
 	}
 ?>
@@ -51,8 +52,7 @@
 
 <pre class='txt_obs2'>
 *  Campos de preenchimento obrigatório
-** Para alterar as configurações do Banco de Dados, edite o arquivo app/config/database.php
-
+** Para alterar as configurações do banco de dados, edite o arquivo app/config/database.php
 </pre>
 
 <p class='txt_msg'><?php if (isset($msg)) echo $msg; ?></p>
