@@ -19,8 +19,9 @@ a
 
 .txt_sql
 {
-	background-color: #ddd;
+	background-color: #c1cee8;
 	padding: 15px 5px 15px 15px;
+	border: 1px solid #73819d;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 }
@@ -47,7 +48,6 @@ a
 
 #instala_ok
 {
-	/*display: none;*/
 	line-height: 40px;
 	text-align: center;
 }
@@ -57,7 +57,7 @@ a
 {
 	margin: 30px auto;
 	width: 800px;
-	border: 1px solid #ddd;
+	border: 1px solid #73819d;
 	padding: 5px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;

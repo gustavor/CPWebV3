@@ -57,7 +57,19 @@
 				$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd]) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd] : $estilo;
 				$masc	= isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'] : '';
 				$valor 	= $_dataModel[$_arrField[0]][$_arrField[1]];
-				if ($masc) $valor = $this->Formatacao->dataHora($valor, $segundos=true);
+				
+				// se é tipo data e possui máscara
+				if ($masc && isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'])) $valor = $this->Formatacao->dataHora($valor, $segundos=true);
+				
+				// se é um comboBox, exibe o vetor 1
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options']))
+				{
+					foreach($campos[$_arrField[0]][$_arrField[1]]['options']['options'] as $_item => $_valor)
+					{
+						if ($_item==$valor) $valor = $_valor;
+					}
+				}
+
 				echo "\t<td id='$idTd' $estilo>$valor</td>\n";
 			}
 		}

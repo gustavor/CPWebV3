@@ -655,6 +655,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `login` VARCHAR(45) NOT NULL ,
+  `nome` VARCHAR(60) NOT NULL ,
   `senha` VARCHAR(99) NOT NULL ,
   `email` VARCHAR(99) NOT NULL ,
   `ativo` INT(1) NOT NULL ,
@@ -662,7 +663,8 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
   `ultimo_acesso` DATETIME NOT NULL ,
   `acessos` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `i_login` (`login` ASC) )
+  INDEX `i_login` (`login` ASC) ,
+  INDEX `i_nome` (`nome` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
