@@ -1,0 +1,76 @@
+#login_ok,
+#login_erro
+{
+	width: 300px;
+	margin: 0px auto;
+	text-align: center;
+	font-size: 12px;
+}
+
+#login_ok
+{
+	color: green;
+}
+
+#login_erro
+{
+	color: red;
+}
+
+#login,
+#login_ok,
+#login_erro
+{
+	width: 300px;
+}
+
+#login
+{
+	margin: 30px auto;
+}
+
+#login fieldset
+{
+	padding: 5px;
+	border: 1px solid #bbb;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#login fieldset div
+{
+	display: table;
+	margin: 5px 0px 5px 9px;
+}
+
+#login fieldset label
+{
+	width: 100px;
+	margin-top: 2px;
+	margin-right: 5px;
+	text-align: right;
+	display: block;
+	float: left;
+}
+
+#login fieldset input
+{
+	width: 100px;
+}
+
+.submit
+{
+	margin-top: 10px;
+	width: 100%;
+	text-align: center;
+}
+
+.submit input
+{
+	width: 120px;
+}
+
+.submit input:hover
+{
+	color: green;
+}
