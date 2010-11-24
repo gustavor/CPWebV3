@@ -28,19 +28,21 @@ class CpwebCrudComponent extends Object {
 	function startup(&$controller) 
 	{
 		$this->controller 	=& $controller;
-		$title_for_layout 	= __('CPWeb :: ', true).Inflector::humanize($this->controller->viewPath).' :: '.Inflector::humanize($this->controller->action);
+		
+		// se não foi autenticado vol pro login
+		if (!$this->controller->Session->check('login') && $this->controller->action != 'login') $this->controller->redirect('/login');
+		$title_for_layout 	= __(SISTEMA.' :: ', true).Inflector::humanize($this->controller->viewPath).' :: '.Inflector::humanize($this->controller->action);
 		$modelClass 		= $this->controller->modelClass;
 		$primaryKey 		= isset($this->controller->$modelClass->primaryKey)   ? $this->controller->$modelClass->primaryKey : 'id';
 		$displayField 		= isset($this->controller->$modelClass->displayField) ? $this->controller->$modelClass->displayField : 'id';
 		$tamLista			= isset($this->controller->viewVars['tamLista']) ? $this->controller->viewVars['tamLista'] : '90%';
-		$on_read_view		= isset($this->controller->viewVars['on_read_view']) ? $this->controller->viewVars['on_read_view'] : '';
-		$on_read_view 		.= 'setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);'."\n";
 		$singularVar 		= Inflector::variable($modelClass);
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
 		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
 		$action				= $this->controller->action;
+		$on_read_view		= '';
 		$this->controller->set(compact('action','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
@@ -76,12 +78,12 @@ class CpwebCrudComponent extends Object {
 			if ($this->controller->$modelClass->save($this->controller->data))
 			{
 				$this->controller->Session->setFlash('Registro atualizado com sucesso ...');
-				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
+				$this->controller->viewVars['on_read_view'] = '$("#flashMessage").css("color","green")'."\n";
 				$this->controller->data = $this->controller->$modelClass->read(null,$id);
 			} else
 			{
 				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
-				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
+				$this->controller->viewVars['on_read_view'] = '$("#flashMessage").css("color","red")'."\n";
 			}
 		} else
 		{
@@ -167,7 +169,7 @@ class CpwebCrudComponent extends Object {
 		$this->controller->viewVars['botoesEdicao']['Salvar'] 	= array();
 		$this->controller->viewVars['botoesEdicao']['Listar'] 	= array();
 		$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
-		$this->controller->viewVars['on_read_view'] .= '$("#msgEdicao").css("color","red")'."\n";
+		$this->controller->viewVars['on_read_view'] = '$("#msgEdicao").css("color","red")'."\n";
 		$this->controller->Session->setFlash('Excluindo '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);
 		$this->controller->render('../cpweb_crud/editar');
 	}

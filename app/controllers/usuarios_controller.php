@@ -27,7 +27,7 @@ class UsuariosController extends AppController {
 	 * @access public
 	 */
 	public $name = 'Usuarios';
-	
+
 	/**
 	 * Modelo
 	 * 
@@ -35,7 +35,7 @@ class UsuariosController extends AppController {
 	 * @access public
 	 */
 	public $uses = 'Usuario';
-	
+
 	/**
 	 * Ajudantes
 	 *  
@@ -43,7 +43,7 @@ class UsuariosController extends AppController {
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
-	
+
 	/**
 	 * Componentes
 	 * 
@@ -85,7 +85,7 @@ class UsuariosController extends AppController {
 	{
 		$this->CpwebCrud->editar($id);
 	}
-	
+
 	/**
 	 * Exibe formulário de inclusão para o model
 	 * 
@@ -95,7 +95,7 @@ class UsuariosController extends AppController {
 	{
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
 	 * Exibe formulário de exclusão para o model
 	 * 
@@ -125,7 +125,7 @@ class UsuariosController extends AppController {
 	{
 		$this->CpwebCrud->imprimir($id);
 	}
-	
+
 	/**
 	 * Realiza uma pesquisa no banco de dados
 	 * 
@@ -136,5 +136,88 @@ class UsuariosController extends AppController {
 	public function pesquisar($texto='',$campo=null)
 	{
 		$this->CpwebCrud->pesquisar($texto,$campo);
+	}
+
+	/**
+	 * Exibe a tela de login do sistema
+	 * 
+	 * @return void
+	 */
+	public function login()
+	{
+		if ($this->Session->check('login'))
+		{
+			$this->Session->setFlash('Este usuário já está autenticado');
+			$this->redirect('/');
+		}
+		
+		if (!empty($this->data))
+		{
+			if ( !empty($this->data['login']['edLogin']) && !empty($this->data['login']['edSenha']) )
+			{
+				$msg		= 'Login Autenticado com sucesso !!!';
+				$login		= $this->data['login']['edLogin'];
+				$hash = Security::getInstance(); Security::setHash($hash->hashType);
+				$senha = Security::hash(Configure::read('Security.salt') . $this->data['login']['edSenha']);
+				$parametros['conditions'] = array('Usuario.login'=>$login,'Usuario.senha'=>$senha);
+
+				$dataLogin 	= $this->Usuario->find('first',$parametros);
+				if (!is_array($dataLogin))
+				{
+					$this->Session->setFlash('Login e/ou senha inválidos !!!');
+					$this->set('on_read_view','$("#flashMessage").css("color","red");');
+					$this->set('msgErro','Login e/ou senha inválidos !!!');
+				} else
+				{
+					$this->setSessao($dataLogin);
+					$this->Session->setFlash('Login autenticado com sucesso ...');
+					$onRead  = '$("#flashMessage").css("color","green");';
+					$onRead .= 'setTimeout(function(){ window.location="'.Router::url('/',true).'";  },4000);';
+					$this->set('on_read_view',$onRead);
+					$this->set('msgOk','<a href="'.Router::url('/',true).'">Clique aqui para ser redirecionado para a página principal.</a>');
+				}
+			} else
+			{
+				$this->set('msgErro','Preencha todos os campos por favor !!!');
+			}
+		} else
+		{
+			$this->Session->setFlash('Entre com o login e senha válidos ...');
+		}
+	}
+	
+	/**
+	 * método sair
+	 */
+	public function sair()
+	{
+		$this->Session->destroy();
+		$this->Session->setFlash('Saída executada com sucesso ...'); 
+		$this->redirect('/');
+	}
+	
+	/**
+	 * 
+	 */
+	private function setSessao($dados=array())
+	{
+		if (!count($dados)) return false;
+
+		// grava na sesssão o login do usuário
+		$this->Session->write('login',$dados['Usuario']['login']);
+
+		// grava na sessão os perfis do usuário
+		foreach($dados['Perfil'] as $_item => $campos) $perfis[$campos['id']] = $campos['nome'];
+		$this->Session->write('perfis',$perfis);
+
+		// grava da sessão a data de entrada
+		$this->Session->write('entrada', mktime (0, 0, 0, date('m'),date('d'),date('Y')));
+
+		// atualiza o número de acessos e a data de acesso do usuário
+		$acessos = ($dados['Usuario']['acessos']+1);
+		$salvar['Usuario.acessos'] = $acessos;
+		$salvar['Usuario.ultimo_acesso'] = '"'.date('Y-m-d H:i:s').'"';
+		$condicao['Usuario.id'] = $dados['Usuario']['id'];
+		$this->Usuario->updateAll($salvar,$condicao);
 	}
 }
