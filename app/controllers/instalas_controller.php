@@ -33,8 +33,7 @@ class InstalasController extends AppController {
 	/**
 	 * tabelas que serão populadas
 	 */
-	//public $csv	= array('estados','perfis','usuarios_perfis','cidades');
-	public $csv	= array('estados','perfis','usuarios_perfil');
+	public $csv	= array('estados','perfis','usuarios_perfil','cidades');
 	
 	/**
 	 * Modelo
