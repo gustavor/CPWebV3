@@ -55,12 +55,23 @@ class Usuario extends AppModel {
 		'Perfil' => array
 		(
 			'className'		=> 'Perfi',
-			'joinTable'		=> 'usuarios_perfis',
+			'joinTable'		=> 'usuarios_perfil',
 			'foreignKey'	=> 'usuarios_id',
 			'associationForeignKey' => 'perfis_id',
 			'unique'		=> true
 		)
 	);
+	
+
+	/**
+	 * Apaga os relacionamento do usuário 
+	 */
+	public function beforeDelete()
+	{
+		// apagando relacionamentos
+		$sql = 'delete from usuarios_perfil where usuarios_id='.$this->id;
+		if ($this->query($sql)) return true; else return false;
+	}
 	
 	/**
 	 * 

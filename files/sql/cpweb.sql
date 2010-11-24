@@ -700,9 +700,9 @@ DROP TABLE IF EXISTS `cpwebv3`.`perfis` ;
 
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`perfis` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `nome` VARCHAR(45) NULL ,
-  `created` DATETIME NULL ,
-  `modified` VARCHAR(45) NULL ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `i_nome` (`nome` ASC) )
 ENGINE = InnoDB
@@ -712,11 +712,11 @@ COMMENT = 'tabela de perfis';
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`usuarios_perfis`
+-- Table `cpwebv3`.`usuarios_perfil`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`usuarios_perfis` ;
+DROP TABLE IF EXISTS `cpwebv3`.`usuarios_perfil` ;
 
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios_perfis` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios_perfil` (
   `usuarios_id` INT NOT NULL ,
   `perfis_id` INT NOT NULL ,
   PRIMARY KEY (`usuarios_id`, `perfis_id`) ,

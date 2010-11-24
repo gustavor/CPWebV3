@@ -47,6 +47,7 @@
 	$campos['Usuario']['modified']['options']['dateFormat'] 		= 'DMY';
 	$campos['Usuario']['modified']['options']['timeFormat'] 		= '24';
 	$campos['Usuario']['modified']['options']['disabled'] 			= 'disabled';
+	$campos['Usuario']['modified']['estilo_td'] 					= 'style="text-align: center; "';
 
 	$campos['Usuario']['created']['options']['label']['text'] 		= 'Criado';
 	$campos['Usuario']['created']['options']['dateFormat'] 			= 'DMY';
@@ -54,7 +55,7 @@
 	$campos['Usuario']['created']['options']['disabled'] 			= 'disabled';
 
 	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
-	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.aniversario','Usuario.ultimo_acesso');
+	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.aniversario','Usuario.modified','Usuario.ultimo_acesso');
 
 	// se estamos na edição
 	if ($this->action=='editar')
@@ -67,7 +68,7 @@
 		// limpando o campo ultimo acesso
 		if ($this->data['Usuario']['ultimo_acesso']=='0000-00-00 00:00:00')
 		{
-			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo');
+			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','#','Usuario.modified');
 		}
 		
 		// usuário logado é diferente do registro a ser editado
@@ -79,6 +80,13 @@
 		$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo');
 		$campos['Usuario']['login']['options']['readonly']				= null;
 		$on_read_view .= '$("#UsuarioLogin").focus();';
+	}
+	
+	if ($this->action=='novo' || $this->action=='editar')
+	{
+		$on_read_view .= "\n".'$("#UsuarioLogin").keyup(function(){ $(this).val($(this).val().toLowerCase()); });';
+		$on_read_view .= "\n".'$("#UsuarioNome").keyup(function(){ $(this).val($(this).val().toUpperCase()); });';
+		$on_read_view .= "\n".'$("#UsuarioEmail").keyup(function(){ $(this).val($(this).val().toLowerCase()); });';
 	}
 
 	// se estamos na edição

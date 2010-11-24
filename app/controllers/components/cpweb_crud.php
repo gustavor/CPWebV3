@@ -144,13 +144,11 @@ class CpwebCrudComponent extends Object {
 		if ($this->controller->$modelClass->delete($id)) 
 		{
 			$this->controller->Session->setFlash('Registro excluído com sucesso !!!');
+			$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/listar'.$this->getParametrosLista());
 		} else
 		{
 			$this->controller->Session->setFlash('Não foi possível deletar o id '.$id);
 		}
-		
-		// redirecionando para a lista.
-		$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/listar'.$this->getParametrosLista());
 	}
 	
 	/**
