@@ -35,7 +35,7 @@
 </div>
 
 <div id="userOn">
-	<?php if ($this->Session->check('login')) echo '<a href="">'.$this->Session->read('login').'</a> | <a href="'.Router::url('/',true).'usuarios/sair">sair</a>'; ?>
+	<?php if ($this->Session->check('login')) echo '<a href="'.Router::url('/',true).'perfil/'.$this->Session->read('login').'">'.$this->Session->read('login').'</a> | <a href="'.Router::url('/',true).'usuarios/sair">sair</a>'; ?>
 
 </div>
 

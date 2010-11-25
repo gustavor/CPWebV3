@@ -212,8 +212,11 @@ class UsuariosController extends AppController {
 		$this->Session->write('login',$dados['Usuario']['login']);
 
 		// grava na sessão os perfis do usuário
-		foreach($dados['Perfil'] as $_item => $campos) $perfis[$campos['id']] = $campos['nome'];
-		$this->Session->write('perfis',$perfis);
+		if (isset($dados['Perfil']))
+		{
+			foreach($dados['Perfil'] as $_item => $campos) $perfis[$campos['id']] = $campos['nome'];
+			if (isset($perfis)) $this->Session->write('perfis',$perfis);
+		}
 
 		// grava da sessão a data de entrada
 		$this->Session->write('entrada', mktime (0, 0, 0, date('m'),date('d'),date('Y')));

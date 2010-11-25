@@ -55,4 +55,3 @@
 </div>
 </div>
 <?php include_once('../views/cpweb_crud/rodape.ctp'); ?>
-<?php echo '<pre>'.print_r($this->validationErrors,true).'</pre>'; ?>
