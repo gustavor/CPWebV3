@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class PaineisController extends AppController {
+class PainelController extends AppController {
 	/**
 	 * nome
 	 * @var string

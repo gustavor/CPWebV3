@@ -26,5 +26,9 @@
 	// installCroogo
 	//require APP . 'plugins' . DS . 'cake_ptbr' . DS . 'config' . DS . 'bootstrap.php';
 
+	// mudando a criptografia pra aumentar a segurança
+	App::import('Core','Security');
+	Security::setHash('sha256');
+
 
 ?>

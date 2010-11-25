@@ -33,6 +33,11 @@
 	letter-spacing: 4px;
 }
 
+#cabecalho #texto_va a
+{
+	font-weight: bold;
+}
+
 #cabecalho #texto_va a:hover
 {
 	color: red;

@@ -1,7 +1,7 @@
 <?php
 
-	// página principal
-	Router::connect('/', array('controller' => 'paineis', 'action' => 'index'));
+	// página principal (controller painel)
+	Router::connect('/', array('controller' => 'painel', 'action' => 'index'));
 	
 	// pagina de instalação
 	Router::connect('/install', array('controller'=>'instala','action'=>'index') );

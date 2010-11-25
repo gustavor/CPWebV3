@@ -1,4 +1,4 @@
-<h2>Instalação <?php echo SISTEMA; ?></h2>
+<?php echo $this->element('cpweb_cab'); ?>
 <?php
 	$on_read_view = isset($on_read_view) ? $on_read_view : '';
 	require_once LIBS . 'model' . DS . 'connection_manager.php';
@@ -66,6 +66,9 @@
 <?php
 	$on_read_view .= "\n".'$("#instalaEdNome").focus();';
 	$on_read_view .= "\n".'$("#formInstala").submit(function(){ $("#instala").fadeOut(1000); $("#aguarde").show(); });';
+	$on_read_view .= "\n".'$("#userOn").fadeOut();';
+	$on_read_view .= "\n".'$("#instalaEdNome").css("text-transform","uppercase")';
+	$on_read_view .= "\n".'$("#instalaEdEmail").css("text-transform","lowercase")';
 	$this->Html->css('instala.css', null, array('inline' => false));
 	include_once('../views/cpweb_crud/rodape.ctp');
 ?>

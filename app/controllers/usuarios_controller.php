@@ -150,40 +150,15 @@ class UsuariosController extends AppController {
 	 */
 	public function login()
 	{
-		if ($this->Session->check('login'))
+		if ($this->Session->read('Auth.Usuario.login'))
 		{
-			$this->Session->setFlash('Este usuário já está autenticado');
-			$this->redirect('/');
-		}
-		
-		if (!empty($this->data))
-		{
-			if ( !empty($this->data['login']['edLogin']) && !empty($this->data['login']['edSenha']) )
+			if ($this->Auth->user())
 			{
-				$msg		= 'Login Autenticado com sucesso !!!';
-				$login		= $this->data['login']['edLogin'];
-				$hash = Security::getInstance(); Security::setHash($hash->hashType);
-				$senha = Security::hash(Configure::read('Security.salt') . $this->data['login']['edSenha']);
-				$parametros['conditions'] = array('Usuario.login'=>$login,'Usuario.senha'=>$senha);
-
-				$dataLogin 	= $this->Usuario->find('first',$parametros);
-				if (!is_array($dataLogin))
-				{
-					$this->Session->setFlash('Login e/ou senha inválidos !!!');
-					$this->set('on_read_view','$("#flashMessage").css("color","red");');
-					$this->set('msgErro','Login e/ou senha inválidos !!!');
-				} else
-				{
-					$this->setSessao($dataLogin);
-					$this->Session->setFlash('Login autenticado com sucesso ...');
-					$onRead  = '$("#flashMessage").css("color","green");';
-					$onRead .= 'setTimeout(function(){ window.location="'.Router::url('/',true).'";  },4000);';
-					$this->set('on_read_view',$onRead);
-					$this->set('msgOk','<a href="'.Router::url('/',true).'">Clique aqui para ser redirecionado para a página principal.</a>');
-				}
+				$this->Session->setFlash('Este usuário já está autenticado');
+				$this->redirect('/');
 			} else
 			{
-				$this->set('msgErro','Preencha todos os campos por favor !!!');
+				$this->Session->setFlash('O usuário não pode ser autenticado !!!');
 			}
 		} else
 		{
@@ -202,7 +177,10 @@ class UsuariosController extends AppController {
 	}
 	
 	/**
+	 * Atualiza a sessão com os dados do usuário logado
 	 * 
+	 * @parameter $dados array Dados do aluno
+	 * @return void
 	 */
 	private function setSessao($dados=array())
 	{
@@ -220,8 +198,19 @@ class UsuariosController extends AppController {
 
 		// grava da sessão a data de entrada
 		$this->Session->write('entrada', mktime (0, 0, 0, date('m'),date('d'),date('Y')));
-
-		// atualiza o número de acessos e a data de acesso do usuário
+		
+		// Atualizando o último acesso
+		$this->setUltimoAcesso($dados);
+	}
+	
+	/**
+	 * Atualiza o último acesso do usuário logado
+	 * 
+	 * @parameter $dados array Dados do usuário
+	 * @return void
+	 */
+	private function setUltimoAcesso($dados=array())
+	{
 		$acessos = ($dados['Usuario']['acessos']+1);
 		$salvar['Usuario.acessos'] = $acessos;
 		$salvar['Usuario.ultimo_acesso'] = '"'.date('Y-m-d H:i:s').'"';

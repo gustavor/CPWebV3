@@ -4,19 +4,18 @@
 	$opcoes['senha']['label']['text'] 	= 'Senha';
 	$opcoes['senha']['type'] 			= 'password';
 	$opcoes['senha']['value'] 			= '';
-	
 	$on_read_view  = isset($on_read_view) ? $on_read_view : '';
-	$on_read_view .= "\n\t\t".'$("#loginEdLogin").focus();';
+	$on_read_view .= "\n\t\t".'$("#UsuarioLogin").focus();';
 ?>
 <?php echo $this->element('cpweb_cab'); ?>
 <?php if (!isset($msgOk)): ?>
 <div id='login'>
-	<?php echo $this->Form->create('login',array('url'=>Router::url('/',true).'login') ); ?>
+	<?php echo $this->Form->create('Usuario',array('controller'=>'usuarios','action'=>'login') ); ?>
 
 	<fieldset>
-		<?php echo $this->Form->input('edLogin',$opcoes['login']); ?>
+		<?php echo $this->Form->input('login',$opcoes['login']); ?>
 
-		<?php echo $this->Form->input('edSenha',$opcoes['senha']); ?>
+		<?php echo $this->Form->input('senha',$opcoes['senha']); ?>
 
 	</fieldset>
 	<?php echo $this->Form->end('Enviar'); ?>

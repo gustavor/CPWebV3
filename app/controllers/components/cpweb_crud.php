@@ -28,9 +28,6 @@ class CpwebCrudComponent extends Object {
 	function startup(&$controller) 
 	{
 		$this->controller 	=& $controller;
-		
-		// se não foi autenticado vol pro login
-		if (!$this->controller->Session->check('login') && $this->controller->action != 'login') $this->controller->redirect('/login');
 		$title_for_layout 	= __(SISTEMA.' :: ', true).Inflector::humanize($this->controller->viewPath).' :: '.Inflector::humanize($this->controller->action);
 		$modelClass 		= $this->controller->modelClass;
 		$primaryKey 		= isset($this->controller->$modelClass->primaryKey)   ? $this->controller->$modelClass->primaryKey : 'id';
@@ -40,7 +37,6 @@ class CpwebCrudComponent extends Object {
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
-		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
 		$action				= $this->controller->action;
 		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$on_read_view		= '';
@@ -59,7 +55,6 @@ class CpwebCrudComponent extends Object {
 		$this->setParametrosLista();
 		$this->setBotoesLista();
 		$this->setFerramentasLista();
-		if ($this->renderizar) $this->controller->render('../cpweb_crud/listar');
 	 }
 	 
 	 /**
@@ -95,7 +90,6 @@ class CpwebCrudComponent extends Object {
 		// configurando os botões da edição, configurando os relacionamentos, atualizando a msg e renderizando a página
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
-		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	  }
 
 	 /**
@@ -128,7 +122,6 @@ class CpwebCrudComponent extends Object {
 		// configura os botões do formulário, os relacionamentos e renderiza.
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
-		if ($this->renderizar) $this->controller->render('../cpweb_crud/editar');
 	 }
 	
 	/**
@@ -162,7 +155,6 @@ class CpwebCrudComponent extends Object {
 	 */
 	public function excluir($id=null)
 	{
-		$this->renderizar 	= false;
 		$this->editar($id);
 		$modelClass 											= $this->controller->modelClass;
 		$this->controller->viewVars['botoesEdicao']['Excluir']	= array();
@@ -182,7 +174,7 @@ class CpwebCrudComponent extends Object {
 	 */
 	public function semPermissao()
 	{
-		if ($this->renderizar) $this->controller->render('../cpweb_crud/sem_permissao');
+		$this->controller->render('../cpweb_crud/sem_permissao');
 	}
 
 	/**

@@ -80,9 +80,10 @@ class Usuario extends AppModel {
 	public function confereSenha()
 	{
 		// se a senha foi digitada duas vezes
+		if ($this->data['Usuario']['senha']=='4adbc8cacf5e6ede20342fcbb4ff1043efd10e3ccd29232292ee153047d6cff0') $this->data['Usuario']['senha'] = '';
 		if (!empty($this->data['Usuario']['senha']) || !empty($this->data['Usuario']['senha2']))
 		{
-			if ($this->data['Usuario']['senha']!=$this->data['Usuario']['senha2']) return false;
+			if ($this->data['Usuario']['senha']!=Security::hash(Configure::read('Security.salt') . $this->data['Usuario']['senha2'])) return false;
 		}
 		return true;
 	}
@@ -102,10 +103,10 @@ class Usuario extends AppModel {
 		// encriptando a senha
 		if (isset($this->data['Usuario']['senha']) && !empty($this->data['Usuario']['senha2']))
 		{
-			$hash = Security::getInstance();
-			Security::setHash($hash->hashType);
-			$this->data['Usuario']['senha'] = Security::hash(Configure::read('Security.salt') . $this->data['Usuario']['senha']);
+			/*$hash = Security::getInstance();
+			Security::setHash($hash->hashType);*/
+			//$this->data['Usuario']['senha'] = Security::hash(Configure::read('Security.salt') . $this->data['Usuario']['senha']);
 		}
 		return true;
-	}
+	}	
 }

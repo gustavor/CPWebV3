@@ -39,7 +39,7 @@ class InstalaController extends AppController {
 	 * Modelo
 	 */
 	public $uses = 'Instala';
-	
+
 	/**
 	 * Método start
 	 * 
@@ -91,6 +91,7 @@ class InstalaController extends AppController {
 		if (!file_exists($arq))
 		{
 			$this->erro = 'Não foi possível localicar o arquivo '.$arq;
+			exit('não foi possível localizar o arquivo '.$arq);
 			return false;
 		}
 		$handle  = fopen($arq,"r");
@@ -111,8 +112,8 @@ class InstalaController extends AppController {
 		}
 
 		// encriptando a senha
-		$hash = Security::getInstance();
-		Security::setHash($hash->hashType);
+		/*$hash = Security::getInstance();
+		Security::setHash($hash->hashType);*/
 		$senha = Security::hash(Configure::read('Security.salt') . $senha);
 
 		// inclui usuário administrador
