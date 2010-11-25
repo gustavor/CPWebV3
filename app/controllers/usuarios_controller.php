@@ -83,6 +83,11 @@ class UsuariosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		if (isset($this->params['perfilLogin']))
+		{
+			$id = $this->Usuario->find('first',array('conditions'=>array('Usuario.login'=>$this->params['perfilLogin']), 'fields'=>'Usuario.id'));
+			$id = $id['Usuario']['id'];
+		}
 		$this->CpwebCrud->editar($id);
 	}
 

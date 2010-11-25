@@ -17,10 +17,7 @@
 </script>
 <?php if (file_exists(WWW_ROOT.'js/'.$this->layout.'.js')) 					echo $this->Html->script($this->layout)."\n"; ?>
 <?php if (file_exists(WWW_ROOT.'js/'.$this->params['controller'].'.js')) 	echo $this->Html->script($this->params['controller'])."\n"; ?>
-<?php if (file_exists(WWW_ROOT.'js/'.$this->action.'.js')) 					echo $this->Html->script($this->action)."\n"; ?>
 <?php if (isset($view_js)) echo $this->Html->script($view_js); ?>
 
 <?php if (file_exists(WWW_ROOT.'css/'.$this->layout.'.css')) 				echo $this->Html->css($this->layout)."\n"; ?>
 <?php if (file_exists(WWW_ROOT.'css/'.$this->params['controller'].'.css')) 	echo $this->Html->css($this->params['controller'])."\n"; ?>
-<?php if (file_exists(WWW_ROOT.'css/'.$this->action.'.css')) 				echo $this->Html->css($this->action)."\n"; ?>
-

@@ -11,5 +11,8 @@
 	
 	// sair
 	Router::connect('/sair', array('controller'=>'usuarios','action'=>'sair') );
+	
+	// perfil
+	Router::connect('/perfil/:perfilLogin', array('controller'=>'usuarios','action'=>'editar') );
 
 ?>

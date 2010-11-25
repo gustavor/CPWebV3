@@ -36,7 +36,7 @@ class Usuario extends AppModel {
             'nome' => array(
                 'rule' 		=> 'notEmpty',
                 'required' 	=> true,
-                'message' 	=> 'É necessário informar o nome da Cidade!'
+                'message' 	=> 'É necessário informar o nome do Usuário!'
             ),
 
             'senha' => array(

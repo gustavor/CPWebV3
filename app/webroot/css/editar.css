@@ -77,7 +77,12 @@
 
 .error-message
 {
-	color: red;
+	color: black;
+	float: left;
+	position: absolute;
+	margin: 22px 0px 0px 90px;
+	background-color: yellow;
+	/*display: none;*/
 }
 
 .form-error

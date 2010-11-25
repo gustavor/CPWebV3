@@ -42,8 +42,9 @@ class CpwebCrudComponent extends Object {
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
 		$this->renderizar	= isset($this->controller->renderizar) ? $this->controller->renderizar : 1;
 		$action				= $this->controller->action;
+		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$on_read_view		= '';
-		$this->controller->set(compact('action','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
+		$this->controller->set(compact('action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
 	/**

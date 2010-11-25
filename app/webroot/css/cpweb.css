@@ -13,39 +13,43 @@
 	font-weight: bold;
 }
 
-h2
+#cabecalho
 {
 	background: #5483dd url('../img/fundo2.png') repeat left;
 	height: 60px;
 	line-height: 40px;
 	border-bottom: 2px solid #3f4757;
 	color: #fff;
+	margin: 0px;
+	padding: 0px;
 }
 
-h2 a
+#cabecalho a
 {
-	margin: 0px 0px 0px 30px;
+	margin: 0px 0px 0px 0px;
 	font-size: 16px;
 	color: #fff;
-	/*font-weight: bold;*/
-	letter-spacing: 4px;
 	text-decoration: none;
-	/*background-color: #ddd;
-	position: absolute;*/
+	letter-spacing: 4px;
 }
 
-h2 a:hover
+#cabecalho #texto_va a:hover
 {
-	color: #red;
+	color: red;
 }
 
-#logo_va
+#cabecalho #logo_va
 {
 	background: url('../img/logo_va.png') no-repeat left;
 	width: 55px;
 	height: 30px;
 	float: left;
 	margin:  5px 0px 0px 8px;
+}
+
+#cabecalho #texto_va
+{
+	margin: 0px 0px 0px 90px;
 }
 
 .cake-sql-log
@@ -68,7 +72,7 @@ h2 a:hover
 #logoCake
 {
 	float: right;
-	margin: 42px 5px 0px 0px;
+	margin: 5px 5px 0px 0px;
 }
 
 #logo
@@ -77,4 +81,23 @@ h2 a:hover
 	width: 400px;
 	height: 400px;
 	margin: 10px auto;
+}
+
+#userOn
+{
+	margin: 40px 10px 0px 0px;
+	position: absolute;
+	right: 5px;
+	color: #fff;
+}
+
+#userOn a
+{
+	text-decoration: none;
+	color: #fff;
+}
+
+#userOn a:hover
+{
+	color: red;
 }

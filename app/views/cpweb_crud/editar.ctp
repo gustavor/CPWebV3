@@ -1,7 +1,6 @@
-<?php $arq = '../views/cpweb_crud/view_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
-<?php $this->Html->css('edicao.css', null, array('inline' => false)); ?>
-<?php $this->Html->script('edicao.js', array('inline' => false)); ?>
-<?php $id = isset($this->data[$modelClass][$primaryKey]) ? $this->data[$modelClass][$primaryKey] : 0; ?>
+<?php $this->Html->css('editar.css', null, array('inline' => false)); ?>
+<?php $this->Html->script('editar.js', array('inline' => false)); ?>
+<?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
 
 <div id='edicao'>
 
@@ -56,3 +55,4 @@
 </div>
 </div>
 <?php include_once('../views/cpweb_crud/rodape.ctp'); ?>
+<?php echo '<pre>'.print_r($this->validationErrors,true).'</pre>'; ?>

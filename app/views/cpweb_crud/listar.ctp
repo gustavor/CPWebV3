@@ -1,6 +1,7 @@
-<?php $arq = '../views/cpweb_crud/view_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
-<?php $this->Html->css('lista.css', null, array('inline' => false)); ?>
-<?php $this->Html->script('lista.js', array('inline' => false)); ?>
+<?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
+<?php $this->Html->script('listar.js', array('inline' => false)); ?>
+<?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
+
 <div class="lista">
 <?php echo $this->element('cpweb_cab'); ?>
 
