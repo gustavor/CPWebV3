@@ -7,17 +7,21 @@
 <?php echo $this->Html->css(mb_strtolower(SISTEMA))."\n"; ?>
 
 <?php echo $this->Html->script('jquery-1.4.2.js')."\n"; ?>
+<?php if ($this->Session->check('Auth.Usuario.login')) echo $this->Html->script('superfish-1.4.8/superfish.js')."\n"; ?>
 
 <script type="text/javascript">
-	var url = "<?php echo Router::url('/',true); ?>";
-	$(document).ready (function()
-	{
-		setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);<?php if (isset($on_read_view))  echo $on_read_view."\n"; else echo "\n"; ?>
-	});
+var url = "<?php echo Router::url('/',true); ?>";
+$(document).ready (function()
+{
+setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);
+<?php if (isset($on_read_view))  echo $on_read_view."\n"; else echo "\n"; ?>
+});
 </script>
+
 <?php if (file_exists(WWW_ROOT.'js/'.$this->layout.'.js')) 					echo $this->Html->script($this->layout)."\n"; ?>
 <?php if (file_exists(WWW_ROOT.'js/'.$this->params['controller'].'.js')) 	echo $this->Html->script($this->params['controller'])."\n"; ?>
 <?php if (isset($view_js)) echo $this->Html->script($view_js); ?>
 
 <?php if (file_exists(WWW_ROOT.'css/'.$this->layout.'.css')) 				echo $this->Html->css($this->layout)."\n"; ?>
 <?php if (file_exists(WWW_ROOT.'css/'.$this->params['controller'].'.css')) 	echo $this->Html->css($this->params['controller'])."\n"; ?>
+<?php if ($this->Session->check('Auth.Usuario.login')) echo $this->Html->css('superfish-1.4.8/superfish')."\n"; ?>

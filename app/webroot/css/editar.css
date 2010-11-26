@@ -40,13 +40,13 @@
 	-webkit-border-radius: 6px;
 }
 
-#botoesEdicao
+#edicao #botoesEdicao
 {
 	margin: 0px 0px 0px 20px;
 	float: left;
 }
 
-#msgEdicao
+#edicao #msgEdicao
 {
 	margin: 0px 0px 0px 20px;
 	float: left;
@@ -54,17 +54,17 @@
 	display: none;
 }
 
-.edicaoDiv
+#edicao .edicaoDiv
 {
 	float: left;
 }
 
-.quebraLinha
+#edicao .quebraLinha
 {
 	line-height: 26px;
 }
 
-.inEdicao
+#edicao .inEdicao
 {
 	width: 130px;
 	display:block;
@@ -76,7 +76,7 @@
 /*	background-color: #ddd;*/
 }
 
-.error-message
+#edicao .error-message
 {
 	color: black;
 	float: left;
@@ -86,13 +86,13 @@
 	/*display: none;*/
 }
 
-.form-error
+#edicao .form-error
 {
 	background-color: #ddd;
 	float: left;
 }
 
-.camposEdicao
+#edicao .camposEdicao
 {
 	border: 1px solid #bbb;
 	-moz-border-radius: 6px;

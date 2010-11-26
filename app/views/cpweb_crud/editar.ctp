@@ -4,8 +4,6 @@
 
 <div id='edicao'>
 
-<?php echo $this->element('cpweb_cab'); ?>
-
 <?php echo $this->Form->create($modelClass)."\n"; ?>
 <?php echo $this->Form->input($primaryKey)."\n"; ?>
 

@@ -57,10 +57,59 @@
 	margin: 0px 0px 0px 90px;
 }
 
+#cabecalho #userOn
+{
+	margin: 29px 10px 0px 0px;
+	position: absolute;
+	right: 5px;
+	color: #fff;
+}
+
+#cabecalho #userOn a
+{
+	text-decoration: none;
+	color: #fff;
+}
+
+#cabecalho #userOn a:hover
+{
+	color: red;
+}
+
+#cabecalho #menu
+{
+	position: absolute;
+	top: 40px;
+	width: auto;
+}
+
+#cabecalho #menu a
+{
+	font-size: 12px;
+}
+
+#cabecalho #menu li li a
+{
+	color: #333;
+}
+
 .cake-sql-log
 {
-	font-size: 9px;
+	font-size: 12px;
 	margin-top: 50px;
+	width: 98%;
+	margin: 0px auto;
+}
+
+.cake-sql-log tr th
+{
+	background-color: #ddd;
+	border: 1px solid #000;
+}
+
+.cake-sql-log tr td
+{
+	border-bottom: 1px dashed #aaa;
 }
 
 .btEdicao
@@ -88,21 +137,3 @@
 	margin: 10px auto;
 }
 
-#userOn
-{
-	margin: 40px 10px 0px 0px;
-	position: absolute;
-	right: 5px;
-	color: #fff;
-}
-
-#userOn a
-{
-	text-decoration: none;
-	color: #fff;
-}
-
-#userOn a:hover
-{
-	color: red;
-}

@@ -3,7 +3,6 @@
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
 
 <div class="lista">
-<?php echo $this->element('cpweb_cab'); ?>
 
 <table class="paginas" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
 <tr>
