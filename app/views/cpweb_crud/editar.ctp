@@ -39,7 +39,7 @@
 						echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->data[$singularVar][$_field].'</div>'."\n";
 						break;
 					default:
-						echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n";
+						echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n\n";
 						break;
 				}
 			}
@@ -54,4 +54,5 @@
 
 </div>
 </div>
+<?php if ($this->action=='excluir') $on_read_view .= '$("#msgEdicao").show();'; ?>
 <?php include_once('../views/cpweb_crud/rodape.ctp'); ?>

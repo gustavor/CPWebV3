@@ -50,7 +50,8 @@
 {
 	margin: 0px 0px 0px 20px;
 	float: left;
-	position: relative;
+	position: absolute;
+	display: none;
 }
 
 .edicaoDiv
@@ -80,7 +81,7 @@
 	color: black;
 	float: left;
 	position: absolute;
-	margin: 22px 0px 0px 90px;
+	margin: 22px 0px 0px -90px;
 	background-color: yellow;
 	/*display: none;*/
 }

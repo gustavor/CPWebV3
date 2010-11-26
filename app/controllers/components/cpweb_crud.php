@@ -162,7 +162,6 @@ class CpwebCrudComponent extends Object {
 		$this->controller->viewVars['botoesEdicao']['Salvar'] 	= array();
 		$this->controller->viewVars['botoesEdicao']['Listar'] 	= array();
 		$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
-		$this->controller->viewVars['on_read_view'] = '$("#msgEdicao").css("color","red")'."\n";
 		$this->controller->Session->setFlash('Excluindo '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);
 		$this->controller->render('../cpweb_crud/editar');
 	}
@@ -223,8 +222,9 @@ class CpwebCrudComponent extends Object {
 				$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
 				$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
 			}
-			$botoes['Excluir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/excluir/'.$id.'\'';
+			$botoes['Excluir']['onClick']	= 'javascript:$(\'#botoesEdicao\').fadeOut(); $(\'#msgEdicao\').show(100);';
 			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
+			$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:return false;" onclick="javascript:$(\'#msgEdicao\').fadeOut(); $(\'#botoesEdicao\').show();" class="linkEdicaoExcluir">Não</a>';
 		}
 		$botoes['Salvar']['type']		= 'submit';
 		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';

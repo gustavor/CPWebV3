@@ -99,6 +99,7 @@ class UsuariosController extends AppController {
 	public function novo()
 	{
 		$this->CpwebCrud->novo();
+		$this->render('editar');
 	}
 
 	/**
