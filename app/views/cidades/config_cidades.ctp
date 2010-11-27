@@ -4,7 +4,9 @@
 	$campos['Cidade']['modified']['options']['label']['text'] 	= 'Última Atualiazação';
 	$campos['Cidade']['created']['options']['label']['text'] 	= 'Criação';
 	$campos['Cidade']['modified']['options']['dateFormat'] 		= 'DMY';
+	$campos['Cidade']['modified']['options']['timeFormat'] 		= '24';
 	$campos['Cidade']['created']['options']['dateFormat'] 		= 'DMY';
+	$campos['Cidade']['created']['options']['timeFormat'] 		= '24';
 	$campos['Estado']['uf']['options']['label']['text'] 		= 'Uf';
 	$campos['Estado']['nome']['options']['label']['text'] 		= 'Estado';
 

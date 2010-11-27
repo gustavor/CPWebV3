@@ -1,7 +1,7 @@
 
 <ul class="sf-menu">
 	<li>
-		<a href="<?php echo Router::url('/'); ?>">Painel</a>
+		<a href="<?php echo Router::url('/'); ?>">Principal</a>
 
 	</li>
 	<li>
