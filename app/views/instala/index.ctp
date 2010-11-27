@@ -1,4 +1,3 @@
-<?php echo $this->element('cpweb_cab'); ?>
 <?php
 	$on_read_view = isset($on_read_view) ? $on_read_view : '';
 	require_once LIBS . 'model' . DS . 'connection_manager.php';

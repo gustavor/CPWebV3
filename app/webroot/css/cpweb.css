@@ -6,9 +6,9 @@
 
 #flashMessage
 {
-	float: right;
+	position: absolute;
 	color: #fff;
-	margin: 15px 40px 0px 0px;
+	right: 300px;
 	font-family: timew new roman;
 	font-weight: bold;
 }
@@ -125,8 +125,8 @@
 
 #logoCake
 {
-	float: right;
-	margin: 5px 15px 0px 0px;
+	right: 20px;
+	position: absolute;
 }
 
 #logo
