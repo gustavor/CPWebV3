@@ -17,7 +17,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<?php echo $this->element('cpweb_cab'); ?>
 <h2><?php __('Missing Database Table'); ?></h2>
 <p class="error">
 	<strong><?php __('Error'); ?>: </strong>

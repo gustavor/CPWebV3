@@ -1,4 +1,3 @@
-<?php echo $this->element('cpweb_cab'); ?>
 <br /><br /><br />
 <center><h3>Você não tem permissão para acessar esta tela.</h2>
 <br /><br />
