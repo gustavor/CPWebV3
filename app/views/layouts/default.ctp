@@ -30,7 +30,6 @@
 <div id="container">
 
 <div id='cabecalho'>
-	<?php echo $this->Session->flash(); ?>
 	<div id="logoCake">
 		<?php echo $this->Html->link($this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),'http://www.cakephp.org/',array('target' => '_blank', 'escape' => false)); ?>
 
@@ -43,15 +42,19 @@
 		<?php if ($this->Session->check('Auth.Usuario.login')) echo '<a href="'.Router::url('/',true).'perfil/'.$this->Session->read('Auth.Usuario.login').'">'.$this->Session->read('Auth.Usuario.login').'</a> | <a href="'.Router::url('/',true).'usuarios/sair">sair</a>'; else echo '<a href="'.Router::url('/',true).'login">Login</a>'; ?>
 
 	</div>
+
 	<div id='logo_va'>
 	</div>
+
 	<div id='texto_va'>
 		<a href="<?php echo Router::url('/',true); ?>"><?php echo SISTEMA; ?></a><?php if(isset($pluralVar)) echo ' : <a href="'.Router::url('/',true).$pluralVar.'">'.$pluralHumanName.'</a>'; if(isset($action)) echo ' : <a href="'.Router::url('/',true).$pluralVar.'/'.mb_strtolower($action).'">'.ucfirst(mb_strtolower($action)).'</a>'; ?>
 
 	</div>
+	<?php echo $this->Session->flash(); ?>
 </div>
 
 <div id="content">
+
 <?php echo $content_for_layout; ?>
 
 </div>

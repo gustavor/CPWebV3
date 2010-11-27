@@ -16,6 +16,6 @@
 	Router::connect('/perfil/:perfilLogin', array('controller'=>'usuarios','action'=>'editar') );
 	
 	//
-	//Router::connect('/sobre/*', array('controller' => 'pages', 'action' => 'display'));
+	Router::connect('/p/*', array('controller' => 'paginas'));
 
 ?>

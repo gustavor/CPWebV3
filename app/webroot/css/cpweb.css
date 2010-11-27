@@ -3,14 +3,11 @@
 	margin:0;
 	padding:0;
 }
-
 #flashMessage
 {
 	position: absolute;
-	color: #fff;
-	right: 300px;
-	font-family: timew new roman;
-	font-weight: bold;
+	right: 400px;
+	margin: -12px 0px 0px 0px;
 }
 
 #cabecalho
@@ -23,7 +20,6 @@
 	margin: 0px;
 	padding: 0px;
 }
-
 #cabecalho a
 {
 	margin: 0px 0px 0px 0px;
@@ -32,17 +28,14 @@
 	text-decoration: none;
 	letter-spacing: 4px;
 }
-
 #cabecalho #texto_va a
 {
 	font-weight: bold;
 }
-
 #cabecalho #texto_va a:hover
 {
 	color: red;
 }
-
 #cabecalho #logo_va
 {
 	background: url('../img/logo_va.png') no-repeat left;
@@ -51,12 +44,10 @@
 	float: left;
 	margin:  5px 0px 0px 8px;
 }
-
 #cabecalho #texto_va
 {
 	margin: 0px 0px 0px 90px;
 }
-
 #cabecalho #userOn
 {
 	margin: 29px 10px 0px 0px;
@@ -64,30 +55,26 @@
 	right: 5px;
 	color: #fff;
 }
-
 #cabecalho #userOn a
 {
 	text-decoration: none;
 	color: #fff;
+	font-size: 11px;
 }
-
 #cabecalho #userOn a:hover
 {
 	color: red;
 }
-
 #cabecalho #menu
 {
 	position: absolute;
 	top: 40px;
 	width: auto;
 }
-
 #cabecalho #menu a
 {
 	font-size: 12px;
 }
-
 #cabecalho #menu li li a
 {
 	color: #333;
@@ -125,8 +112,9 @@
 
 #logoCake
 {
-	right: 20px;
+	right: 18px;
 	position: absolute;
+	top: 5px;
 }
 
 #logo
