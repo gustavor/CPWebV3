@@ -62,7 +62,7 @@
 	{
 		$on_read_view .= '$("#UsuarioNome").focus();';
 		
-		// destanco administrador
+		// destancando administrador
 		if ($this->data['Usuario']['id']==1) 
 		{
 			$campos['Usuario']['login']['options']['style']		= 'text-align: center; width: 120px; font-weight: bold; color: green; ';
