@@ -33,11 +33,11 @@
 
 		// personalização de alguns campos
 		$listaCampos								= array('Perfil.nome','Perfil.modified','Perfil.created');
-		$campos['Perfil']['modified']['estilo_th'] 	= 'width="150px"';
+		$campos['Perfil']['modified']['estilo_th'] 	= 'width="200px"';
 		$campos['Perfil']['modified']['estilo_td'] 	= 'style="text-align: center; "';
-		$campos['Perfil']['created']['estilo_th'] 	= 'width="140px"';
+		$campos['Perfil']['created']['estilo_th'] 	= 'width="200px"';
 		$campos['Perfil']['created']['estilo_td'] 	= 'style="text-align: center; "';
-		$campos['Perfil']['nome']['estilo_th'] 		= 'width="150px"';
+		$campos['Perfil']['nome']['estilo_th'] 		= 'width="350px"';
 		$campos['Perfil']['nome']['estilo_td'] 		= 'style="text-align: left; "';
 		$tamLista 									= '880px';
 	}

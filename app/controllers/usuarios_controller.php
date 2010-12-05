@@ -172,50 +172,9 @@ class UsuariosController extends AppController {
 	 */
 	public function sair()
 	{
+		$this->Usuario->updateAll(array('Usuario.off'=>1),array('Usuario.id'=>$this->Usuario->id));
 		$this->Session->destroy();
 		$this->Session->setFlash('Saída executada com sucesso ...'); 
 		$this->redirect('/');
-	}
-	
-	/**
-	 * Atualiza a sessão com os dados do usuário logado
-	 * 
-	 * @parameter $dados array Dados do aluno
-	 * @return void
-	 */
-	private function setSessao($dados=array())
-	{
-		if (!count($dados)) return false;
-
-		// grava na sesssão o login do usuário
-		$this->Session->write('login',$dados['Usuario']['login']);
-
-		// grava na sessão os perfis do usuário
-		if (isset($dados['Perfil']))
-		{
-			foreach($dados['Perfil'] as $_item => $campos) $perfis[$campos['id']] = $campos['nome'];
-			if (isset($perfis)) $this->Session->write('perfis',$perfis);
-		}
-
-		// grava da sessão a data de entrada
-		$this->Session->write('entrada', mktime (0, 0, 0, date('m'),date('d'),date('Y')));
-		
-		// Atualizando o último acesso
-		$this->setUltimoAcesso($dados);
-	}
-	
-	/**
-	 * Atualiza o último acesso do usuário logado
-	 * 
-	 * @parameter $dados array Dados do usuário
-	 * @return void
-	 */
-	private function setUltimoAcesso($dados=array())
-	{
-		$acessos = ($dados['Usuario']['acessos']+1);
-		$salvar['Usuario.acessos'] = $acessos;
-		$salvar['Usuario.ultimo_acesso'] = '"'.date('Y-m-d H:i:s').'"';
-		$condicao['Usuario.id'] = $dados['Usuario']['id'];
-		$this->Usuario->updateAll($salvar,$condicao);
 	}
 }

@@ -19,7 +19,7 @@
 <?php if (isset($listaMenu[0])) : ?>
 <div id="esquerda">
 	<?php echo "<ul>\n"; ?>
-	<?php foreach($listaMenu as $_item => $_arrOpcoes) if (count($_arrOpcoes)) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],$_arrOpcoes['options'], $_arrOpcoes['confirmMessage'])."\n\t</li>"; ?>
+	<?php foreach($listaMenu as $_item => $_arrOpcoes) if (count($_arrOpcoes)) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],(isset($_arrOpcoes['options'])? $_arrOpcoes['options'] : null), (isset($_arrOpcoes['confirmMessage']) ? $_arrOpcoes['confirmMessage'] : null) )."\n\t</li>"; ?>
 	<?php echo "</ul>\n"; ?>
 </div>
 <?php endif ?>
