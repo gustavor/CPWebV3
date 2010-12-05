@@ -8,6 +8,41 @@
 {
 	font-size: 12px;
 	font-family: verdana;
+	margin: 0px auto;
+	width: 80%;
+	/*border: 1px solid #ccc;*/
+}
+
+.lista #esquerda
+{
+	min-width: 100px;
+	min-height: 200px;
+	/*background-color: #ddd;*/
+	float: left;
+	margin: 0px 5px 0px 0px;
+}
+
+.lista #esquerda ul
+{
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+
+.lista #esquerda a
+{
+	text-decoration: none;
+	color: #333333;
+}
+
+.lista #esquerda a:hover
+{
+	color: red;
+}
+
+.lista #direita
+{
+	/*background-color: #bbb;*/
 }
 
 .lista .paginas
@@ -121,7 +156,5 @@
 	color: #3e444d;
 	font-size: 10px;
 	text-align: right;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-right: 10px;
+	padding: 5px 0px 5px 0px;
 }

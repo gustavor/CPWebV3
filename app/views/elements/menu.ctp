@@ -4,6 +4,15 @@
 		<a href="<?php echo Router::url('/'); ?>">Principal</a>
 
 	</li>
+
+	<li>
+		<a href="#">Módulos</a>
+		<ul>
+			<li><a href="#">Mod1</a></li>
+			<li><a href="#">Mod2</a></li>
+		</ul>
+	</li>
+
 	<li>
 		<a href="#">Tabelas</a>
 		<ul>

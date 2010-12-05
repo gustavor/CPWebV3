@@ -3,8 +3,8 @@
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
 
 <div class="lista">
-
-<table class="paginas" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
+<div id="topo">
+<table class="paginas" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 	<td width="150px" align="center"><?php foreach($botoesLista as $_label => $_arrOpcoes) if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n"; ?></td>
 	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro')); ?></td>
@@ -15,8 +15,17 @@
 	<td width="*"     align="center"></td>
 </tr>
 </table>
+</div>
+<?php if (isset($listaMenu[0])) : ?>
+<div id="esquerda">
+	<?php echo "<ul>\n"; ?>
+	<?php foreach($listaMenu as $_item => $_arrOpcoes) if (count($_arrOpcoes)) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],$_arrOpcoes['options'], $_arrOpcoes['confirmMessage'])."\n\t</li>"; ?>
+	<?php echo "</ul>\n"; ?>
+</div>
+<?php endif ?>
+<div id="direita">
 
-<table class="linhas" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
+<table class="linhas" cellpadding="0" cellspacing="0" border="0" >
 <tr>
 <?php
 	// cabeçalho da lista
@@ -89,10 +98,12 @@
 	}
 ?>
 </table>
-<table class="listaRodape" cellpadding="0" cellspacing="0" border="0" width="<?php echo $tamLista; ?>">
-	<tr>
-		<td>Página <?php echo $this->params['paging'][$modelClass]['page']; ?> de <?php echo $this->params['paging'][$modelClass]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelClass]['count']; ?></td>
-	</tr>
-</table>
+
+<div class="listaRodape">
+Página <?php echo $this->params['paging'][$modelClass]['page']; ?> de <?php echo $this->params['paging'][$modelClass]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelClass]['count']; ?></td>
+</div>
+
+</div>
+
 </div>
 <?php include_once('../views/cpweb_crud/rodape.ctp'); ?>

@@ -4,9 +4,11 @@
 	$campos['Usuario']['login']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['login']['options']['style']					= 'text-align: center; width: 120px; ';
 	$campos['Usuario']['login']['options']['readonly']				= 'readonly';
+	$campos['Usuario']['login']['estilo_th'] 						= 'width="90px"';
 
 	$campos['Usuario']['nome']['options']['label']['text'] 			= 'Nome';
 	$campos['Usuario']['nome']['options']['style'] 					= 'width: 550px; ';
+	$campos['Usuario']['nome']['estilo_th'] 						= 'width="240px"';
 
 	$campos['Usuario']['senha']['options']['label']['style']		= 'text-align: right; width: 58px; ';
 	$campos['Usuario']['senha']['options']['label']['text'] 		= 'Senha';
@@ -24,18 +26,21 @@
 	$campos['Usuario']['aniversario']['options']['label']['text'] 	= 'Aniversário';
 	$campos['Usuario']['aniversario']['options']['style'] 			= 'width: 70px; text-align: center; ';
 	$campos['Usuario']['aniversario']['estilo_td'] 					= 'style="text-align: center; "';
+	$campos['Usuario']['aniversario']['estilo_th'] 					= 'width="90px"';
 
 	$campos['Usuario']['ativo']['options']['label']['text'] 		= 'Ativo';
 	$campos['Usuario']['ativo']['options']['label']['style'] 		= 'width: 110px;';
 	$campos['Usuario']['ativo']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['ativo']['options']['style'] 				= 'width: 70px; text-align: center; ';
 	$campos['Usuario']['ativo']['options']['options']	 			= array('1'=>'Sim','0'=>'Não');
+	$campos['Usuario']['ativo']['estilo_th'] 						= 'width="70px"';
 
 	$campos['Usuario']['acessos']['options']['label']['text'] 		= 'Acessos';
 	$campos['Usuario']['acessos']['options']['label']['style'] 		= 'width: 163px;';
 	$campos['Usuario']['acessos']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['acessos']['options']['style'] 				= 'width: 36px; text-align: center; ';
 	$campos['Usuario']['acessos']['options']['disabled'] 			= 'disabled';
+	$campos['Usuario']['acessos']['estilo_th'] 						= 'width="90px"';
 
 	$campos['Usuario']['ultimo_acesso']['options']['label']['text'] = 'Último Acesso';
 	$campos['Usuario']['ultimo_acesso']['estilo_td'] 				= 'style="text-align: center; "';
@@ -99,6 +104,15 @@
 	// se estamos na edição
 	if ($this->action=='listar')
 	{
+		// menu da lista cidades
+		$listaMenu = array();
+		$listaMenu[0]['text'] 	= 'Cidades';
+		$listaMenu[0]['url'] 	= Router::url('/',true).'cidades';
+		/*$listaMenu[1]['text'] 	= 'Estados';
+		$listaMenu[1]['url'] 	= Router::url('/',true).'estados';*/
+		$listaMenu[2]['text'] 	= 'Perfis';
+		$listaMenu[2]['url'] 	= Router::url('/',true).'perfis';
+
 		// removendo o ícone excluir do usuário administrador
 		$listaFerramentasId[2]['link'][1] 	= false;
 		$listaFerramentasId[2]['icone'][1] 	= false;

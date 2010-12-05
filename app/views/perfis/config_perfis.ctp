@@ -22,6 +22,11 @@
 	
 	if ($action=='listar')
 	{
+		// menu da lista cidades
+		$listaMenu = array();
+		$listaMenu[0]['text'] 	= 'Usuários';
+		$listaMenu[0]['url'] 	= Router::url('/',true).'usuarios';
+
 		// removendo o ícone excluir do usuário administrador
 		$listaFerramentasId[2]['link'][1] 	= false;
 		$listaFerramentasId[2]['icone'][1] 	= false;

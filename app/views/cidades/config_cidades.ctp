@@ -46,9 +46,15 @@
 		$campos['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$campos['Cidade']['created']['estilo_th'] 	= 'width="140px"';
 		$campos['Cidade']['created']['estilo_td'] 	= 'style="text-align: center; "';
-		$campos['Estado']['nome']['estilo_th'] 		= 'width="150px";';
+		$campos['Cidade']['nome']['estilo_th'] 		= 'width="300px";';
+		$campos['Estado']['nome']['estilo_th'] 		= 'width="250px";';
 		$campos['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
 		$tamLista 									= '880px';
+		
+		// menu da lista cidades
+		$listaMenu = array();
+		$listaMenu[0]['text'] 	= 'Usuários';
+		$listaMenu[0]['url'] 	= Router::url('/',true).'usuarios';
 	
 		// destacando algumas linhas
 		foreach($this->data as $_linha => $_modelos)
