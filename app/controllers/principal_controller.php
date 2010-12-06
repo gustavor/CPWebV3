@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/paineis_controller.php
+ * app/controllers/principal_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,13 +19,13 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class PainelController extends AppController {
+class PrincipalController extends AppController {
 	/**
 	 * nome
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Painel';
+	public $name = 'Principal';
 	
 	/**
 	 * Model

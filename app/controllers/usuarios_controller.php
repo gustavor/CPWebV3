@@ -151,28 +151,38 @@ class UsuariosController extends AppController {
 	 */
 	public function login()
 	{
-		if ($this->Session->read('Auth.Usuario.login'))
+		if (!empty($this->data))
 		{
 			if ($this->Auth->user())
 			{
-				$this->Session->setFlash('Este usuário já está autenticado');
+				$this->Session->setFlash('Usuário autenticado com sucesso !!!');
+				$acessos = $this->Session->read('Auth.Usuario.acessos');
+				$acessos++;
+				$this->Usuario->updateAll(array('Usuario.acessos'=>$acessos),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
 				$this->redirect('/');
 			} else
 			{
-				$this->Session->setFlash('O usuário não pode ser autenticado !!!');
+				$this->Session->setFlash('O usuário não pode ser autenticado !!!'); 
 			}
 		} else
 		{
-			$this->Session->setFlash('Entre com o login e senha válidos ...');
+			if (!$this->Auth->user()) $this->Session->setFlash('Entre com login e senha válidos !!!');
+			else 
+			{
+				$this->Session->setFlash('Este usuário já está autenticado !!!');
+				$this->redirect('/');
+			}
 		}
 	}
-	
+
 	/**
-	 * método sair
+	 * Método sair
+	 * 
+	 * @return void
 	 */
 	public function sair()
 	{
-		$this->Usuario->updateAll(array('Usuario.off'=>1),array('Usuario.id'=>$this->Usuario->id));
+		$this->Usuario->updateAll(array('Usuario.off'=>1),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
 		$this->Session->destroy();
 		$this->Session->setFlash('Saída executada com sucesso ...'); 
 		$this->redirect('/');

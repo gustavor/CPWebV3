@@ -39,17 +39,11 @@ class AppController extends Controller {
 		{
 			$this->Auth->userModel		= 'Usuario';
 			$this->Auth->fields			= array('username'		=> 'login',		'password' 	=> 'senha');
-			$this->Auth->loginAction 	= array('controller' 	=> 'usuarios', 	'action' 	=> 'login');
-			$this->Auth->loginRedirect 	= array('controller' 	=> 'painel',	'action' 	=> 'index');
-			$this->Auth->logoutRedirect = array('controller' 	=> 'painel',	'action' 	=> 'index');
+			$this->Auth->autoRedirect 	= false;
 			$this->Auth->userScope 		= array('Usuario.ativo'=>1);
-			$this->Auth->loginError 	= 'Erro na autenticação';
-			$this->Auth->authError 		= 'Area Restrita! Efetue login!';
 			$this->Auth->authorize 		= 'controller';
 			$this->Auth->allow(array('instala'=>'index'));
-			
-			// atualiza usuário on-line
-			if ($this->Session->read('Auth.Usuario.login'))
+			if ($this->Session->read('Auth.Usuario.login')) // atualiza usuário on-line
 			{
 				$this->loadModel('Usuario');
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
