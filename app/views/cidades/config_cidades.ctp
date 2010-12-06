@@ -41,7 +41,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array('Cidade.nome','Estado.nome','Cidade.modified','Cidade.created');
+		$listaCampos 								= array('Cidade.nome','Estado.nome','Cidade.modified');
 		$campos['Cidade']['modified']['estilo_th'] 	= 'width="160px"';
 		$campos['Cidade']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$campos['Cidade']['created']['estilo_th'] 	= 'width="140px"';
