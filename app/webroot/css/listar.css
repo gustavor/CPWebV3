@@ -16,7 +16,7 @@
 .lista #esquerda
 {
 	min-width: 100px;
-	min-height: 200px;
+	min-height: 300px;
 	/*background-color: #ddd;*/
 	float: left;
 	margin: 0px 5px 0px 0px;
@@ -43,6 +43,7 @@
 .lista #direita
 {
 	/*background-color: #bbb;*/
+	min-height: 300px;
 }
 
 .lista .paginas
@@ -102,7 +103,7 @@
 
 .lista .linhas
 {
-	margin: 0px auto;
+	margin: 0px 0px 0px 0px;
 	border-top: 1px solid #bbb;
 	border-right: 1px solid #bbb;
 	font-size: 11px;
@@ -157,4 +158,5 @@
 	font-size: 10px;
 	text-align: right;
 	padding: 5px 0px 5px 0px;
+	clear: both;
 }

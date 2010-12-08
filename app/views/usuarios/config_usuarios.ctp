@@ -104,15 +104,6 @@
 	// se estamos na edição
 	if ($this->action=='listar')
 	{
-		// menu da lista cidades
-		$listaMenu = array();
-		$listaMenu[0]['text'] 	= 'Cidades';
-		$listaMenu[0]['url'] 	= Router::url('/',true).'cidades';
-		/*$listaMenu[1]['text'] 	= 'Estados';
-		$listaMenu[1]['url'] 	= Router::url('/',true).'estados';*/
-		$listaMenu[2]['text'] 	= 'Perfis';
-		$listaMenu[2]['url'] 	= Router::url('/',true).'perfis';
-
 		// removendo o ícone excluir do usuário administrador
 		$listaFerramentasId[2]['link'][1] 	= false;
 		$listaFerramentasId[2]['icone'][1] 	= false;

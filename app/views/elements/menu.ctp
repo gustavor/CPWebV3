@@ -8,21 +8,15 @@
 	<li>
 		<a href="#">Módulos</a>
 		<ul>
-			<li><a href="#">Mod1</a></li>
-			<li><a href="#">Mod2</a></li>
+			<li><a href="<?php echo Router::url('/').'processos'; ?>">Processos</a></li>
 		</ul>
 	</li>
 
 	<li>
-		<a href="#">Tabelas</a>
-		<ul>
-			<li><a href="<?php echo Router::url('/').'cidades'; ?>" class="subLinha">Cidades</a></li>
-			<li><a href="<?php echo Router::url('/').'estados'; ?>">Estados</a></li>
-			<li><a href="<?php echo Router::url('/').'usuarios'; ?>">Usuários</a></li>
-			<li><a href="<?php echo Router::url('/').'perfis'; ?>">Perfis</a></li>
-		</ul>
+		<a href="<?php echo Router::url('/').'usuarios'; ?>">Administração</a>
 	</li>
 
+<?php if (isset($ferramentas)) : ?>
 	<li>
 		<a href="#">Ferramentas</a>
 		<ul>
@@ -30,6 +24,9 @@
 			<li><a href="#">Fer2</a></li>
 		</ul>
 	</li>
+<?php endif ?>
+
+<?php if (isset($ferramentas)) : ?>
 	<li>
 		<a href="#">Relatórios</a>
 		<ul>
@@ -37,6 +34,8 @@
 			<li><a href="#">Rel2</a></li>
 		</ul>
 	</li>
+<?php endif ?>
+	
 	<li>
 		<a href="#">Ajuda</a>
 		<ul>

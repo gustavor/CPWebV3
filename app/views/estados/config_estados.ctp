@@ -32,7 +32,7 @@
 		$campos['Estado']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$campos['Estado']['created']['estilo_th'] 	= 'width="140px"';
 		$campos['Estado']['created']['estilo_td'] 	= 'style="text-align: center; "';
-		$campos['Estado']['nome']['estilo_th'] 		= 'width="150px"';
+		$campos['Estado']['nome']['estilo_th'] 		= 'width="400px"';
 		$campos['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
 		$campos['Estado']['uf']['estilo_th'] 		= 'width="50px"';
 		$campos['Estado']['uf']['estilo_td'] 		= 'style="text-align: center; "';

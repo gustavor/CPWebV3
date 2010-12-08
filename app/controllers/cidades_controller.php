@@ -22,14 +22,16 @@
 class CidadesController extends AppController {
 
 	/**
-	 * nome
+	 * Nome da Camada
+	 * 
 	 * @var string
 	 * @access public
 	 */
 	public $name = 'Cidades';
 	
 	/**
-	 * Model
+	 * Modelo para a camada
+	 * 
 	 * @var string
 	 * @access public
 	 */
@@ -37,13 +39,15 @@ class CidadesController extends AppController {
 	
 	/**
 	 * Ajudantes 
+	 * 
 	 * @var array
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
 	
 	/**
-	 * componentes
+	 * Componentes
+	 * 
 	 * @var array Componentes
 	 * @access public
 	 */
