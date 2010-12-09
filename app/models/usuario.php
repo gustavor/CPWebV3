@@ -58,7 +58,8 @@ class Usuario extends AppModel {
 			'joinTable'		=> 'usuarios_perfil',
 			'foreignKey'	=> 'usuarios_id',
 			'associationForeignKey' => 'perfis_id',
-			'unique'		=> true
+			'unique'		=> true,
+			'fields' 		=> 'id, nome'
 		)
 	);
 	

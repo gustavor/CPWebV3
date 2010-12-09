@@ -97,11 +97,17 @@ class Cliente extends AppModel {
 	 */
 	public function beforeSave()
 	{
-		$this->data['Cliente']['cnpj'] = str_replace('.','',$this->data['Cliente']['cnpj']);
-		$this->data['Cliente']['cnpj'] = str_replace('/','',$this->data['Cliente']['cnpj']);
-		$this->data['Cliente']['cnpj'] = str_replace('-','',$this->data['Cliente']['cnpj']);
-		$this->data['Cliente']['cpf'] = str_replace('.','',$this->data['Cliente']['cpf']);
-		$this->data['Cliente']['cpf'] = str_replace('-','',$this->data['Cliente']['cpf']);
+		if (isset($this->data['Cliente']['cnpj']))
+		{
+			$this->data['Cliente']['cnpj'] = str_replace('.','',$this->data['Cliente']['cnpj']);
+			$this->data['Cliente']['cnpj'] = str_replace('/','',$this->data['Cliente']['cnpj']);
+			$this->data['Cliente']['cnpj'] = str_replace('-','',$this->data['Cliente']['cnpj']);
+		}
+		if (isset($this->data['Cliente']['cpf']))
+		{
+			$this->data['Cliente']['cpf'] = str_replace('.','',$this->data['Cliente']['cpf']);
+			$this->data['Cliente']['cpf'] = str_replace('-','',$this->data['Cliente']['cpf']);
+		}
 		return true;
 	}
  }

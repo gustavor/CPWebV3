@@ -26,7 +26,7 @@
 	$campos['Cliente']['modified']['options']['dateFormat'] 		= 'DMY';
 	$campos['Cliente']['modified']['options']['timeFormat'] 		= '24';
 	
-	$campos['Cliente']['created']['options']['label']['text'] 		= 'Criação';
+	$campos['Cliente']['created']['options']['label']['text'] 		= 'Criado';
 	$campos['Cliente']['created']['options']['dateFormat'] 			= 'DMY';
 	$campos['Cliente']['created']['options']['timeFormat'] 			= '24';
 	$campos['Cliente']['created']['options']['label']['style'] 		= 'width: 86px;';
@@ -38,21 +38,22 @@
 	
 	$campos['Telefone']['telefone']['options']['label']['text'] 	= 'Telefone';
 
-	if ($action=='editar' || $action=='imprimir')
+	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
 	{
-		$edicaoCampos = array('Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs','#','Cliente.modified','#','Cliente.created');
+		$edicaoCampos = array('Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs','#','Cliente.modified','#','#','Cliente.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','#','Cidade.estado_id');
+		$edicaoCampos = array('Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs');
+		
+		// padronizando em belo horizonte/minas gerais
 		$campos['Cliente']['cidade_id']['options']['selected'] = 2302;
 		$campos['Cidade']['estado_id']['options']['selected'] = 1;
 	}
 
 	if ($action=='excluir')
 	{
-		$edicaoCampos = array();
 	}
 
 	if ($action=='editar' || $action=='novo')
@@ -71,7 +72,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente','Cidade.nome','Cliente.modified');
+		$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente','Cliente.modified');
 		
 		$campos['Cliente']['nome']['estilo_th'] 		= 'width="250px"';
 		

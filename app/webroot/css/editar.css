@@ -99,3 +99,14 @@
 	-webkit-border-radius: 6px;
 	display: table;
 }
+
+#edicao .checkbox
+{
+	float: left;
+	margin: 3px 10px 0px 0px;
+}
+
+#edicao .checkbox input
+{
+	margin: 0px 5px 0px 0px;
+}

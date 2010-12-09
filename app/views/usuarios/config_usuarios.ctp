@@ -27,6 +27,7 @@
 	$campos['Usuario']['aniversario']['options']['style'] 			= 'width: 70px; text-align: center; ';
 	$campos['Usuario']['aniversario']['estilo_td'] 					= 'style="text-align: center; "';
 	$campos['Usuario']['aniversario']['estilo_th'] 					= 'width="90px"';
+	$campos['Usuario']['aniversario']['mascara'] 					= '99/99';
 
 	$campos['Usuario']['ativo']['options']['label']['text'] 		= 'Ativo';
 	$campos['Usuario']['ativo']['options']['label']['style'] 		= 'width: 110px;';
@@ -47,6 +48,7 @@
 	$campos['Usuario']['ultimo_acesso']['options']['dateFormat'] 	= 'DMY';
 	$campos['Usuario']['ultimo_acesso']['options']['timeFormat'] 	= '24';
 	$campos['Usuario']['ultimo_acesso']['options']['disabled'] 		= 'disabled';
+	$campos['Usuario']['ultimo_acesso']['estilo_th'] 				= 'width="140px"';
 
 	$campos['Usuario']['modified']['options']['label']['text'] 		= 'Modificado';
 	$campos['Usuario']['modified']['options']['dateFormat'] 		= 'DMY';
@@ -59,8 +61,11 @@
 	$campos['Usuario']['created']['options']['timeFormat'] 			= '24';
 	$campos['Usuario']['created']['options']['disabled'] 			= 'disabled';
 
-	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.ultimo_acesso','#','#','Usuario.modified','Usuario.created');
-	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.aniversario','Usuario.modified','Usuario.ultimo_acesso');
+	$campos['Perfil']['options']['label']['text']					= 'Perfis';
+	$campos['Perfil']['options']['multiple']						= 'checkbox';
+
+	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','#','Perfil','#','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.ultimo_acesso');
 
 	// se estamos na edição
 	if ($this->action=='editar')

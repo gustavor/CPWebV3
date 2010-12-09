@@ -28,21 +28,17 @@
 			} else
 			{
 				$_arrField 					= explode('.',$_field);
-				$opcoes 					= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
+				$opcoes						= isset($campos[$_field]['options']) ? $campos[$_field]['options'] : array();
+				if (isset($_arrField[1]))
+				{
+					$opcoes 				= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
+					$mascara				= isset($campos[$_arrField[0]][$_arrField[1]]['mascara']) ? $campos[$_arrField[0]][$_arrField[1]]['mascara'] : null;
+				}
 				$opcoes['div'] 				= isset($opcoes['div']) ? $opcoes['div'] : null;
 				$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
 				$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
-				$mascara					= isset($campos[$_arrField[0]][$_arrField[1]]['mascara']) ? $campos[$_arrField[0]][$_arrField[1]]['mascara'] : null;
 				if ($mascara) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
-				switch($tipo)
-				{
-					case 'leitura':
-						echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->data[$singularVar][$_field].'</div>'."\n";
-						break;
-					default:
-						echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n\n";
-						break;
-				}
+				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n\n";
 			}
 		}
 	} else
