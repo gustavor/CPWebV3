@@ -9,11 +9,13 @@
 	$campos['Cliente']['cnpj']['options']['label']['text'] 			= 'Cnpj';
 	$campos['Cliente']['cnpj']['options']['maxlength'] 				= 18;
 	$campos['Cliente']['cnpj']['options']['style'] 					= 'width: 244px; ';
+	$campos['Cliente']['cnpj']['mascara'] 							= 'cnpj';
 	
 	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'Cpf';
 	$campos['Cliente']['cpf']['options']['maxlength'] 				= 14;
 	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 216px; ';
 	$campos['Cliente']['cpf']['options']['label']['style'] 			= 'width: 130px;';
+	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
 	
 	$campos['Cliente']['tipo_cliente']['options']['label']['text'] 	= 'Tipo';
 	

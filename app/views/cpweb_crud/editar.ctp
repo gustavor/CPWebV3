@@ -1,5 +1,6 @@
 <?php $this->Html->css('editar.css', null, array('inline' => false)); ?>
 <?php $this->Html->script('editar.js', array('inline' => false)); ?>
+<?php $this->Html->script('jquery.meio.mask.1.1.3.js', array('inline' => false)); ?>
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
 
 <div id='edicao'>
@@ -31,6 +32,8 @@
 				$opcoes['div'] 				= isset($opcoes['div']) ? $opcoes['div'] : null;
 				$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
 				$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
+				$mascara					= isset($campos[$_arrField[0]][$_arrField[1]]['mascara']) ? $campos[$_arrField[0]][$_arrField[1]]['mascara'] : null;
+				if ($mascara) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
 				switch($tipo)
 				{
 					case 'leitura':

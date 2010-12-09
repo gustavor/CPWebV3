@@ -59,7 +59,7 @@
 	$campos['Usuario']['created']['options']['timeFormat'] 			= '24';
 	$campos['Usuario']['created']['options']['disabled'] 			= 'disabled';
 
-	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.ultimo_acesso','#','#','Usuario.modified','Usuario.created');
 	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.aniversario','Usuario.modified','Usuario.ultimo_acesso');
 
 	// se estamos na edição
