@@ -12,7 +12,7 @@
 		echo $db->config->default['login']."@localhost identified by \"".$db->config->default['password']."\" with grant option;\n";
 		echo "flush privileges;\n";
 		echo "</pre>";
-		echo "<p class='sql_obs2'>* Para auterar as configurações do banco de dados, edite o arquivo app/config/database.php</p>";
+		echo "<p class='sql_obs2'>* Para alterar as configurações do banco de dados, edite o arquivo app/config/database.php</p>";
 		echo "<p class='sql_obs3'>Cliquei <a href=".$this->here.">aqui</a> para atualizar.</p>";
 		$on_read_view .= "\n".'$("#instala").fadeOut();';
 	}
