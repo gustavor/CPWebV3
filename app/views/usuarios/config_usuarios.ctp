@@ -1,10 +1,15 @@
 <?php
-	$tamLista 		= '880px';
+	$tamLista 		                                                = '880px';
 	$campos['Usuario']['login']['options']['label']['text'] 		= 'Login';
 	$campos['Usuario']['login']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['login']['options']['style']					= 'text-align: center; width: 120px; ';
 	$campos['Usuario']['login']['options']['readonly']				= 'readonly';
 	$campos['Usuario']['login']['estilo_th'] 						= 'width="90px"';
+
+    $campos['Usuario']['tipo_usuario']['options']['label']['text']  = 'Tipo de Cliente';
+    $campos['Usuario']['tipo_usuario']['options']['type']           = 'radio';
+    $listaTiposClientes = array( '0' => 'Pessoa Física', '1' => 'Pessoa Jurídica' );
+    $campos['Usuario']['tipo_usuario']['options']['options']        = $listaTiposClientes;
 
 	$campos['Usuario']['nome']['options']['label']['text'] 			= 'Nome';
 	$campos['Usuario']['nome']['options']['style'] 					= 'width: 550px; ';
