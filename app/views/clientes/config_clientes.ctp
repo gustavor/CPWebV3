@@ -5,13 +5,18 @@
 	
 	$campos['Cliente']['endereco']['options']['label']['text'] 		= 'Endereço';
 	$campos['Cliente']['endereco']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
+
+    $campos['Cliente']['tipo_cliente']['options']['label']['text']  = 'Tipo do Cliente';
+    $campos['Cliente']['tipo_cliente']['options']['type']           = 'select';
+    $listaTiposClientes = array( '0' => 'Pessoa Física', '1' => 'Pessoa Jurídica' );
+    $campos['Cliente']['tipo_cliente']['options']['options']        = $listaTiposClientes;
 	
-	$campos['Cliente']['cnpj']['options']['label']['text'] 			= 'Cnpj';
+	$campos['Cliente']['cnpj']['options']['label']['text'] 			= 'CNPJ';
 	$campos['Cliente']['cnpj']['options']['maxlength'] 				= 18;
 	$campos['Cliente']['cnpj']['options']['style'] 					= 'width: 244px; ';
 	$campos['Cliente']['cnpj']['mascara'] 							= 'cnpj';
 	
-	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'Cpf';
+	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'CPF';
 	$campos['Cliente']['cpf']['options']['maxlength'] 				= 14;
 	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 216px; ';
 	$campos['Cliente']['cpf']['options']['label']['style'] 			= 'width: 130px;';
@@ -33,19 +38,32 @@
 	
 	$campos['Cidade']['nome']['options']['label']['text'] 			= 'Cidade';
 	
-	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'Uf';
+	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'UF';
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
 	
 	$campos['Telefone']['telefone']['options']['label']['text'] 	= 'Telefone';
 
 	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
 	{
-		$edicaoCampos = array('Cliente.tipo_cliente','#','#','Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs','#',);
+        switch( $this->data['Cliente']['tipo_cliente'] ) 
+        {
+            case 0:
+                $campos['Cliente']['cnpj']['mascara'] = '';
+                $campos['Cliente']['cnpj']['options']['value'] = 'N/A';
+                break;
+            case 1:
+                $campos['Cliente']['cpf']['mascara'] = '';
+                $campos['Cliente']['cpf']['options']['value'] = 'N/A';
+                break;
+            default:
+                break;
+        }
+		$edicaoCampos = array('Cliente.tipo_cliente','#','Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs','#',);
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Cliente.tipo_cliente','#','#','Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs');
+		$edicaoCampos = array('Cliente.tipo_cliente','#','Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs');
 		
 		// padronizando em belo horizonte/minas gerais
 		$campos['Cliente']['cidade_id']['options']['selected'] = 2302;
