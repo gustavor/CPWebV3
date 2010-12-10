@@ -1,7 +1,7 @@
 <?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
 <?php $this->Html->script('listar.js', array('inline' => false)); ?>
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
-<?php if (!isset($menuTabelasOff)) $arq = '../views/elements/menu_tabelas.ctp'; if (file_exists($arq)) include_once($arq); ?>
+<?php if (isset($arqListaMenu)) { $arq = '../views/elements/'.$arqListaMenu.'.ctp'; if (file_exists($arq)) include($arq); } ?>
 
 <div class="lista">
 <div id="topo">
@@ -17,13 +17,14 @@
 </tr>
 </table>
 </div>
-<?php if (isset($listaMenu)) : ?>
 <div id="esquerda">
-	<?php echo "<ul>\n"; ?>
-	<?php foreach($listaMenu as $_item => $_arrOpcoes) if (count($_arrOpcoes)) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],(isset($_arrOpcoes['options'])? $_arrOpcoes['options'] : null), (isset($_arrOpcoes['confirmMessage']) ? $_arrOpcoes['confirmMessage'] : null) )."\n\t</li>"; ?>
-	<?php echo "</ul>\n"; ?>
+<ul>
+	<?php if (isset($listaMenu)) 
+		foreach($listaMenu as $_item => $_arrOpcoes) 
+			if (count($_arrOpcoes)) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],(isset($_arrOpcoes['options'])? $_arrOpcoes['options'] : null), (isset($_arrOpcoes['confirmMessage']) ? $_arrOpcoes['confirmMessage'] : null) )."\n\t</li>"; ?>
+</ul>
 </div>
-<?php endif ?>
+
 <div id="direita">
 
 <table class="linhas" cellpadding="0" cellspacing="0" border="0" >

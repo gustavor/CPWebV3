@@ -8,6 +8,7 @@
 	<li>
 		<a href="#">Módulos</a>
 		<ul>
+			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Clientes</a></li>
 			<li><a href="<?php echo Router::url('/').'processos'; ?>">Processos</a></li>
 		</ul>
 	</li>

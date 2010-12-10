@@ -60,9 +60,7 @@ class ProcessosController extends AppController {
 	 */
 	public function beforeRender()
 	{
-		$menuTabelasOff = 1;
-		$listaMenu = array();
-		$this->set(compact('listaMenu'));
+		$this->set('arqListaMenu','menu_modulos');
 	}
  
 	/**

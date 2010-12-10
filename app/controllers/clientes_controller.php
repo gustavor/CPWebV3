@@ -60,6 +60,7 @@ class ClientesController extends AppController {
 	 */
 	public function beforeRender()
 	{
+		$this->set('arqListaMenu','menu_modulos');
 	}
  
 	/**

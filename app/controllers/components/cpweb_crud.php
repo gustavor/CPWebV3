@@ -33,6 +33,7 @@ class CpwebCrudComponent extends Object {
 		$primaryKey 		= isset($this->controller->$modelClass->primaryKey)   ? $this->controller->$modelClass->primaryKey : 'id';
 		$displayField 		= isset($this->controller->$modelClass->displayField) ? $this->controller->$modelClass->displayField : 'id';
 		$tamLista			= isset($this->controller->viewVars['tamLista']) ? $this->controller->viewVars['tamLista'] : '90%';
+		$arqListaMenu		= isset($this->controller->viewVars['arqListaMenu']) ? $this->controller->viewVars['arqListaMenu'] : 'menu_tabelas';
 		$singularVar 		= Inflector::variable($modelClass);
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
@@ -40,7 +41,7 @@ class CpwebCrudComponent extends Object {
 		$action				= $this->controller->action;
 		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$on_read_view		= '';
-		$this->controller->set(compact('action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
+		$this->controller->set(compact('arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
 	}
 	
 	/**
