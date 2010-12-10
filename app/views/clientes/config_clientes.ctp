@@ -8,9 +8,9 @@
 
     $campos['Cliente']['tipo_cliente']['options']['label']['text']  = 'Tipo do Cliente';
     $campos['Cliente']['tipo_cliente']['options']['type']           = 'select';
-    $listaTiposClientes = array( '0' => 'Pessoa Física', '1' => 'Pessoa Jurídica' );
-    $campos['Cliente']['tipo_cliente']['options']['options']        = $listaTiposClientes;
-	
+    $campos['Cliente']['tipo_cliente']['options']['options']['0']   = 'Pessoa Física';
+    $campos['Cliente']['tipo_cliente']['options']['options']['1']   = 'Pessoa Jurídica';
+
 	$campos['Cliente']['cnpj']['options']['label']['text'] 			= 'CNPJ';
 	$campos['Cliente']['cnpj']['options']['maxlength'] 				= 18;
 	$campos['Cliente']['cnpj']['options']['style'] 					= 'width: 244px; ';
