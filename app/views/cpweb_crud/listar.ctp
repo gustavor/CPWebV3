@@ -74,6 +74,9 @@
 				{
 					$valor = ($valor!='0000-00-00 00:00:00') ? $this->Formatacao->dataHora($valor, $segundos=true) : '';
 				}
+				
+				// se possui máscara 
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['mascara'])) $valor = $this->Formatacao->getMascara($campos[$_arrField[0]][$_arrField[1]]['mascara'],$valor);
 
 				// se é um comboBox, exibe o vetor 1
 				if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options'])) $valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];

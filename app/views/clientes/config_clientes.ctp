@@ -17,12 +17,14 @@
 	$campos['Cliente']['cnpj']['options']['style'] 					= 'width: 150px; ';
 	$campos['Cliente']['cnpj']['options']['label']['class']			= 'labelClienteCnpj';
 	$campos['Cliente']['cnpj']['mascara'] 							= 'cnpj';
+	$campos['Cliente']['cnpj']['estilo_td'] 						= 'style="text-align: center; "';
 	
 	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'CPF';
 	$campos['Cliente']['cpf']['options']['maxlength'] 				= 14;
 	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 130px; ';
 	$campos['Cliente']['cpf']['options']['label']['class']			= 'labelClienteCpf';
 	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
+	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; letter-spacing: 2px; "';
 	
 	$campos['Cliente']['cidade_id']['options']['default'] 			= 2302;
 	
@@ -40,7 +42,6 @@
 	$campos['Cliente']['created']['options']['dateFormat'] 			= 'DMY';
 	$campos['Cliente']['created']['options']['timeFormat'] 			= '24';
 	$campos['Cliente']['created']['options']['label']['style'] 		= 'width: 86px;';
-	
 	
 	$campos['Cidade']['nome']['options']['label']['text'] 			= 'Cidade';
 	

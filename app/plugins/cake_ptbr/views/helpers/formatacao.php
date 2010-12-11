@@ -259,5 +259,34 @@ class FormatacaoHelper extends AppHelper {
 		}
 		return trim(str_replace('  ', ' ', $rt));
 	}
+	
+	/**
+	 * Retorna um campo mascarado
+	 * 
+	 * @access public
+	 * @parameter string $tipo Tipo do Campo
+	 * @parameter string $valor Valor do campo
+	 * @return string $formatado campo formatado
+	 */
+	public function getMascara($tipo,$valor)
+	{
+		$formatado = $valor;
+		switch($tipo)
+		{
+			case 'cpf': // 123.456.789-01 
+				$_valor = str_replace('.','',$valor);
+				$_valor = str_replace('-','',$valor);
+				$_valor = str_replace('/','',$valor);
+				if (!empty($valor)) $formatado = substr($_valor,0,3).'.'.substr($_valor,3,3).'.'.substr($_valor,6,3).'-'.substr($_valor,9,2);
+				break;
+			case 'cnpj': // 123.456.789/0123-45
+				$_valor = str_replace('.','',$valor);
+				$_valor = str_replace('-','',$valor);
+				$_valor = str_replace('/','',$valor);
+				if (!empty($valor)) $formatado = substr($_valor,0,2).'.'.substr($_valor,2,3).'.'.substr($_valor,5,3).'/'.substr($_valor,8,4).'-'.substr($_valor,12,2);
+				break;
+		}
+		return $formatado;
+	}
 
 }
