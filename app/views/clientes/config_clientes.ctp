@@ -40,14 +40,14 @@
 	
 	$campos['Cidade']['nome']['options']['label']['text'] 			= 'Cidade';
 	
-	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'UF';
+	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'Estado';
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
 	
 	$campos['Telefone']['telefone']['options']['label']['text'] 	= 'Telefone';
 
 	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
 	{
-		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.obs','#',);
+		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs','#',);
 	}
 
 	if ($action=='novo')
@@ -70,14 +70,14 @@
 		$on_read_view .= "\n".'$("#ClienteEndereco").keyup(function(){ $(this).val($(this).val().toUpperCase()); });';
 		$on_read_view .= "\n".'$("#ClienteTipoCliente0").click(function() { $("#divClienteCnpj").fadeOut(); $("#divClienteCpf").show(); });';
 		$on_read_view .= "\n".'$("#ClienteTipoCliente1").click(function() { $("#divClienteCpf").fadeOut(); $("#divClienteCnpj").show(); });';
-		if ($this->data['Cliente']['tipo_cliente']==1) $on_read_view .= "\n".'$("#divClienteCpf").fadeOut();'; else $on_read_view .= "\n".'$("#divClienteCnpj").fadeOut();';
+		if ($this->data['Cliente']['tipo_cliente']==1) $on_read_view .= "\n".'$("#divClienteCnpj").show();'; else $on_read_view .= "\n".'$("#divClienteCpf").show();';
 	}
 
 	if ($action=='editar' || $action=='excluir')
 	{
 		$campos['Cliente']['created']['options']['disabled'] 			= 'disabled';
 		$campos['Cliente']['modified']['options']['disabled'] 			= 'disabled';
-		$campos['Cidade']['estado_id']['options']['disabled'] 			= 'disabled';
+		//$campos['Cidade']['estado_id']['options']['disabled'] 			= 'disabled';
 	}
 
 	if ($action=='listar')	

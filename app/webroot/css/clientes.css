@@ -1,13 +1,24 @@
 #divClienteTipoCliente
 {
 	/*background-color: #ddd;*/
-	width: 326px;
+	width: 360px;
 	text-align: right;
 	line-height: 24px;
 }
 
+#divClienteTipoCliente label
+{
+	margin: 0px 0px 0px 5px;
+}
+
+#divClienteTipoCliente input
+{
+	margin: 0px 0px 0px 20px;
+}
+
 #divClienteCnpj
 {
+	display: none;
 	width: 210px;
 	margin: 0px 0px 0px 5px;
 	background-color: #9fed9f;
@@ -27,6 +38,7 @@
 
 #divClienteCpf
 {
+	display: none;
 	width: 190px;
 	margin: 0px 0px 0px 5px;
 	background-color: #c1d0e5;
