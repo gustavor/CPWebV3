@@ -1,0 +1,45 @@
+#divClienteTipoCliente
+{
+	/*background-color: #ddd;*/
+	width: 326px;
+	text-align: right;
+	line-height: 24px;
+}
+
+#divClienteCnpj
+{
+	width: 210px;
+	margin: 0px 0px 0px 5px;
+	background-color: #9fed9f;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.labelClienteCnpj
+{
+	width: 40px;
+	display: block;
+	float: left;
+	text-align: right;
+	margin-right: 3px;
+	line-height: 24px;
+}
+
+#divClienteCpf
+{
+	width: 190px;
+	margin: 0px 0px 0px 5px;
+	background-color: #c1d0e5;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.labelClienteCpf
+{
+	width: 40px;
+	display: block;
+	float: left;
+	text-align: right;
+	margin-right: 3px;
+	line-height: 24px;
+}

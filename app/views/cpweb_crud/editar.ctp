@@ -1,4 +1,5 @@
 <?php $this->Html->css('editar.css', null, array('inline' => false)); ?>
+<?php if (file_exists(WWW_ROOT.'css/'.$this->params['controller'].'.css')) 	echo $this->Html->css($this->params['controller'])."\n"; ?>
 <?php $this->Html->script('editar.js', array('inline' => false)); ?>
 <?php $this->Html->script('jquery.meio.mask.1.1.3.js', array('inline' => false)); ?>
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>

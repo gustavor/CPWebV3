@@ -23,5 +23,4 @@ setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);
 <?php if (isset($view_js)) echo $this->Html->script($view_js); ?>
 
 <?php if (file_exists(WWW_ROOT.'css/'.$this->layout.'.css')) 				echo $this->Html->css($this->layout)."\n"; ?>
-<?php if (file_exists(WWW_ROOT.'css/'.$this->params['controller'].'.css')) 	echo $this->Html->css($this->params['controller'])."\n"; ?>
 <?php if ($this->Session->check('Auth.Usuario.login')) echo $this->Html->css('superfish-1.4.8/superfish')."\n"; ?>
