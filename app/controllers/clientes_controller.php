@@ -138,6 +138,16 @@ class ClientesController extends AppController {
 	}
 	
 	/**
+	 * Retorna uma lista para comboBox
+	 * 
+	 * @return string
+	 */
+	public function combo($modelo=null,$campo=null,$filtro=null)
+	{
+		parent::combo($modelo,$campo,$filtro);
+	}
+	
+	/**
 	 * Realiza uma pesquisa no banco de dados
 	 * 
 	 * @parameter 	string 	$texto 	Texto de pesquisa

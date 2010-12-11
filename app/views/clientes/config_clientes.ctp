@@ -61,11 +61,13 @@
 
 	if ($action=='editar' || $action=='novo')
 	{
+		$urlCombo = Router::url('/',true).'clientes/combo/Cidade/estado_id/';
 		$on_read_view .= "\n".'$("#ClienteNome").focus();';
 		$on_read_view .= "\n".'$("#ClienteNome").keyup(function(){ $(this).val($(this).val().toUpperCase()); });';
 		$on_read_view .= "\n".'$("#ClienteEndereco").keyup(function(){ $(this).val($(this).val().toUpperCase()); });';
 		$on_read_view .= "\n".'$("#ClienteTipoCliente0").click(function() { $("#divClienteCnpj").fadeOut(); $("#divClienteCpf").show(); });';
 		$on_read_view .= "\n".'$("#ClienteTipoCliente1").click(function() { $("#divClienteCpf").fadeOut(); $("#divClienteCnpj").show(); });';
+		$on_read_view .= "\n".'$("#CidadeEstadoId").change(function() { setCombo("ClienteCidadeId","'.$urlCombo.'", $(this).val());  });';
 		if ($this->data['Cliente']['tipo_cliente']==1) $on_read_view .= "\n".'$("#divClienteCnpj").show();'; else $on_read_view .= "\n".'$("#divClienteCpf").show();';
 	}
 
@@ -84,13 +86,16 @@
 	if ($action=='listar')	
 	{
 		$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente','Cliente.modified');
-		
+
 		$campos['Cliente']['nome']['estilo_th'] 		= 'width="250px"';
-		
+
 		$campos['Cliente']['cpf']['estilo_th'] 			= 'width="150px"';
-		
+
 		$campos['Cliente']['cnpj']['estilo_th'] 		= 'width="150px"';
-		
+
+		$campos['Cliente']['tipo_cliente']['estilo_th'] = 'width="150px"';
+		$campos['Cliente']['tipo_cliente']['estilo_td'] = 'style="text-align: center; "';
+
 		$campos['Cliente']['modified']['estilo_th'] 	= 'width="160px"';
 		$campos['Cliente']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$campos['Cliente']['created']['estilo_th'] 		= 'width="140px"';

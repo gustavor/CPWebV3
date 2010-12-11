@@ -18,6 +18,7 @@ setTimeout(function(){ $("#flashMessage").fadeOut(4000); },3000);
 });
 </script>
 
+<?php if (file_exists(WWW_ROOT.'js/cpweb.js')) 								echo $this->Html->script('cpweb')."\n"; ?>
 <?php if (file_exists(WWW_ROOT.'js/'.$this->layout.'.js')) 					echo $this->Html->script($this->layout)."\n"; ?>
 <?php if (file_exists(WWW_ROOT.'js/'.$this->params['controller'].'.js')) 	echo $this->Html->script($this->params['controller'])."\n"; ?>
 <?php if (isset($view_js)) echo $this->Html->script($view_js); ?>

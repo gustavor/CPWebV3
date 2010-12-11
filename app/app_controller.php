@@ -37,6 +37,9 @@ class AppController extends Controller {
 			$this->Auth->enabled = false;
 		} else
 		{
+			// trocando o layout, caso seja pedido ajax
+			if (	strpos($this->params['url']['url'],'combo') || strpos($this->params['url']['url'],'pesquisa') ) $this->layout = 'ajax';
+
 			$this->Auth->userModel		= 'Usuario';
 			$this->Auth->fields			= array('username'		=> 'login',		'password' 	=> 'senha');
 			$this->Auth->autoRedirect 	= false;
@@ -59,5 +62,26 @@ class AppController extends Controller {
 	public function isAuthorized()
 	{
 		return true;
+	}
+	
+	/**
+	 * Retorna uma lista para comboBox
+	 * 
+	 * @return string
+	 */
+	public function combo($modelo=null,$campo=null,$filtro=null)
+	{
+		if (!empty($modelo))
+		{
+			$controlador = $this->name;
+			$parametros['conditions'] = (!empty($campo) && !empty($filtro)) ? $campo.'="'.$filtro.'"' : array();
+			$this->loadModel($modelo);
+			$lista = $this->$modelo->find('list',$parametros);
+			$this->set('lista',$lista);
+			$this->render('../cpweb_crud/combo');		
+		} else
+		{
+			$this->render('../errors/erroCombo');
+		}
 	}
 }
