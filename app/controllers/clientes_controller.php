@@ -148,4 +148,20 @@ class ClientesController extends AppController {
 	{
 		$this->CpwebCrud->pesquisar($texto,$campo);
 	}
+	
+	/**
+	 * Atualiza Camada antes de enviar os relacionamentos para a view
+	 * 
+	 * @return void
+	 */
+	public function beforeRelacionamentos()
+	{
+		if (isset($this->data['Cidade']['estado_id']))
+		{
+			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
+		} else
+		{
+			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
+		}
+	}
 }

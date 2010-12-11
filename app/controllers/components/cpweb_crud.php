@@ -185,6 +185,10 @@ class CpwebCrudComponent extends Object {
 	private function setRelacionamentos()
 	{
 		$modelClass = $this->controller->modelClass;
+		if (method_exists($this->controller,'beforeRelacionamentos'))
+		{
+			$this->controller->beforeRelacionamentos();
+		}
 		foreach($this->controller->$modelClass->__associations as $associacao)
 		{
 			if (count($this->controller->$modelClass->$associacao))
@@ -192,7 +196,8 @@ class CpwebCrudComponent extends Object {
 				foreach($this->controller->$modelClass->$associacao as $assoc => $arr_opcoes)
 				{
 					$parametros = array();
-					if (isset($arr_opcoes['fields'])) $parametros['fields'] = $arr_opcoes['fields'];
+					if (isset($arr_opcoes['fields'])) 		$parametros['fields'] 		= $arr_opcoes['fields'];
+					if (isset($arr_opcoes['conditions']))	$parametros['conditions'] 	= $arr_opcoes['conditions'];
 					$this->controller->viewVars[Inflector::pluralize(strtolower($assoc))] = $this->controller->$modelClass->$assoc->find('list',$parametros);
 				}
 			}

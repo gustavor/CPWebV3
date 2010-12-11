@@ -24,7 +24,10 @@
 	$campos['Cliente']['cpf']['options']['label']['class']			= 'labelClienteCpf';
 	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
 	
+	$campos['Cliente']['cidade_id']['options']['default'] 			= 2302;
+	
 	$campos['Cliente']['tipo_cliente']['options']['label']['text'] 	= 'Tipo';
+	$campos['Cliente']['tipo_cliente']['options']['default'] 		= 1;
 	
 	$campos['Cliente']['obs']['options']['label']['text']			= 'Observações';
 	$campos['Cliente']['obs']['options']['cols']					= 84;
@@ -38,25 +41,18 @@
 	$campos['Cliente']['created']['options']['timeFormat'] 			= '24';
 	$campos['Cliente']['created']['options']['label']['style'] 		= 'width: 86px;';
 	
+	
 	$campos['Cidade']['nome']['options']['label']['text'] 			= 'Cidade';
 	
 	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'Estado';
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
+	$campos['Cidade']['estado_id']['options']['default'] 			= 1;
 	
 	$campos['Telefone']['telefone']['options']['label']['text'] 	= 'Telefone';
 
 	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
 	{
 		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs','#',);
-	}
-
-	if ($action=='novo')
-	{
-		$edicaoCampos = array('Cliente.tipo_cliente','#','Cliente.nome','#','Cliente.endereco','#','Cliente.cidade_id','Cidade.estado_id','#','Cliente.cnpj','Cliente.cpf','#','Cliente.obs');
-		
-		// padronizando em belo horizonte/minas gerais
-		$campos['Cliente']['cidade_id']['options']['selected'] = 2302;
-		$campos['Cidade']['estado_id']['options']['selected'] = 1;
 	}
 
 	if ($action=='excluir')
@@ -77,7 +73,12 @@
 	{
 		$campos['Cliente']['created']['options']['disabled'] 			= 'disabled';
 		$campos['Cliente']['modified']['options']['disabled'] 			= 'disabled';
-		//$campos['Cidade']['estado_id']['options']['disabled'] 			= 'disabled';
+	}
+	
+	if ($action=='novo')
+	{
+		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
+		$on_read_view .= "\n".'$("#divClienteCnpj").show(); $("#divClienteCpf").fadeOut();';
 	}
 
 	if ($action=='listar')	
