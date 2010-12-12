@@ -55,7 +55,6 @@
 		$campos['Cidade']['nome']['estilo_th'] 		= 'width="300px";';
 		$campos['Estado']['nome']['estilo_th'] 		= 'width="250px";';
 		$campos['Estado']['nome']['estilo_td'] 		= 'style="text-align: left; "';
-		$tamLista 									= '880px';
 
 		// destacando algumas linhas
 		foreach($this->data as $_linha => $_modelos)

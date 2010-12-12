@@ -60,6 +60,7 @@ class ClientesController extends AppController {
 	 */
 	public function beforeRender()
 	{
+		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
 		$this->set('arqListaMenu','menu_modulos');
 	}
  

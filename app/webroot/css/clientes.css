@@ -56,20 +56,31 @@
 	line-height: 24px;
 }
 
-#divTelefones
+#sub_form_clientes
 {
 	margin: 0px auto;
 	min-height: 100px;
-	width: 90%;
+	width: 594px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border: 1px solid #bbb;
 	padding: 5px;
+	clear: both;
 }
 
-#divTelefones ul
+#sub_form_clientes ul
 {
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
+}
+
+#sub_form_clientes #telMais
+{
+	float: right;
+}
+
+#sub_form_clientes h3
+{
+	float: left;
 }

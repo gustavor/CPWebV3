@@ -50,6 +50,8 @@
 	}
 ?>
 
+<?php if (isset($subForm)) echo $this->element($subForm); ?>
+
 <?php echo $this->Form->end(); ?>
 
 </div>
