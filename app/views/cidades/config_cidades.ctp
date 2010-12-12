@@ -38,6 +38,14 @@
 		$campos['Cidade']['created']['options']['disabled'] 			= 'disabled';
 		$campos['Cidade']['modified']['options']['disabled'] 			= 'disabled';
 	}
+	
+	if ($action=='editar')
+	{
+		$camposPesquisa['nome'] 		= 'Nome';
+		$this->set('camposPesquisa',$camposPesquisa);
+		$on_read_view .= "\n".'$("#inPesquisa").keyup(function(){ setPesquisa("'.Router::url('/',true).'cidades/pesquisar/"); });';
+	}
+
 
 	if ($action=='listar')	
 	{

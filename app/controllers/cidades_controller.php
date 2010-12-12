@@ -134,8 +134,8 @@ class CidadesController extends AppController {
 	 * @parameter 	string 	$campo 	Campo de pesquisa
 	 * @return 		array 	$lista 	Array com lista de retorno
 	 */
-	public function pesquisar($texto='',$campo=null)
+	public function pesquisar($campo=null,$texto=null)
 	{
-		$this->CpwebCrud->pesquisar($texto,$campo);
+		$this->CpwebCrud->pesquisar($campo,$texto);
 	}
 }

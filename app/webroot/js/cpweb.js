@@ -9,7 +9,7 @@
 	function setCombo(id,url,filtro)
 	{
 		var jId		= '#'+id;
-		var jUrl	= url+filtro;
+		var jUrl	= url+encodeURIComponent(filtro);
 		$(jId).html(""); 
 		$("<option value=\"o\"> -- Aguarde -- </option>").appendTo(jId);
 		$(jId).load(jUrl, function(resposta, status, xhr)
@@ -26,9 +26,6 @@
 			}
 		});
 	}
-	
-	
-	
 
 	/**
 	 * Atualiza o comboPesquisa com a resposta ajax
@@ -40,10 +37,8 @@
 	function setPesquisa(url)
 	{
 		var jId		= "#rePesquisa";
-		var jCampo 	= $("#slPesquisa").val();
-		var jFiltro = $("#inPesquisa").val();
-		var jUrl	= url+jCampo+'/'+jFiltro;
-		
+		var jUrl	= url+$("#slPesquisa").val()+'/'+encodeURIComponent($("#inPesquisa").val());
+
 		//$(jId).mouseout(function() { $(jId).fadeOut(); });
 		//$(jId).mouseover(function() { $(jId).fadeOut(); });
 
