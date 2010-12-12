@@ -14,6 +14,7 @@
 	<?php if (isset($edicaoCampos)) foreach($botoesEdicao as $_label => $_arrOpcoes) if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n"; ?>
 	</div>
 	<div id="msgEdicao"><?php if (isset($msgEdicao)) echo $msgEdicao; ?></div>
+	<?php if (isset($camposPesquisa)) echo $this->element('pesquisa'); ?>
 </div>
 
 <div id="formEdicao" class="camposEdicao">

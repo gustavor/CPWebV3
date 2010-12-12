@@ -125,3 +125,35 @@
 	margin: 10px auto;
 }
 
+#pesquisa #rePesquisa
+{
+	position: absolute;
+	z-index: 999;
+	background-color: #cad8ec;
+	min-width: 300px;
+	padding: 0px 0px 0px 3px;
+	line-height: 24px;
+}
+
+#pesquisa select
+{
+	min-width: 100px;
+}
+
+#pesquisa #rePesquisa ul
+{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+#pesquisa #rePesquisa ul li
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+#pesquisa #rePesquisa ul li a:hover
+{
+	background-color: transparent;
+}

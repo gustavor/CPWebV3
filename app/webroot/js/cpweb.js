@@ -29,3 +29,29 @@
 	
 	
 	
+
+	/**
+	 * Atualiza o comboPesquisa com a resposta ajax
+	 * resposta:
+	 * item1,valor1;
+	 * item2,valor2;
+	 * item3,valor3;
+	 */
+	function setPesquisa(url)
+	{
+		var jId		= "#rePesquisa";
+		var jCampo 	= $("#slPesquisa").val();
+		var jFiltro = $("#inPesquisa").val();
+		var jUrl	= url+jCampo+'/'+jFiltro;
+		
+		//$(jId).mouseout(function() { $(jId).fadeOut(); });
+		//$(jId).mouseover(function() { $(jId).fadeOut(); });
+
+		$(jId).load(jUrl, function(resposta, status, xhr)
+		{
+			if (status=='success')
+			{
+				$(jId).html(resposta);
+			}
+		});
+	}

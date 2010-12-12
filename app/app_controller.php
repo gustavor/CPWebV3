@@ -38,7 +38,7 @@ class AppController extends Controller {
 		} else
 		{
 			// trocando o layout, caso seja pedido ajax
-			if (	strpos($this->params['url']['url'],'combo') || strpos($this->params['url']['url'],'pesquisa') ) $this->layout = 'ajax';
+			if ( strpos($this->params['url']['url'],'combo') || strpos($this->params['url']['url'],'pesquisa') ) $this->layout = 'ajax';
 
 			$this->Auth->userModel		= 'Usuario';
 			$this->Auth->fields			= array('username'		=> 'login',		'password' 	=> 'senha');

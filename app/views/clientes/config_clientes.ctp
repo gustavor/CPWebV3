@@ -83,6 +83,17 @@
 		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
 		$on_read_view .= "\n".'$("#divClienteCnpj").show(); $("#divClienteCpf").fadeOut();';
 	}
+	
+	if ($action=='editar')
+	{
+		$camposPesquisa['nome'] 		= 'Nome';
+		$camposPesquisa['endereco'] 	= 'Endereço';
+		$camposPesquisa['cpf'] 			= 'Cpf';
+		$camposPesquisa['cnpj'] 		= 'Cnpj';
+		$this->set('camposPesquisa',$camposPesquisa);
+		$urlPesquisa = Router::url('/',true).'clientes/pesquisar/';
+		$on_read_view .= "\n".'$("#inPesquisa").keyup(function(){ setPesquisa("'.$urlPesquisa.'"); });';
+	}
 
 	if ($action=='listar')	
 	{
