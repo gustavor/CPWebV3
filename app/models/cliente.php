@@ -76,6 +76,19 @@ class Cliente extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Telefone' => array(
+			'className' => 'Telefone',
+			'foreignKey' => 'cliente_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
 	);
 	
@@ -90,11 +103,13 @@ class Cliente extends AppModel {
 			$this->data['Cliente']['cnpj'] = str_replace('/','',$this->data['Cliente']['cnpj']);
 			$this->data['Cliente']['cnpj'] = str_replace('-','',$this->data['Cliente']['cnpj']);
 		}
+
 		if (isset($this->data['Cliente']['cpf']))
 		{
 			$this->data['Cliente']['cpf'] = str_replace('.','',$this->data['Cliente']['cpf']);
 			$this->data['Cliente']['cpf'] = str_replace('-','',$this->data['Cliente']['cpf']);
 		}
+
 		return true;
 	}
  }

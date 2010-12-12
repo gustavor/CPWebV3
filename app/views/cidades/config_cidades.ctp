@@ -39,7 +39,7 @@
 		$campos['Cidade']['modified']['options']['disabled'] 			= 'disabled';
 	}
 	
-	if ($action=='editar')
+	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['nome'] = 'Nome';
 		$this->set('camposPesquisa',$camposPesquisa);

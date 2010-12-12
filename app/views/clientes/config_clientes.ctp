@@ -2,7 +2,7 @@
 
 	$campos['Cliente']['nome']['options']['label']['text'] 			= 'Nome';
 	$campos['Cliente']['nome']['options']['style'] 					= 'width: 600px; text-transform: uppercase; ';
-	
+
 	$campos['Cliente']['endereco']['options']['label']['text'] 		= 'Endereço';
 	$campos['Cliente']['endereco']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
 
@@ -18,43 +18,43 @@
 	$campos['Cliente']['cnpj']['options']['label']['class']			= 'labelClienteCnpj';
 	$campos['Cliente']['cnpj']['mascara'] 							= 'cnpj';
 	$campos['Cliente']['cnpj']['estilo_td'] 						= 'style="text-align: center; "';
-	
+
 	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'CPF';
 	$campos['Cliente']['cpf']['options']['maxlength'] 				= 14;
 	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 130px; ';
 	$campos['Cliente']['cpf']['options']['label']['class']			= 'labelClienteCpf';
 	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
 	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; letter-spacing: 2px; "';
-	
+
 	$campos['Cliente']['cidade_id']['options']['default'] 			= 2302;
-	
+
 	$campos['Cliente']['tipo_cliente']['options']['label']['text'] 	= 'Tipo';
 	$campos['Cliente']['tipo_cliente']['options']['default'] 		= 1;
-	
+
 	$campos['Cliente']['obs']['options']['label']['text']			= 'Observações';
 	$campos['Cliente']['obs']['options']['cols']					= 84;
-	
+
 	$campos['Cliente']['modified']['options']['label']['text'] 		= 'Última Atualiazação';
 	$campos['Cliente']['modified']['options']['dateFormat'] 		= 'DMY';
 	$campos['Cliente']['modified']['options']['timeFormat'] 		= '24';
-	
+
 	$campos['Cliente']['created']['options']['label']['text'] 		= 'Criado';
 	$campos['Cliente']['created']['options']['dateFormat'] 			= 'DMY';
 	$campos['Cliente']['created']['options']['timeFormat'] 			= '24';
 	$campos['Cliente']['created']['options']['label']['style'] 		= 'width: 86px;';
-	
+
 	$campos['Cidade']['nome']['options']['label']['text'] 			= 'Cidade';
-	
+
 	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'Estado';
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
 	$campos['Cidade']['estado_id']['options']['default'] 			= 1;
-	
-	//$campos['Telefone']['options']['label']['text']					= 'Telefones';
-	//$campos['Telefone']['options']['multiple']						= 'checkbox';
+
+	$campos['Telefone']['options']['label']['text']					= 'Telefones';
+	$campos['Telefone']['options']['multiple']						= 'checkbox';
 
 	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
 	{
-		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs','#',);
+		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.totTels','Cliente.obs','#',);
 	}
 
 	if ($action=='excluir')
@@ -78,13 +78,13 @@
 		$campos['Cliente']['created']['options']['disabled'] 			= 'disabled';
 		$campos['Cliente']['modified']['options']['disabled'] 			= 'disabled';
 	}
-	
+
 	if ($action=='novo')
 	{
 		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
 		$on_read_view .= "\n".'$("#divClienteCnpj").show(); $("#divClienteCpf").fadeOut();';
 	}
-	
+
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['nome'] 		= 'Nome';
