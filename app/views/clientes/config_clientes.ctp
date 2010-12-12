@@ -49,7 +49,8 @@
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
 	$campos['Cidade']['estado_id']['options']['default'] 			= 1;
 	
-	$campos['Telefone']['telefone']['options']['label']['text'] 	= 'Telefone';
+	//$campos['Telefone']['options']['label']['text']					= 'Telefones';
+	//$campos['Telefone']['options']['multiple']						= 'checkbox';
 
 	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
 	{
@@ -84,7 +85,7 @@
 		$on_read_view .= "\n".'$("#divClienteCnpj").show(); $("#divClienteCpf").fadeOut();';
 	}
 	
-	if ($action=='editar')
+	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['nome'] 		= 'Nome';
 		$camposPesquisa['endereco'] 	= 'Endereço';

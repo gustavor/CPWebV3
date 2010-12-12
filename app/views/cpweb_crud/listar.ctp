@@ -4,6 +4,7 @@
 <?php if (isset($arqListaMenu)) { $arq = '../views/elements/'.$arqListaMenu.'.ctp'; if (file_exists($arq)) include($arq); } ?>
 
 <div class="lista">
+<?php if (isset($camposPesquisa)) echo $this->element('pesquisa'); ?>
 <div id="topo">
 <table class="paginas" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>

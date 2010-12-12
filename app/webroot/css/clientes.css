@@ -55,3 +55,21 @@
 	margin-right: 3px;
 	line-height: 24px;
 }
+
+#divTelefones
+{
+	margin: 0px auto;
+	min-height: 100px;
+	width: 90%;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border: 1px solid #bbb;
+	padding: 5px;
+}
+
+#divTelefones ul
+{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}

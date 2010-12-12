@@ -19,39 +19,39 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Telefone extends AppModel {
+class Telefone extends AppModel {
 
-        var $name = 'Telefone';
+	var $name = 'Telefone';
 
-        var $belongsTo = 'Cliente';
+	var $belongsTo = 'Cliente';
 
-        var $validate = array(
-            'ddd' => array(
-                'ddd-vazio' => array(
-                    'rule' => 'notEmpty',
-                    'required' => true,
-                    'message' => 'É necessário informar o DDD!'
-                ),
-                'ddd-maximo' => array(
-                    'rule' => array( 'maxLength', 2),
-                    'message' => 'O campo DDD pode ter no máximo 2 dígitos!'
-                )
-            ),
-            'telefone' => array(
-                'telefone-vazio' => array(
-                    'rule' => 'notEmpty',
-                    'required' => true,
-                    'message' => 'É necessário informar o Telefone!'
-                ),
-                'telefone-maximo' => array(
-                    'rule' => array( 'maxLength', 8),
-                    'message' => 'O campo DDD pode ter no máximo 8 dígitos, sem espaços!'
-                )
-            ),
-            'contato' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar a Pessoa de Contato!'
-            )
-        );
-    }
+	var $validate = array(
+		'ddd' => array(
+			'ddd-vazio' => array(
+				'rule' => 'notEmpty',
+				'required' => true,
+				'message' => 'É necessário informar o DDD!'
+			),
+			'ddd-maximo' => array(
+				'rule' => array( 'maxLength', 2),
+				'message' => 'O campo DDD pode ter no máximo 2 dígitos!'
+			)
+		),
+		'telefone' => array(
+			'telefone-vazio' => array(
+				'rule' => 'notEmpty',
+				'required' => true,
+				'message' => 'É necessário informar o Telefone!'
+			),
+			'telefone-maximo' => array(
+				'rule' => array( 'maxLength', 8),
+				'message' => 'O campo DDD pode ter no máximo 8 dígitos, sem espaços!'
+			)
+		),
+		'contato' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar a Pessoa de Contato!'
+		)
+	);
+}

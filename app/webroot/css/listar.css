@@ -160,3 +160,20 @@
 	padding: 5px 0px 5px 0px;
 	clear: both;
 }
+
+.lista #pesquisa
+{
+	float: right;
+	margin: 10px 5px 0px 0px;
+}
+
+.lista  #pesquisa #inPesquisa
+{
+	width: 130px;
+}
+
+.lista #pesquisa a
+{
+	text-decoration: none;
+	color: #003d4c;
+}
