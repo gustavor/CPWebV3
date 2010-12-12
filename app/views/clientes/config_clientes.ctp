@@ -91,8 +91,6 @@
 		$camposPesquisa['cpf'] 			= 'Cpf';
 		$camposPesquisa['cnpj'] 		= 'Cnpj';
 		$this->set('camposPesquisa',$camposPesquisa);
-		$urlPesquisa = Router::url('/',true).'clientes/pesquisar/';
-		$on_read_view .= "\n".'$("#inPesquisa").keyup(function(){ setPesquisa("'.$urlPesquisa.'"); });';
 	}
 
 	if ($action=='listar')	

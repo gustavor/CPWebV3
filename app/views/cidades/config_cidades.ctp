@@ -41,11 +41,9 @@
 	
 	if ($action=='editar')
 	{
-		$camposPesquisa['nome'] 		= 'Nome';
+		$camposPesquisa['nome'] = 'Nome';
 		$this->set('camposPesquisa',$camposPesquisa);
-		$on_read_view .= "\n".'$("#inPesquisa").keyup(function(){ setPesquisa("'.Router::url('/',true).'cidades/pesquisar/"); });';
 	}
-
 
 	if ($action=='listar')	
 	{

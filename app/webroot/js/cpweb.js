@@ -34,19 +34,24 @@
 	 * item2,valor2;
 	 * item3,valor3;
 	 */
-	function setPesquisa(url)
+	function setPesquisa(url,code)
 	{
 		var jId		= "#rePesquisa";
-		var jUrl	= url+$("#slPesquisa").val()+'/'+encodeURIComponent($("#inPesquisa").val());
+		var texto 	= $("#inPesquisa").val();
+		var jUrl	= url+$("#slPesquisa").val()+'/'+encodeURIComponent(texto);
 
-		//$(jId).mouseout(function() { $(jId).fadeOut(); });
-		//$(jId).mouseover(function() { $(jId).fadeOut(); });
-
-		$(jId).load(jUrl, function(resposta, status, xhr)
+		if (code==27 || !texto)
 		{
-			if (status=='success')
+			$(jId).fadeOut("4000");
+		} else
+		{
+			$(jId).load(jUrl, function(resposta, status, xhr)
 			{
-				$(jId).html(resposta);
-			}
-		});
+				if (status=='success')
+				{
+					$(jId).fadeIn();
+					$(jId).html(resposta);
+				}
+			});
+		}
 	}
