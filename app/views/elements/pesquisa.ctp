@@ -7,7 +7,7 @@
 		$parametrosPesquisa['class']	= 'slPesquisa';
 		$parametrosPesquisa['id']		= 'slPesquisa';
 		$parametrosPesquisa['options']	= $camposPesquisa;
-		$parametrosPesquisa['default'] 	= ($this->Session->check('campoPesquisa')) ? $this->Session->read('campoPesquisa') : false;
+		$parametrosPesquisa['default'] 	= ($this->Session->check('campoPesquisa'.$pluralHumanName)) ? $this->Session->read('campoPesquisa'.$pluralHumanName) : false;
 	?>
 	<?php echo $this->Form->input('slPesquisa',$parametrosPesquisa); ?>
 	<input type="text" name="inPesquisa" id="inPesquisa" class="inPesquisa" />
