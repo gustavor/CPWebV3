@@ -36,7 +36,7 @@ class ClientesController extends AppController {
 	 * @access public
 	 */
 	public $uses = 'Cliente';
-	
+
 	/**
 	 * Ajudantes 
 	 * 

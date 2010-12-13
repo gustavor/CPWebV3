@@ -289,7 +289,13 @@ class FormatacaoHelper extends AppHelper {
 				$_valor = str_replace('.','',$valor);
 				$_valor = str_replace('(','',$_valor);
 				$_valor = str_replace(')','',$_valor);
-				if (!empty($valor)) $formatado = '('.substr($_valor,0,2).')'.substr($_valor,2,4).'-'.substr($_valor,6,4);
+				if (strlen($valor)>8)
+				{
+					if (!empty($valor)) $formatado = '('.substr($_valor,0,2).')'.substr($_valor,2,4).'-'.substr($_valor,6,4);
+				} else
+				{
+					if (!empty($valor)) $formatado = substr($_valor,0,4).'-'.substr($_valor,4,4);
+				}
 				break;
 		}
 		return $formatado;

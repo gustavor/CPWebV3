@@ -93,6 +93,22 @@
 		$camposPesquisa['cnpj'] 		= 'Cnpj';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
+/*
+	if ($action=='editar')
+	{
+		$subFormLista 	= $this->data['Telefone'];
+
+		$subFormCampos['ddd']['options']['label']['text'] = 'DDD';
+		$subFormCampos['telefone']['options']['label']['text'] = 'Telefone';
+		$subFormCampos['telefone']['mascara'] = 'telefone';
+		$subFormCampos['contato']['options']['label']['text'] = 'Contato';
+
+		$subFormCamposLista	= array('ddd','telefone','contato');
+		$subFormFerramentas['excluir']['ico'] = 'bt_excluir.png';
+		$subFormFerramentas['excluir']['url'] = Router::url('/',true).'clientes/telefones/excluir/';
+	}
+*/
+	//$this->set('subFormList',$camposPesquisa);
 
 	if ($action=='listar')	
 	{

@@ -48,9 +48,17 @@
 		echo '<center>É preciso definir quais campos serão editados !!!<br /><br />Clique <a href="javascript:history.back(-1);">aqui</a> para voltar.</center>';
 		$on_read_view .= 'setTimeout(function(){ $("#formFerramentas").fadeOut(1000); },1000);';
 	}
+	
+	if (isset($subFormLista))
+	{
+		$subFormFerramentas = isset($subFormFerramentas) ? $subFormFerramentas : array();
+		$this->set('subFormLista',$subFormLista);
+		$this->set('subFormCampos',$subFormCampos);
+		$this->set('subFormCamposLista',$subFormCamposLista);
+		$this->set('subFormFerramentas',$subFormFerramentas);
+		echo $this->element('sub_form');
+	}
 ?>
-
-<?php if (isset($subForm)) echo $this->element($subForm); ?>
 
 <?php echo $this->Form->end(); ?>
 

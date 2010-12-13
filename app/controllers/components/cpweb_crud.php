@@ -210,7 +210,7 @@ class CpwebCrudComponent extends Object {
 	 */
 	private function setRelacionamentos()
 	{
-		$modelClass = $this->controller->modelClass;
+		$modelClass 	= $this->controller->modelClass;
 		if (method_exists($this->controller,'beforeRelacionamentos'))
 		{
 			$this->controller->beforeRelacionamentos();
