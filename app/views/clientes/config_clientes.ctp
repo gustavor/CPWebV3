@@ -93,22 +93,39 @@
 		$camposPesquisa['cnpj'] 		= 'Cnpj';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
-/*
+
 	if ($action=='editar')
 	{
+		// dados do formulário
 		$subFormLista 	= $this->data['Telefone'];
 
-		$subFormCampos['ddd']['options']['label']['text'] = 'DDD';
-		$subFormCampos['telefone']['options']['label']['text'] = 'Telefone';
-		$subFormCampos['telefone']['mascara'] = 'telefone';
-		$subFormCampos['contato']['options']['label']['text'] = 'Contato';
+		// detalhes de cada campo do formulário
+		$subFormCampos['ddd']['options']['label']['text'] 		= 'DDD';
+		$subFormCampos['ddd']['style_td'] 						= 'text-align: center;';
+		$subFormCampos['telefone']['options']['label']['text'] 	= 'Telefone';
+		$subFormCampos['telefone']['mascara'] 					= 'telefone';
+		$subFormCampos['telefone']['style_td'] 					= 'text-align: center;';
+		$subFormCampos['contato']['options']['label']['text'] 	= 'Contato';
+		$subFormCampos['contato']['style_td'] 					= 'text-align: center;';
 
+		// campos que vão compor a lista
 		$subFormCamposLista	= array('ddd','telefone','contato');
+
+		// ferramentas que irão repetir em cada linha da lista
 		$subFormFerramentas['excluir']['ico'] = 'bt_excluir.png';
 		$subFormFerramentas['excluir']['url'] = Router::url('/',true).'clientes/telefones/excluir/';
+
+		// botão salvar
+		$formSubForm['action'] = Router::url('/',true).'clientes/telefones/salvar/';
+		if (isset($this->data['Usuario']['id'])) $formSubForm['action'] .= $this->data['Usuario']['id'];
+
+		// jogando tudo na view
+		$this->set('subFormLista',$subFormLista);
+		$this->set('subFormCampos',$subFormCampos);
+		$this->set('formSubForm',$formSubForm);
+		$this->set('subFormCamposLista',$subFormCamposLista);
+		$this->set('subFormFerramentas',$subFormFerramentas);
 	}
-*/
-	//$this->set('subFormList',$camposPesquisa);
 
 	if ($action=='listar')	
 	{

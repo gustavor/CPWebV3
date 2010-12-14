@@ -161,3 +161,66 @@
 {
 	background-color: transparent;
 }
+
+#sub_form
+{
+	margin: 0px auto;
+	height: 200px;
+	width: 594px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border: 1px solid #bbb;
+	padding: 5px;
+	clear: both;
+	overflow: auto;
+}
+
+#sub_form #sub_resposta
+{
+	float: right;
+}
+
+#sub_form #sub_botoes
+{
+	float: left;
+}
+
+#sub_form table
+{
+	width: 100%;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	padding: 0px;
+	margin: 0px;
+}
+#sub_form table tr th,
+#sub_form table tr td
+{
+	border-top: 1px solid #333;
+	border-right: 1px solid #333;
+}
+#sub_form table th
+{
+	background-color: #acc4e6;
+}
+
+#sub_form table input
+{
+	width: 80%;
+}
+
+#sub_form #telMais
+{
+	float: right;
+}
+
+#sub_form h3
+{
+	float: left;
+	margin: 0px 30px 0px 0px;
+}
+
+#sub_form .bt_sub_form
+{
+	width: 80px;
+}

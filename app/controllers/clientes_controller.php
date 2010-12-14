@@ -54,6 +54,15 @@ class ClientesController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 	
 	/**
+	 * 
+	 */
+	public function beforeFilter()
+	{
+		if ($this->action=='telefones') $this->layout='ajax';
+		parent::beforeFilter();
+	}
+	
+	/**
 	 * Antes de renderização a visão
 	 * 
 	 * @return void
@@ -174,5 +183,31 @@ class ClientesController extends AppController {
 		{
 			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
 		}
+	}
+	
+	/**
+	 * Atualiza da lista de telefone do clientes
+	 * 
+	 * @parameter string $acao Método crud a executar
+	 * @parameter integer $id Id do telefone a sofrer ação
+	 * @return string $msg Mensagen conforme a ação executada
+	 */
+	public function telefones($acao=null,$id=0)
+	{
+		$msg = '';
+		if (!$id) $acao = 'novo';
+		switch($acao)
+		{
+			case 'excluir':
+				$msg = 'Telefone excluido com sucesso';
+				break;
+			case 'salvar':
+				$msg = 'Telefone atualizado com sucesso';
+				break;
+			case 'novo':
+				$msg = 'Telefone incluído com sucesso';
+				break;
+		}
+		$this->set('msg',$msg);
 	}
 }

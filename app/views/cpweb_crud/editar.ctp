@@ -51,11 +51,7 @@
 	
 	if (isset($subFormLista))
 	{
-		$subFormFerramentas = isset($subFormFerramentas) ? $subFormFerramentas : array();
-		$this->set('subFormLista',$subFormLista);
-		$this->set('subFormCampos',$subFormCampos);
-		$this->set('subFormCamposLista',$subFormCamposLista);
-		$this->set('subFormFerramentas',$subFormFerramentas);
+		//$subFormFerramentas = isset($subFormFerramentas) ? $subFormFerramentas : array();
 		echo $this->element('sub_form');
 	}
 ?>

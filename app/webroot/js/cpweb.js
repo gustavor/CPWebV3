@@ -55,3 +55,42 @@
 			});
 		}
 	}
+	
+	/**
+	 *
+	 */
+	function getUrlSubForm(jId,jUrl)
+	{
+		var jId	= "#"+jId;
+		var jRe	= "#sub_resposta";
+		$(jRe).load(jUrl, function(resposta, status, xhr)
+		{
+			if (status=='success')
+			{
+				$(jId).remove();
+				$(jRe).fadeIn();
+				$(jRe).html(resposta);
+				$(jRe).fadeOut(4000);
+			}
+		});
+	}
+
+	/**
+	 *
+	 */
+	function getSalvarSubForm(jUrl)
+	{
+		var jRe	= "#sub_resposta";
+		var jTa = "#tabelaSubForm";
+		var jAd = "<tr><td>*</td><td>*</td><td>*</td><td>#</td></tr>";
+		$(jRe).load(jUrl, function(resposta, status, xhr)
+		{
+			if (status=='success')
+			{
+				$(jTa).last().append(jAd);
+				$(jRe).fadeIn();
+				$(jRe).html(resposta);
+				$(jRe).fadeOut(4000);
+			}
+		});
+	}
