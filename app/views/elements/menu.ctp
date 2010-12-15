@@ -1,4 +1,3 @@
-
 <ul class="sf-menu">
 	<li>
 		<a href="<?php echo Router::url('/'); ?>">Principal</a>
@@ -12,9 +11,13 @@
 		</ul>
 	</li>
 
+<?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
+
 	<li>
 		<a href="<?php echo Router::url('/').'usuarios'; ?>">Administração</a>
 	</li>
+
+<?php endif ?>
 
 <?php if (isset($ferramentas)) : ?>
 	<li>

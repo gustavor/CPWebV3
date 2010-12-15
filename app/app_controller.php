@@ -50,6 +50,21 @@ class AppController extends Controller {
 			{
 				$this->loadModel('Usuario');
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
+				
+				// recupera os perfis do usuário
+				if (!$this->Session->check('Perfis'))
+				{
+					$perfis = $this->Usuario->read(null,$this->Session->read('Auth.Usuario.id'));
+					$arrPerfis = array();
+					foreach($perfis['Perfil'] as $_item => $_arrCampos)
+					{
+						foreach($_arrCampos as $_campo => $_valor)
+						{
+							if ($_campo!='id') array_unshift($arrPerfis,$_valor);
+						}
+					}
+					$this->Session->write('perfis',$arrPerfis);
+				}
 			}
 		}
 	}
