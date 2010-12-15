@@ -198,11 +198,15 @@
 	padding: 0px;
 	margin: 0px;
 }
-#sub_form table tr th,
-#sub_form table tr td
+
+#sub_form #tr0
 {
-	/*border-top: 1px solid #333;
-	border-right: 1px solid #333;*/
+	height: 40px;
+}
+
+#sub_form table tr th
+{
+	border: 1px solid #bbbbbb;
 }
 #sub_form table th
 {

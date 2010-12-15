@@ -101,16 +101,21 @@
 
 		// detalhes de cada campo do formulário
 		$subFormCampos['ddd']['options']['label']['text'] 		= 'DDD';
-		$subFormCampos['ddd']['style_td'] 						= 'text-align: center;';
+		$subFormCampos['ddd']['options']['style']				= 'text-align: center; ';
+		$subFormCampos['ddd']['td'] 							= 'align="center"';
 		$subFormCampos['ddd']['th'] 							= 'width=60px;';
+
 		$subFormCampos['telefone']['options']['label']['text'] 	= 'Telefone';
+		$subFormCampos['telefone']['options']['style']			= 'text-align: center; ';
 		$subFormCampos['telefone']['mascara'] 					= '9999-9999';
-		$subFormCampos['telefone']['style_td'] 					= 'text-align: center;';
+		$subFormCampos['telefone']['td'] 						= 'align="center"';
 		$subFormCampos['telefone']['th'] 						= 'width=200px;';
 		$subFormCampos['telefone']['obrigatorio'] 				= '*';
+
 		$subFormCampos['contato']['options']['label']['text'] 	= 'Contato';
-		$subFormCampos['contato']['style_td'] 					= 'text-align: center;';
-		
+		$subFormCampos['contato']['options']['style']			= 'text-align: center; ';
+		$subFormCampos['contato']['td'] 						= 'align="center"';
+
 		$on_read_view .= "\n".'$("#novotelefone").setMask("9999-9999");';
 
 		// campos que vão compor a lista

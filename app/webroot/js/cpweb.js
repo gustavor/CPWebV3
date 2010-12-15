@@ -62,7 +62,9 @@
 	function setSubForm(jId,jAcao)
 	{
 		var jId	= "#"+jId;
+		var jTa = "#tabelaSubForm";
 		var jRe	= "#sub_resposta";
+		var jAd = $(jId).html();
 		
 		if (jAcao=='excluir')
 		{
@@ -74,19 +76,12 @@
 			$("#btEdicaoSalvar").setTimeout(function(){ $(this).css('background-color','yellow'); }, 1000);
 			$(jRe).fadeOut(4000);
 		}
-	}
 
-	/**
-	 *
-	 */
-	function getSalvarSubForm(jUrl)
-	{
-		var jRe	= "#sub_resposta";
-		var jTa = "#tabelaSubForm";
-		var jAd = "<tr><td>*</td><td>*</td><td>*</td><td>#</td></tr>";
-
-		$(jTa).last().append(jAd);
-		$(jRe).fadeIn();
-		$(jRe).html(resposta);
-		$(jRe).fadeOut(4000);
+		if (jAcao=='novo')
+		{
+			$(jTa).last().append(jAd);
+			$(jRe).fadeIn();
+			$(jRe).html('Não esqueça de salvar o formulário !!!');
+			$(jRe).fadeOut(4000);
+		}
 	}
