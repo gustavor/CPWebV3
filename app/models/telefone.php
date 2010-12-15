@@ -23,9 +23,7 @@ class Telefone extends AppModel {
 
 	var $name = 'Telefone';
 
-	var $belongsTo = 'Cliente';
-
-	var $validate = array(
+	/*var $validate = array(
 		'ddd' => array(
 			'ddd-vazio' => array(
 				'rule' => 'notEmpty',
@@ -53,5 +51,23 @@ class Telefone extends AppModel {
 			'required' => true,
 			'message' => 'É necessário informar a Pessoa de Contato!'
 		)
-	);
+	);*/
+	
+	/**
+	 * 
+	 */
+	public function beforeSave()
+	{
+		if (isset($this->data['Telefone']['telefone']))
+		{
+			$this->data['Telefone']['telefone'] = str_replace('.','',$this->data['Telefone']['telefone']);
+			$this->data['Telefone']['telefone'] = str_replace('/','',$this->data['Telefone']['telefone']);
+			$this->data['Telefone']['telefone'] = str_replace('-','',$this->data['Telefone']['telefone']);
+			$this->data['Telefone']['telefone'] = str_replace('(','',$this->data['Telefone']['telefone']);
+			$this->data['Telefone']['telefone'] = str_replace(')','',$this->data['Telefone']['telefone']);
+		}
+		
+		//echo '<pre>'.print_r($this->data,true).'</pre>';
+		return true;
+	}
 }

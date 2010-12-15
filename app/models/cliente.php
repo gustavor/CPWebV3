@@ -109,6 +109,49 @@ class Cliente extends AppModel {
 			$this->data['Cliente']['cpf'] = str_replace('.','',$this->data['Cliente']['cpf']);
 			$this->data['Cliente']['cpf'] = str_replace('-','',$this->data['Cliente']['cpf']);
 		}
+		
+		// salvando o subFormulário
+		if (!$this->setSubForm('cliente_id',$this->id,'Telefone')) return false;
+
+		return true;
+	}
+	
+	/**
+	 * Atualiza o subformulário
+	 * obs: 
+	 * A tabela de subFormalário deve ser hasMany. 
+	 * os ids do modelo que não foram enviados serão deletados.
+	 * campos sem id serão incluídos
+	 * 
+	 * @parameter array 	$idPai 	Matriz dizendo o nome do campo id e o seu valor
+	 * @parameter string 	$modelo	Nome do modelo que será atualizado
+	 */
+	public function setSubForm($nomeIdPai,$valorIdPai,$modelo)
+	{
+		$dataModelo	= array();
+		$arrIdSalvos	= array();
+		
+		foreach($this->data[$this->name] as $campo => $valor)
+		{
+			if (substr($campo,0,8)=='subForm_')
+			{
+				$arrCampo 	= explode('_',$campo);
+				$id			= $arrCampo[1];
+				$dataModelo[$modelo][$id][$this->$modelo->primaryKey] = $id;
+				$dataModelo[$modelo][$id][$arrCampo[2]] = $valor;
+				if(!in_array($arrCampo[1],$arrIdSalvos)) array_unshift($arrIdSalvos,$arrCampo[1]);
+			}
+		}
+		
+		// deletando
+		$delCondicao[$nomeIdPai] = $valorIdPai;
+		if (count($arrIdSalvos)) $delCondicao['NOT'][$this->$modelo->primaryKey] = $arrIdSalvos;
+		if (!$this->$modelo->deleteAll($delCondicao)) return false;
+
+		// atualizando
+		if (!$this->$modelo->saveAll($dataModelo[$modelo])) return false;
+		
+		// incluindo
 
 		return true;
 	}

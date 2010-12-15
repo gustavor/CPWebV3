@@ -165,7 +165,7 @@
 #sub_form
 {
 	margin: 0px auto;
-	height: 200px;
+	height: 150px;
 	width: 594px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
@@ -180,6 +180,11 @@
 	float: right;
 }
 
+#sub_form h3
+{
+	color: #333;
+}
+
 #sub_form #sub_botoes
 {
 	float: left;
@@ -188,8 +193,8 @@
 #sub_form table
 {
 	width: 100%;
-	border-bottom: 1px solid #000;
-	border-left: 1px solid #000;
+	border-bottom: 1px solid #333;
+	border-left: 1px solid #333;
 	padding: 0px;
 	margin: 0px;
 }
@@ -202,6 +207,7 @@
 #sub_form table th
 {
 	background-color: #acc4e6;
+	color: #333;
 }
 
 #sub_form table input

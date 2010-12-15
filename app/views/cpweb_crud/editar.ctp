@@ -49,9 +49,8 @@
 		$on_read_view .= 'setTimeout(function(){ $("#formFerramentas").fadeOut(1000); },1000);';
 	}
 	
-	if (isset($subFormLista))
+	if (isset($subFormData))
 	{
-		//$subFormFerramentas = isset($subFormFerramentas) ? $subFormFerramentas : array();
 		echo $this->element('sub_form');
 	}
 ?>

@@ -59,20 +59,21 @@
 	/**
 	 *
 	 */
-	function getUrlSubForm(jId,jUrl)
+	function setSubForm(jId,jAcao)
 	{
 		var jId	= "#"+jId;
 		var jRe	= "#sub_resposta";
-		$(jRe).load(jUrl, function(resposta, status, xhr)
+		
+		if (jAcao=='excluir')
 		{
-			if (status=='success')
-			{
-				$(jId).remove();
-				$(jRe).fadeIn();
-				$(jRe).html(resposta);
-				$(jRe).fadeOut(4000);
-			}
-		});
+			$(jId).remove();
+			$(jRe).fadeIn();
+			$(jRe).html('Não esqueça de salvar o formulário !!!');
+			$('#btEdicaoSalvar').css('color','red');
+			$('#btEdicaoSalvar').css("text-decoration", "blink");
+			$("#btEdicaoSalvar").setTimeout(function(){ $(this).css('background-color','yellow'); }, 1000);
+			$(jRe).fadeOut(4000);
+		}
 	}
 
 	/**
@@ -83,14 +84,9 @@
 		var jRe	= "#sub_resposta";
 		var jTa = "#tabelaSubForm";
 		var jAd = "<tr><td>*</td><td>*</td><td>*</td><td>#</td></tr>";
-		$(jRe).load(jUrl, function(resposta, status, xhr)
-		{
-			if (status=='success')
-			{
-				$(jTa).last().append(jAd);
-				$(jRe).fadeIn();
-				$(jRe).html(resposta);
-				$(jRe).fadeOut(4000);
-			}
-		});
+
+		$(jTa).last().append(jAd);
+		$(jRe).fadeIn();
+		$(jRe).html(resposta);
+		$(jRe).fadeOut(4000);
 	}
