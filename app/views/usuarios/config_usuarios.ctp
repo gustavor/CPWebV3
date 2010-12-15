@@ -84,7 +84,7 @@
 		{
 			if ($this->data['Usuario']['ultimo_acesso']=='0000-00-00 00:00:00')
 			{
-				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','#','Usuario.modified');
+				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','#','Perfil','#','#','Usuario.modified','#','Usuario.created');
 			}
 		}
 		

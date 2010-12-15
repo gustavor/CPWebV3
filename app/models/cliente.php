@@ -142,14 +142,17 @@ class Cliente extends AppModel {
 				if(!in_array($arrCampo[1],$arrIdSalvos)) array_unshift($arrIdSalvos,$arrCampo[1]);
 			}
 		}
-		
+
 		// deletando
 		$delCondicao[$nomeIdPai] = $valorIdPai;
 		if (count($arrIdSalvos)) $delCondicao['NOT'][$this->$modelo->primaryKey] = $arrIdSalvos;
 		if (!$this->$modelo->deleteAll($delCondicao)) return false;
 
 		// atualizando
-		if (!$this->$modelo->saveAll($dataModelo[$modelo])) return false;
+		if (count($arrIdSalvos))
+		{
+			if (!$this->$modelo->saveAll($dataModelo[$modelo])) return false;
+		}
 		
 		// incluindo
 
