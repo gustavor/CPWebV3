@@ -55,11 +55,6 @@ class Cliente extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
-		'Estado' => array(
-			'className' => 'Estado',
-			'foreignKey' => 'cidade_id',
-			'conditions' => ''
 		)
 	);
 

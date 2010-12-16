@@ -104,6 +104,7 @@ class ClientesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -114,6 +115,7 @@ class ClientesController extends AppController {
 	 */
 	public function novo()
 	{
+		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
 		$this->CpwebCrud->novo();
 	}
 	
