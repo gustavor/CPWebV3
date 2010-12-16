@@ -59,29 +59,12 @@
 	/**
 	 *
 	 */
-	function setSubForm(jId,jAcao)
+	function delSubForm(id)
 	{
-		var jId	= "#"+jId;
-		var jTa = "#tabelaSubForm";
+		var jTr	= "#tr"+id;
 		var jRe	= "#sub_resposta";
-		var jAd = $(jId).html();
-		
-		if (jAcao=='excluir')
-		{
-			$(jId).remove();
-			$(jRe).fadeIn();
-			$(jRe).html('Não esqueça de salvar o formulário !!!');
-			$('#btEdicaoSalvar').css('color','red');
-			$('#btEdicaoSalvar').css("text-decoration", "blink");
-			$("#btEdicaoSalvar").setTimeout(function(){ $(this).css('background-color','yellow'); }, 1000);
-			$(jRe).fadeOut(4000);
-		}
-
-		if (jAcao=='novo')
-		{
-			$(jTa).last().append(jAd);
-			$(jRe).fadeIn();
-			$(jRe).html('Não esqueça de salvar o formulário !!!');
-			$(jRe).fadeOut(4000);
-		}
+		$(jTr).remove();
+		$(jRe).fadeIn(null, function() { $(this).html('Não esqueça de salvar o formulário !!!'); $(this).fadeOut(9000); $(this).css('color','red'); });
+		$('#btEdicaoSalvar').css('color','red');
+		$('#btEdicaoSalvar').css("text-decoration", "blink");
 	}

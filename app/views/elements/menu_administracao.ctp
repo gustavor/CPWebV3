@@ -9,9 +9,11 @@
 	$listaMenu['estados']['url'] 	= Router::url('/',true).'estados';
 	$listaMenu['perfis']['text'] 	= 'Perfis';
 	$listaMenu['perfis']['url'] 	= Router::url('/',true).'perfis';
+	$listaMenu['telefones']['text'] = 'Telefones';
+	$listaMenu['telefones']['url'] 	= Router::url('/',true).'telefones';
 
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
 	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';
-	
+
 	asort($listaMenu);
 ?>

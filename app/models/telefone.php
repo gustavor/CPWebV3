@@ -21,7 +21,9 @@
  */
 class Telefone extends AppModel {
 
-	var $name = 'Telefone';
+	public $name 			= 'Telefone';
+	public $displayField	= 'contato';
+	public $order			= 'contato';
 
 	/*var $validate = array(
 		'ddd' => array(
@@ -53,6 +55,16 @@ class Telefone extends AppModel {
 		)
 	);*/
 	
+	public $belongsTo = array(
+		'Cliente' => array(
+			'className' => 'Cliente',
+			'foreignKey' => 'cliente_id',
+			'conditions' => '',
+			'fields' => 'id, nome',
+			'order' => 'nome'
+		)
+	);
+
 	/**
 	 * 
 	 */
@@ -66,8 +78,6 @@ class Telefone extends AppModel {
 			$this->data['Telefone']['telefone'] = str_replace('(','',$this->data['Telefone']['telefone']);
 			$this->data['Telefone']['telefone'] = str_replace(')','',$this->data['Telefone']['telefone']);
 		}
-		
-		//echo '<pre>'.print_r($this->data,true).'</pre>';
 		return true;
 	}
 }

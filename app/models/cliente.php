@@ -111,9 +111,19 @@ class Cliente extends AppModel {
 		}
 		
 		// salvando o subFormulário
+		$this->Telefone->belongsTo = array();
 		if (!$this->setSubForm('cliente_id',$this->id,'Telefone')) return false;
 
 		return true;
+	}
+	
+	/**
+	 * Apaga os relacionamento do usuário 
+	 */
+	public function beforeDelete()
+	{
+		// apagando os relacionamentos com telefone
+		if ($this->Telefone->deleteAll(array('cliente_id'=>$this->id))) return true; else return false;
 	}
 	
 	/**
@@ -130,7 +140,8 @@ class Cliente extends AppModel {
 	{
 		$dataModelo	= array();
 		$arrIdSalvos	= array();
-		
+
+		// recuperando os ids que serão atualizados
 		foreach($this->data[$this->name] as $campo => $valor)
 		{
 			if (substr($campo,0,8)=='subForm_')
@@ -149,12 +160,24 @@ class Cliente extends AppModel {
 		if (!$this->$modelo->deleteAll($delCondicao)) return false;
 
 		// atualizando
-		if (count($arrIdSalvos))
-		{
-			if (!$this->$modelo->saveAll($dataModelo[$modelo])) return false;
-		}
+		if (count($arrIdSalvos)) if (!$this->$modelo->saveAll($dataModelo[$modelo])) return false;
 		
 		// incluindo
+		$dataModelo	= array();
+		foreach($this->data[$this->name] as $campo => $valor)
+		{
+			if (substr($campo,0,12)=='subNovoForm_')
+			{
+				$arrCampo 	= explode('_',$campo);
+				if ($valor) $dataModelo[$modelo][$arrCampo[1]] = $valor;
+			}
+		}
+		if (count($dataModelo))
+		{
+			$dataModelo[$modelo][$this->$modelo->primaryKey] = null;
+			$dataModelo[$modelo][$nomeIdPai] = $valorIdPai;
+			if (!$this->$modelo->save($dataModelo[$modelo])) return false;
+		}
 
 		return true;
 	}

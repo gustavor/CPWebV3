@@ -33,7 +33,7 @@ class CpwebCrudComponent extends Object {
 		$primaryKey 		= isset($this->controller->$modelClass->primaryKey)   ? $this->controller->$modelClass->primaryKey : 'id';
 		$displayField 		= isset($this->controller->$modelClass->displayField) ? $this->controller->$modelClass->displayField : 'id';
 		$tamLista			= isset($this->controller->viewVars['tamLista']) ? $this->controller->viewVars['tamLista'] : '90%';
-		$arqListaMenu		= isset($this->controller->viewVars['arqListaMenu']) ? $this->controller->viewVars['arqListaMenu'] : 'menu_tabelas';
+		$arqListaMenu		= isset($this->controller->viewVars['arqListaMenu']) ? $this->controller->viewVars['arqListaMenu'] : 'menu_administracao';
 		$singularVar 		= Inflector::variable($modelClass);
 		$pluralVar 			= Inflector::variable($this->controller->name);
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));

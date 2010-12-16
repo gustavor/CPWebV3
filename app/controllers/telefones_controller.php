@@ -89,17 +89,27 @@ class TelefonesController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->CpwebCrud->semPermissao();
+		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
-	 * Exibe formulário de exclusão para o model
+	 * Exibe formulário de exclusão
 	 * 
 	 * @return 		void
 	 */
-	public function excluir($id = null)
+	public function excluir($id=null)
 	{
 		$this->CpwebCrud->excluir($id);
+	}
+
+	/**
+	 * Executa a exclusão direto no banco
+	 * 
+	 * @return 		void
+	 */
+	public function delete($id=null)
+	{
+		$this->CpwebCrud->delete($id);
 	}
 	
 	/**

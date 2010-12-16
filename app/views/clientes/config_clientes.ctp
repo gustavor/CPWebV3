@@ -98,10 +98,14 @@
 	{
 		// dados do formulário
 		$subFormData 	= $this->data['Telefone'];
+		
+		// título
+		$subFormTitulo	= '<h3>Telefones</h3>';
 
 		// detalhes de cada campo do formulário
 		$subFormCampos['ddd']['options']['label']['text'] 		= 'DDD';
 		$subFormCampos['ddd']['options']['style']				= 'text-align: center; ';
+		$subFormCampos['ddd']['options']['maxlength']			= 2;
 		$subFormCampos['ddd']['td'] 							= 'align="center"';
 		$subFormCampos['ddd']['th'] 							= 'width=60px;';
 
@@ -113,7 +117,7 @@
 		$subFormCampos['telefone']['obrigatorio'] 				= '*';
 
 		$subFormCampos['contato']['options']['label']['text'] 	= 'Contato';
-		$subFormCampos['contato']['options']['style']			= 'text-align: center; ';
+		$subFormCampos['contato']['options']['style']			= 'text-align: left; padding-left: 5px; text-transform: uppercase; ';
 		$subFormCampos['contato']['td'] 						= 'align="center"';
 
 		$on_read_view .= "\n".'$("#novotelefone").setMask("9999-9999");';
@@ -131,6 +135,7 @@
 
 		// jogando tudo na view
 		$this->set('subFormData',$subFormData);
+		$this->set('subFormTitulo',$subFormTitulo);
 		$this->set('subFormCampos',$subFormCampos);
 		$this->set('formSubForm',$formSubForm);
 		$this->set('subFormCamposLista',$subFormCamposLista);

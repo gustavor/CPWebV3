@@ -71,7 +71,7 @@ class Usuario extends AppModel {
 	{
 		// apagando relacionamentos
 		$sql = 'delete from usuarios_perfil where usuarios_id='.$this->id;
-		if ($this->query($sql)) return true; else return false;
+		if ($this->query($sql)) return true; else return false;		
 	}
 	
 	/**
