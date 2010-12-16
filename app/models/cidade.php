@@ -43,7 +43,7 @@ class Cidade extends AppModel {
 			'className' => 'Estado',
 			'foreignKey' => 'estado_id',
 			'conditions' => '',
-			'fields' => 'id, nome'
+			'fields' => ''
 		)
 	);
 }

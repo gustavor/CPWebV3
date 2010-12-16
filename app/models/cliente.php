@@ -53,7 +53,7 @@ class Cliente extends AppModel {
 			'className' => 'Cidade',
 			'foreignKey' => 'cidade_id',
 			'conditions' => '',
-			'fields' => 'id,nome',
+			'fields' => '',
 			'order' => ''
 		),
 		'Estado' => array(
