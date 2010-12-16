@@ -202,6 +202,22 @@ class CpwebCrudComponent extends Object {
 		$this->controller->set('pesquisa',$pesquisa);
 		$this->controller->render('../cpweb_crud/pesquisar');
 	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	public function imprimir($id=null)
+	{
+       //Configure::write('debug',0); // Otherwise we cannot use this method while developing
+       $modelClass 	= $this->controller->modelClass;
+       $this->controller->layout = 'pdf'; //this will use the pdf.ctp layout
+       $data = $this->controller->$modelClass->read(null,$id);
+       $nomeArquivo = ucwords(mb_strtolower($data[$modelClass][$this->controller->$modelClass->displayField]));
+       $nomeArquivo = str_replace(' ','',$nomeArquivo);
+       $this->controller->set(compact('data','nomeArquivo'));
+       $this->controller->render('../cpweb_crud/imprimir');
+	}
 
 	/**
 	 * Configura os relacionamentos do model corrente, joga na view a lista 
