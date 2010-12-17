@@ -61,7 +61,7 @@
 	{
 	}
 
-	if ($action=='editar' || $action=='novo')
+	if ($action=='editar' || $action=='novo' || $action=='excluir')
 	{
 		$urlCombo = Router::url('/',true).'clientes/combo/Cidade/estado_id/';
 		$on_read_view .= "\n".'$("#ClienteNome").focus();';
@@ -114,7 +114,7 @@
 		$subFormCampos['telefone']['mascara'] 					= '9999-9999';
 		$subFormCampos['telefone']['td'] 						= 'align="center"';
 		$subFormCampos['telefone']['th'] 						= 'width=200px;';
-		$subFormCampos['telefone']['obrigatorio'] 				= '*';
+		//$subFormCampos['telefone']['obrigatorio'] 				= '*';
 
 		$subFormCampos['contato']['options']['label']['text'] 	= 'Contato';
 		$subFormCampos['contato']['options']['style']			= 'text-align: left; padding-left: 5px; text-transform: uppercase; ';

@@ -23,6 +23,7 @@ class Cliente extends AppModel {
 
         public $nome 			= 'Cliente';
         public $displayField	= 'nome';
+        public $order		 	= 'Cliente.nome';
 
         public $validate = array(
             'nome' => array(

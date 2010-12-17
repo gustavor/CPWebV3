@@ -18,8 +18,7 @@ $tcpdf->AddPage();
 // example: 
 $tcpdf->SetTextColor(0, 0, 0);
 $tcpdf->SetFont($textfont,'B',12);
-//$tcpdf->Cell(0,14, '<pre>'.print_r($data,true).'</pre>', 0,1,'L');
-$texto = '';
+$tcpdf->SetXY(10,20);
 if (isset($edicaoCampos))
 {
 	foreach($edicaoCampos as $_field)
@@ -30,8 +29,15 @@ if (isset($edicaoCampos))
 		} else
 		{
 			$_arrField = explode('.',$_field);
+			if (isset($_arrField[1]))
+			{
+				$opcoes 	= isset($campos[$_arrField[0]][$_arrField[1]]['options']) ? $campos[$_arrField[0]][$_arrField[1]]['options'] : array();
+				$mascara	= isset($campos[$_arrField[0]][$_arrField[1]]['mascara']) ? $campos[$_arrField[0]][$_arrField[1]]['mascara'] : null;
+				$titulo		= isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_arrField[1];
+			}
 			$valor	= isset($data[$_arrField[0]][$_arrField[1]]) ? $data[$_arrField[0]][$_arrField[1]] : '*';
-			$tcpdf->Cell(0,3,$valor,0,1,'L');
+			$valor = $this->Formatacao->getMascara($mascara,$valor);
+			$tcpdf->Cell(0,3,$titulo.': '.$valor,0,1,'L');
 		}
 	}
 }
