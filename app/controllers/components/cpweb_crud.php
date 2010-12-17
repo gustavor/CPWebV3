@@ -106,9 +106,15 @@ class CpwebCrudComponent extends Object {
 		$camposSalvar	= isset($this->controller->camposSalvar) ? $this->controller->camposSalvar : null;
 
 		// inclui o novo registro e redireciona para sua tela de edição
+		// só salva os campos que foram postados
 		if (!empty($this->controller->data))
 		{
-			if ($this->controller->$modelClass->save($this->controller->data))
+			$salvarCampos 	= array();
+			$opcoes			= array();
+			foreach($this->controller->data as $_modelo => $_arrCampos) foreach($_arrCampos as $_campo => $_valor) array_unshift($salvarCampos,$_campo);
+			if (count($salvarCampos)) $opcoes['fieldList'] = $salvarCampos;
+
+			if ($this->controller->$modelClass->save($this->controller->data,$opcoes))
 			{
 				$this->controller->Session->setFlash('Registro incluído com sucesso ...');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";

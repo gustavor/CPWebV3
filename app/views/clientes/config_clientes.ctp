@@ -24,7 +24,7 @@
 	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 130px; ';
 	$campos['Cliente']['cpf']['options']['label']['class']			= 'labelClienteCpf';
 	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
-	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; letter-spacing: 2px; "';
+	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; "';
 
 	$campos['Cliente']['cidade_id']['options']['default'] 			= 2302;
 
