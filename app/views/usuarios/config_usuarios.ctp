@@ -105,6 +105,15 @@
 		$on_read_view .= "\n".'$("#UsuarioNome").keyup(function(){ $(this).val($(this).val().toUpperCase()); });';
 		$on_read_view .= "\n".'$("#UsuarioEmail").keyup(function(){ $(this).val($(this).val().toLowerCase()); });';
 	}
+	
+	if ($action=='editar' || $action=='listar')
+	{
+		$camposPesquisa['nome'] 	= 'Nome';
+		$camposPesquisa['email'] 	= 'email';
+		$camposPesquisa['login'] 	= 'login';
+		$this->set('camposPesquisa',$camposPesquisa);
+	}
+
 
 	// se estamos na edição
 	if ($this->action=='listar')

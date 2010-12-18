@@ -70,7 +70,8 @@
 		$on_read_view .= "\n".'$("#ClienteTipoCliente0").click(function() { $("#divClienteCnpj").fadeOut(); $("#divClienteCpf").delay(800).fadeIn(); });';
 		$on_read_view .= "\n".'$("#ClienteTipoCliente1").click(function() { $("#divClienteCpf").fadeOut();  $("#divClienteCnpj").delay(800).fadeIn(); });';
 		$on_read_view .= "\n".'$("#CidadeEstadoId").change(function() { setCombo("ClienteCidadeId","'.$urlCombo.'", $(this).val());  });';
-		if ($this->data['Cliente']['tipo_cliente']==1) $on_read_view .= "\n".'$("#divClienteCnpj").show();'; else $on_read_view .= "\n".'$("#divClienteCpf").show();';
+		if ($this->data['Cliente']['tipo_cliente']==1) $on_read_view .= "\n".'$("#divClienteCnpj").delay(800).fadeIn(); $("#divClienteCpf").fadeOut();'; 
+		else $on_read_view .= "\n".'$("#divClienteCpf").delay(800).fadeIn(); $("#divClienteCnpj").fadeOut();';
 	}
 
 	if ($action=='editar' || $action=='excluir')

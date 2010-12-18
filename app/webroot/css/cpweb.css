@@ -6,8 +6,8 @@
 #flashMessage
 {
 	position: absolute;
-	right: 300px;
-	margin: -40px 0px 0px 0px;
+	right: 200px;
+	margin: -15px 0px 0px 0px;
 }
 
 #cabecalho
@@ -26,7 +26,7 @@
 	font-size: 16px;
 	color: #fff;
 	text-decoration: none;
-	letter-spacing: 4px;
+	letter-spacing: 2px;
 }
 #cabecalho #texto_va a
 {
@@ -233,4 +233,20 @@
 #sub_form .bt_sub_form
 {
 	width: 80px;
+}
+
+/* contador */
+#contador
+{
+	width: 300px;
+	line-height: 24px;
+	float: right;
+	margin: 0px 110px 0px 0px;
+	/*background-color: #ddd;*/
+	font-size: 11px;
+}
+
+#contador #cTxt
+{
+	float: left;
 }

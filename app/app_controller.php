@@ -32,6 +32,7 @@ class AppController extends Controller {
 	 */
 	public function beforeFilter()
 	{
+		//Configure::write('debug',0);
 		if ($this->params['controller']=='instala')
 		{
 			$this->Auth->enabled = false;
@@ -50,7 +51,7 @@ class AppController extends Controller {
 			{
 				$this->loadModel('Usuario');
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
-				
+				$this->set('tempoOn',($this->Session->read('Config.timeout')*60));
 				// recupera os perfis do usuário
 				if (!$this->Session->check('Perfis'))
 				{

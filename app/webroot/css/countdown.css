@@ -1,0 +1,26 @@
+/* jQuery Countdown styles 1.5.8. */
+.hasCountdown {
+}
+.countdown_rtl {
+	direction: rtl;
+}
+.countdown_holding span {
+	background-color: #ccc;
+}
+.countdown_row {
+	clear: both;
+	text-align: center;
+}
+
+.countdown_section {
+	float: left;
+	text-align: center;
+	width: 70px;
+}
+.countdown_amount {
+	margin-right: 5px;
+}
+.countdown_descr {
+	display: block;
+	width: 100%;
+}
