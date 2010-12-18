@@ -9,15 +9,13 @@
 	font-size: 12px;
 	font-family: verdana;
 	margin: 0px auto;
-	width: 80%;
-	/*border: 1px solid #ccc;*/
+	width: 940px;
 }
 
 .lista #esquerda
 {
 	min-width: 100px;
 	min-height: 300px;
-	/*background-color: #ddd;*/
 	float: left;
 	margin: 0px 5px 0px 0px;
 }
@@ -29,8 +27,16 @@
 	list-style: none;
 }
 
+.lista #esquerda ul li
+{
+	height: 20px;
+	line-height:20px;
+	border-top: 1px dashed #ccc;
+}
+
 .lista #esquerda a
 {
+	display: block;
 	text-decoration: none;
 	color: #333333;
 }
@@ -38,11 +44,11 @@
 .lista #esquerda a:hover
 {
 	color: red;
+	background-color: #acc4e6;
 }
 
 .lista #direita
 {
-	/*background-color: #bbb;*/
 	min-height: 300px;
 }
 
@@ -79,13 +85,14 @@
 .lista .paginas .current,
 .lista .paginas .num_pag
 {
-	min-width: 26px;
+	width: 26px;
 	text-align: center;
 	float: left;
 }
 .lista .paginas .num_pag
 {
 	color: blue;
+	width: 28px;
 }
 
 .lista .paginas .pags

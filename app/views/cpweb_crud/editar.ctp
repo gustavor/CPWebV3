@@ -17,6 +17,20 @@
 	<?php if (isset($camposPesquisa)) echo $this->element('pesquisa'); ?>
 </div>
 
+<div id="formErros">
+<?php
+	if (isset($errosForm))
+	{
+		echo "<ul>\n";
+		foreach($errosForm as $_campo => $_erro)
+		{
+			echo "\t<li id='li".$this->Form->domId($_campo)."'>".$_erro."</li>\n";
+		}
+		echo "</ul>";
+	}
+?>
+</div>
+
 <div id="formEdicao" class="camposEdicao">
 <?php
 	// campo a campo
@@ -52,7 +66,7 @@
 	if (isset($subFormData))
 	{
 		echo $this->element('sub_form');
-	}
+	}	
 ?>
 
 <?php echo $this->Form->end(); ?>

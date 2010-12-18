@@ -86,6 +86,8 @@ class CpwebCrudComponent extends Object {
 			{
 				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
 				$this->controller->viewVars['on_read_view'] = '$("#flashMessage").css("color","red")'."\n";
+				$this->controller->set('errosForm',$this->controller->$modelClass->validationErrors);
+				unset($this->controller->$modelClass->validationErrors);
 			}
 		} else
 		{
@@ -128,6 +130,8 @@ class CpwebCrudComponent extends Object {
 			{
 				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","red")'."\n";
+				$this->controller->set('errosForm',$this->controller->$modelClass->validationErrors);
+				unset($this->controller->$modelClass->validationErrors);
 			}
 		}
 

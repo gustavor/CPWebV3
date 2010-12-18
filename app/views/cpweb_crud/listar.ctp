@@ -9,20 +9,25 @@
 <table class="paginas" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 	<td width="150px" align="center"><?php foreach($botoesLista as $_label => $_arrOpcoes) if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n"; ?></td>
-	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro')); ?></td>
-	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->prev('Anterior',array('class'=>'bt_anterior')); ?></td>
+	<td width="60px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->first('Primeira',array('class'=>'bt_primeiro')); ?></td>
+	<td width="60px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo $paginator->prev('Anterior',array('class'=>'bt_anterior')); ?></td>
 	<td width="280px" align="center"><ul class="pags"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->numbers(array('separator'=>"\n",'class'=>'num_pag','tag'=>'li')); ?></ul></td>
-	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->next('Próxima',array('class'=>'bt_proximo')); ?></td>
-	<td width="80px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->last('Última',array('class'=>'bt_ultimo')); ?></td>
+	<td width="60px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->next('Próxima',array('class'=>'bt_proximo')); ?></td>
+	<td width="60px"  align="center"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->last('Última',array('class'=>'bt_ultimo')); ?></td>
 	<td width="*"     align="center"></td>
 </tr>
 </table>
 </div>
 <div id="esquerda">
 <ul>
-	<?php if (isset($listaMenu)) 
-		foreach($listaMenu as $_item => $_arrOpcoes) 
-			if (count($_arrOpcoes)) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],(isset($_arrOpcoes['options'])? $_arrOpcoes['options'] : null), (isset($_arrOpcoes['confirmMessage']) ? $_arrOpcoes['confirmMessage'] : null) )."\n\t</li>"; ?>
+<?php if (isset($listaMenu)) 
+	foreach($listaMenu as $_item => $_arrOpcoes) 
+		if (count($_arrOpcoes)) 
+		{
+			$_arrOpcoes['options']['style'] = $_arrOpcoes['url']=='#' ? 'background-color: #ddd;' : '';
+			echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],(isset($_arrOpcoes['options'])? $_arrOpcoes['options'] : null), (isset($_arrOpcoes['confirmMessage']) ? $_arrOpcoes['confirmMessage'] : null) )."\n\t</li>\n";
+		}
+?>
 </ul>
 </div>
 

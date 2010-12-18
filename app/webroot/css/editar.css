@@ -20,10 +20,29 @@
 }
 
 #edicao #formFerramentas,
-#edicao #formEdicao
+#edicao #formEdicao,
+#edicao #formErros
 {
 	margin: 3px auto;
-	width: 880px;
+	width: 940px;
+}
+
+#edicao #formErros
+{
+	background-color: red;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#edicao #formErros ul
+{
+	margin: 0px;
+	padding: 5px;
+}
+
+#edicao #formErros ul li
+{
+	list-style: none;
 }
 
 #edicao #formEdicao

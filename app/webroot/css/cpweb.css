@@ -99,11 +99,6 @@
 	border-bottom: 1px dashed #aaa;
 }
 
-.btEdicao
-{
-	width: 80px;
-}
-
 #footer
 {
 	clear: both;
@@ -164,9 +159,9 @@
 
 #sub_form
 {
-	margin: 0px auto;
+	margin: 0px 0px 0px 135px;
 	height: 150px;
-	width: 594px;
+	width: 596px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border: 1px solid #bbb;
@@ -249,4 +244,57 @@
 #contador #cTxt
 {
 	float: left;
+}
+
+.btEdicao
+{
+	width: 90px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	color: #000;
+}
+.btEdicao:hover
+{
+	color: green;
+}
+
+#btEdicaoNovo
+{
+	background: #cacaca url('../img/bt_novo.png') no-repeat 5px;
+}
+
+#btEdicaoSalvar
+{
+	background: #cacaca url('../img/bt_salvar.png') no-repeat 5px;
+}
+
+#btEdicaoListar
+{
+	background: #cacaca url('../img/bt_listar.png') no-repeat 5px;
+}
+
+#btEdicaoExcluir
+{
+	background: #cacaca url('../img/bt_excluir.png') no-repeat 5px;
+}
+#btEdicaoExcluir:hover
+{
+	color: red;
+}
+
+#btEdicaoAtualizar
+{
+	width: 110px;
+	background: #cacaca url('../img/bt_atualizar.png') no-repeat 5px;
+}
+
+#btEdicaoFechar
+{
+	background: #cacaca url('../img/bt_fechar.png') no-repeat 5px;
+}
+
+#btEdicaoImprimir
+{
+	width: 110px;
+	background: #cacaca url('../img/bt_imprimir.png') no-repeat 5px;
 }

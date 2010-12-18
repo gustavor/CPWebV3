@@ -19,6 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
+App::import('Lib', 'Localized.BrValidation');
 class Cliente extends AppModel {
 
         public $nome 			= 'Cliente';
@@ -32,11 +33,32 @@ class Cliente extends AppModel {
                 'message' => 'É necessário informar o nome do Cliente!'
             ),
             'cnpj' => array(
-
+				1 => array
+				(
+					'rule'		=> 'isUnique',
+					'message'	=> 'Este CNPJ já foi cadastrado !!!',
+					'allowEmpty'=> true
+				),
+				2 => array
+				(
+					'rule'		=> array('cnpj',null,true),
+					'message'	=> 'CNPJ inválido !!!',
+					'allowEmpty'=> true
+				)
             ),
             'cpf' => array(
 
             ),
+
+            'tipo_cliente'		=> array(
+				1 => array
+				(
+					'rule'			=> 'notEmpty',
+					'required'		=> true,
+					'message'		=> 'É necessário informar o Tipo de Cliente!'
+				)
+            ),
+
             'endereco' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
