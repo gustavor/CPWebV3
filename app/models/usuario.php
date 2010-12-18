@@ -27,10 +27,20 @@ class Usuario extends AppModel {
 	public $order		 	= 'Usuario.login';
 
 	public $validate = array(
-            'login' => array(
-                'rule' 		=> 'notEmpty',
-                'required' 	=> true,
-                'message' 	=> 'É necessário informar o login do usuário!'
+            'login' => array
+            (
+				1	=> array
+				(
+					'rule' 		=> 'notEmpty',
+					'required' 	=> true,
+					'message' 	=> 'É necessário informar o login do usuário!'
+                ),
+                2	=> array
+                (
+					'rule' 		=> 'isUnique',
+					'required' 	=> true,
+					'message' 	=> 'Este login já foi cadastrado!'
+                )
             ),
 
             'nome' => array(
@@ -38,13 +48,47 @@ class Usuario extends AppModel {
                 'required' 	=> true,
                 'message' 	=> 'É necessário informar o nome do Usuário!'
             ),
-
-            'senha' => array(
-				'rule1'=> array('rule'=>'confereSenha', 'message'=>'A senhas não estão iguais'),
-				'rule2'=> array('rule'=>array('minLength', '6'), 'allowEmpty'=>true, 'on'=>'update','message'=>'A senha deve conter no mínimo 6 caracteres'),
-				'rule3'=> array('rule'=>array('minLength', '6'), 'allowEmpty'=>false,'on'=>'create','message'=>'A senha deve conter no mínimo 6 caracteres'),
+            
+            'senha'	=> array
+            (
+				1	=> array
+				(
+					'rule'		=> 'notEmpty',
+					'required'	=> true,
+					'message'	=> 'A senha é obrigatória !',
+					'on'		=> 'create'
+				),
+				2	=> array
+				(
+					'rule'		=> 'confereSenha', 
+					'message'	=> 'A senhas não estão iguais'
 				)
+				
+            )
         );
+        
+	public function beforeValidate()
+	{
+		if ($this->data['Usuario']['senha']=='4adbc8cacf5e6ede20342fcbb4ff1043efd10e3ccd29232292ee153047d6cff0') $this->data['Usuario']['senha']='';
+		return true;
+	}
+	
+	/**
+	 * Confere se as duas senhas são iguais
+	 */
+	public function confereSenha()
+	{
+		// se a senha foi digitada duas vezes
+		if ($this->data['Usuario']['senha']=='4adbc8cacf5e6ede20342fcbb4ff1043efd10e3ccd29232292ee153047d6cff0') $this->data['Usuario']['senha'] = '';
+		if (!empty($this->data['Usuario']['senha']))
+		{
+			if ($this->data['Usuario']['senha']!=Security::hash(Configure::read('Security.salt') . $this->data['Usuario']['senha2'])) return false;
+		} else
+		{
+			unset($this->data['Usuario']['senha']);
+		}
+		return true;
+	}
 
 
 	/**
@@ -73,41 +117,4 @@ class Usuario extends AppModel {
 		$sql = 'delete from usuarios_perfil where usuarios_id='.$this->id;
 		if ($this->query($sql)) return true; else return false;		
 	}
-	
-	/**
-	 * 
-	 * 
-	 */
-	public function confereSenha()
-	{
-		// se a senha foi digitada duas vezes
-		if ($this->data['Usuario']['senha']=='4adbc8cacf5e6ede20342fcbb4ff1043efd10e3ccd29232292ee153047d6cff0') $this->data['Usuario']['senha'] = '';
-		if (!empty($this->data['Usuario']['senha']) || !empty($this->data['Usuario']['senha2']))
-		{
-			if ($this->data['Usuario']['senha']!=Security::hash(Configure::read('Security.salt') . $this->data['Usuario']['senha2'])) return false;
-		}
-		return true;
-	}
-
-	/**
-	 * 
-	 */
-	public function beforeSave()
-	{	
-		// se a senha não foi digitada
-		if (empty($this->data['Usuario']['senha']) && empty($this->data['Usuario']['senha2']))
-		{
-			unset($this->data['Usuario']['senha2']);
-			unset($this->data['Usuario']['senha']);
-		}
-
-		// encriptando a senha
-		if (isset($this->data['Usuario']['senha']) && !empty($this->data['Usuario']['senha2']))
-		{
-			/*$hash = Security::getInstance();
-			Security::setHash($hash->hashType);*/
-			//$this->data['Usuario']['senha'] = Security::hash(Configure::read('Security.salt') . $this->data['Usuario']['senha']);
-		}
-		return true;
-	}	
 }

@@ -27,48 +27,41 @@ class Cliente extends AppModel {
         public $order		 	= 'Cliente.nome';
 
         public $validate = array(
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome do Cliente!'
-            ),
-            'cnpj' => array(
-				1 => array
+            'nome' => array
+            (
+				1	=> array
 				(
-					'rule'		=> 'isUnique',
-					'message'	=> 'Este CNPJ já foi cadastrado !!!',
-					'allowEmpty'=> true
-				),
-				2 => array
-				(
-					'rule'		=> array('cnpj',null,true),
-					'message'	=> 'CNPJ inválido !!!',
-					'allowEmpty'=> true
-				)
-            ),
-            'cpf' => array(
-
+					'rule' 		=> 'notEmpty',
+					'required' 	=> true,
+					'message' 	=> 'É necessário informar o nome do Cliente!'
+                ),
+                2 	=> array
+                (
+					'rule' 		=> 'isUnique',
+					'required' 	=> true,
+					'message' 	=> 'Este cliente já foi cadastrado!'
+                )
             ),
 
-            'tipo_cliente'		=> array(
-				1 => array
-				(
-					'rule'			=> 'notEmpty',
-					'required'		=> true,
-					'message'		=> 'É necessário informar o Tipo de Cliente!'
-				)
-            ),
+            'cpf' => array
+            (
+				'rule'		=> 'isUnique',
+				'message'	=> 'Este CPF já foi cadastrado !!!',
+				'allowEmpty'=> true,
+				'required'	=> true
+			),
 
             'endereco' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
                 'message' => 'É necessário informar o endereço do Cliente!'
             ),
+
             'cidade_id' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
                 'message' => 'É necessário informar a Cidade de domicílio do Cliente!'
-            )
+            )            
         );
         
 	public $belongsTo = array(
@@ -115,19 +108,10 @@ class Cliente extends AppModel {
 	 */
 	public function beforeSave()
 	{
-		if (isset($this->data['Cliente']['cnpj']))
-		{
-			$this->data['Cliente']['cnpj'] = str_replace('.','',$this->data['Cliente']['cnpj']);
-			$this->data['Cliente']['cnpj'] = str_replace('/','',$this->data['Cliente']['cnpj']);
-			$this->data['Cliente']['cnpj'] = str_replace('-','',$this->data['Cliente']['cnpj']);
-		}
+		// limpando cnpj e cpf
+		if (isset($this->data['Cliente']['cnpj'])) 	$this->data['Cliente']['cnpj'] = ereg_replace('[./-]','',$this->data['Cliente']['cnpj']);	
+		if (isset($this->data['Cliente']['cpf']))	$this->data['Cliente']['cpf'] = ereg_replace('[./-]','',$this->data['Cliente']['cpf']);
 
-		if (isset($this->data['Cliente']['cpf']))
-		{
-			$this->data['Cliente']['cpf'] = str_replace('.','',$this->data['Cliente']['cpf']);
-			$this->data['Cliente']['cpf'] = str_replace('-','',$this->data['Cliente']['cpf']);
-		}
-		
 		// salvando o subFormulário
 		$this->Telefone->belongsTo = array();
 		if (!$this->setSubForm('cliente_id',$this->id,'Telefone')) return false;

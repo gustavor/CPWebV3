@@ -121,6 +121,7 @@ class CpwebCrudComponent extends Object {
 			foreach($this->controller->data as $_modelo => $_arrCampos) foreach($_arrCampos as $_campo => $_valor) array_unshift($salvarCampos,$_campo);
 			if (count($salvarCampos)) $opcoes['fieldList'] = $salvarCampos;
 
+			$this->controller->$modelClass->create();
 			if ($this->controller->$modelClass->save($this->controller->data,$opcoes))
 			{
 				$this->controller->Session->setFlash('Registro incluído com sucesso ...');
