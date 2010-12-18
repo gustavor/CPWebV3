@@ -106,7 +106,7 @@
 		// detalhes de cada campo do formulário
 		$subFormCampos['ddd']['options']['label']['text'] 		= 'DDD';
 		$subFormCampos['ddd']['options']['style']				= 'text-align: center; ';
-		$subFormCampos['ddd']['options']['maxlength']			= 2;
+		$subFormCampos['ddd']['mascara'] 						= '99';
 		$subFormCampos['ddd']['td'] 							= 'align="center"';
 		$subFormCampos['ddd']['th'] 							= 'width=60px;';
 
@@ -116,6 +116,12 @@
 		$subFormCampos['telefone']['td'] 						= 'align="center"';
 		$subFormCampos['telefone']['th'] 						= 'width=200px;';
 		//$subFormCampos['telefone']['obrigatorio'] 				= '*';
+		
+		$subFormCampos['ramal']['options']['label']['text'] 	= 'Ramal';
+		$subFormCampos['ramal']['options']['style']				= 'text-align: center; ';
+		$subFormCampos['ramal']['mascara'] 						= '9999';
+		$subFormCampos['ramal']['td'] 							= 'align="center"';
+		$subFormCampos['ramal']['th'] 							= 'width=90px;';
 
 		$subFormCampos['contato']['options']['label']['text'] 	= 'Contato';
 		$subFormCampos['contato']['options']['style']			= 'text-align: left; padding-left: 5px; text-transform: uppercase; ';
@@ -124,7 +130,7 @@
 		$on_read_view .= "\n".'$("#novotelefone").setMask("9999-9999");';
 
 		// campos que vão compor a lista
-		$subFormCamposLista	= array('ddd','telefone','contato');
+		$subFormCamposLista	= array('ddd','telefone','ramal','contato');
 
 		// ferramentas que irão repetir em cada linha da lista
 		$subFormFerramentas['excluir']['ico'] 	= 'bt_excluir.png';

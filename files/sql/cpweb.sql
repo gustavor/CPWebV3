@@ -499,6 +499,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`telefones` (
   `cliente_id` INT(11) NOT NULL ,
   `ddd` VARCHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `telefone` VARCHAR(8) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `ramal` VARCHAR(4) NOT NULL ,
   `contato` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_telefones_clientes` (`cliente_id` ASC) ,
