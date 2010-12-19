@@ -71,14 +71,22 @@
 	if ($this->action=='editar')
 	{
 		$on_read_view .= '$("#UsuarioNome").focus();';
-		
+
+		// cada usuário só pode editar o registro dele próprio, a menos que ele seja administrador
+		if (!in_array('ADMINISTRADOR',$meusPerfis) )
+		{
+			$botoesEdicao['Novo'] 		= array();
+			$botoesEdicao['Excluir'] 	= array();
+			$botoesEdicao['Listar'] 	= array();
+		}
+
 		// destancando administrador
 		if ($this->data['Usuario']['id']==1) 
 		{
 			$campos['Usuario']['login']['options']['style']		= 'text-align: center; width: 120px; font-weight: bold; color: green; ';
 			$campos['Usuario']['ativo']['options']['disabled'] 	= 'disabled';
 		}
-		
+
 		// limpando o campo ultimo acesso
 		if (isset($this->data['Usuario']['ultimo_acesso']))
 		{
@@ -87,8 +95,6 @@
 				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','#','Perfil','#','#','Usuario.modified','#','Usuario.created');
 			}
 		}
-		
-		// usuário logado é diferente do registro a ser editado
 	}
 
 	// se estamos na inclusão
@@ -118,6 +124,9 @@
 	// se estamos na edição
 	if ($this->action=='listar')
 	{
+		
+		if (!in_array('ADMINISTRADOR',$meusPerfis) ) $botoesLista['Novo'] = array();
+
 		// removendo o ícone excluir do usuário administrador
 		$listaFerramentasId[2]['link'][1] 	= false;
 		$listaFerramentasId[2]['icone'][1] 	= false;

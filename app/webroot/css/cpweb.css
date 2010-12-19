@@ -7,7 +7,12 @@
 {
 	position: absolute;
 	right: 200px;
-	margin: -15px 0px 0px 0px;
+	margin: -10px 0px 0px 0px;
+}
+
+.alertaFlashMessage
+{
+	color: red;
 }
 
 #cabecalho

@@ -92,7 +92,8 @@ class CpwebCrudComponent extends Object {
 		} else
 		{
 			$this->controller->data = $this->controller->$modelClass->read(null,$id);
-			$this->controller->Session->setFlash('Editando '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);
+			$msgFlash = ($this->controller->Session->check('Message.flash.message')) ? $this->controller->Session->read('Message.flash.message') : 'Editando '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField];
+			$this->controller->Session->setFlash($msgFlash);
 		}
 
 		// configurando os botões da edição, configurando os relacionamentos, atualizando a msg e renderizando a página

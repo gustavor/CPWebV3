@@ -51,7 +51,7 @@ class AppController extends Controller {
 			{
 				$this->loadModel('Usuario');
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
-				$this->set('tempoOn',($this->Session->read('Config.timeout')*60));
+				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
 				// recupera os perfis do usuário
 				if (!$this->Session->check('Perfis'))
 				{
@@ -65,6 +65,7 @@ class AppController extends Controller {
 						}
 					}
 					$this->Session->write('perfis',$arrPerfis);
+					$this->set('meusPerfis',$arrPerfis);
 				}
 			}
 		}

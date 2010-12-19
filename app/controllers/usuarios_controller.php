@@ -63,7 +63,7 @@ class UsuariosController extends AppController {
 	}
 
 	/**
-	 * Lista os dados em paginação
+	 * Lista os dados em paginação. Acesso somente para administradores.
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -72,17 +72,28 @@ class UsuariosController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
+		if (!in_array('ADMINISTRADOR',$this->viewVars['meusPerfis']) )
+		{
+			$this->Session->setFlash('<span class="alertaFlashMessage">Somente administradores podem listar outros usuários !!!</span>');
+			$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));
+		}
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
 
 	/**
-	 * Exibe formulário de edição para o model
+	 * Exibe formulário de edição para o model. Acesso somente para administradores
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
 	 */
 	public function editar($id=null)
 	{
+		if ($this->Session->read('Auth.Usuario.id')!=$id && !in_array('ADMINISTRADOR',$this->viewVars['meusPerfis']) )
+		{
+			$this->Session->setFlash('<span class="alertaFlashMessage">Somente administradores podem editar outros usuários !!!</span>');
+			$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));
+		}
+
 		if (isset($this->params['perfilLogin']))
 		{
 			$id = $this->Usuario->find('first',array('conditions'=>array('Usuario.login'=>$this->params['perfilLogin']), 'fields'=>'Usuario.id'));
@@ -187,4 +198,5 @@ class UsuariosController extends AppController {
 		$this->Session->setFlash('Saída executada com sucesso ...'); 
 		$this->redirect('/');
 	}
+	
 }
