@@ -104,13 +104,13 @@ class Cliente extends AppModel {
 	);
 	
 	/**
+	 * Antes de Salvar, limpa a máscara do cpf e cnpj e salva o subformulário 
 	 * 
+	 * @return void
 	 */
 	public function beforeSave()
 	{
-		// limpando cnpj e cpf
-		if (isset($this->data['Cliente']['cnpj'])) 	$this->data['Cliente']['cnpj'] = ereg_replace('[./-]','',$this->data['Cliente']['cnpj']);	
-		if (isset($this->data['Cliente']['cpf']))	$this->data['Cliente']['cpf'] = ereg_replace('[./-]','',$this->data['Cliente']['cpf']);
+		$this->setCpf();
 
 		// salvando o subFormulário
 		$this->Telefone->belongsTo = array();
@@ -121,6 +121,8 @@ class Cliente extends AppModel {
 	
 	/**
 	 * Apaga os relacionamento do usuário 
+	 * 
+	 * @return void
 	 */
 	public function beforeDelete()
 	{
@@ -129,14 +131,25 @@ class Cliente extends AppModel {
 	}
 	
 	/**
+	 * Antes de validar, lima a máscara do cpf e cnpj
+	 * 
+	 * @return void
+	 */
+	public function beforeValidate()
+	{
+		$this->setCpf();
+	}
+
+	/**
 	 * Atualiza o subformulário
 	 * obs: 
 	 * A tabela de subFormalário deve ser hasMany. 
 	 * os ids do modelo que não foram enviados serão deletados.
 	 * campos sem id serão incluídos
 	 * 
-	 * @parameter array 	$idPai 	Matriz dizendo o nome do campo id e o seu valor
-	 * @parameter string 	$modelo	Nome do modelo que será atualizado
+	 * @parameter 	array 	$idPai 	Matriz dizendo o nome do campo id e o seu valor
+	 * @parameter 	string 	$modelo	Nome do modelo que será atualizado
+	 * @return		boolean
 	 */
 	public function setSubForm($nomeIdPai,$valorIdPai,$modelo)
 	{
@@ -182,5 +195,17 @@ class Cliente extends AppModel {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Limpa telefone e cnpj 
+	 * 
+	 * @return void
+	 */
+	private function setCpf()
+	{
+		// limpando cnpj e cpf
+		if (isset($this->data['Cliente']['cnpj'])) 	$this->data['Cliente']['cnpj'] = ereg_replace('[./-]','',$this->data['Cliente']['cnpj']);	
+		if (isset($this->data['Cliente']['cpf']))	$this->data['Cliente']['cpf'] = ereg_replace('[./-]','',$this->data['Cliente']['cpf']);
 	}
  }

@@ -69,6 +69,12 @@ class ClientesController extends AppController {
 	 */
 	public function beforeRender()
 	{
+		if (isset($this->viewVars['errosForm']))
+		{
+			// recuperando os dados do subFormulário
+			$data 	= $this->Cliente->read(null,$this->data['Cliente']['id']);			
+			$this->data['Telefone'] = $data['Telefone'];
+		}
 		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
 		$this->set('arqListaMenu','menu_modulos');
 	}
