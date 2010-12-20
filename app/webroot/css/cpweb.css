@@ -2,7 +2,15 @@
 {
 	margin:0;
 	padding:0;
+	font-family: verdana;
+	font-size: 12px;
 }
+
+select
+{
+	height: 24px;
+}
+
 #flashMessage
 {
 	position: absolute;
@@ -13,6 +21,11 @@
 .alertaFlashMessage
 {
 	color: red;
+}
+
+.alertaOkFlashMessage
+{
+	color: green;
 }
 
 #cabecalho
@@ -242,8 +255,12 @@
 	line-height: 24px;
 	float: right;
 	margin: 0px 110px 0px 0px;
-	/*background-color: #ddd;*/
-	font-size: 11px;
+}
+
+#contador #cTxt,
+#contador #regressivo
+{
+	font-size: 10px;
 }
 
 #contador #cTxt
@@ -257,6 +274,8 @@
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	color: #000;
+	height: 24px;
+	line-height: 20px;
 }
 .btEdicao:hover
 {

@@ -1,13 +1,5 @@
-*
-{
-	margin:0;
-	padding:0;
-}
-
 .lista
 {
-	font-size: 12px;
-	font-family: verdana;
 	margin: 0px auto;
 	width: 940px;
 }
@@ -52,60 +44,78 @@
 	min-height: 300px;
 }
 
-.lista .paginas
+.lista #topo
 {
 	margin: 3px auto;
 	background-color: #acc4e6;
 	height: 40px;
+	width: 100%;
 	line-height: 40px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 }
 
-.lista .paginas a
+.lista #topo #botoes_lista
+{
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	min-width: 100px;
+}
+.lista #topo #botoes_lista button
+{
+	margin: 8px 5px 0px 5px;
+}
+
+.lista #topo #paginas
+{
+	float: left;
+	min-width: 400px;
+	height: 40px;
+	margin: 0px 0px 0px 20px;
+}
+
+.lista #topo #paginas ul,
+.lista #topo #paginas .pags
+{
+	margin: 0px auto;
+	padding: 0px;
+	list-style: none;
+}
+
+.lista #topo #paginas ul li,
+.lista #topo #paginas .pags li
+{
+	display: block;
+	float: left;
+	width: 30px;
+	text-align: center;
+}
+
+.lista #topo #paginas ul li:hover,
+.lista #topo #paginas .pags li:hover
+{
+	background-color: #c2c493;
+}
+
+.lista #topo #paginas ul a,
+.lista #topo #paginas .pags a
 {
 	text-decoration: none;
 	color: #003d4c;
 }
 
-.lista .paginas a:hover
+.lista #topo #paginas ul a:hover,
+.lista #topo #paginas .pags a:hover
 {
 	color: red;
-	background-color: #c2c493;
-	font-weight: bold;
 }
 
-.lista .paginas span
+.lista #topo #pesquisa
 {
-	float: left;
-	position: relative;
-	width: 100%;
-}
-
-.lista .paginas .current,
-.lista .paginas .num_pag
-{
-	width: 26px;
-	text-align: center;
-	float: left;
-}
-.lista .paginas .num_pag
-{
-	color: blue;
-	width: 28px;
-}
-
-.lista .paginas .pags
-{
-	margin: 0px auto;
-	padding: 0px;
-	text-align: center;
-}
-
-.lista .paginas .pags li
-{
-	display: inline;
-	text-align: center;
+	float: right;
+	height: 40px;
+	margin: 0px 5px 0px 0px;
 }
 
 .lista .linhas
@@ -113,7 +123,6 @@
 	margin: 0px 0px 0px 0px;
 	border-top: 1px solid #bbb;
 	border-right: 1px solid #bbb;
-	font-size: 11px;
 }
 .lista .linhas th
 {
@@ -148,6 +157,8 @@
 	padding: 1px;
 	border-left: 1px solid #bbb;
 	border-bottom: 1px solid #bbb;
+	font-size: 10px;
+	font-family: verdana;
 }
 
 .lista_linha_ativa
@@ -166,12 +177,6 @@
 	text-align: right;
 	padding: 5px 0px 5px 0px;
 	clear: both;
-}
-
-.lista #pesquisa
-{
-	float: right;
-	margin: 10px 5px 0px 0px;
 }
 
 .lista  #pesquisa #inPesquisa

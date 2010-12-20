@@ -16,9 +16,11 @@
 	float: left;
 	text-align: center;
 	width: 70px;
+	font-size: 10px;
 }
 .countdown_amount {
 	margin-right: 5px;
+	font-size: 10px;
 }
 .countdown_descr {
 	display: block;
