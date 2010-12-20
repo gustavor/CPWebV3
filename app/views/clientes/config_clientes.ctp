@@ -33,6 +33,7 @@
 
 	$campos['Cliente']['obs']['options']['label']['text']			= 'Observações';
 	$campos['Cliente']['obs']['options']['cols']					= 84;
+	$campos['Cliente']['obs']['options']['style']				= 'text-transform: uppercase; ';
 
 	$campos['Cliente']['modified']['options']['label']['text'] 		= 'Última Atualiazação';
 	$campos['Cliente']['modified']['options']['dateFormat'] 		= 'DMY';
