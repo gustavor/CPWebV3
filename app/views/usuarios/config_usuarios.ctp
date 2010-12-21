@@ -16,11 +16,11 @@
 	$campos['Usuario']['senha']['options']['type']					= 'password';
 
 	$campos['Usuario']['senha2']['options']['label']['style']		= 'text-align: right; width: 108px; ';
-	$campos['Usuario']['senha2']['options']['label']['text'] 		= 'redigite a Senha';
+	$campos['Usuario']['senha2']['options']['label']['text'] 		= 'Redigite a Senha';
 	$campos['Usuario']['senha2']['options']['style']				= 'text-align: center; width: 120px; ';
 	$campos['Usuario']['senha2']['options']['type']					= 'password';
 
-	$campos['Usuario']['email']['options']['label']['text'] 		= 'e-mail';
+	$campos['Usuario']['email']['options']['label']['text'] 		= 'E-mail';
 	$campos['Usuario']['email']['options']['style'] 				= 'width: 550px; ';
 
 	$campos['Usuario']['aniversario']['options']['label']['text'] 	= 'Aniversário';
