@@ -45,6 +45,16 @@
 	-webkit-border-radius: 6px;
 }
 
+#ClienteObs
+{
+	width: 603px;
+}
+
+#ClienteCidadeId
+{
+	width: 250px;
+}
+
 .labelClienteCpf
 {
 	width: 40px;
