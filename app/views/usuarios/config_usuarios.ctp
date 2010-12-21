@@ -119,6 +119,11 @@
 		$camposPesquisa['login'] 	= 'login';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
+	
+	if ($this->action=='imprimir')
+	{
+		$edicaoCampos 	= array('Usuario.login','Usuario.nome','Usuario.email','Usuario.aniversario','Usuario.ativo','Usuario.acessos','Usuario.ultimo_acesso','Usuario.modified','Usuario.created');
+	}
 
 
 	// se estamos na edição

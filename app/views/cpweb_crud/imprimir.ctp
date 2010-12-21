@@ -19,13 +19,14 @@ $tcpdf->AddPage();
 $tcpdf->SetTextColor(0, 0, 0);
 $tcpdf->SetFont($textfont,'B',12);
 $tcpdf->SetXY(10,20);
+$html = '';
 if (isset($edicaoCampos))
 {
 	foreach($edicaoCampos as $_field)
 	{
 		if ($_field=='#') 
 		{
-			$tcpdf->ln();
+			//$tcpdf->ln();
 		} else
 		{
 			$_arrField = explode('.',$_field);
@@ -35,11 +36,14 @@ if (isset($edicaoCampos))
 				$mascara	= isset($campos[$_arrField[0]][$_arrField[1]]['mascara']) ? $campos[$_arrField[0]][$_arrField[1]]['mascara'] : null;
 				$titulo		= isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_arrField[1];
 			}
-			$valor	= isset($data[$_arrField[0]][$_arrField[1]]) ? $data[$_arrField[0]][$_arrField[1]] : '*';
-			$valor = $this->Formatacao->getMascara($mascara,$valor);
-			$tcpdf->Cell(0,3,$titulo.': '.$valor,0,1,'L');
+			if (isset($_arrField[0]) && isset($_arrField[1])) $valor	= isset($data[$_arrField[0]][$_arrField[1]]) ? $data[$_arrField[0]][$_arrField[1]] : '*'; else $valor = '';
+			$valor 	= $this->Formatacao->getMascara($mascara,$valor);
+			$html .= '<span style="display: block; width: 200px; float: left;">'.$titulo.' : </span> <span style="margin: 0px 0px 0px 5px;">'.$valor.'</span><br />';
 		}
 	}
 }
+//echo $html;
+$tcpdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);
+
 echo $tcpdf->Output($nomeArquivo.'.pdf', 'D');
 ?>

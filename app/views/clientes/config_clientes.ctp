@@ -57,8 +57,9 @@
 		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
 	}
 
-	if ($action=='excluir')
+	if ($action=='imprimir')
 	{
+		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')

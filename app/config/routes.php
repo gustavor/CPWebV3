@@ -12,10 +12,10 @@
 	// sair
 	Router::connect('/sair', array('controller'=>'usuarios','action'=>'sair') );
 	
-	// perfil
-	Router::connect('/perfil/:perfilLogin', array('controller'=>'usuarios','action'=>'editar') );
+	// sobre
+	Router::connect('/sobre', array('controller'=>'paginas','action'=>'sobre') );
 	
-	//
+	// páginas
 	Router::connect('/p/*', array('controller' => 'paginas'));
 
 ?>
