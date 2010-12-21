@@ -6,11 +6,11 @@
 	$campos['Cliente']['endereco']['options']['label']['text'] 		= 'Endereço';
 	$campos['Cliente']['endereco']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
 
-    $campos['Cliente']['tipo_cliente']['options']['label']['text']  = 'Tipo do Cliente';
-    $campos['Cliente']['tipo_cliente']['options']['type']           = 'radio';
-    $campos['Cliente']['tipo_cliente']['options']['legend']         = false;
-    $campos['Cliente']['tipo_cliente']['options']['options']['0']   = 'Pessoa Física';
-    $campos['Cliente']['tipo_cliente']['options']['options']['1']   = 'Pessoa Jurídica';
+    	$campos['Cliente']['tipo_cliente']['options']['label']['text']  = 'Tipo do Cliente';
+    	$campos['Cliente']['tipo_cliente']['options']['type']           = 'radio';
+    	$campos['Cliente']['tipo_cliente']['options']['legend']         = false;
+    	$campos['Cliente']['tipo_cliente']['options']['options']['0']   = 'Pessoa Física';
+    	$campos['Cliente']['tipo_cliente']['options']['options']['1']   = 'Pessoa Jurídica';
 
 	$campos['Cliente']['cnpj']['options']['label']['text'] 			= 'CNPJ';
 	$campos['Cliente']['cnpj']['options']['maxlength'] 				= 18;
@@ -20,8 +20,8 @@
 	$campos['Cliente']['cnpj']['estilo_td'] 						= 'style="text-align: center; "';
 
 	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'CPF';
-	$campos['Cliente']['cpf']['options']['maxlength'] 				= 14;
-	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 130px; ';
+	$campos['Cliente']['cpf']['options']['maxlength'] 			= 14;
+	$campos['Cliente']['cpf']['options']['style'] 				= 'width: 130px; ';
 	$campos['Cliente']['cpf']['options']['label']['class']			= 'labelClienteCpf';
 	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
 	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; "';
@@ -32,7 +32,8 @@
 	$campos['Cliente']['tipo_cliente']['options']['default'] 		= 1;
 
 	$campos['Cliente']['obs']['options']['label']['text']			= 'Observações';
-	$campos['Cliente']['obs']['options']['cols']					= 84;
+	$campos['Cliente']['obs']['options']['cols']				= 84;
+	$campos['Cliente']['obs']['options']['style']				= 'text-transform: uppercase; ';
 
 	$campos['Cliente']['modified']['options']['label']['text'] 		= 'Última Atualiazação';
 	$campos['Cliente']['modified']['options']['dateFormat'] 		= 'DMY';
