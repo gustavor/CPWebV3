@@ -27,6 +27,12 @@
 	$listaMenu['orgaos']['url'] 	= Router::url('/',true).'orgaos';
 	$listaMenu['eventos']['text'] 	= 'Eventos';
 	$listaMenu['eventos']['url'] 	= Router::url('/',true).'eventos';
+	$listaMenu['modelos']['text'] 	= 'Modelos';
+	$listaMenu['modelos']['url'] 	= Router::url('/',true).'modelos';
+	$listaMenu['itens']['text'] 	= 'Itens';
+	$listaMenu['itens']['url'] 		= Router::url('/',true).'itens';
+	$listaMenu['teses']['text'] 	= 'Teses';
+	$listaMenu['teses']['url'] 		= Router::url('/',true).'teses';
 
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
 	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';
