@@ -27,7 +27,7 @@
 	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; "';
 
 	$campos['Cliente']['cidade_id']['options']['default'] 			= 2302;
-	$campos['Cliente']['cidade_id']['options']['options'] 			= $cidades;
+	if (isset($cidades)) $campos['Cliente']['cidade_id']['options']['options'] 			= $cidades;
 
 	$campos['Cliente']['tipo_cliente']['options']['label']['text'] 	= 'Tipo';
 	$campos['Cliente']['tipo_cliente']['options']['default'] 		= 1;
@@ -41,7 +41,7 @@
 	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'Estado';
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
 	$campos['Cidade']['estado_id']['options']['default'] 			= 1;
-	$campos['Cidade']['estado_id']['options']['options'] 			= $estados;
+	if (isset($estados)) $campos['Cidade']['estado_id']['options']['options'] 			= $estados;
 
 	$campos['Telefone']['options']['label']['text']					= 'Telefones';
 	$campos['Telefone']['options']['multiple']						= 'checkbox';
