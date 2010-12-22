@@ -42,6 +42,7 @@ class CpwebCrudComponent extends Object {
 		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$on_read_view		= '';
 		$campos 			= isset($this->controller->viewVars['campos']) ? $this->controller->viewVars['campos'] : array();
+
 		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
 		$campos[$modelClass]['modified']['options']['dateFormat'] 		= 'DMY';
 		$campos[$modelClass]['modified']['options']['timeFormat'] 		= '24';
