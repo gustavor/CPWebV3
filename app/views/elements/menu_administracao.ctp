@@ -16,7 +16,10 @@
 	$listaMenu['naturezas']['text'] = 'Natureza';
 	$listaMenu['naturezas']['url'] 	= Router::url('/',true).'naturezas';
 	$listaMenu['comarcas']['text'] = 'Comarcas';
-	$listaMenu['comarcas']['url'] 	= Router::url('/',true).'Comarcas';
+	$listaMenu['comarcas']['url'] 	= Router::url('/',true).'comarcas';
+	$listaMenu['status']['text'] 	= 'Status';
+	$listaMenu['status']['url'] 	= Router::url('/',true).'status';
+
 
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
 	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';

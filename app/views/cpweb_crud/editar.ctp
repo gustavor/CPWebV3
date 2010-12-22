@@ -5,8 +5,7 @@
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
 
 <div id='edicao'>
-
-<?php echo $this->Form->create($modelClass)."\n"; ?>
+<?php echo $this->Form->create($modelClass,array('url'=>Router::url('/',true).mb_strtolower($this->name).'/'.$action))."\n"; ?>
 <?php echo $this->Form->input($primaryKey)."\n"; ?>
 
 <div id="formFerramentas">
