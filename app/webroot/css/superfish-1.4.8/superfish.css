@@ -6,7 +6,7 @@
 	list-style:		none;
 }
 .sf-menu {
-	line-height:	1.5;
+	line-height:	1.7;
 }
 .sf-menu ul {
 	position:		absolute;
@@ -30,7 +30,7 @@
 .sf-menu li:hover ul,
 .sf-menu li.sfHover ul {
 	left:			0;
-	top:			1.7em; /* match top ul list item height */
+	top:			1.8em; /* match top ul list item height */
 	z-index:		99;
 }
 ul.sf-menu li:hover li ul,

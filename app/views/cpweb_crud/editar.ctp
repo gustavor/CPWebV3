@@ -5,7 +5,12 @@
 <?php $arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
 
 <div id='edicao'>
-<?php echo $this->Form->create($modelClass,array('url'=>Router::url('/',true).mb_strtolower($this->name).'/'.$action))."\n"; ?>
+<?php
+	$url = Router::url('/',true).mb_strtolower($this->name).'/'.$action;
+	if (isset($this->Form->data[$modelClass][$primaryKey])) $url .= '/'.$this->Form->data[$modelClass][$primaryKey];
+	echo $this->Form->create($modelClass,array('url'=>$url))."\n";
+?>
+
 <?php echo $this->Form->input($primaryKey)."\n"; ?>
 
 <div id="formFerramentas">
