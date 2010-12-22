@@ -14,7 +14,11 @@
 <?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
 
 	<li>
+		<?php if ($this->Session->check('controller')) : ?>
+		<a href="<?php echo Router::url('/').mb_strtolower($this->Session->read('controller')); ?>">Administração</a>
+		<?php else : ?>
 		<a href="<?php echo Router::url('/').'usuarios'; ?>">Administração</a>
+		<?php endif ?>
 	</li>
 
 <?php endif ?>

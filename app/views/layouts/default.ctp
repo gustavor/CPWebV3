@@ -39,7 +39,7 @@
 
 	</div>
 
-	<?php if ($this->Session->check('Auth.Usuario.login')) : ?>
+	<?php if (isset($tempoOn)) : ?>
 	<div id="contador"><span id='cTxt'>sua sessão expira em</span><span id="regressivo"></span>
 	</div>
 	<?php endif ?>

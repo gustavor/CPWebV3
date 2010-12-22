@@ -1,15 +1,8 @@
 <?php
 
 	$edicaoCampos = array('Estado.nome','Estado.uf','#','Estado.modified','#','Estado.created');
-
-	$campos['Estado']['modified']['options']['label']['text'] 	= 'Última Atualiazação';
-	$campos['Estado']['modified']['options']['dateFormat'] 		= 'DMY';
-	$campos['Estado']['created']['options']['label']['text'] 	= 'Criação';
-	$campos['Estado']['created']['options']['dateFormat'] 		= 'DMY';
 	$campos['Estado']['uf']['options']['label']['text'] 		= 'Uf';
 	$campos['Estado']['nome']['options']['label']['text'] 		= 'Estado';
-	$campos['Estado']['created']['options']['disabled'] 		= 'disabled';
-	$campos['Estado']['modified']['options']['disabled'] 		= 'disabled';
 
 	$botoesEdicao['Novo'] 		= array();
 	$botoesEdicao['Excluir'] 	= array();

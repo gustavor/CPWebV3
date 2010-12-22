@@ -44,21 +44,14 @@
 	$campos['Usuario']['acessos']['estilo_th'] 						= 'width="90px"';
 
 	$campos['Usuario']['ultimo_acesso']['options']['label']['text'] = 'Último Acesso';
+	$campos['Usuario']['ultimo_acesso']['mascara'] 					= 'datahora';
 	$campos['Usuario']['ultimo_acesso']['estilo_td'] 				= 'style="text-align: center; "';
 	$campos['Usuario']['ultimo_acesso']['options']['dateFormat'] 	= 'DMY';
 	$campos['Usuario']['ultimo_acesso']['options']['timeFormat'] 	= '24';
 	$campos['Usuario']['ultimo_acesso']['options']['disabled'] 		= 'disabled';
 	$campos['Usuario']['ultimo_acesso']['estilo_th'] 				= 'width="140px"';
 
-	$campos['Usuario']['modified']['options']['label']['text'] 		= 'Modificado';
-	$campos['Usuario']['modified']['options']['dateFormat'] 		= 'DMY';
-	$campos['Usuario']['modified']['options']['timeFormat'] 		= '24';
 	$campos['Usuario']['modified']['options']['disabled'] 			= 'disabled';
-	$campos['Usuario']['modified']['estilo_td'] 					= 'style="text-align: center; "';
-
-	$campos['Usuario']['created']['options']['label']['text'] 		= 'Criado';
-	$campos['Usuario']['created']['options']['dateFormat'] 			= 'DMY';
-	$campos['Usuario']['created']['options']['timeFormat'] 			= '24';
 	$campos['Usuario']['created']['options']['disabled'] 			= 'disabled';
 
 	$campos['Perfil']['options']['label']['text']					= 'Perfis';
@@ -73,7 +66,7 @@
 		$on_read_view .= '$("#UsuarioNome").focus();';
 
 		// cada usuário só pode editar o registro dele próprio, a menos que ele seja administrador
-		if (!in_array('ADMINISTRADOR',$meusPerfis) )
+		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
 		{
 			$botoesEdicao['Novo'] 		= array();
 			$botoesEdicao['Excluir'] 	= array();
@@ -130,7 +123,7 @@
 	if ($this->action=='listar')
 	{
 		
-		if (!in_array('ADMINISTRADOR',$meusPerfis) ) $botoesLista['Novo'] = array();
+		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis'))) $botoesLista['Novo'] = array();
 
 		// removendo o ícone excluir do usuário administrador
 		$listaFerramentasId[2]['link'][1] 	= false;

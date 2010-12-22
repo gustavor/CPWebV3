@@ -72,7 +72,7 @@ class UsuariosController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
-		if (!in_array('ADMINISTRADOR',$this->viewVars['meusPerfis']) )
+		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
 		{
 			$this->Session->setFlash('<span class="alertaFlashMessage">Somente administradores podem listar outros usuários !!!</span>');
 			$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));
@@ -88,7 +88,7 @@ class UsuariosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		if ($this->Session->read('Auth.Usuario.id')!=$id && !in_array('ADMINISTRADOR',$this->viewVars['meusPerfis']) )
+		if ($this->Session->read('Auth.Usuario.id')!=$id && !in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
 		{
 			$this->Session->setFlash('<span class="alertaFlashMessage">Somente administradores podem editar outros usuários !!!</span>');
 			$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));

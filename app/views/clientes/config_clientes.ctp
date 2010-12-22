@@ -6,11 +6,11 @@
 	$campos['Cliente']['endereco']['options']['label']['text'] 		= 'Endereço';
 	$campos['Cliente']['endereco']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
 
-    	$campos['Cliente']['tipo_cliente']['options']['label']['text']  = 'Tipo do Cliente';
-    	$campos['Cliente']['tipo_cliente']['options']['type']           = 'radio';
-    	$campos['Cliente']['tipo_cliente']['options']['legend']         = false;
-    	$campos['Cliente']['tipo_cliente']['options']['options']['0']   = 'Pessoa Física';
-    	$campos['Cliente']['tipo_cliente']['options']['options']['1']   = 'Pessoa Jurídica';
+   	$campos['Cliente']['tipo_cliente']['options']['label']['text']  = 'Tipo do Cliente';
+   	$campos['Cliente']['tipo_cliente']['options']['type']           = 'radio';
+   	$campos['Cliente']['tipo_cliente']['options']['legend']         = false;
+   	$campos['Cliente']['tipo_cliente']['options']['options']['0']   = 'Pessoa Física';
+   	$campos['Cliente']['tipo_cliente']['options']['options']['1']   = 'Pessoa Jurídica';
 
 	$campos['Cliente']['cnpj']['options']['label']['text'] 			= 'CNPJ';
 	$campos['Cliente']['cnpj']['options']['maxlength'] 				= 18;
@@ -27,28 +27,21 @@
 	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; "';
 
 	$campos['Cliente']['cidade_id']['options']['default'] 			= 2302;
+	$campos['Cliente']['cidade_id']['options']['options'] 			= $cidades;
 
 	$campos['Cliente']['tipo_cliente']['options']['label']['text'] 	= 'Tipo';
 	$campos['Cliente']['tipo_cliente']['options']['default'] 		= 1;
 
 	$campos['Cliente']['obs']['options']['label']['text']			= 'Observações';
-	$campos['Cliente']['obs']['options']['cols']				= 84;
-	$campos['Cliente']['obs']['options']['style']				= 'text-transform: uppercase; ';
-
-	$campos['Cliente']['modified']['options']['label']['text'] 		= 'Última Atualiazação';
-	$campos['Cliente']['modified']['options']['dateFormat'] 		= 'DMY';
-	$campos['Cliente']['modified']['options']['timeFormat'] 		= '24';
-
-	$campos['Cliente']['created']['options']['label']['text'] 		= 'Criado';
-	$campos['Cliente']['created']['options']['dateFormat'] 			= 'DMY';
-	$campos['Cliente']['created']['options']['timeFormat'] 			= '24';
-	$campos['Cliente']['created']['options']['label']['style'] 		= 'width: 86px;';
+	$campos['Cliente']['obs']['options']['cols']					= 84;
+	$campos['Cliente']['obs']['options']['style']					= 'text-transform: uppercase; ';
 
 	$campos['Cidade']['nome']['options']['label']['text'] 			= 'Cidade';
 
 	$campos['Cidade']['estado_id']['options']['label']['text'] 		= 'Estado';
 	$campos['Cidade']['estado_id']['options']['style'] 				= 'width: 220px; ';
 	$campos['Cidade']['estado_id']['options']['default'] 			= 1;
+	$campos['Cidade']['estado_id']['options']['options'] 			= $estados;
 
 	$campos['Telefone']['options']['label']['text']					= 'Telefones';
 	$campos['Telefone']['options']['multiple']						= 'checkbox';
@@ -60,7 +53,7 @@
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
+		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cidade.nome','#','Cliente.obs');
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')

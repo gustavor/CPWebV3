@@ -297,6 +297,13 @@ class FormatacaoHelper extends AppHelper {
 					if (!empty($valor)) $formatado = substr($_valor,0,4).'-'.substr($_valor,4,4);
 				}
 				break;
+			case 'oab': // 123.456.789/0123-45
+				$_valor = ereg_replace('[./-]','',$valor);
+				if (!empty($valor)) $formatado = substr($_valor,0,2).'.'.substr($_valor,2,strlen($_valor));
+				break;
+			case 'datahora':
+				$formatado = $this->dataHora($valor,true);
+				break;
 		}
 		return $formatado;
 	}

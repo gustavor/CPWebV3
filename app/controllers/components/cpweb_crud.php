@@ -41,7 +41,25 @@ class CpwebCrudComponent extends Object {
 		$action				= $this->controller->action;
 		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$on_read_view		= '';
-		$this->controller->set(compact('arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista'));
+		$campos 			= isset($this->controller->viewVars['campos']) ? $this->controller->viewVars['campos'] : array();
+		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
+		$campos[$modelClass]['modified']['options']['dateFormat'] 		= 'DMY';
+		$campos[$modelClass]['modified']['options']['timeFormat'] 		= '24';
+		$campos[$modelClass]['modified']['mascara'] 					= 'datahora';
+		$campos[$modelClass]['modified']['estilo_th'] 					= 'width="200px"';
+		$campos[$modelClass]['modified']['estilo_td'] 					= 'style="text-align: center; "';
+		
+		$campos[$modelClass]['created']['options']['label']['text'] 	= 'Criado';
+		$campos[$modelClass]['created']['options']['dateFormat'] 		= 'DMY';
+		$campos[$modelClass]['created']['options']['timeFormat'] 		= '24';
+		$campos[$modelClass]['created']['mascara'] 						= 'datahora';
+		$campos[$modelClass]['created']['estilo_th'] 					= 'width="200px"';
+		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
+		
+		$this->controller->set(compact('arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
+		
+		// salvando na sessão o controller corrente
+		if ($arqListaMenu=='menu_administracao') $this->controller->Session->write('controller',$this->controller->name);
 	}
 	
 	/**
@@ -233,7 +251,7 @@ class CpwebCrudComponent extends Object {
        $nomeArquivo = ucwords(mb_strtolower($data[$modelClass][$this->controller->$modelClass->displayField]));
        $nomeArquivo = str_replace(' ','',$nomeArquivo);
        $this->controller->set(compact('data','nomeArquivo'));
-       $this->controller->render('../cpweb_crud/imprimir');
+       $this->controller->render('../cpweb_crud/rel_registro');
 	}
 
 	/**

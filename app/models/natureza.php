@@ -19,17 +19,17 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Natureza extends AppModel {
+class Natureza extends AppModel {
 
-        var $name = 'Natureza';
+	public $name = 'Natureza';
 
-        var $hasMany = 'Processo';
+	//public $hasMany = 'Processo';
 
-        var $validate = array(
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome da Natureza!'
-            )
-        );
-    }
+	public $validate = array(
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome da Natureza!'
+		)
+	);
+}

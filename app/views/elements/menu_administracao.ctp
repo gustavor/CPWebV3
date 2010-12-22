@@ -11,6 +11,12 @@
 	$listaMenu['perfis']['url'] 	= Router::url('/',true).'perfis';
 	$listaMenu['telefones']['text'] = 'Telefones';
 	$listaMenu['telefones']['url'] 	= Router::url('/',true).'telefones';
+	$listaMenu['advogados']['text'] = 'Advogados';
+	$listaMenu['advogados']['url'] 	= Router::url('/',true).'advogados';
+	$listaMenu['naturezas']['text'] = 'Natureza';
+	$listaMenu['naturezas']['url'] 	= Router::url('/',true).'naturezas';
+	$listaMenu['comarcas']['text'] = 'Comarcas';
+	$listaMenu['comarcas']['url'] 	= Router::url('/',true).'Comarcas';
 
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
 	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';

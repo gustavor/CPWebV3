@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * /nome/completo/do/arquivo ( ex.: app/controllers/bars_controller.php ou app/models/foo.php )
+ *  * app/models/comarca.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,17 +19,17 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Comarca extends AppModel {
+class Comarca extends AppModel {
 
-        var $name = 'Comarca';
+	public $name = 'Comarca';
 
-        var $hasMany = 'Processo';
+	//public $hasMany = 'Processo';
 
-        var $validate = array(
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome da Comarca!'
-            )
-        );
-    }
+	public $validate = array(
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome da Comarca!'
+		)
+	);
+}

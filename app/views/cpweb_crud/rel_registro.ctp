@@ -6,7 +6,7 @@ $textfont = 'freesans'; // looks better, finer, and more condensed than 'dejavus
 
 $tcpdf->SetAuthor("Copyright 2010, Gustavo Dias Duarte Ramos ( gustavo at gustavo-ramos dot com )");
 $tcpdf->SetAutoPageBreak( false );
-$tcpdf->setHeaderFont(array($textfont,'',12));
+$tcpdf->setHeaderFont(array($textfont,'B',12));
 $tcpdf->xheadercolor = array(10,10,10);
 $tcpdf->xheadertext = 'CPWeb - Controle Virtual de Processos';
 $tcpdf->xfootertext = '@copyright   Copyright 2010, Valéria Esteves Advogados Associados ( www.veadvogados.com.br )';
@@ -17,7 +17,7 @@ $tcpdf->AddPage();
 // Now you position and print your page content
 // example: 
 $tcpdf->SetTextColor(0, 0, 0);
-$tcpdf->SetFont($textfont,'B',12);
+$tcpdf->SetFont($textfont,'',11);
 $tcpdf->SetXY(10,20);
 $html = '';
 if (isset($edicaoCampos))
@@ -26,7 +26,7 @@ if (isset($edicaoCampos))
 	{
 		if ($_field=='#') 
 		{
-			//$tcpdf->ln();
+			$tcpdf->ln();
 		} else
 		{
 			$_arrField = explode('.',$_field);
@@ -37,13 +37,19 @@ if (isset($edicaoCampos))
 				$titulo		= isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_arrField[1];
 			}
 			if (isset($_arrField[0]) && isset($_arrField[1])) $valor	= isset($data[$_arrField[0]][$_arrField[1]]) ? $data[$_arrField[0]][$_arrField[1]] : '*'; else $valor = '';
+
+			// se é um comboBox, exibe o segundo valor
+			if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options'])) $valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
+
+			// mascarando
 			$valor 	= $this->Formatacao->getMascara($mascara,$valor);
-			$html .= '<span style="display: block; width: 200px; float: left;">'.$titulo.' : </span> <span style="margin: 0px 0px 0px 5px;">'.$valor.'</span><br />';
+			
+			$html .= '<tr><td width="100px" align="right">'.$titulo.': </td><td width="3px;"></td><td width="*" align="left">'.$valor.'</td></tr>';
 		}
 	}
 }
 //echo $html;
-$tcpdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);
+$tcpdf->writeHTMLCell($w=0, $h=0, $x='', $y='', '<table>'.$html.'</table>', $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);
 
 echo $tcpdf->Output($nomeArquivo.'.pdf', 'D');
 ?>

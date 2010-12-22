@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/clientes_controller.php
+ * app/controllers/advogados_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,23 +19,23 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ClientesController extends AppController {
+class AdvogadosController extends AppController {
 
 	/**
-	 * Nome da Camada
+	 * Nome
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Clientes';
+	public $name = 'Advogados';
 	
 	/**
-	 * Modelo para a camada
+	 * Modelo
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Cliente';
+	public $uses = 'Advogado';
 
 	/**
 	 * Ajudantes 
@@ -58,25 +58,7 @@ class ClientesController extends AppController {
 	 */
 	public function beforeFilter()
 	{
-		if ($this->action=='telefones') $this->layout='ajax';
-		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
-	}
-	
-	/**
-	 * Antes de renderização a visão
-	 * 
-	 * @return void
-	 */
-	public function beforeRender()
-	{
-		if (isset($this->viewVars['errosForm']))
-		{
-			// recuperando os dados do subFormulário
-			$data 	= $this->Cliente->read(null,$this->data['Cliente']['id']);			
-			$this->data['Telefone'] = $data['Telefone'];
-		}
-		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
 	}
  
 	/**
@@ -110,7 +92,6 @@ class ClientesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -121,7 +102,6 @@ class ClientesController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
 		$this->CpwebCrud->novo();
 	}
 	
@@ -152,10 +132,8 @@ class ClientesController extends AppController {
 	 */
 	public function imprimir($id=null)
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
 		$this->CpwebCrud->imprimir($id);
-	}
-	
+	}	
 	/**
 	 * Retorna uma lista para comboBox
 	 * 
@@ -176,21 +154,5 @@ class ClientesController extends AppController {
 	public function pesquisar($campo=null,$texto=null)
 	{
 		$this->CpwebCrud->pesquisar($campo,$texto);
-	}
-	
-	/**
-	 * Atualiza Camada antes de enviar os relacionamentos para a view
-	 * 
-	 * @return void
-	 */
-	public function beforeRelacionamentos()
-	{
-		if (isset($this->data['Cidade']['estado_id']))
-		{
-			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
-		} else
-		{
-			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
-		}
 	}	
 }

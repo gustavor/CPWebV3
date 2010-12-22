@@ -19,22 +19,35 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Advogado extends AppModel {
+class Advogado extends AppModel {
 
-        var $name = 'Advogado';
+	public $name 			= 'Advogado';
+	public $primaryKey		= 'id';
+	public $displayField 	= 'nome';
+	public $order		 	= 'nome';
 
-        var $hasMany = array( 'Audiencia', 'Processo');
+	//public $hasMany = array( 'Audiencia', 'Processo');
 
-        var $validate = array(
-            'oab' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar a OAB do Advogado!'
-            ),
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome do Advogado!'
-            )
-        );
-    }
+	public $validate = array(
+		'oab' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar a OAB do Advogado!'
+		),
+
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome do Advogado!'
+		)
+	);
+	
+	/**
+	 * Antes de salvar
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Advogado']['oab'] 	= ereg_replace('[.-/]','',$this->data['Advogado']['oab']);
+		$this->data['Advogado']['nome'] = mb_strtoupper($this->data['Advogado']['nome']);
+	}
+}

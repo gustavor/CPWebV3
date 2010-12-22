@@ -77,15 +77,9 @@
 				$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd]) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd] : $estilo;
 				$masc	= isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'] : '';
 				$valor 	= $_dataModel[$_arrField[0]][$_arrField[1]];
-				
-				// se é tipo data e possui máscara
-				if ($masc && isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']))
-				{
-					$valor = ($valor!='0000-00-00 00:00:00') ? $this->Formatacao->dataHora($valor, $segundos=true) : '';
-				}
-				
+
 				// se possui máscara 
-				if (isset($campos[$_arrField[0]][$_arrField[1]]['mascara'])) $valor = $this->Formatacao->getMascara($campos[$_arrField[0]][$_arrField[1]]['mascara'],$valor);
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['mascara']))			$valor = $this->Formatacao->getMascara($campos[$_arrField[0]][$_arrField[1]]['mascara'],$valor);
 
 				// se é um comboBox, exibe o vetor 1
 				if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options'])) $valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
