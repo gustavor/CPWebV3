@@ -21,10 +21,12 @@
 	$listaMenu['status']['url'] 	= Router::url('/',true).'status';
 	$listaMenu['instancias']['text']= 'Instancias';
 	$listaMenu['instancias']['url'] = Router::url('/',true).'instancias';
-	
 	$listaMenu['fases']['text'] 	= 'Fases';
 	$listaMenu['fases']['url'] 		= Router::url('/',true).'fases';
-
+	$listaMenu['orgaos']['text'] 	= 'Orgãos';
+	$listaMenu['orgaos']['url'] 	= Router::url('/',true).'orgaos';
+	$listaMenu['eventos']['text'] 	= 'Eventos';
+	$listaMenu['eventos']['url'] 	= Router::url('/',true).'eventos';
 
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
 	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';
