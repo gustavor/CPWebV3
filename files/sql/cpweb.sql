@@ -590,7 +590,7 @@ COLLATE = utf8_general_ci;
 DROP TABLE IF EXISTS `cpwebv3`.`teses` ;
 
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`teses` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
   `modified` DATETIME NULL ,
   `filename` VARCHAR(100) NULL ,
@@ -636,7 +636,7 @@ COLLATE = utf8_general_ci;
 DROP TABLE IF EXISTS `cpwebv3`.`itens` ;
 
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`itens` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
   `modified` DATETIME NULL ,
   `nome` VARCHAR(45) NULL ,
