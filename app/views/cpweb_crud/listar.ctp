@@ -1,6 +1,6 @@
 <?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
 <?php $this->Html->script('listar.js', array('inline' => false)); ?>
-<?php $arq = mb_strtolower('../views/'.mb_strtolower(str_replace(' ','_',$pluralHumanName)).'/config_'.mb_strtolower(str_replace(' ','_',$pluralHumanName)).'.ctp'); if (file_exists($arq)) include_once($arq); else exit('não foi possível localizar o arquivo '.$arq); ?>
+<?php $arq = mb_strtolower('../views/'.$name.'/config_'.$name.'.ctp'); if (file_exists($arq)) include_once($arq); else exit('não foi possível localizar o arquivo '.$arq); ?>
 <?php if (isset($arqListaMenu)) { $arq = '../views/elements/'.$arqListaMenu.'.ctp'; if (file_exists($arq)) include($arq); } ?>
 
 <div class="lista">

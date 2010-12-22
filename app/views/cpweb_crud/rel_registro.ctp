@@ -1,5 +1,5 @@
 <?php
-$arq = '../views/'.$pluralVar.'/config_'.$pluralVar.'.ctp'; if (file_exists($arq)) include_once($arq);
+$arq = '../views/'.$name.'/config_'.$name.'.ctp'; if (file_exists($arq)) include_once($arq);
 App::import('Vendor','xtcpdf'); 
 $tcpdf = new XTCPDF();
 $textfont = 'freesans'; // looks better, finer, and more condensed than 'dejavusans'
@@ -47,8 +47,8 @@ if (isset($edicaoCampos))
 			$html .= '<tr><td width="100px" align="right">'.$titulo.': </td><td width="3px;"></td><td width="*" align="left">'.$valor.'</td></tr>';
 		}
 	}
-}
-//echo $html;
+} else $html = 'Nenhum campo para impressão foi definido';
+
 $tcpdf->writeHTMLCell($w=0, $h=0, $x='', $y='', '<table>'.$html.'</table>', $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);
 
 echo $tcpdf->Output($nomeArquivo.'.pdf', 'D');

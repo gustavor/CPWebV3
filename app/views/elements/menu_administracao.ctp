@@ -35,11 +35,11 @@
 	$listaMenu['teses']['url'] 			= Router::url('/',true).'teses';
 	$listaMenu['solicitacoes']['text'] 	= 'Solicitações';
 	$listaMenu['solicitacoes']['url'] 	= Router::url('/',true).'solicitacoes';
-	$listaMenu['solicitacoes2']['text'] = 'Tipo de Solicitações';
-	$listaMenu['solicitacoes2']['url'] = Router::url('/',true).'tipos_solicitacoes';
+	$listaMenu['tipos_solicitacoes']['text'] = 'Tipo de Solicitações';
+	$listaMenu['tipos_solicitacoes']['url'] = Router::url('/',true).'tipos_solicitacoes';
 
-	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
-	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';
+	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
+	$listaMenu[$name]['url'] = '#';
 
 	asort($listaMenu,0);
 ?>

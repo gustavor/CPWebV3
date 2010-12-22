@@ -15,7 +15,7 @@
 
 	<li>
 		<?php if ($this->Session->check('controller')) : ?>
-		<a href="<?php echo Router::url('/').mb_strtolower($this->Session->read('controller')); ?>">Administração</a>
+		<a href="<?php echo Router::url('/').$name; ?>">Administração</a>
 		<?php else : ?>
 		<a href="<?php echo Router::url('/').'usuarios'; ?>">Administração</a>
 		<?php endif ?>

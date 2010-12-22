@@ -23,7 +23,7 @@ $(document).ready (function()
 	<?php if (isset($tempoOn)) echo "\t".'$("#regressivo").countdown({until: '.$tempoOn.', format: "MS"});'."\n"; ?>
 	<?php if (isset($on_read_view))   			echo "\t".$on_read_view."\n"; else echo "\n"; ?>
 	<?php if (isset($on_read_view_sub_form))   	echo "\t".$on_read_view_sub_form."\n"; else echo "\n"; ?>
-	<?php if (isset($camposPesquisa)) 			echo "\t".'$("#inPesquisa").keyup(function(e){ setPesquisa("'.Router::url('/',true).mb_strtolower($pluralHumanName).'/pesquisar/'.'", (e.keyCode ? e.keyCode : e.which) ); });'."\n"; ?>
+	<?php if (isset($camposPesquisa)) 			echo "\t".'$("#inPesquisa").keyup(function(e){ setPesquisa("'.Router::url('/',true).$name.'/pesquisar/'.'", (e.keyCode ? e.keyCode : e.which) ); });'."\n"; ?>
 });
 </script>
 

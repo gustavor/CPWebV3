@@ -42,6 +42,8 @@ class CpwebCrudComponent extends Object {
 		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
 		$on_read_view		= '';
 		$campos 			= isset($this->controller->viewVars['campos']) ? $this->controller->viewVars['campos'] : array();
+		$name				= mb_strtolower(str_replace(' ','_',$pluralHumanName));
+		$this->name			= $name;
 
 		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
 		$campos[$modelClass]['modified']['options']['dateFormat'] 		= 'DMY';
@@ -57,7 +59,7 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['estilo_th'] 					= 'width="200px"';
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
 		
-		$this->controller->set(compact('arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
+		$this->controller->set(compact('name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
 		
 		// salvando na sessão o controller corrente
 		if ($arqListaMenu=='menu_administracao') $this->controller->Session->write('controller',$this->controller->name);
@@ -146,7 +148,7 @@ class CpwebCrudComponent extends Object {
 			{
 				$this->controller->Session->setFlash('Registro incluído com sucesso ...');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
-				$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/editar/'.$this->controller->$modelClass->$primaryKey);
+				$this->controller->redirect(Router::url('/',true).$this->name.'/editar/'.$this->controller->$modelClass->$primaryKey);
 			} else
 			{
 				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
@@ -177,7 +179,7 @@ class CpwebCrudComponent extends Object {
 		if ($this->controller->$modelClass->delete($id)) 
 		{
 			$this->controller->Session->setFlash('Registro excluído com sucesso !!!');
-			$this->controller->redirect(Router::url('/',true).$this->controller->viewVars['pluralVar'].'/listar'.$this->getParametrosLista());
+			$this->controller->redirect(Router::url('/',true).$this->name.'/listar'.$this->getParametrosLista());
 		} else
 		{
 			$this->controller->Session->setFlash('Não foi possível deletar o id '.$id);
@@ -198,7 +200,7 @@ class CpwebCrudComponent extends Object {
 		$this->controller->viewVars['botoesEdicao']['Atualizar']= array();
 		$this->controller->viewVars['botoesEdicao']['Salvar'] 	= array();
 		$this->controller->viewVars['botoesEdicao']['Listar'] 	= array();
-		$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
+		$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->name.'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
 		$this->controller->Session->setFlash('Excluindo '.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField]);
 		$this->controller->render('../cpweb_crud/editar');
 	}
@@ -233,8 +235,8 @@ class CpwebCrudComponent extends Object {
 		$parametros['fields'] 							= array($id,$campo);
 		$pesquisa 										= $this->controller->$modelClass->find('list',$parametros);
 
-		$this->controller->Session->write('campoPesquisa'.$pluralHumanName,$campo);
-		$this->controller->set('link',Router::url('/',true).mb_strtolower($this->controller->name).'/'.$action);
+		$this->controller->Session->write('campoPesquisa'.$this->name,$campo);
+		$this->controller->set('link',Router::url('/',true).$this->name.'/'.$action);
 		$this->controller->set('pesquisa',$pesquisa);
 		$this->controller->render('../cpweb_crud/pesquisar');
 	}
@@ -301,20 +303,20 @@ class CpwebCrudComponent extends Object {
 		{
 			if ($this->controller->action=='editar')
 			{
-				$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+				$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
 				$botoes['Novo']['title']		= 'Insere um novo registro ...';
-				$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/imprimir/'.$id.'\'';
+				$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/imprimir/'.$id.'\'';
 				$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
 			}
 			$botoes['Excluir']['onClick']	= 'javascript:$(\'#botoesEdicao\').fadeOut(); $(\'#msgEdicao\').show(100);';
 			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
-			$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->controller->viewVars['pluralVar'].'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:return false;" onclick="javascript:$(\'#msgEdicao\').fadeOut(); $(\'#botoesEdicao\').show();" class="linkEdicaoExcluir">Não</a>';
+			$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->name.'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:return false;" onclick="javascript:$(\'#msgEdicao\').fadeOut(); $(\'#botoesEdicao\').show();" class="linkEdicaoExcluir">Não</a>';
 		}
 		$botoes['Salvar']['type']		= 'submit';
 		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
-		if ($id) $botoes['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/editar/'.$id.'\'';
+		if ($id) $botoes['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/editar/'.$id.'\'';
 		if ($id) $botoes['Atualizar']['title']		= 'Atualize o registro ...';		
-		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/listar'.$urlLista.'\'';
+		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/listar'.$urlLista.'\'';
 		$botoes['Listar']['title']		= 'Volta para a Lista ...';
 
 		// configurando as propriedades padrão
@@ -339,12 +341,9 @@ class CpwebCrudComponent extends Object {
 	 * @return void
 	 */
 	private function setBotoesLista()
-	{
-		// parâmetros
-		$pluralVar 		= Inflector::variable($this->controller->name);
-		
+	{		
 		// botões padrão (podem ser re-escritos pelo controller pai)
-		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$pluralVar.'/novo\'';
+		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
 		$botoes['Novo']['title']		= 'Insere um novo registro ...';
 
 		// configurando as propriedades padrão
@@ -369,19 +368,19 @@ class CpwebCrudComponent extends Object {
 	  {
 		if (!isset($this->controller->viewVars['listaFerramentas'][0]))
 		{
-			$ferramentas[0]['link']		= Router::url('/',true).$this->controller->viewVars['pluralVar'].'/imprimir/{id}';
+			$ferramentas[0]['link']		= Router::url('/',true).$this->name.'/imprimir/{id}';
 			$ferramentas[0]['title']	= 'Imprimir';
 			$ferramentas[0]['icone']	= 'bt_imprimir.png';
 		}
 		if (!isset($this->controller->viewVars['listaFerramentas'][1]))
 		{
-			$ferramentas[1]['link']		= Router::url('/',true).$this->controller->viewVars['pluralVar'].'/editar/{id}';
+			$ferramentas[1]['link']		= Router::url('/',true).$this->name.'/editar/{id}';
 			$ferramentas[1]['title']	= 'Editar';
 			$ferramentas[1]['icone']	= 'bt_editar.png';
 		}
 		if (!isset($this->controller->viewVars['listaFerramentas'][2]))
 		{
-			$ferramentas[2]['link']		= Router::url('/',true).$this->controller->viewVars['pluralVar'].'/excluir/{id}';
+			$ferramentas[2]['link']		= Router::url('/',true).$this->name.'/excluir/{id}';
 			$ferramentas[2]['title']	= 'Excluir';
 			$ferramentas[2]['icone']	= 'bt_excluir.png';
 		}

@@ -27,7 +27,7 @@ class TiposSolicitacoesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'TipoSolicitacoes';
+	public $name = 'TiposSolicitacoes';
 	
 	/**
 	 * Modelo
