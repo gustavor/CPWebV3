@@ -36,10 +36,16 @@ if (isset($edicaoCampos))
 				$mascara	= isset($campos[$_arrField[0]][$_arrField[1]]['mascara']) ? $campos[$_arrField[0]][$_arrField[1]]['mascara'] : null;
 				$titulo		= isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_arrField[1];
 			}
-			if (isset($_arrField[0]) && isset($_arrField[1])) $valor	= isset($data[$_arrField[0]][$_arrField[1]]) ? $data[$_arrField[0]][$_arrField[1]] : '*'; else $valor = '';
+			if (isset($_arrField[0]) && isset($_arrField[1]))
+			{
+				$valor	= isset($data[$_arrField[0]][$_arrField[1]]) ? $data[$_arrField[0]][$_arrField[1]] : '*';
+			} else $valor = '';
 
 			// se é um comboBox, exibe o segundo valor
-			if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options'])) $valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
+			if (isset($campos[$_arrField[0]][$_arrField[1]]['options']['options']))
+			{
+				$valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
+			}
 
 			// mascarando
 			$valor 	= $this->Formatacao->getMascara($mascara,$valor);

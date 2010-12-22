@@ -6,14 +6,13 @@
 	$campos['Solicitacao']['parent_code']['options']['style'] 				= 'width: 120px; ';
 
 	$campos['Solicitacao']['tipo_solicitacao_id']['options']['label']['text']	= 'Tipo';
-	if (isset($tipos_solicitacoes)) $campos['Solicitacao']['tipo_solicitacao_id']['options']['options'] 	= $tipos_solicitacoes;
+	if (isset($tiposolicitacoes)) $campos['Solicitacao']['tipo_solicitacao_id']['options']['options'] 	= $tiposolicitacoes;
 
 	$campos['TipoSolicitacao']['nome']['options']['label']['text']		= 'Tipo';
 
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Solicitacao.solicitacao','#','Solicitacao.parent_code','#','Solicitacao.tipo_solicitacao_id','#','Solicitacao.modified','#','Solicitacao.created');
-		$on_read_view .= "\n".'$("#SolicitacaoSolicitacao").focus();';
 		$campos['Solicitacao']['created']['options']['disabled'] 	= 'disabled';
 		$campos['Solicitacao']['modified']['options']['disabled'] 	= 'disabled';
 	}
@@ -27,10 +26,15 @@
 	{
 		$edicaoCampos = array('Solicitacao.solicitacao','#','Solicitacao.parent_code','#','Solicitacao.tipo_solicitacao_id');
 	}
+	
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#SolicitacaoSolicitacao").focus();';
+	}
 
 	if ($action=='editar' || $action=='listar')
 	{
-		$camposPesquisa['nome'] 		= 'Nome';
+		$camposPesquisa['solicitacao'] 	= 'Solicitação';
 		$camposPesquisa['parent_code'] 	= 'Código';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}

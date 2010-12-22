@@ -34,8 +34,8 @@ class Solicitacao extends AppModel {
 	);
 	
 	public $belongsTo = array(
-		'TiposSolicitacao' => array(
-			'className' => 'TiposSolicitacao',
+		'TipoSolicitacao' => array(
+			'className' => 'TipoSolicitacao',
 			'foreignKey' => 'tipo_solicitacao_id',
 			'conditions' => '',
 			'fields' => ''

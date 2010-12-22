@@ -251,6 +251,7 @@ class CpwebCrudComponent extends Object {
        $modelClass 	= $this->controller->modelClass;
        $this->controller->layout = 'pdf'; //this will use the pdf.ctp layout
        $data = $this->controller->$modelClass->read(null,$id);
+       $this->setRelacionamentos();
        $nomeArquivo = ucwords(mb_strtolower($data[$modelClass][$this->controller->$modelClass->displayField]));
        $nomeArquivo = str_replace(' ','',$nomeArquivo);
        $this->controller->set(compact('data','nomeArquivo'));
