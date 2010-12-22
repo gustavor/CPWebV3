@@ -19,6 +19,11 @@
 	$listaMenu['comarcas']['url'] 	= Router::url('/',true).'comarcas';
 	$listaMenu['status']['text'] 	= 'Status';
 	$listaMenu['status']['url'] 	= Router::url('/',true).'status';
+	$listaMenu['instancias']['text']= 'Instancias';
+	$listaMenu['instancias']['url'] = Router::url('/',true).'instancias';
+	
+	$listaMenu['fases']['text'] 	= 'Fases';
+	$listaMenu['fases']['url'] 		= Router::url('/',true).'fases';
 
 
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;

@@ -19,17 +19,17 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Fase extends AppModel {
+class Fase extends AppModel {
 
-        var $name = 'Fase';
+	public $name 		= 'Fase';
+	public $useTable 	= 'fases';
+	public $displayField= 'nome';
 
-        var $hasMany = 'Processo';
-
-        var $validate = array(
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome da Fase!'
-            )
-        );
-    }
+	public $validate = array(
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome da Fase!'
+		)
+	);
+}

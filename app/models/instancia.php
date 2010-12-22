@@ -19,17 +19,16 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Instancia extends AppModel {
+class Instancia extends AppModel {
 
-        var $name = 'Instancia';
+	public $name 			= 'Instancia';
+	//public $displayField 	= 'nome';
 
-        var $hasMany = 'Processo';
-
-        var $validate = array(
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome da Instância!'
-            )
-        );
-    }
+	public $validate = array(
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome da Instância!'
+		)
+	);
+}

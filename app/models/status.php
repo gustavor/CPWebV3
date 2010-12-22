@@ -32,4 +32,13 @@ class Status extends AppModel {
 			'message' => 'É necessário informar o nome do status!'
 		)
 	);
+	
+	/**
+	 * 
+	 */
+	public function beforeValidate()
+	{
+		
+	}
+	
 }
