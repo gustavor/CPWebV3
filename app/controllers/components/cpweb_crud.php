@@ -51,13 +51,15 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['modified']['mascara'] 					= 'datahora';
 		$campos[$modelClass]['modified']['estilo_th'] 					= 'width="200px"';
 		$campos[$modelClass]['modified']['estilo_td'] 					= 'style="text-align: center; "';
-		
+		$campos[$modelClass]['modified']['options']['disabled'] 		= 'disabled';
+
 		$campos[$modelClass]['created']['options']['label']['text'] 	= 'Criado';
 		$campos[$modelClass]['created']['options']['dateFormat'] 		= 'DMY';
 		$campos[$modelClass]['created']['options']['timeFormat'] 		= '24';
 		$campos[$modelClass]['created']['mascara'] 						= 'datahora';
 		$campos[$modelClass]['created']['estilo_th'] 					= 'width="200px"';
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
+		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
 		
 		$this->controller->set(compact('name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
 		

@@ -5,7 +5,6 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.created');
-		$campos[$modelClass]['created']['options']['disabled'] 	= 'disabled';
 	}
 
 	if ($action=='imprimir')
