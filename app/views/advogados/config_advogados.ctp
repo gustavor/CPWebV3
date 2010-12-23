@@ -10,7 +10,6 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Advogado.nome', 'Advogado.oab','#','#','Advogado.modified','#','Advogado.created');
-		$on_read_view .= "\n".'$("#AdvogadoNome").focus();';
 		$campos['Advogado']['created']['options']['disabled'] 		= 'disabled';
 		$campos['Advogado']['modified']['options']['disabled']		= 'disabled';
 	}
@@ -24,6 +23,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array('Advogado.nome', 'Advogado.oab');
+	}
+	
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#AdvogadoNome").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')

@@ -43,6 +43,7 @@
 	{
 		$listaCampos 										= array('Solicitacao.solicitacao','Solicitacao.parent_code','TipoSolicitacao.nome','Solicitacao.modified','Solicitacao.created');
 		$campos['Solicitacao']['solicitacao']['estilo_th'] 	= 'width="400px"';
+		$campos['TipoSolicitacao']['nome']['estilo_th'] 	= 'width="200px"';
 		$campos['Solicitacao']['parent_code']['estilo_th'] 	= 'width="100px"';
 	}
 ?>

@@ -20,8 +20,8 @@
 	$campos['Cliente']['cnpj']['estilo_td'] 						= 'style="text-align: center; "';
 
 	$campos['Cliente']['cpf']['options']['label']['text'] 			= 'CPF';
-	$campos['Cliente']['cpf']['options']['maxlength'] 			= 14;
-	$campos['Cliente']['cpf']['options']['style'] 				= 'width: 130px; ';
+	$campos['Cliente']['cpf']['options']['maxlength'] 				= 14;
+	$campos['Cliente']['cpf']['options']['style'] 					= 'width: 130px; ';
 	$campos['Cliente']['cpf']['options']['label']['class']			= 'labelClienteCpf';
 	$campos['Cliente']['cpf']['mascara'] 							= 'cpf';
 	$campos['Cliente']['cpf']['estilo_td'] 							= 'style="text-align: center; "';

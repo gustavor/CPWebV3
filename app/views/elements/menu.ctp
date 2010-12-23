@@ -14,7 +14,7 @@
 <?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
 
 	<li>
-		<?php if ($this->Session->check('controller')) : ?>
+		<?php if (isset($name)) : ?>
 		<a href="<?php echo Router::url('/').$name; ?>">Administração</a>
 		<?php else : ?>
 		<a href="<?php echo Router::url('/').'usuarios'; ?>">Administração</a>

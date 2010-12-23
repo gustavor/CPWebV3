@@ -19,23 +19,43 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class Audiencia extends AppModel {
+class Audiencia extends AppModel {
 
-        var $name = 'Audiencia';
+	var $name = 'Audiencia';
 
-        var $belongsTo = array( 'Processo', 'Advogado', 'TipoAudiencia');
-
-        var $validate = array(
-
-            'data' => array(
-                'rule' => '',
-                'required' => true,
-                'message' => 'É necessário informar a data da Audiência!'
-            ),
-            'hora' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar a hora da Audiência!'
-            )
-        );
-    }
+	var $validate = array
+	(
+		'data' => array
+		(
+			'rule' 		=> 'notEmpty',
+			'required' 	=> true,
+			'message' 	=> 'É necessário informar a data da Audiência!'
+		),
+		'hora' => array
+		(
+			'rule' 		=> 'notEmpty',
+			'required' 	=> true,
+			'message' 	=> 'É necessário informar a hora da Audiência!'
+		)
+	);
+	
+	public $belongsTo = array
+	(
+		'Processo' => array
+		(
+			'className' 	=> 'Processo',
+			'foreignKey' 	=> 'processo_id',
+		),
+		'Advogado'	=> array
+		(
+			'className'		=> 'Advogado',
+			'foreignKey'	=> 'advogado_id',
+		),
+		'TipoAudiencia' => array
+		(
+			'className'		=> 'TipoAudiencia',
+			'foreignKey'	=> 'tipo_audiencia_id',
+			'fields'		=> 'id, nome'
+		)
+	);
+}

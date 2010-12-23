@@ -19,17 +19,17 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-    class TipoAudiencia extends AppModel {
+class TipoAudiencia extends AppModel {
 
-        var $name = 'TipoAudiencia';
+	public $name 		= 'TipoAudiencia';
+	public $useTable 	= 'tipos_audiencias';
+	public $displaField = 'nome';
 
-        var $hasMany = 'Audiencia';
-
-        var $validate = array(
-            'nome' => array(
-                'rule' => 'notEmpty',
-                'required' => true,
-                'message' => 'É necessário informar o nome do Tipo de Audiência!'
-            )
-        );
-    }
+	public $validate = array(
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome do Tipo de Audiência!'
+		)
+	);
+}

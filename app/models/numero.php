@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/models/evento.php
+ * app/models/numero.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,26 +19,31 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Evento extends AppModel {
+class Numero extends AppModel {
 
-	public $name 		= 'evento';
-	public $useTable 	= 'eventos';
-	public $displayField= 'evento';
+	public $name 		= 'Numero';
+	public $useTable 	= 'numeros';
+	public $displayField= 'numero';
 
 	public $validate = array(
-		'evento' => array(
+		'numero' => array(
 			'rule' => 'notEmpty',
 			'required' => true,
-			'message' => 'É necessário informar a descrição do evento!'
+			'message' => 'É necessário informar a descrição do número!'
 		)
 	);
-
-	public $belongsTo = array(
-		'Processo' => array(
-			'className' => 'Processo',
-			'foreignKey' => 'processo_id',
-			'conditions' => '',
-			'fields' => ''
+	
+	public $belongsTo = array
+	(
+		'TipoNumero'	=> array
+		(
+			'className'	=> 'TipoNumero',
+			'foreignKey'=> 'tipo_numero_id'
+		),
+		'Processo'		=> array
+		(
+			'className'	=> 'Processo',
+			'foreignKey'=> 'processo_id'
 		)
 	);
 }
