@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/models/evento.php
+ * app/models/evento_acordo.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,10 +19,10 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Evento extends AppModel {
+class EventoAcordo extends AppModel {
 
-	public $name 		= 'evento';
-	public $useTable 	= 'eventos';
+	public $name 		= 'EventoAcordo';
+	public $useTable 	= 'eventos_acordo';
 	public $displayField= 'evento';
 
 	public $validate = array(
@@ -33,6 +33,9 @@ class Evento extends AppModel {
 		)
 	);
 
+	/**
+	 * Relacionamento com processos
+	 */
 	public $belongsTo = array
 	(
 		'Processo' => array

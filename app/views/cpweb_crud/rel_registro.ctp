@@ -26,7 +26,7 @@ if (isset($edicaoCampos))
 	{
 		if ($_field=='#') 
 		{
-			$tcpdf->ln();
+			$html .= '<tr><td colspan="2">&nbsp;</td></tr>';
 		} else
 		{
 			$_arrField = explode('.',$_field);

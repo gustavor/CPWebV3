@@ -32,7 +32,6 @@ class AppController extends Controller {
 	 */
 	public function beforeFilter()
 	{
-		//Configure::write('debug',0);
 		if ($this->params['controller']=='instala')
 		{
 			$this->Auth->enabled = false;
@@ -51,7 +50,20 @@ class AppController extends Controller {
 			{
 				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
 				$this->loadModel('Usuario');
-				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
+				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
+				if (!$this->Session->check('perfis')) // recupera os perfis do usuário
+				{
+					$perfis 	= $this->Usuario->read(null,$this->Session->read('Auth.Usuario.id'));
+					$arrPerfis 	= array();
+					foreach($perfis['Perfil'] as $_item => $_arrCampos)
+					{
+						foreach($_arrCampos as $_campo => $_valor)
+						{
+							if ($_campo!='id') array_unshift($arrPerfis,$_valor);
+						}
+					}
+					$this->Session->write('perfis',$arrPerfis);
+				}
 			}
 		}
 	}

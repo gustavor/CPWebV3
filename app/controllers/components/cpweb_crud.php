@@ -45,6 +45,9 @@ class CpwebCrudComponent extends Object {
 		$name				= mb_strtolower(str_replace(' ','_',$pluralHumanName));
 		$this->name			= $name;
 
+		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
+		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
+
 		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
 		$campos[$modelClass]['modified']['options']['dateFormat'] 		= 'DMY';
 		$campos[$modelClass]['modified']['options']['timeFormat'] 		= '24';
@@ -62,9 +65,6 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
 		
 		$this->controller->set(compact('name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
-		
-		// salvando na sessão o controller corrente
-		if ($arqListaMenu=='menu_administracao') $this->controller->Session->write('controller',$this->controller->name);
 	}
 	
 	/**
@@ -102,8 +102,7 @@ class CpwebCrudComponent extends Object {
 			
 			if ($this->controller->$modelClass->save($this->controller->data,$opcoes))
 			{
-				$this->controller->Session->setFlash('Registro atualizado com sucesso ...');
-				$this->controller->viewVars['on_read_view'] = '$("#flashMessage").css("color","green")'."\n";
+				$this->controller->Session->setFlash('<span style="font-size: 20px;">Registro atualizado com sucesso !!!</span>');
 				$this->controller->data = $this->controller->$modelClass->read(null,$id);
 			} else
 			{
@@ -148,7 +147,7 @@ class CpwebCrudComponent extends Object {
 			$this->controller->$modelClass->create();
 			if ($this->controller->$modelClass->save($this->controller->data,$opcoes))
 			{
-				$this->controller->Session->setFlash('Registro incluído com sucesso ...');
+				$this->controller->Session->setFlash('<span style="font-size: 20px;">Registro incluído com sucesso !!!</span>');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
 				$this->controller->redirect(Router::url('/',true).$this->name.'/editar/'.$this->controller->$modelClass->$primaryKey);
 			} else

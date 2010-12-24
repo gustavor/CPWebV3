@@ -23,5 +23,68 @@ class Processo extends AppModel {
 
 	public $name 			= 'Processo';
 	public $useTable		= 'processos';
-	public $order		 	= 'Processo.modified';
+	public $order		 	= 'distribuicao';
+	public $displayField 	= 'distribuicao';
+	
+	/**
+	 * Relacionamento belongsTo 
+	 */
+	public $belongsTo		= array
+	(
+		'Cliente'  		=> array(
+			'className'		=> 'Cliente',
+			'foreignKey'	=> 'cliente_id',
+			'fields'		=> 'id, nome'
+		),
+		'TipoParte'  		=> array(
+			'className'		=> 'TipoParte',
+			'foreignKey'	=> 'tipo_parte_id',
+			'fields'		=> 'id, nome'
+		),
+		'AdvogadoContrario'  		=> array(
+			'className'		=> 'AdvogadoContrario',
+			'foreignKey'	=> 'advogado_contrario_id',
+			'fields'		=> 'id, nome'
+		),
+		'Advogado'  		=> array(
+			'className'		=> 'Advogado',
+			'foreignKey'	=> 'advogado_id',
+			'fields'		=> 'id, nome'
+		),
+		'Comarca'  		=> array(
+			'className'		=> 'Comarca',
+			'foreignKey'	=> 'comarca_id',
+			'fields'		=> 'id, nome'
+		),
+		'Fase'  		=> array(
+			'className'		=> 'Fase',
+			'foreignKey'	=> 'Fase_id',
+			'fields'		=> 'id, nome'
+		),
+		'Instancia'  		=> array(
+			'className'		=> 'Instancia',
+			'foreignKey'	=> 'instancia_id',
+			'fields'		=> 'id, nome'
+		),
+		'Natureza'  		=> array(
+			'className'		=> 'Natureza',
+			'foreignKey'	=> 'natureza_id',
+			'fields'		=> 'id, nome'
+		),
+		'Status'  		=> array(
+			'className'		=> 'Status',
+			'foreignKey'	=> 'status_id',
+			'fields'		=> 'id, nome'
+		),
+		'TipoProcesso'  		=> array(
+			'className'		=> 'TipoProcesso',
+			'foreignKey'	=> 'tipo_processo_id',
+			'fields'		=> 'id, nome'
+		),
+		'Modelo'  		=> array(
+			'className'		=> 'Modelo',
+			'foreignKey'	=> 'modelos_id',
+			'fields'		=> 'id, nome'
+		),
+	);
 }

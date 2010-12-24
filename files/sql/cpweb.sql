@@ -8,6 +8,8 @@ USE `cpwebv3` ;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`advogados`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`advogados` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`advogados` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -24,6 +26,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`comarcas`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`comarcas` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`comarcas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -38,6 +42,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`status`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`status` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`status` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -53,6 +59,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`tipos_processos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_processos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_processos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -67,6 +75,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`fases`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`fases` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`fases` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -81,6 +91,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`instancias`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`instancias` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`instancias` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -96,6 +108,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`naturezas`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`naturezas` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`naturezas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -110,6 +124,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`tipos_partes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_partes` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_partes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -124,6 +140,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`estados`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`estados` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`estados` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -141,6 +159,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`cidades`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`cidades` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`cidades` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -163,6 +183,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`clientes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`clientes` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`clientes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -190,6 +212,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`modelos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`modelos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`modelos` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
@@ -205,6 +229,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`advogados_contrarios`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`advogados_contrarios` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`advogados_contrarios` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -220,6 +246,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`processos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`processos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -314,6 +342,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`tipos_audiencias`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_audiencias` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_audiencias` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -328,6 +358,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`audiencias`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`audiencias` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`audiencias` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -367,6 +399,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`eventos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`eventos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -389,6 +423,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`tipos_numeros`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_numeros` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_numeros` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL DEFAULT NULL ,
@@ -403,6 +439,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`numeros`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`numeros` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`numeros` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -432,6 +470,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`orgaos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`orgaos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`orgaos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -446,6 +486,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`orgaos_processos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`orgaos_processos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`orgaos_processos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -473,6 +515,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`telefones`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`telefones` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`telefones` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -497,6 +541,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`destinos`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`destinos` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`destinos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -509,6 +555,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`solicitacoes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`solicitacoes` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`solicitacoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -530,6 +578,8 @@ COLLATE = armscii8_bin;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`tipos_peticoes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_peticoes` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_peticoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -542,6 +592,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`tipos_pareceres`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_pareceres` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_pareceres` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -554,6 +606,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`complexidades`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`complexidades` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`complexidades` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -566,6 +620,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`processos_solicitacoes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`processos_solicitacoes` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
@@ -627,6 +683,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`teses`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`teses` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`teses` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
@@ -649,6 +707,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`checklists`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`checklists` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`checklists` (
   `id` INT NOT NULL ,
   `created` DATETIME NULL ,
@@ -669,6 +729,8 @@ COLLATE = utf8_general_ci;
 -- -----------------------------------------------------
 -- Table `cpwebv3`.`itens`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`itens` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`itens` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
@@ -681,8 +743,57 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`usuarios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`usuarios` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `login` VARCHAR(45) NOT NULL ,
+  `nome` VARCHAR(60) NOT NULL ,
+  `senha` VARCHAR(99) NOT NULL ,
+  `email` VARCHAR(99) NULL ,
+  `ativo` INT(1) NOT NULL ,
+  `off` INT(1) NOT NULL ,
+  `aniversario` VARCHAR(5) NOT NULL ,
+  `ultimo_acesso` DATETIME NOT NULL ,
+  `acessos` INT NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`eventos_acordo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`eventos_acordo` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordo` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `processo_id` INT(11) NOT NULL ,
+  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
+  CONSTRAINT `fk_movimentos_processos10`
+    FOREIGN KEY (`processo_id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`perfis`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`perfis` ;
+
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`perfis` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(45) NOT NULL ,
@@ -696,48 +807,23 @@ COMMENT = 'tabela de perfis';
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`usuarios`
+-- Table `cpwebv3`.`usuarios_perfil`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NOT NULL ,
-  `modified` DATETIME NOT NULL ,
-  `perfil_id` INT(11) NOT NULL ,
-  `login` VARCHAR(45) NOT NULL ,
-  `nome` VARCHAR(60) NOT NULL ,
-  `senha` VARCHAR(99) NOT NULL ,
-  `email` VARCHAR(99) NULL ,
-  `ativo` INT(1) NOT NULL ,
-  `off` INT(1) NOT NULL ,
-  `aniversario` VARCHAR(5) NOT NULL ,
-  `ultimo_acesso` DATETIME NOT NULL ,
-  `acessos` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_usuarios_perfis1` (`perfil_id` ASC) ,
-  CONSTRAINT `fk_usuarios_perfis1`
-    FOREIGN KEY (`perfil_id` )
-    REFERENCES `cpwebv3`.`perfis` (`id` )
+DROP TABLE IF EXISTS `cpwebv3`.`usuarios_perfil` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios_perfil` (
+  `usuarios_id` INT NOT NULL ,
+  `perfis_id` INT NOT NULL ,
+  PRIMARY KEY (`usuarios_id`, `perfis_id`) ,
+  INDEX `fk_usuarios_has_perfis_perfis1` (`perfis_id` ASC) ,
+  CONSTRAINT `fk_usuarios_has_perfis_usuarios1`
+    FOREIGN KEY (`usuarios_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
--- Table `cpwebv3`.`eventos_acordo`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordo` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NOT NULL ,
-  `modified` DATETIME NOT NULL ,
-  `processo_id` INT(11) NOT NULL ,
-  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
-  CONSTRAINT `fk_movimentos_processos10`
-    FOREIGN KEY (`processo_id` )
-    REFERENCES `cpwebv3`.`processos` (`id` )
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuarios_has_perfis_perfis1`
+    FOREIGN KEY (`perfis_id` )
+    REFERENCES `cpwebv3`.`perfis` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

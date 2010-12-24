@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/tipos_solicitacoes_controller.php
+ * app/controllers/advogados_contrarios_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,22 +19,23 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class TiposSolicitacoesController extends AppController {
+class AdvogadosContrariosController extends AppController {
+
 	/**
 	 * Nome
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'TiposSolicitacoes';
-
+	public $name = 'AdvogadosContrarios';
+	
 	/**
 	 * Modelo
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'TipoSolicitacao';
+	public $uses = 'AdvogadoContrario';
 
 	/**
 	 * Ajudantes 
@@ -43,7 +44,7 @@ class TiposSolicitacoesController extends AppController {
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
-
+	
 	/**
 	 * Componentes
 	 * 
@@ -63,7 +64,7 @@ class TiposSolicitacoesController extends AppController {
 	}
 
 	/**
-	 * Lista os dados em paginação
+	 * Lista os dados em dbgrid
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -76,7 +77,7 @@ class TiposSolicitacoesController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de edição para o model
+	 * Exibe formulário de edição
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
@@ -85,9 +86,9 @@ class TiposSolicitacoesController extends AppController {
 	{
 		$this->CpwebCrud->editar($id);
 	}
-
+	
 	/**
-	 * Exibe formulário de inclusão para o model
+	 * Exibe formulário de inclusão
 	 * 
 	 * @return 		void
 	 */
@@ -95,9 +96,9 @@ class TiposSolicitacoesController extends AppController {
 	{
 		$this->CpwebCrud->novo();
 	}
-
+	
 	/**
-	 * Exibe formulário de exclusão para o model
+	 * Exibe formulário de exclusão
 	 * 
 	 * @return 		void
 	 */
@@ -125,7 +126,6 @@ class TiposSolicitacoesController extends AppController {
 	{
 		$this->CpwebCrud->imprimir($id);
 	}	
-
 	/**
 	 * Retorna uma lista para comboBox
 	 * 
@@ -135,7 +135,7 @@ class TiposSolicitacoesController extends AppController {
 	{
 		parent::combo($modelo,$campo,$filtro);
 	}
-
+	
 	/**
 	 * Realiza uma pesquisa no banco de dados
 	 * 

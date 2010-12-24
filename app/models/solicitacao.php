@@ -35,10 +35,10 @@ class Solicitacao extends AppModel {
 	
 	public $belongsTo =  array
 	(
-		'TipoSolicitacao' => array
+		'Destino' => array
 		(
-			'className'		=> 'TipoSolicitacao',
-			'foreignKey'	=> 'tipo_solicitacao_id',
+			'className'		=> 'Destino',
+			'foreignKey'	=> 'destino_id',
 			'fields'		=> 'id, nome'
 		)
 	);
