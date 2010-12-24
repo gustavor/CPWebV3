@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/model/processo.php
+ * app/models/status.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,9 +19,27 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Processo extends AppModel {
+class Solicitacao extends AppModel {
 
-	public $name 			= 'Processo';
-	public $useTable		= 'processos';
-	public $order		 	= 'Processo.modified';
+	public $name 			= 'Solicitacao';
+	public $useTable		= 'solicitacoes';
+	public $displayField 	= 'solicitacao';
+
+	public $validate = array(
+		'solicitacao' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar a solicitação!'
+		)
+	);
+	
+	public $belongsTo =  array
+	(
+		'TipoSolicitacao' => array
+		(
+			'className'		=> 'TipoSolicitacao',
+			'foreignKey'	=> 'tipo_solicitacao_id',
+			'fields'		=> 'id, nome'
+		)
+	);
 }

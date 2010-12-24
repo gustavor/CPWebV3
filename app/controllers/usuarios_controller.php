@@ -72,11 +72,6 @@ class UsuariosController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
-		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
-		{
-			$this->Session->setFlash('<span class="alertaFlashMessage">Somente administradores podem listar outros usuários !!!</span>');
-			$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));
-		}
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
 
@@ -88,17 +83,6 @@ class UsuariosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		if ($this->Session->read('Auth.Usuario.id')!=$id && !in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
-		{
-			$this->Session->setFlash('<span class="alertaFlashMessage">Somente administradores podem editar outros usuários !!!</span>');
-			$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));
-		}
-
-		if (isset($this->params['perfilLogin']))
-		{
-			$id = $this->Usuario->find('first',array('conditions'=>array('Usuario.login'=>$this->params['perfilLogin']), 'fields'=>'Usuario.id'));
-			$id = $id['Usuario']['id'];
-		}
 		$this->CpwebCrud->editar($id);
 	}
 

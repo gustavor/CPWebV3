@@ -6,7 +6,6 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Orgao.nome','#','Orgao.created');
-		$on_read_view .= "\n".'$("#OrgaoNome").focus();';
 		$campos['Orgao']['created']['options']['disabled'] 	= 'disabled';
 	}
 
@@ -24,6 +23,11 @@
 	{
 		$camposPesquisa['nome'] 	= 'Nome';
 		$this->set('camposPesquisa',$camposPesquisa);
+	}
+
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#OrgaoNome").focus();';
 	}
 
 	if ($action=='listar')	

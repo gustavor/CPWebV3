@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/processos_controller.php
+ * app/controllers/tipos_solicitacoes_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,24 +19,23 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ProcessosController extends AppController {
+class TiposSolicitacoesController extends AppController {
+	/**
+	 * Nome
+	 * 
+	 * @var string
+	 * @access public
+	 */
+	public $name = 'TiposSolicitacoes';
 
 	/**
-	 * Nome da Camada
+	 * Modelo
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Processos';
-	
-	/**
-	 * Modelo para a camada
-	 * 
-	 * @var string
-	 * @access public
-	 */
-	public $uses = 'Processo';
-	
+	public $uses = 'TipoSolicitacao';
+
 	/**
 	 * Ajudantes 
 	 * 
@@ -44,7 +43,7 @@ class ProcessosController extends AppController {
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
-	
+
 	/**
 	 * Componentes
 	 * 
@@ -52,17 +51,7 @@ class ProcessosController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-	
-	/**
-	 * Antes de renderização a visão
-	 * 
-	 * @return void
-	 */
-	public function beforeRender()
-	{
-		$this->set('arqListaMenu','menu_modulos');
-	}
- 
+
 	/**
 	 * método start
 	 * 
@@ -96,7 +85,7 @@ class ProcessosController extends AppController {
 	{
 		$this->CpwebCrud->editar($id);
 	}
-	
+
 	/**
 	 * Exibe formulário de inclusão para o model
 	 * 
@@ -106,7 +95,7 @@ class ProcessosController extends AppController {
 	{
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
 	 * Exibe formulário de exclusão para o model
 	 * 
@@ -118,7 +107,7 @@ class ProcessosController extends AppController {
 	}
 
 	/**
-	 * Exclui o registro no banco de dados
+	 * Executa a exclusão no banco de dados
 	 * 
 	 * @return 		void
 	 */
@@ -128,15 +117,25 @@ class ProcessosController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de impressão para o model
+	 * Imprime em pdf o registro 
 	 * 
 	 * @return 		void
 	 */
 	public function imprimir($id=null)
 	{
 		$this->CpwebCrud->imprimir($id);
+	}	
+
+	/**
+	 * Retorna uma lista para comboBox
+	 * 
+	 * @return string
+	 */
+	public function combo($modelo=null,$campo=null,$filtro=null)
+	{
+		parent::combo($modelo,$campo,$filtro);
 	}
-	
+
 	/**
 	 * Realiza uma pesquisa no banco de dados
 	 * 
@@ -144,8 +143,8 @@ class ProcessosController extends AppController {
 	 * @parameter 	string 	$campo 	Campo de pesquisa
 	 * @return 		array 	$lista 	Array com lista de retorno
 	 */
-	public function pesquisar($texto='',$campo=null)
+	public function pesquisar($campo=null,$texto=null)
 	{
-		$this->CpwebCrud->pesquisar($texto,$campo);
-	}
+		$this->CpwebCrud->pesquisar($campo,$texto);
+	}	
 }

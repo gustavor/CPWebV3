@@ -1,5 +1,4 @@
 <?php
-	$tamLista 		                                                = '880px';
 	$campos['Usuario']['login']['options']['label']['text'] 		= 'Login';
 	$campos['Usuario']['login']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['login']['options']['style']					= 'text-align: center; width: 120px; ';
@@ -51,9 +50,6 @@
 	$campos['Usuario']['ultimo_acesso']['options']['disabled'] 		= 'disabled';
 	$campos['Usuario']['ultimo_acesso']['estilo_th'] 				= 'width="140px"';
 
-	$campos['Usuario']['modified']['options']['disabled'] 			= 'disabled';
-	$campos['Usuario']['created']['options']['disabled'] 			= 'disabled';
-
 	$campos['Perfil']['options']['label']['text']					= 'Perfis';
 	$campos['Perfil']['options']['multiple']						= 'checkbox';
 
@@ -64,15 +60,6 @@
 	if ($this->action=='editar')
 	{
 		$on_read_view .= '$("#UsuarioNome").focus();';
-
-		// cada usuário só pode editar o registro dele próprio, a menos que ele seja administrador
-		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
-		{
-			$botoesEdicao['Novo'] 		= array();
-			$botoesEdicao['Excluir'] 	= array();
-			$botoesEdicao['Listar'] 	= array();
-			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
-		}
 
 		// destancando administrador
 		if ($this->data['Usuario']['id']==1) 
@@ -98,14 +85,14 @@
 		$campos['Usuario']['login']['options']['readonly']				= null;
 		$on_read_view .= '$("#UsuarioLogin").focus();';
 	}
-	
+
 	if ($this->action=='novo' || $this->action=='editar')
 	{
 		$on_read_view .= "\n".'$("#UsuarioLogin").keyup(function(){ $(this).val($(this).val().toLowerCase()); });';
 		$on_read_view .= "\n".'$("#UsuarioNome").keyup(function(){ $(this).val($(this).val().toUpperCase()); });';
 		$on_read_view .= "\n".'$("#UsuarioEmail").keyup(function(){ $(this).val($(this).val().toLowerCase()); });';
 	}
-	
+
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['nome'] 	= 'Nome';
@@ -113,18 +100,15 @@
 		$camposPesquisa['login'] 	= 'login';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
-	
+
 	if ($this->action=='imprimir')
 	{
 		$edicaoCampos 	= array('Usuario.login','Usuario.nome','Usuario.email','Usuario.aniversario','Usuario.ativo','Usuario.acessos','Usuario.ultimo_acesso','Usuario.modified','Usuario.created');
 	}
 
-
 	// se estamos na edição
 	if ($this->action=='listar')
 	{
-		
-		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis'))) $botoesLista['Novo'] = array();
 
 		// removendo o ícone excluir do usuário administrador
 		$listaFerramentasId[2]['link'][1] 	= false;

@@ -8,20 +8,13 @@
 		<a href="#">Módulos</a>
 		<ul>
 			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Clientes</a></li>
+			<li><a href="<?php echo Router::url('/').'processos'; ?>">Processos</a></li>
 		</ul>
 	</li>
 
-<?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
-
 	<li>
-		<?php if (isset($name)) : ?>
-		<a href="<?php echo Router::url('/').$name; ?>">Administração</a>
-		<?php else : ?>
 		<a href="<?php echo Router::url('/').'usuarios'; ?>">Administração</a>
-		<?php endif ?>
 	</li>
-
-<?php endif ?>
 
 <?php if (isset($ferramentas)) : ?>
 	<li>

@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/processos_controller.php
+ * app/controllers/solicitacoes_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,24 +19,24 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ProcessosController extends AppController {
+class SolicitacoesController extends AppController {
 
 	/**
-	 * Nome da Camada
+	 * Nome
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Processos';
+	public $name = 'Solicitacoes';
 	
 	/**
-	 * Modelo para a camada
+	 * Modelo
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Processo';
-	
+	public $uses = 'Solicitacao';
+
 	/**
 	 * Ajudantes 
 	 * 
@@ -54,13 +54,11 @@ class ProcessosController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 	
 	/**
-	 * Antes de renderização a visão
 	 * 
-	 * @return void
 	 */
-	public function beforeRender()
+	public function beforeFilter()
 	{
-		$this->set('arqListaMenu','menu_modulos');
+		parent::beforeFilter();
 	}
  
 	/**
@@ -118,7 +116,7 @@ class ProcessosController extends AppController {
 	}
 
 	/**
-	 * Exclui o registro no banco de dados
+	 * Exclui a cidade do banco de dados
 	 * 
 	 * @return 		void
 	 */
@@ -128,13 +126,22 @@ class ProcessosController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de impressão para o model
+	 * Imprime em pdf o registro 
 	 * 
 	 * @return 		void
 	 */
 	public function imprimir($id=null)
 	{
 		$this->CpwebCrud->imprimir($id);
+	}	
+	/**
+	 * Retorna uma lista para comboBox
+	 * 
+	 * @return string
+	 */
+	public function combo($modelo=null,$campo=null,$filtro=null)
+	{
+		parent::combo($modelo,$campo,$filtro);
 	}
 	
 	/**
@@ -144,8 +151,8 @@ class ProcessosController extends AppController {
 	 * @parameter 	string 	$campo 	Campo de pesquisa
 	 * @return 		array 	$lista 	Array com lista de retorno
 	 */
-	public function pesquisar($texto='',$campo=null)
+	public function pesquisar($campo=null,$texto=null)
 	{
-		$this->CpwebCrud->pesquisar($texto,$campo);
-	}
+		$this->CpwebCrud->pesquisar($campo,$texto);
+	}	
 }

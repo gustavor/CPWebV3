@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/model/processo.php
+ * app/model/tipo_solicitacao.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,9 +19,17 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Processo extends AppModel {
+class TipoSolicitacao extends AppModel {
 
-	public $name 			= 'Processo';
-	public $useTable		= 'processos';
-	public $order		 	= 'Processo.modified';
+	public $name 		= 'TipoSolicitacao';
+	public $useTable 	= 'tipos_solicitacoes';
+	public $displaField = 'nome';
+
+	public $validate = array(
+		'nome' => array(
+			'rule' => 'notEmpty',
+			'required' => true,
+			'message' => 'É necessário informar o nome do Tipo de Audiência!'
+		)
+	);
 }

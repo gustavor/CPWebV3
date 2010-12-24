@@ -36,9 +36,10 @@ class Status extends AppModel {
 	/**
 	 * 
 	 */
-	public function beforeValidate()
+	public function beforeSave()
 	{
-		
+		$this->data['Status']['nome'] = mb_strtoupper($this->data['Status']['nome']);
+		return true;
 	}
 	
 }
