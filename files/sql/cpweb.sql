@@ -831,6 +831,74 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`urls`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`urls` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `url` VARCHAR(200) NOT NULL ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `i_url` (`url` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'url aonde o usuário não terá permissão de acesso';
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`urls_perfil`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`urls_perfil` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls_perfil` (
+  `urls_id` INT NOT NULL ,
+  `perfis_id` INT NOT NULL ,
+  PRIMARY KEY (`urls_id`, `perfis_id`) ,
+  INDEX `fk_urls_has_perfis_perfis1` (`perfis_id` ASC) ,
+  CONSTRAINT `fk_urls_has_perfis_urls1`
+    FOREIGN KEY (`urls_id` )
+    REFERENCES `cpwebv3`.`urls` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_urls_has_perfis_perfis1`
+    FOREIGN KEY (`perfis_id` )
+    REFERENCES `cpwebv3`.`perfis` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`urls_usuario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`urls_usuario` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls_usuario` (
+  `urls_id` INT NOT NULL ,
+  `usuarios_id` INT NOT NULL ,
+  PRIMARY KEY (`urls_id`, `usuarios_id`) ,
+  INDEX `fk_urls_has_usuarios_usuarios1` (`usuarios_id` ASC) ,
+  CONSTRAINT `fk_urls_has_usuarios_urls1`
+    FOREIGN KEY (`urls_id` )
+    REFERENCES `cpwebv3`.`urls` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_urls_has_usuarios_usuarios1`
+    FOREIGN KEY (`usuarios_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

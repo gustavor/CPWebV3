@@ -61,6 +61,9 @@
 	$listaMenu['eventos_acordos']['url'] 		= Router::url('/',true).'eventos_acordos';
 	$listaMenu['processos_solicitacoes']['text']= 'Processos e Solicitações';
 	$listaMenu['processos_solicitacoes']['url'] = Router::url('/',true).'processos_solicitacoes';
+	
+	$listaMenu['urls']['text']= 'Urls';
+	$listaMenu['urls']['url'] = Router::url('/',true).'urls';
 
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
 	$listaMenu[$name]['url'] = '#';

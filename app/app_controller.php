@@ -48,21 +48,62 @@ class AppController extends Controller {
 			$this->Auth->allow(array('instala'=>'index'));
 			if ($this->Session->read('Auth.Usuario.login')) // atualiza usuário on-line
 			{
-				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
+				// perfis e urls
+				$perfis 	= array();
+				$urls		= array();
+				$arrPerfis	= array();
+				$arrUrls	= array();
+				
+				// carregando algums models necessários
 				$this->loadModel('Usuario');
+				$this->loadModel('Perfil');
+
+				// jogando na visão o tempo máximo em que o usuário pode ficar on-line
+				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
+				
+				// atualizando o último acesso do usuário
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
-				if (!$this->Session->check('perfis')) // recupera os perfis do usuário
+				
+				// jogando os perfis do usuário na sessão
+				if (!$this->Session->check('perfis'))
 				{
 					$perfis 	= $this->Usuario->read(null,$this->Session->read('Auth.Usuario.id'));
-					$arrPerfis 	= array();
+
+					// atualizando as urls negadas pelo usuário
+					foreach($perfis['Url'] as $_item => $_arrCampos)
+					{
+						foreach($_arrCampos as $_campo => $_valor)
+						{
+							if ($_campo=='url') array_unshift($arrUrls,$_valor);
+						}
+					}
+
+					// atualizando os perfis do usuário logado
 					foreach($perfis['Perfil'] as $_item => $_arrCampos)
 					{
 						foreach($_arrCampos as $_campo => $_valor)
 						{
-							if ($_campo!='id') array_unshift($arrPerfis,$_valor);
+							if ($_campo!='id') 
+							{
+								array_unshift($arrPerfis,$_valor);								
+							} else
+							{
+								// atualizando as urls negadas pelo perfil
+								$urls = $this->Perfil->read(null,$_valor);
+								foreach($urls['Url'] as $_item => $_arrUrlCampos)
+								{
+									foreach($_arrUrlCampos as $_campo => $_valorUrl)
+									{
+										if ($_campo=='url' && !in_array($_valorUrl,$arrUrls)) array_unshift($arrUrls,$_valorUrl);
+									}
+								}
+							}
 						}
 					}
 					$this->Session->write('perfis',$arrPerfis);
+					$this->Session->write('urlsNao',$arrUrls);
+					/*echo '<pre>'.print_r($arrPerfis,true).'</pre>';
+					echo '<pre>'.print_r($arrUrls,true).'</pre>';*/
 				}
 			}
 		}

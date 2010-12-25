@@ -20,15 +20,11 @@
  * @since CPWeb V3
  */
 
-	// cakePTBR
-	require APP . 'plugins' . DS . 'cake_ptbr' . DS . 'config' . DS . 'bootstrap.php';
-	
-	// installCroogo
-	//require APP . 'plugins' . DS . 'cake_ptbr' . DS . 'config' . DS . 'bootstrap.php';
-
 	// mudando a criptografia pra aumentar a segurança
 	App::import('Core','Security');
 	Security::setHash('sha256');
 
-
+	// cakePTBR
+	require APP . 'plugins' . DS . 'cake_ptbr' . DS . 'config' . DS . 'bootstrap.php';
+	
 ?>

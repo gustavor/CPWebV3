@@ -33,7 +33,23 @@ class Perfil extends AppModel {
 			'message' => 'É necessário informar o nome do Perfil !!!'
 		)
 	);
-	
+
+	/**
+	 * Relacionamento com urls
+	 */
+	public $hasAndBelongsToMany	= array
+	(
+		'Url' => array
+		(
+			'className'		=> 'Url',
+			'joinTable'		=> 'urls_perfil',
+			'associationForeignKey' => 'urls_id',
+			'foreignKey'	=> 'perfis_id',
+			'unique'		=> true,
+			'fields' 		=> 'id, url'
+		)
+	);
+
 	/**
 	 * 
 	 */

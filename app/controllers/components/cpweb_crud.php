@@ -43,7 +43,10 @@ class CpwebCrudComponent extends Object {
 		$on_read_view		= '';
 		$campos 			= isset($this->controller->viewVars['campos']) ? $this->controller->viewVars['campos'] : array();
 		$name				= mb_strtolower(str_replace(' ','_',$pluralHumanName));
+		$urlsNao			= $this->controller->Session->check('urlsNao') ? $this->controller->Session->read('urlsNao') : array();
 		$this->name			= $name;
+		$this->action		= $action;
+		$this->urlsNao		= $urlsNao;
 
 		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
@@ -64,7 +67,9 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
 		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
 		
-		$this->controller->set(compact('name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
+		$this->controller->set(compact('urlsNao','name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
+		
+		$this->setUrlPermissao($name.'/'.$action);
 	}
 	
 	/**
@@ -158,6 +163,9 @@ class CpwebCrudComponent extends Object {
 				unset($this->controller->$modelClass->validationErrors);
 			}
 		}
+		
+		// verifica  a permissão de url
+		$this->setUrlPermissao();
 
 		// configura os botões do formulário, os relacionamentos e renderiza.
 		$this->setBotoesEdicao();
@@ -305,21 +313,38 @@ class CpwebCrudComponent extends Object {
 		{
 			if ($this->controller->action=='editar')
 			{
-				$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
-				$botoes['Novo']['title']		= 'Insere um novo registro ...';
-				$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/imprimir/'.$id.'\'';
-				$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';		
+				if (!in_array($this->name.'/novo',$this->urlsNao))
+				{
+					$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
+					$botoes['Novo']['title']		= 'Insere um novo registro ...';
+				}
+				if (!in_array($this->name.'/imprimir',$this->urlsNao))
+				{
+					$botoes['Imprimir']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/imprimir/'.$id.'\'';
+					$botoes['Imprimir']['title']	= 'Imprime o registro corrente em um arquivo pdf ...';
+				}
 			}
-			$botoes['Excluir']['onClick']	= 'javascript:$(\'#botoesEdicao\').fadeOut(); $(\'#msgEdicao\').show(100);';
-			$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
-			$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->name.'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:return false;" onclick="javascript:$(\'#msgEdicao\').fadeOut(); $(\'#botoesEdicao\').show();" class="linkEdicaoExcluir">Não</a>';
+			if (!in_array($this->name.'/excluir',$this->urlsNao))
+			{
+				$botoes['Excluir']['onClick']	= 'javascript:$(\'#botoesEdicao\').fadeOut(); $(\'#msgEdicao\').show(100);';
+				$botoes['Excluir']['title']		= 'Excluir o registro corrente ...';
+				$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->name.'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:return false;" onclick="javascript:$(\'#msgEdicao\').fadeOut(); $(\'#botoesEdicao\').show();" class="linkEdicaoExcluir">Não</a>';
+			}
 		}
-		$botoes['Salvar']['type']		= 'submit';
-		$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
-		if ($id) $botoes['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/editar/'.$id.'\'';
-		if ($id) $botoes['Atualizar']['title']		= 'Atualize o registro ...';		
-		$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/listar'.$urlLista.'\'';
-		$botoes['Listar']['title']		= 'Volta para a Lista ...';
+		
+		if (!in_array($this->name.'/salvar',$this->urlsNao))
+		{
+			$botoes['Salvar']['type']		= 'submit';
+			$botoes['Salvar']['title']		= 'Salva as alterações do registro ...';
+			if ($id) $botoes['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/editar/'.$id.'\'';
+			if ($id) $botoes['Atualizar']['title']		= 'Atualize o registro ...';		
+		}
+		
+		if (!in_array($this->name.'/listar',$this->urlsNao))
+		{
+			$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/listar'.$urlLista.'\'';
+			$botoes['Listar']['title']		= 'Volta para a Lista ...';
+		}
 
 		// configurando as propriedades padrão
 		foreach($botoes as $_label => $_arrOpcao)
@@ -329,9 +354,6 @@ class CpwebCrudComponent extends Object {
 			$botoes[$_label]['id']			= isset($botoes[$_label]['id'])      ? $botoes[$_label]['id']      : 'btEdicao'.$_label;
 			$botoes[$_label]['onClick']		= isset($botoes[$_label]['onClick']) ? $botoes[$_label]['onClick'] : null;
 		}
-		
-		// colocando tudo em ordem alfabética
-		//sort($botoes);
 
 		// atualizando a view
 		$this->controller->viewVars['botoesEdicao'] = $botoes;
@@ -343,10 +365,13 @@ class CpwebCrudComponent extends Object {
 	 * @return void
 	 */
 	private function setBotoesLista()
-	{		
-		// botões padrão (podem ser re-escritos pelo controller pai)
-		$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
-		$botoes['Novo']['title']		= 'Insere um novo registro ...';
+	{
+		$botoes = array();
+		if (!in_array($this->name.'/novo',$this->urlsNao))
+		{
+			$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
+			$botoes['Novo']['title']		= 'Insere um novo registro ...';
+		}
 
 		// configurando as propriedades padrão
 		foreach($botoes as $_label => $_arrOpcao)
@@ -418,6 +443,21 @@ class CpwebCrudComponent extends Object {
 		if ($dire) $url	.= '/direction:'.$dire;
 
 		return $url;
+	 }
+	 
+	 /**
+	  * Verifica se o usuário ou o perfil logado tem permissão para acessar a url solicitada.
+	  * Caso não possui acesso é redirecionado para um tela de erro
+	  * 
+	  * @return
+	  */
+	 private function setUrlPermissao($url=null)
+	 {
+		 if (in_array($url,$this->urlsNao))
+		 {
+			 $this->controller->Session->setFlash('<span style="font-size: 18px;">Você não tem acesso autorizado a esta tela !!!</span>');
+			 $this->controller->redirect('/');
+		 }
 	 }
 }
 ?>

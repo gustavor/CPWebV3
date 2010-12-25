@@ -66,13 +66,43 @@ class Usuario extends AppModel {
 				
             )
         );
-        
+
+	/**
+	 * Relacionamento entre as tabelas usuarios e perfis
+	 */
+	public $hasAndBelongsToMany	= array
+	(
+		'Perfil' => array
+		(
+			'className'		=> 'Perfil',
+			'joinTable'		=> 'usuarios_perfil',
+			'associationForeignKey' => 'perfis_id',
+			'foreignKey'	=> 'usuarios_id',
+			'unique'		=> true,
+			'fields' 		=> 'id, nome'
+		),
+
+		'Url' => array
+		(
+			'className'		=> 'Url',
+			'joinTable'		=> 'urls_usuario',
+			'associationForeignKey' => 'urls_id',
+			'foreignKey'	=> 'usuarios_id',
+			'unique'		=> true,
+			'fields' 		=> 'id, url'
+		)
+	);
+
+	/**
+	 * Antes da validação
+	 * 
+	 */
 	public function beforeValidate()
 	{
 		if ($this->data['Usuario']['senha']=='4adbc8cacf5e6ede20342fcbb4ff1043efd10e3ccd29232292ee153047d6cff0') $this->data['Usuario']['senha']='';
 		return true;
 	}
-	
+
 	/**
 	 * Confere se as duas senhas são iguais
 	 */
@@ -90,31 +120,21 @@ class Usuario extends AppModel {
 		return true;
 	}
 
-
 	/**
-	 * Relacionamento entre as tabelas usuarios e perfis
-	 */
-	public $hasAndBelongsToMany	= array
-	(
-		'Perfil' => array
-		(
-			'className'		=> 'Perfi',
-			'joinTable'		=> 'usuarios_perfil',
-			'foreignKey'	=> 'usuarios_id',
-			'associationForeignKey' => 'perfis_id',
-			'unique'		=> true,
-			'fields' 		=> 'id, nome'
-		)
-	);
-	
-
-	/**
-	 * Apaga os relacionamento do usuário 
+	 * Apaga os relacionamento do usuário com o perfil e com as urls
+	 * 
+	 * @return booletan $retorno
 	 */
 	public function beforeDelete()
 	{
-		// apagando relacionamentos
+		$retorno = true;
+
 		$sql = 'delete from usuarios_perfil where usuarios_id='.$this->id;
-		if ($this->query($sql)) return true; else return false;		
+		if (!$this->query($sql)) $retorno = false;
+		
+		$sql = 'delete from urls_usuarios where usuarios_id='.$this->id;
+		if (!$this->query($sql)) $retorno = false;
+		
+		return $retorno;
 	}
 }

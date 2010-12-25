@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/instancias_controller.php
+ * app/controllers/urls_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class InstanciasController extends AppController {
+class UrlsController extends AppController {
 
 	/**
 	 * Nome
@@ -27,7 +27,7 @@ class InstanciasController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Instancias';
+	public $name = 'Urls';
 	
 	/**
 	 * Modelo
@@ -35,7 +35,7 @@ class InstanciasController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Instancia';
+	public $uses = 'Url';
 
 	/**
 	 * Ajudantes 
