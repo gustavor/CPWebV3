@@ -10,7 +10,7 @@
 	$campos['Usuario']['options']['multiple']						= 'checkbox';
 
 	// se estamos na edição
-	if ($this->action=='editar')
+	if ($this->action=='editar' || $this->action=='excluir')
 	{
 		$edicaoCampos 	= array($modelClass.'.url','#','Perfil','#','Usuario','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}

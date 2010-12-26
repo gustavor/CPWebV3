@@ -1,14 +1,10 @@
 <?php
 	// menu da lista cidades
 	$listaMenu = array();
-	$listaMenu['usuarios']['text'] 				= 'Usuários';
-	$listaMenu['usuarios']['url'] 				= Router::url('/',true).'usuarios';
 	$listaMenu['cidades']['text'] 				= 'Cidades';
 	$listaMenu['cidades']['url'] 				= Router::url('/',true).'cidades';
 	$listaMenu['estados']['text'] 				= 'Estados';
 	$listaMenu['estados']['url'] 				= Router::url('/',true).'estados';
-	$listaMenu['perfis']['text'] 				= 'Perfis';
-	$listaMenu['perfis']['url'] 				= Router::url('/',true).'perfis';
 	$listaMenu['telefones']['text'] 			= 'Telefones';
 	$listaMenu['telefones']['url'] 				= Router::url('/',true).'telefones';
 	$listaMenu['advogados']['text'] 			= 'Advogados';
@@ -61,9 +57,6 @@
 	$listaMenu['eventos_acordos']['url'] 		= Router::url('/',true).'eventos_acordos';
 	$listaMenu['processos_solicitacoes']['text']= 'Processos e Solicitações';
 	$listaMenu['processos_solicitacoes']['url'] = Router::url('/',true).'processos_solicitacoes';
-	
-	$listaMenu['urls']['text']= 'Urls';
-	$listaMenu['urls']['url'] = Router::url('/',true).'urls';
 
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
 	$listaMenu[$name]['url'] = '#';

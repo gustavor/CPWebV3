@@ -48,7 +48,19 @@ class PerfisController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
- 
+
+	/**
+	 * Método chamado antes de qualquer outro método
+	 * 
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function beforeFilter()
+	{
+		$this->set('arqListaMenu','menu_sistema');
+		parent::beforeFilter();
+	}
+
 	/**
 	 * método start
 	 * 

@@ -50,6 +50,7 @@ class CpwebCrudComponent extends Object {
 
 		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
+		if ($arqListaMenu=='menu_sistema')			$this->controller->Session->write('siste_ativo',$name);
 
 		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
 		$campos[$modelClass]['modified']['options']['dateFormat'] 		= 'DMY';
@@ -454,6 +455,12 @@ class CpwebCrudComponent extends Object {
 	 private function setUrlPermissao($url=null)
 	 {
 		 if (in_array($url,$this->urlsNao))
+		 {
+			 $this->controller->Session->setFlash('<span style="font-size: 18px;">Você não tem acesso autorizado a esta tela !!!</span>');
+			 $this->controller->redirect('/');
+		 }
+		 
+		 if (in_array($this->name,$this->urlsNao))
 		 {
 			 $this->controller->Session->setFlash('<span style="font-size: 18px;">Você não tem acesso autorizado a esta tela !!!</span>');
 			 $this->controller->redirect('/');

@@ -71,7 +71,7 @@
 			$botoesEdicao['Novo'] 		= array();
 			$botoesEdicao['Excluir'] 	= array();
 			$botoesEdicao['Listar'] 	= array();
-			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.acessos','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
 		}
 
 		// destancando administrador

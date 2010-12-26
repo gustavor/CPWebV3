@@ -62,7 +62,7 @@ class AppController extends Controller {
 				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
 				
 				// atualizando o último acesso do usuário
-				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.login'=>$this->Session->read('Auth.Usuario.login')));
+				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
 				
 				// jogando os perfis do usuário na sessão
 				if (!$this->Session->check('perfis'))
