@@ -13,6 +13,10 @@
 			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'processos'; ?>">Processos</a></li>
 			<?php endif; ?>
+			
+			<?php if (!in_array('solicitacoes',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'solicitacoes'; ?>">Solicitações</a></li>
+			<?php endif; ?>
 		</ul>
 	</li>
 

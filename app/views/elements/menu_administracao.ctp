@@ -29,8 +29,6 @@
 	$listaMenu['itens']['url'] 					= Router::url('/',true).'itens';
 	$listaMenu['teses']['text'] 				= 'Teses';
 	$listaMenu['teses']['url'] 					= Router::url('/',true).'teses';
-	$listaMenu['solicitacoes']['text'] 			= 'Solicitações';
-	$listaMenu['solicitacoes']['url'] 			= Router::url('/',true).'solicitacoes';
 	$listaMenu['tipos_numeros']['text'] 		= 'Tipos Números';
 	$listaMenu['tipos_numeros']['url'] 			= Router::url('/',true).'tipos_numeros';
 	$listaMenu['numeros']['text'] 				= 'Números';

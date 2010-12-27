@@ -16,9 +16,16 @@
 		$listaMenu['processos']['url'] 	= Router::url('/',true).'processos';
 	}
 
+	// módulo processos
+	if (!in_array('solicitacoes',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['solicitacoes']['text'] = 'Solicitações';
+		$listaMenu['solicitacoes']['url'] 	= Router::url('/',true).'solicitacoes';
+	}
+
 	// destacando a opção ativa
 	if (!isset($listaMenu[mb_strtolower($pluralHumanName)]['text'])) $listaMenu[mb_strtolower($pluralHumanName)]['text'] = $pluralHumanName;
 	$listaMenu[mb_strtolower($pluralHumanName)]['url'] = '#';
-	
+
 	asort($listaMenu);
 ?>
