@@ -6,7 +6,6 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Fase.nome','#','Fase.created');
-		$on_read_view .= "\n".'$("#FaseNome").focus();';
 		$campos['Fase']['created']['options']['disabled'] 	= 'disabled';
 	}
 
@@ -18,6 +17,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array('Fase.nome');
+	}
+
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#FaseNome").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')

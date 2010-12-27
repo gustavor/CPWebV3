@@ -6,8 +6,7 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Comarca.nome','#','Comarca.created');
-		$on_read_view .= "\n".'$("#ComarcaNome").focus();';
-		$campos['Comarca']['created']['options']['disabled'] 		= 'disabled';
+		$campos['Comarca']['created']['options']['disabled'] 	= 'disabled';
 	}
 
 	if ($action=='imprimir')
@@ -18,6 +17,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array('Comarca.nome');
+	}
+
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#ComarcaNome").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')

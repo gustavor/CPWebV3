@@ -6,7 +6,6 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Item.nome','#','Item.modified','#','Item.created');
-		$on_read_view .= "\n".'$("#ItemNome").focus();';
 		$campos['Item']['created']['options']['disabled'] 	= 'disabled';
 		$campos['Item']['modified']['options']['disabled'] 	= 'disabled';
 	}
@@ -19,6 +18,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array('Item.nome');
+	}
+
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#ItemNome").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')
