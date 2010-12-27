@@ -34,4 +34,6 @@ class TipoParecer extends AppModel {
 			'message' => 'É necessário informar o nome do parecer !'
 		)
 	);
+
+    public $hasMany = array( 'ProcessoSolicitacao' );
 }

@@ -34,4 +34,7 @@ class Destino extends AppModel {
 			'message' => 'É necessário informar o nome do destino !'
 		)
 	);
+
+    public $hasMany = array( 'Solicitacao', 'ProcessoSolicitacao');
+
 }

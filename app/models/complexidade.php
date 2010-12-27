@@ -34,4 +34,6 @@ class Complexidade extends AppModel {
 			'message' => 'É necessário informar o nome da complexidade !'
 		)
 	);
+
+    public $hasMany = array( 'ProcessoSolicitacao' );
 }

@@ -34,4 +34,6 @@ class TipoPeticao extends AppModel {
 			'message' => 'É necessário informar o nome da peticao !'
 		)
 	);
+
+    public $hasMany = array( 'ProcessoSolicitacao' );
 }

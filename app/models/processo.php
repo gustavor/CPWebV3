@@ -87,4 +87,6 @@ class Processo extends AppModel {
 			'fields'		=> 'id, nome'
 		),
 	);
+
+    public $hasMany = array( 'ProcessoSolicitacao' );
 }
