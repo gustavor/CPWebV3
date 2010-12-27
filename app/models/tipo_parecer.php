@@ -24,7 +24,6 @@ class TipoParecer extends AppModel {
 	public $name			= 'TipoParecer';
 	public $useTable		= 'tipos_pareceres';
 	public $displayField 	= 'nome';
-
 	public $validate 		= array
 	(
 		'nome' => array
