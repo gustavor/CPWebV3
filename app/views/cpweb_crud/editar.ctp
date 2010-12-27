@@ -9,9 +9,8 @@
 	$url = Router::url('/',true).$name.'/'.$action;
 	if (isset($this->Form->data[$modelClass][$primaryKey])) $url .= '/'.$this->Form->data[$modelClass][$primaryKey];
 	echo $this->Form->create($modelClass,array('url'=>$url))."\n";
+	echo $this->Form->input($primaryKey)."\n";
 ?>
-
-<?php echo $this->Form->input($primaryKey)."\n"; ?>
 
 <div id="formFerramentas">
 	<div id="botoesEdicao">
@@ -36,6 +35,8 @@
 </div>
 
 <div id="formEdicao" class="camposEdicao">
+<?php if (isset($formAlerta)) echo "<div id='formAlerta'>$formAlerta</div>\n"; ?>
+
 <?php
 	// campo a campo
 	if (isset($edicaoCampos))

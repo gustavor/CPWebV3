@@ -6,6 +6,19 @@
 	font-family: verdana;
 }
 
+#edicao #formAlerta
+{
+	float: right;
+	width: 200px;
+	height: 100%;
+	margin: 0px 5px 0px 0px;
+	padding: 4px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #acc4e6;
+	line-height: 30px;
+}
+
 #edicao #formFerramentas a
 {
 	text-decoration: none;

@@ -8,5 +8,5 @@
 	if (isset($lista))			$this->set('lista',$lista);
 	if (isset($botoesLista))	$this->set('botoesLista',$botoesLista);
 	if (isset($botoesEdicao))	$this->set('botoesEdicao',$botoesEdicao);
-	
+	if (isset($formAlerta))		$this->set('formAlerta',$formAlerta);
 ?>

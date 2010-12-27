@@ -1,4 +1,6 @@
 <?php
+	$formAlerta = '<p>Cadastre aqui somente as URLs aonde o <strong>perfil</strong> e/ou <strong>usuário</strong> NÃO terão acesso.</p>';
+
 	$campos[$modelClass]['url']['options']['label']['text'] 		= 'Url';
 	$campos[$modelClass]['url']['options']['style']					= 'width: 400px; text-transform: lowercase; ';
 	$campos[$modelClass]['url']['estilo_th'] 						= 'width="450px"';
@@ -25,6 +27,8 @@
 	{
 		$campos[$modelClass]['url']['options']['label']['text'] 		= '(<span style="font-size: 9px;">'.Router::url('/',true).'</span>) Url';
 		$campos[$modelClass]['url']['options']['label']['style'] 		= 'width: 200px;';
+		$on_read_view .= "\n".'$("#formAlerta").css("background","#f9f9d8");';
+		$on_read_view .= "\n".'$("#formAlerta").css("border","1px solid #000");';
 		$on_read_view .= "\n".'$("#UrlUrl").focus();';
 		$on_read_view .= "\n".'$("#UrlUrl").keyup(function(){ $(this).val($(this).val().toLowerCase()); });';
 	}
