@@ -35,5 +35,11 @@ class Complexidade extends AppModel {
 		)
 	);
 
-    public $hasMany = array( 'ProcessoSolicitacao' );
+    public $hasMany = array(
+        'ProcessoSolicitacao' => array(
+            'className' => 'ProcessoSolicitacao',
+            'foreignKey' => 'complexidade_id'
+        )
+    );
+
 }

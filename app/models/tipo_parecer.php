@@ -35,5 +35,11 @@ class TipoParecer extends AppModel {
 		)
 	);
 
-    public $hasMany = array( 'ProcessoSolicitacao' );
+        public $hasMany = array(
+            'ProcessoSolicitacao' => array(
+                'className' => 'ProcessoSolicitacao',
+                'foreignKey' => 'tipo_parecer_id'
+            )
+        );
+
 }

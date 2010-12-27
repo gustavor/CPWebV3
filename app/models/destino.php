@@ -35,6 +35,16 @@ class Destino extends AppModel {
 		)
 	);
 
-    public $hasMany = array( 'Solicitacao', 'ProcessoSolicitacao');
+    public $hasMany = array(
+        'ProcessoSolicitacao' => array(
+            'className' => 'ProcessoSolicitacao',
+            'foreignKey' => 'tipo_parecer_id'
+        ),
+        'Solicitacao' => array(
+            'className' => 'Solicitacao',
+            'foreignKey' => 'complexidade_id'
+        )
+    );
+
 
 }
