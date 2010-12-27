@@ -38,11 +38,11 @@ class Destino extends AppModel {
     public $hasMany = array(
         'ProcessoSolicitacao' => array(
             'className' => 'ProcessoSolicitacao',
-            'foreignKey' => 'tipo_parecer_id'
+            'foreignKey' => 'destino_id'
         ),
         'Solicitacao' => array(
             'className' => 'Solicitacao',
-            'foreignKey' => 'complexidade_id'
+            'foreignKey' => 'destino_id'
         )
     );
 
