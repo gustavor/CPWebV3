@@ -13,6 +13,8 @@
 	$campos[$modelClass]['obs']['options']['label']['text'] 				= 'Obs';
 	$campos[$modelClass]['obs']['options']['style'] 						= 'width:300px;';
 
+    $campos[$modelClass]['ordinal_orgao']['options']['label']['text'] 		= 'Órgão';
+	$campos[$modelClass]['ordinal_orgao']['options']['style'] 				= 'width:30px;';
 	
 	$campos[$modelClass]['cliente_id']['options']['label']['text'] 					= 'Cliente';
 	$campos[$modelClass]['cliente_id']['options']['style'] 							= 'width:300px';
@@ -58,21 +60,26 @@
 	$campos[$modelClass]['modelos_id']['options']['style'] 								= 'width:300px';
 	if (isset($modelos)) $campos[$modelClass]['modelos_id']['options']['options'] 		= $modelos;
 
+    $campos[$modelClass]['orgao_id']['options']['label']['text'] 						= null;
+    $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:300px';
+    if (isset($modelos)) $campos[$modelClass]['orgao_id']['options']['options'] 		= $orgaos;
+
+
 	$campos['Cliente']['nome']['options']['label']['text'] 								= 'Cliente';
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.distribuicao','#',$modelClass.'.cliente_id','#',$modelClass.'.tipo_parte_id','#',$modelClass.'.advogado_contrario_id','#',$modelClass.'.advogado_id','#',$modelClass.'.comarca_id','#',$modelClass.'.fase_id','#',$modelClass.'.instancia_id','#',$modelClass.'.natureza_id','#',$modelClass.'.status_id','#',$modelClass.'.modelos_id','#',$modelClass.'.tipo_processo_id','#',$modelClass.'.parte_contraria','#',$modelClass.'.obs','#',$modelClass.'.modified',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.distribuicao','#',$modelClass.'.cliente_id','#',$modelClass.'.tipo_parte_id','#',$modelClass.'.ordinal_orgao',$modelClass.'.orgao_id','#',$modelClass.'.advogado_contrario_id','#',$modelClass.'.advogado_id','#',$modelClass.'.comarca_id','#',$modelClass.'.fase_id','#',$modelClass.'.instancia_id','#',$modelClass.'.natureza_id','#',$modelClass.'.status_id','#',$modelClass.'.modelos_id','#',$modelClass.'.tipo_processo_id','#',$modelClass.'.parte_contraria','#',$modelClass.'.obs','#',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array($modelClass.'.distribuicao',$modelClass.'.cliente_id',$modelClass.'.tipo_parte_id',$modelClass.'.advogado_contrario_id',$modelClass.'.advogado_id',$modelClass.'.comarca_id',$modelClass.'.fase_id',$modelClass.'.instancia_id',$modelClass.'.natureza_id',$modelClass.'.status_id',$modelClass.'.modelos_id',$modelClass.'.tipo_processo_id','#',$modelClass.'.parte_contraria','#',$modelClass.'.obs','#',$modelClass.'.modified',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.distribuicao',$modelClass.'.cliente_id',$modelClass.'.tipo_parte_id',$modelClass.'.ordinal_orgao',$modelClass.'.orgao_id',$modelClass.'.advogado_contrario_id',$modelClass.'.advogado_id',$modelClass.'.comarca_id',$modelClass.'.fase_id',$modelClass.'.instancia_id',$modelClass.'.natureza_id',$modelClass.'.status_id',$modelClass.'.modelos_id',$modelClass.'.tipo_processo_id','#',$modelClass.'.parte_contraria','#',$modelClass.'.obs','#',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array($modelClass.'.distribuicao','#',$modelClass.'.cliente_id','#',$modelClass.'.tipo_parte_id','#',$modelClass.'.advogado_contrario_id','#',$modelClass.'.advogado_id','#',$modelClass.'.comarca_id','#',$modelClass.'.fase_id','#',$modelClass.'.instancia_id','#',$modelClass.'.natureza_id','#',$modelClass.'.status_id','#',$modelClass.'.modelos_id','#',$modelClass.'.tipo_processo_id','#',$modelClass.'.parte_contraria','#',$modelClass.'.obs');
+		$edicaoCampos = array($modelClass.'.distribuicao','#',$modelClass.'.cliente_id','#',$modelClass.'.tipo_parte_id','#',$modelClass.'.ordinal_orgao',$modelClass.'.orgao_id','#',$modelClass.'.advogado_contrario_id','#',$modelClass.'.advogado_id','#',$modelClass.'.comarca_id','#',$modelClass.'.fase_id','#',$modelClass.'.instancia_id','#',$modelClass.'.natureza_id','#',$modelClass.'.status_id','#',$modelClass.'.modelos_id','#',$modelClass.'.tipo_processo_id','#',$modelClass.'.parte_contraria','#',$modelClass.'.obs');
 	}
 	
 	if ($action=='editar' || $action=='novo')

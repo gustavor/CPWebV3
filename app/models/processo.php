@@ -86,6 +86,12 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'modelos_id',
 			'fields'		=> 'id, nome'
 		),
+		'Orgao'  		=> array(
+			'className'		=> 'Orgao',
+			'foreignKey'	=> 'orgao_id',
+			'fields'		=> 'id, nome'
+		),
+
 	);
 
     public $hasMany = array(
