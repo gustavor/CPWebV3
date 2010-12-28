@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/orgaos_controller.php
+ * app/controllers/checklists_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class OrgaosController extends AppController {
+class ChecklistsController extends AppController {
 
 	/**
 	 * Nome
@@ -27,7 +27,7 @@ class OrgaosController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Orgaos';
+	public $name = 'Checklists';
 	
 	/**
 	 * Modelo
@@ -35,7 +35,7 @@ class OrgaosController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Orgao';
+	public $uses = 'Checklist';
 
 	/**
 	 * Ajudantes 
@@ -54,14 +54,6 @@ class OrgaosController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 	
 	/**
-	 * 
-	 */
-	public function beforeFilter()
-	{
-		parent::beforeFilter();
-	}
- 
-	/**
 	 * método start
 	 * 
 	 * @return void
@@ -72,7 +64,7 @@ class OrgaosController extends AppController {
 	}
 
 	/**
-	 * Lista os dados em paginação
+	 * Lista dbgrid
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -85,7 +77,7 @@ class OrgaosController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de edição para o model
+	 * Exibe formulário de edição
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
@@ -96,7 +88,7 @@ class OrgaosController extends AppController {
 	}
 	
 	/**
-	 * Exibe formulário de inclusão para o model
+	 * Exibe formulário de inclusão
 	 * 
 	 * @return 		void
 	 */
@@ -106,7 +98,7 @@ class OrgaosController extends AppController {
 	}
 	
 	/**
-	 * Exibe formulário de exclusão para o model
+	 * Exibe formulário de exclusão
 	 * 
 	 * @return 		void
 	 */
@@ -116,7 +108,7 @@ class OrgaosController extends AppController {
 	}
 
 	/**
-	 * Exclui a cidade do banco de dados
+	 * Executa a exclução no banco de dados
 	 * 
 	 * @return 		void
 	 */

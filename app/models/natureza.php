@@ -21,7 +21,9 @@
  */
 class Natureza extends AppModel {
 
-	public $name = 'Natureza';
+	public $name 			= 'Natureza';
+	public $displayField	= 'nome';
+	public $order			= 'nome';
 
 	//public $hasMany = 'Processo';
 

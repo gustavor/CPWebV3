@@ -24,6 +24,7 @@ class Tese extends AppModel {
 	public $name 		= 'Tese';
 	public $useTable 	= 'teses';
 	public $displayField= 'nome';
+	public $order		= 'Tese.nome';
 
 	public $validate = array(
 		'evento' => array(
@@ -41,4 +42,16 @@ class Tese extends AppModel {
 			'fields' => ''
 		)
 	);
+	
+	/**
+	 * Antes da validação
+	 * 
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Tese']['nome'] = mb_strtoupper($this->data['Tese']['nome']);
+		return true;
+	}	
 }
+?>

@@ -58,7 +58,7 @@
 				$opcoes['div'] 				= isset($opcoes['div']) ? $opcoes['div'] : null;
 				$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
 				$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
-				if ($mascara) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
+				if (isset($mascara)) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
 				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n\n";
 			}
 		}

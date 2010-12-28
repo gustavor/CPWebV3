@@ -7,12 +7,11 @@
 	{
 		$edicaoCampos = array('Status.nome','#','Status.created');
 		$campos['Status']['created']['options']['disabled'] 		= 'disabled';
-		$campos['Status']['modified']['options']['disabled'] 	= 'disabled';
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Status.nome','Status.modified','Status.created');
+		$edicaoCampos = array('Status.nome','Status.created');
 	}
 
 	if ($action=='novo')
@@ -33,7 +32,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array('Status.nome','Status.modified','Status.created');
-		$campos['Status']['nome']['estilo_th'] 		= 'width="250px"';
+		$listaCampos 								= array('Status.nome','Status.created');
+		$campos['Status']['nome']['estilo_th'] 		= 'width="450px"';
 	}
 ?>

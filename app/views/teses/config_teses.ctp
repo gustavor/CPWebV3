@@ -1,44 +1,47 @@
 <?php
-	$campos['Tese']['nome']['options']['label']['text'] 		= 'Tese';
-	$campos['Tese']['nome']['options']['style'] 				= 'width: 600px; ';
+	$campos[$modelClass]['nome']['options']['label']['text'] 		= $modelClass;
+	$campos[$modelClass]['nome']['options']['style'] 				= 'width: 600px; text-transform: uppercase;';
 
-	$campos['Tese']['filename']['options']['label']['text'] 	= 'Arquivo';
-	$campos['Tese']['filename']['options']['style'] 			= 'width: 600px; ';
+	$campos[$modelClass]['filename']['options']['label']['text'] 	= 'Arquivo';
+	$campos[$modelClass]['filename']['options']['style'] 			= 'width: 600px; text-transform: lowercase;';
 
-	$campos['Tese']['modelos_id']['options']['label']['text']	= 'Modelo';
-	if (isset($modelos)) $campos['Tese']['modelos_id']['options']['options'] 	= $modelos;
+	$campos[$modelClass]['modelos_id']['options']['label']['text']	= 'Modelo';
+	if (isset($modelos)) $campos[$modelClass]['modelos_id']['options']['options'] 	= $modelos;
 
-	$campos['Modelo']['nome']['options']['label']['text']		= 'Modelo';
+	$campos['Modelo']['nome']['options']['label']['text']			= 'Modelo';
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Tese.nome','#','Tese.filename','#','Tese.modelos_id','#','Tese.modified','#','Tese.created');
-		$on_read_view .= "\n".'$("#TeseNome").focus();';
-		$campos['Tese']['created']['options']['disabled'] 	= 'disabled';
-		$campos['Tese']['modified']['options']['disabled'] 	= 'disabled';
+		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.filename','#',$modelClass.'.modelos_id','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Tese.nome','Tese.filename','Modelo.nome','Tese.modified','Tese.created');
+		$edicaoCampos = array($modelClass.'.nome',$modelClass.'.filename',$modelClass.'.nome',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Tese.nome','Tese.filename','Tese.modelos_id');
+		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.filename','#',$modelClass.'.modelos_id');
+	}
+	
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#'.$modelClass.'Nome").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['nome'] 	= 'Nome';
-		$camposPesquisa['filename'] 	= 'Arquivo';
+		$camposPesquisa['filename'] = 'Arquivo';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array('Tese.nome','Tese.filename','Tese.modified','Tese.created');
-		$campos['Tese']['nome']['estilo_th'] 		= 'width="300px"';
-		$campos['Tese']['filename']['estilo_th'] 	= 'width="400px"';
+		$listaCampos 								= array($modelClass.'.nome',$modelClass.'.filename','Modelo.nome',$modelClass.'.modified',$modelClass.'.created');
+		$campos[$modelClass]['nome']['estilo_th'] 		= 'width="120px"';
+		$campos[$modelClass]['filename']['estilo_th'] 	= 'width="120px"';
+		$campos['Modelo']['nome']['estilo_th'] 			= 'width="120px"';
 	}
 ?>

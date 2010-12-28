@@ -55,6 +55,15 @@
 	$listaMenu['eventos_acordos']['url'] 		= Router::url('/',true).'eventos_acordos';
 	$listaMenu['processos_solicitacoes']['text']= 'Processos e Solicitações';
 	$listaMenu['processos_solicitacoes']['url'] = Router::url('/',true).'processos_solicitacoes';
+	$listaMenu['gestoes']['text'] 				= 'Gestões';
+	$listaMenu['gestoes']['url'] 				= Router::url('/',true).'gestoes';
+	$listaMenu['segmentos']['text'] 			= 'Segmentos';
+	$listaMenu['segmentos']['url'] 				= Router::url('/',true).'segmentos';
+	$listaMenu['equipes']['text'] 				= 'Equipes';
+	$listaMenu['equipes']['url'] 				= Router::url('/',true).'equipes';
+	$listaMenu['checklists']['text'] 			= 'Checklists';
+	$listaMenu['checklists']['url'] 			= Router::url('/',true).'checklists';
+
 
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
 	$listaMenu[$name]['url'] = '#';

@@ -1,7 +1,7 @@
 <?php
 
 	$campos['Modelo']['nome']['options']['label']['text'] 	= 'Modelo';
-	$campos['Modelo']['nome']['options']['style'] 			= 'width: 600px; ';
+	$campos['Modelo']['nome']['options']['style'] 			= 'width: 600px; text-transform: uppercase;';
 
 	if ($action=='editar' || $action=='excluir')
 	{

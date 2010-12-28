@@ -5,7 +5,8 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.created');
+		$edicaoCampos = array('Orgao.nome','#','Orgao.created');
+		$campos[$modelClass]['created']['options']['disabled'] 	= 'disabled';
 	}
 
 	if ($action=='imprimir')
@@ -26,12 +27,12 @@
 
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#'.$modelClass.'Nome").focus();';
+		$on_read_view .= "\n".'$("#'.$modelClass.'").focus();';
 	}
 
 	if ($action=='listar')	
 	{
 		$listaCampos 								= array($modelClass.'.nome',$modelClass.'.created');
-		$campos[$modelClass]['nome']['estilo_th'] 		= 'width="450px"';
+		$campos[$modelClass]['nome']['estilo_th'] 		= 'width="250px"';
 	}
 ?>

@@ -33,6 +33,6 @@
 	if ($action=='listar')	
 	{
 		$listaCampos 									= array('Comarca.nome','Comarca.created');
-		$campos['Comarca']['nome']['estilo_th'] 		= 'width="250px"';
+		$campos['Comarca']['nome']['estilo_th'] 		= 'width="450px"';
 	}
 ?>

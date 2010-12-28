@@ -26,7 +26,7 @@
 
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#'.$modelClass.'Nome").focus();';
+		$on_read_view .= "\n".'$("#'.$modelClass.'").focus();';
 	}
 
 	if ($action=='listar')	

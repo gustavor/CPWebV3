@@ -24,6 +24,7 @@ class Orgao extends AppModel {
 	public $name 		= 'Orgao';
 	public $useTable 	= 'orgaos';
 	public $displayField= 'nome';
+	public $order		= 'nome';
 
 	public $validate = array(
 		'nome' => array(

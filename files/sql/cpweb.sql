@@ -764,7 +764,7 @@ COLLATE = utf8_general_ci;
 DROP TABLE IF EXISTS `cpwebv3`.`checklists` ;
 
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`checklists` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
   `modified` DATETIME NULL ,
   `teses_id` INT NOT NULL ,
@@ -957,4 +957,3 @@ COLLATE = utf8_general_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-

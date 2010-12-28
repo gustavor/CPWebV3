@@ -34,6 +34,6 @@
 	if ($action=='listar')	
 	{
 		$listaCampos 									= array('Natureza.nome','Natureza.created');
-		$campos['Natureza']['nome']['estilo_th'] 		= 'width="250px"';
+		$campos['Natureza']['nome']['estilo_th'] 		= 'width="450px"';
 	}
 ?>

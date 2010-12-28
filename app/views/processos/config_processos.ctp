@@ -60,10 +60,9 @@
 	$campos[$modelClass]['modelos_id']['options']['style'] 								= 'width:300px';
 	if (isset($modelos)) $campos[$modelClass]['modelos_id']['options']['options'] 		= $modelos;
 
-    $campos[$modelClass]['orgao_id']['options']['label']['text'] 						= null;
-    $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:300px';
-    if (isset($modelos)) $campos[$modelClass]['orgao_id']['options']['options'] 		= $orgaos;
-
+    $campos[$modelClass]['orgao_id']['options']['label']['text'] 						= '';
+    $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:264px';
+    if (isset($orgaos)) $campos[$modelClass]['orgao_id']['options']['options'] 		= $orgaos;
 
 	$campos['Cliente']['nome']['options']['label']['text'] 								= 'Cliente';
 
