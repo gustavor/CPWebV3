@@ -46,5 +46,16 @@ class Destino extends AppModel {
         )
     );
 
+    /**
+	 * Antes da validação
+	 *
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Destino']['nome'] = mb_strtoupper($this->data['Destino']['nome']);
+		return true;
+	}
+
 
 }

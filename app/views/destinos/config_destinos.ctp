@@ -31,7 +31,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 									= array('Destino.nome','Destino.modified','Destino.created');
+		$listaCampos 									= array('Destino.nome','Destino.created');
 		$campos['Destino']['nome']['estilo_th'] 		= 'width="250px"';
 	}
 ?>

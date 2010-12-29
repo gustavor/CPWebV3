@@ -42,4 +42,15 @@ class Complexidade extends AppModel {
         )
     );
 
+	/**
+	 * Antes da validação
+	 *
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Complexidade']['nome'] = mb_strtoupper($this->data['Complexidade']['nome']);
+		return true;
+	}
+    
 }

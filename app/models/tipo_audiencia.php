@@ -32,4 +32,15 @@ class TipoAudiencia extends AppModel {
 			'message' => 'É necessário informar o nome do Tipo de Audiência!'
 		)
 	);
+
+	/**
+	 * Antes da validação
+	 *
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['TipoAudiencia']['nome'] = mb_strtoupper($this->data['TipoAudiencia']['nome']);
+		return true;
+	}
 }
