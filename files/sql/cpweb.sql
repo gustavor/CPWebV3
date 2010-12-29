@@ -321,7 +321,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `cliente_id` INT(11) NOT NULL ,
   `tipo_parte_id` INT(11) NOT NULL ,
   `parte_contraria` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
-  `ordinal_orgao` INT(2) NOT NULL ,
+  `ordinal_orgao` INT(2) NULL ,
   `orgao_id` INT(11) NOT NULL ,
   `advogado_contrario_id` INT(11) NOT NULL ,
   `advogado_id` INT(11) NOT NULL ,
