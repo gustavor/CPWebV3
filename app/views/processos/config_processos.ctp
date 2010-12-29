@@ -7,10 +7,10 @@
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
 	if (isset($tipoprocessos)) $campos[$modelClass]['tipo_processo_id']['options']['options'] = $tipoprocessos;
 	
-	$campos[$modelClass]['modelos_id']['options']['label']['text'] 						= 'Modelo';
-	$campos[$modelClass]['modelos_id']['options']['empty'] 								= '-- escolha um opção --';
-	$campos[$modelClass]['modelos_id']['options']['style'] 								= 'width:300px';
-	if (isset($modelos)) $campos[$modelClass]['modelos_id']['options']['options'] 		= $modelos;
+	//$campos[$modelClass]['modelos_id']['options']['label']['text'] 						= 'Modelo';
+	//$campos[$modelClass]['modelos_id']['options']['empty'] 								= '-- escolha um opção --';
+	//$campos[$modelClass]['modelos_id']['options']['style'] 								= 'width:300px';
+	//if (isset($modelos)) $campos[$modelClass]['modelos_id']['options']['options'] 		= $modelos;
 
 	$campos[$modelClass]['cliente_id']['options']['label']['text'] 						= 'Cliente';
 	$campos[$modelClass]['cliente_id']['options']['empty'] 								= '-- escolha um opção --';
@@ -158,7 +158,7 @@
 	{
 		$edicaoCampos = array
 		(
-			$modelClass.'.modelos_id','#',
+			//$modelClass.'.modelos_id','#',
 			$modelClass.'.tipo_processo_id','#',
 			$modelClass.'.cliente_id','#',
 			$modelClass.'.advogado_id','#',
