@@ -56,7 +56,6 @@
 
 	$campos[$modelClass]['numero_auxiliar']['options']['label']['text'] 				= 'Número Auxiliar do Processo';
 	$campos[$modelClass]['numero_auxiliar']['options']['style'] 						= 'width: 294px; letter-spacing: 4px;';
-	$campos[$modelClass]['numero_auxiliar']['mascara'] 									= '9999999-99.9999.9.99.9999';
 
 	$campos[$modelClass]['distribuicao']['options']['label']['text'] 					= 'Data de Distribuição';
 	$campos[$modelClass]['distribuicao']['options']['dateFormat'] 						= 'DMY';
@@ -78,7 +77,7 @@
     $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:264px';
     if (isset($orgaos)) $campos[$modelClass]['orgao_id']['options']['options'] 			= $orgaos;
 
-	$campos[$modelClass]['obs']['options']['label']['text'] 							= 'Obs';
+	$campos[$modelClass]['obs']['options']['label']['text'] 							= 'Observações';
 	$campos[$modelClass]['obs']['options']['style'] 									= 'width:600px;';
 
 	$campos[$modelClass]['equipe_id']['options']['label']['text'] 						= 'Equipe';
@@ -188,8 +187,8 @@
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['distribuicao'] 	= 'Distribuição';
-		$camposPesquisa['obs'] 	= 'Obs';
-		$camposPesquisa['parte_contraria'] 	= 'ParteContrária';
+		$camposPesquisa['obs'] 	= 'Observações';
+		$camposPesquisa['parte_contraria'] 	= 'Parte Contrária';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
