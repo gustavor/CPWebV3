@@ -33,4 +33,17 @@ class Orgao extends AppModel {
 			'message' => 'É necessário informar o nome da Fase!'
 		)
 	);
+	
+	/**
+	 * Antes da validação
+	 * 
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Orgao']['nome'] = mb_strtoupper($this->data['Instancia']['nome']);
+		return true;
+	}
 }
+
+?>

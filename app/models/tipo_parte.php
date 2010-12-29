@@ -32,4 +32,14 @@ class TipoParte extends AppModel {
 			'message' => 'É necessário informar o nome da parte!'
 		)
 	);
+	
+	/**
+	 * 
+	 */
+	public function beforeValidate()
+	{
+		$this->data['TipoParte']['nome'] = mb_strtoupper($this->data['TipoParte']['nome']);
+		return true;
+	}
 }
+?>

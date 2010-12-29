@@ -22,7 +22,9 @@
 class Instancia extends AppModel {
 
 	public $name 			= 'Instancia';
-	//public $displayField 	= 'nome';
+	public $useTable		= 'instancias';
+	public $displayField 	= 'nome';
+	public $order 			= 'nome';
 
 	public $validate = array(
 		'nome' => array(
@@ -31,4 +33,16 @@ class Instancia extends AppModel {
 			'message' => 'É necessário informar o nome da Instância!'
 		)
 	);
+
+	/**
+	 * Antes da validação
+	 * 
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Instancia']['nome'] = mb_strtoupper($this->data['Instancia']['nome']);
+		return true;
+	}
 }
+?>

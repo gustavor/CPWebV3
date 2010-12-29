@@ -32,4 +32,15 @@ class Fase extends AppModel {
 			'message' => 'É necessário informar o nome da Fase!'
 		)
 	);
+	
+	/**
+	 * Antes da validação
+	 * 
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Fase']['nome'] = mb_strtoupper($this->data['Fase']['nome']);
+		return true;
+	}
 }

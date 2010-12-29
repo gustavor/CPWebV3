@@ -119,7 +119,7 @@ class InstalaController extends AppController {
 
 		// inclui usuário administrador
 		$sql  = 'INSERT INTO usuarios (nome,login,senha,email,ativo,acessos,aniversario,ultimo_acesso,created,modified) values ';
-		$sql .= '("'.$nome.'","'.$admin.'","'.$senha.'","'.$email.'",1,1,"'.date('d/m').'",now(),now(),now())';
+		$sql .= '("'.mb_strtoupper($nome).'","'.$admin.'","'.$senha.'","'.$email.'",1,1,"'.date('d/m').'",now(),now(),now())';
 		$this->Instala->query($sql, $cachequeries=false);
 		if ($db->lastError())
 		{

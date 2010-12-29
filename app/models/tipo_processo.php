@@ -33,4 +33,16 @@ class TipoProcesso extends AppModel {
 			'message' 	=> 'É necessário informar o nome da parte!'
 		)
 	);
+	
+	/**
+	 * Antes da validação
+	 * 
+	 * @return boolean
+	 */
+	public function beforeValidate()
+	{
+		$this->data['TipoProcesso']['nome'] = mb_strtoupper($this->data['TipoProcesso']['nome']);
+		return true;
+	}
 }
+?>

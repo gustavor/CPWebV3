@@ -81,9 +81,9 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'tipo_processo_id',
 			'fields'		=> 'id, nome'
 		),
-		'Modelo'  		=> array(
-			'className'		=> 'Modelo',
-			'foreignKey'	=> 'modelos_id',
+		'Equipe'  		=> array(
+			'className'		=> 'Equipe',
+			'foreignKey'	=> 'equipe_id',
 			'fields'		=> 'id, nome'
 		),
 		'Orgao'  		=> array(
@@ -91,7 +91,16 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'orgao_id',
 			'fields'		=> 'id, nome'
 		),
-
+		'Gestao'  		=> array(
+			'className'		=> 'Gestao',
+			'foreignKey'	=> 'gestao_id',
+			'fields'		=> 'id, nome'
+		),
+		'Modelo'  		=> array(
+			'className'		=> 'Modelo',
+			'foreignKey'	=> 'modelo_id',
+			'fields'		=> 'id, nome'
+		),
 	);
 
     public $hasMany = array(
