@@ -796,6 +796,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
   `aniversario` VARCHAR(5) NOT NULL ,
   `ultimo_acesso` DATETIME NOT NULL ,
   `acessos` INT NOT NULL ,
+  `trocasenha` TINYINT(1)  NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
