@@ -69,7 +69,7 @@
 	$campos[$modelClass]['comarca_id']['options']['style'] 								= 'width:300px';
 	if (isset($comarcas)) $campos[$modelClass]['comarca_id']['options']['options'] 		= $comarcas;
 
-    $campos[$modelClass]['ordinal_orgao']['options']['label']['text'] 					= 'Número Orgão';
+    $campos[$modelClass]['ordinal_orgao']['options']['label']['text'] 					= 'Órgão da Justiça';
 	$campos[$modelClass]['ordinal_orgao']['options']['style'] 							= 'width:30px;';
 
     $campos[$modelClass]['orgao_id']['options']['label']['text'] 						= '';
