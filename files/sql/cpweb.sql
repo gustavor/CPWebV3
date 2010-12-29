@@ -293,6 +293,22 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`gestoes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`gestoes` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`gestoes` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`processos`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`processos` ;
@@ -318,6 +334,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `modelos_id` INT NOT NULL ,
   `segmento_id` INT(11) NULL ,
   `equipe_id` INT(11) NULL ,
+  `gestao_id` INT(11) NULL ,
   `obs` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
   `numero` VARCHAR(30) NOT NULL ,
   `numero_auxiliar` VARCHAR(30) NOT NULL ,
@@ -338,6 +355,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   INDEX `fk_processos_equipes1` (`equipe_id` ASC) ,
   INDEX `i_numero` (`numero` ASC) ,
   INDEX `i_numero_auxiliar` (`numero_auxiliar` ASC) ,
+  INDEX `fk_processos_gestoes1` (`gestao_id` ASC) ,
   CONSTRAINT `fk_processos_comarcas1`
     FOREIGN KEY (`comarca_id` )
     REFERENCES `cpwebv3`.`comarcas` (`id` )
@@ -406,6 +424,11 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   CONSTRAINT `fk_processos_equipes1`
     FOREIGN KEY (`equipe_id` )
     REFERENCES `cpwebv3`.`equipes` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_processos_gestoes1`
+    FOREIGN KEY (`gestao_id` )
+    REFERENCES `cpwebv3`.`gestoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -912,23 +935,8 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 
--- -----------------------------------------------------
--- Table `cpwebv3`.`gestoes`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`gestoes` ;
-
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`gestoes` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NOT NULL ,
-  `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
