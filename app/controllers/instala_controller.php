@@ -37,7 +37,7 @@ class InstalaController extends AppController {
                         'status','naturezas','comarcas','gestoes',
                         'segmentos','equipes','fases','tipos_partes',
                         'complexidades','destinos','instancias','tipos_audiencias',
-                        'tipos_processos');
+                        'tipos_processos','orgaos');
 	
 	/**
 	 * Modelo
