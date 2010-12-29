@@ -35,11 +35,6 @@ class Numero extends AppModel {
 	
 	public $belongsTo = array
 	(
-		'TipoNumero'	=> array
-		(
-			'className'	=> 'TipoNumero',
-			'foreignKey'=> 'tipo_numero_id'
-		),
 		'Processo'		=> array
 		(
 			'className'	=> 'Processo',
