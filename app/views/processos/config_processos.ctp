@@ -1,20 +1,17 @@
 <?php
 
-	$campos[$modelClass]['id_controle']['options']['label']['text']		= 'ID de Controle Interno';
+	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
+	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
 	
 	$campos[$modelClass]['tipo_processo_id']['options']['label']['text'] 				= 'Tipo de Processo';
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
 	if (isset($tipoprocessos)) $campos[$modelClass]['tipo_processo_id']['options']['options'] = $tipoprocessos;
 	
-	//$campos[$modelClass]['modelos_id']['options']['label']['text'] 						= 'Modelo';
-	//$campos[$modelClass]['modelos_id']['options']['empty'] 								= '-- escolha um opção --';
-	//$campos[$modelClass]['modelos_id']['options']['style'] 								= 'width:300px';
-	//if (isset($modelos)) $campos[$modelClass]['modelos_id']['options']['options'] 		= $modelos;
-
 	$campos[$modelClass]['cliente_id']['options']['label']['text'] 						= 'Cliente';
 	$campos[$modelClass]['cliente_id']['options']['empty'] 								= '-- escolha um opção --';
 	$campos[$modelClass]['cliente_id']['options']['style'] 								= 'width:300px';
+	$campos[$modelClass]['cliente_id']['busca_rapida'] 									= true;
 	if (isset($clientes)) $campos[$modelClass]['cliente_id']['options']['options'] 		= $clientes;
 	
 	$campos[$modelClass]['advogado_id']['options']['label']['text'] 					= 'Advogado Interno Responsável';
@@ -99,7 +96,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH'.str_repeat('0',5-strlen($this->data['Processo']['id']));
+		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH'.str_repeat('0',5-strlen($this->data['Processo']['id'])).$this->data['Processo']['id'];
 		$edicaoCampos = array
 		(
 			$modelClass.'.id_controle','#',
@@ -181,13 +178,13 @@
 	
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#'.$modelClass.'ClienteId").focus();';
+		$on_read_view .= "\n".'$("#'.$modelClass.'TipoProcessoId").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['distribuicao'] 	= 'Distribuição';
-		$camposPesquisa['obs'] 	= 'Observações';
+		$camposPesquisa['obs'] 				= 'Observações';
 		$camposPesquisa['parte_contraria'] 	= 'Parte Contrária';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}

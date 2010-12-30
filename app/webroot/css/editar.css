@@ -6,6 +6,16 @@
 	font-family: verdana;
 }
 
+#edicao .busca_rapida
+{
+	float: left;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	margin: 5px 0px 0px 0px;
+	/*background-color: #ddd;*/
+}
+
 #edicao #formAlerta
 {
 	float: right;

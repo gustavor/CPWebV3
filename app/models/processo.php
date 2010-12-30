@@ -27,6 +27,106 @@ class Processo extends AppModel {
 	public $displayField 	= 'distribuicao';
 	
 	/**
+	 * Validação
+	 * 
+	 * @var	array
+	 * @access	public
+	 */
+	public $validate	= array
+	(
+		'tipo_processo_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar um Tipo de processo !!!'
+		),
+		'cliente_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar um cliente !!!'
+		),
+		'advogado_internto_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar um Advogado Contrário !!!'
+		),
+		'tipo_parte_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar uma Posição do Cliente no Processo !!!'
+		),
+		'parte_contraria'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar a parte contrária !!!'
+		),
+		'advogado_contrario_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar um Advogado Contrário !!!'
+		),
+		'status_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar o Status do Processo !!!'
+		),
+		'fase_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar uma Fase !!!'
+		),
+		'instancia_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar uma Instância !!!'
+		),
+		'numero'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar o número do processo !!!'
+		),
+		'numero_auxiliar'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar o número Auxiliar do processo !!!'
+		),
+		'data_distribuicao'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar uma data de Distribuição !!!'
+		),
+		'comarca_id'	=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar uma Comarca !!!'
+		),
+		'orgao_id'		=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar Orgão !!!'
+		),
+		'natureza_id'		=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário informar a Natureza !!!'
+		),
+	);
+	
+	/**
 	 * Relacionamento belongsTo 
 	 */
 	public $belongsTo		= array

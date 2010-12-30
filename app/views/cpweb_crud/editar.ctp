@@ -60,6 +60,13 @@
 				$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
 				if (isset($mascara)) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
 				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n\n";
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida']))
+				{
+					echo '<div id="buscaRapida'.$this->Form->domId($_field).'" class="busca_rapida">';
+					echo $this->Html->link($this->Html->image('busca_rapida.png', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),'http://www.cakephp.org/',array('target' => '_blank', 'escape' => false));
+					
+					echo '</div>';
+				}
 			}
 		}
 	} else

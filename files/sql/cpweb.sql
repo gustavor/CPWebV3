@@ -209,23 +209,6 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`modelos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`modelos` ;
-
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`modelos` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NULL ,
-  `modified` DATETIME NULL ,
-  `nome` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `i_nome` (`nome` ASC) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
 -- Table `cpwebv3`.`advogados_contrarios`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`advogados_contrarios` ;
@@ -331,7 +314,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `natureza_id` INT(11) NOT NULL ,
   `status_id` INT(11) NOT NULL ,
   `tipo_processo_id` INT(11) NOT NULL ,
-  `modelos_id` INT NOT NULL ,
   `segmento_id` INT(11) NULL ,
   `equipe_id` INT(11) NULL ,
   `gestao_id` INT(11) NULL ,
@@ -348,7 +330,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   INDEX `fk_processos_naturezas1` (`natureza_id` ASC) ,
   INDEX `fk_processos_tipos_partes1` (`tipo_parte_id` ASC) ,
   INDEX `fk_processos_clientes1` (`cliente_id` ASC) ,
-  INDEX `fk_processos_modelos1` (`modelos_id` ASC) ,
   INDEX `fk_processos_advogados_contrarios1` (`advogado_contrario_id` ASC) ,
   INDEX `fk_processos_orgaos1` (`orgao_id` ASC) ,
   INDEX `fk_processos_segmentos1` (`segmento_id` ASC) ,
@@ -399,11 +380,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   CONSTRAINT `fk_processos_clientes1`
     FOREIGN KEY (`cliente_id` )
     REFERENCES `cpwebv3`.`clientes` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_processos_modelos1`
-    FOREIGN KEY (`modelos_id` )
-    REFERENCES `cpwebv3`.`modelos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_advogados_contrarios1`
@@ -717,6 +693,23 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`modelos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`modelos` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`modelos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NULL ,
+  `modified` DATETIME NULL ,
+  `nome` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`teses`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`teses` ;
@@ -940,4 +933,3 @@ COLLATE = utf8_general_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
