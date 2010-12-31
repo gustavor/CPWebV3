@@ -59,14 +59,21 @@
 				$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
 				$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
 				if (isset($mascara)) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
-				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n\n";
-				if (isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida']))
+				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n";
+				
+				// busca rápida para combos somente na inclusão
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida']) && $action=='novo')
 				{
 					echo '<div id="buscaRapida'.$this->Form->domId($_field).'" class="busca_rapida">';
-					echo $this->Html->link($this->Html->image('busca_rapida.png', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),'http://www.cakephp.org/',array('target' => '_blank', 'escape' => false));
-					
-					echo '</div>';
+					$opcoesBuscaRapida					= isset($campos[$_arrField[0]][$_arrField[1]]['opcoesBuscaRapida']) 	? $campos[$_arrField[0]][$_arrField[1]]['opcoesBuscaRapida'] : array();
+					$opcoesBuscaRapida['format']		= isset($opcoesBuscaRapida['format']) 			? $opcoesBuscaRapida['format'] 			: array('input');
+					$opcoesBuscaRapida['div'] 			= isset($opcoesBuscaRapida['div']) 				? $opcoesBuscaRapida['div'] 			: null;
+					$opcoesBuscaRapida['class'] 		= isset($opcoesBuscaRapida['class'])			? $opcoesBuscaRapida['class'] 			: 'inBuscaRapidaEdicao';
+					echo $this->Form->input('buscaRapida'.$this->Form->domId($_field),$opcoesBuscaRapida);
+					echo '<div id="buscaRapidaResposta'.$this->Form->domId($_field).'" class="buscaRapidaResposta"></div>';
+					echo '</div>'."\n";
 				}
+				echo "\n\n";
 			}
 		}
 	} else

@@ -6,6 +6,7 @@
 	$campos[$modelClass]['tipo_processo_id']['options']['label']['text'] 				= 'Tipo de Processo';
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
+	$campos[$modelClass]['tipo_processo_id']['busca_rapida'] 							= true;
 	if (isset($tipoprocessos)) $campos[$modelClass]['tipo_processo_id']['options']['options'] = $tipoprocessos;
 	
 	$campos[$modelClass]['cliente_id']['options']['label']['text'] 						= 'Cliente';
@@ -13,6 +14,7 @@
 	$campos[$modelClass]['cliente_id']['options']['style'] 								= 'width:300px';
 	$campos[$modelClass]['cliente_id']['busca_rapida'] 									= true;
 	if (isset($clientes)) $campos[$modelClass]['cliente_id']['options']['options'] 		= $clientes;
+//	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['style']					= 'width: 400px; margin-top: -5px;';
 	
 	$campos[$modelClass]['advogado_id']['options']['label']['text'] 					= 'Advogado Interno Responsável';
 	$campos[$modelClass]['advogado_id']['options']['empty'] 							= '-- escolha um opção --';

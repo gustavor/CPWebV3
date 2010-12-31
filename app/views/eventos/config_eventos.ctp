@@ -12,7 +12,6 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.processo_id','#',$modelClass.'.evento','#',$modelClass.'.modified','#',$modelClass.'.created');
-		$on_read_view .= "\n".'$("#'.$modelClass.'Evento").focus();';
 	}
 
 	if ($action=='imprimir')
@@ -23,6 +22,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.processo_id','#',$modelClass.'.evento');
+	}
+	
+	if ($action=='editar' || $action=='novo')
+	{
+		$on_read_view .= "\n".'$("#'.$modelClass.'Evento").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')

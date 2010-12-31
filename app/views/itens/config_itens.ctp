@@ -1,39 +1,33 @@
 <?php
 
-	$campos['Item']['nome']['options']['label']['text'] 	= 'Item';
-	$campos['Item']['nome']['options']['style'] 			= 'width: 600px; ';
+	$campos[$modelClass]['nome']['options']['label']['text'] 	= 'Item';
+	$campos[$modelClass]['nome']['options']['style'] 			= 'width: 600px; text-transform: uppercase;';
+
+	$camposPesquisa['nome'] 	= 'Nome';
+	$this->set('camposPesquisa',$camposPesquisa);
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Item.nome','#','Item.modified','#','Item.created');
-		$campos['Item']['created']['options']['disabled'] 	= 'disabled';
-		$campos['Item']['modified']['options']['disabled'] 	= 'disabled';
+		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Item.nome','Item.modified','Item.created');
+		$edicaoCampos = array($modelClass.'.nome',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Item.nome');
+		$edicaoCampos = array($modelClass.'.nome');
 	}
 
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#ItemNome").focus();';
-	}
-
-	if ($action=='editar' || $action=='listar')
-	{
-		$camposPesquisa['nome'] 	= 'Nome';
-		$this->set('camposPesquisa',$camposPesquisa);
+		$on_read_view .= "\n".'$("#'.$modelClass.'Nome").focus();';
 	}
 
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array('Item.nome','Item.modified','Item.created');
-		$campos['Item']['nome']['estilo_th'] 		= 'width="400px"';
+		$listaCampos = array($modelClass.'.nome',$modelClass.'.modified',$modelClass.'.created');
 	}
 ?>

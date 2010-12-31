@@ -33,4 +33,15 @@ class Item extends AppModel {
 			'message' => 'É necessário informar a descrição do evento!'
 		)
 	);
+	
+	/**
+	 * Antes de validar, lima a máscara do cpf e cnpj
+	 * 
+	 * @return void
+	 */
+	public function beforeValidate()
+	{
+		$this->data['Item']['nome'] = mb_strtoupper($this->data['Item']['nome']);
+		return true;
+	}
 }

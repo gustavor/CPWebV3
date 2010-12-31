@@ -51,12 +51,14 @@ class CpwebCrudComponent extends Object {
 		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
 		if ($arqListaMenu=='menu_sistema')			$this->controller->Session->write('siste_ativo',$name);
+		
+		$campos[$modelClass]['nome']['estilo_th'] 						= 'width="450px"';
 
 		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
 		$campos[$modelClass]['modified']['options']['dateFormat'] 		= 'DMY';
 		$campos[$modelClass]['modified']['options']['timeFormat'] 		= '24';
 		$campos[$modelClass]['modified']['mascara'] 					= 'datahora';
-		$campos[$modelClass]['modified']['estilo_th'] 					= 'width="200px"';
+		$campos[$modelClass]['modified']['estilo_th'] 					= 'width="180px"';
 		$campos[$modelClass]['modified']['estilo_td'] 					= 'style="text-align: center; "';
 		$campos[$modelClass]['modified']['options']['disabled'] 		= 'disabled';
 
@@ -64,7 +66,7 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['options']['dateFormat'] 		= 'DMY';
 		$campos[$modelClass]['created']['options']['timeFormat'] 		= '24';
 		$campos[$modelClass]['created']['mascara'] 						= 'datahora';
-		$campos[$modelClass]['created']['estilo_th'] 					= 'width="200px"';
+		$campos[$modelClass]['created']['estilo_th'] 					= 'width="160px"';
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
 		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
 		

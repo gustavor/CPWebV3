@@ -1,28 +1,26 @@
 <?php
 
-	$campos['Instancia']['nome']['options']['label']['text'] 		= 'Nome';
-	$campos['Instancia']['nome']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
+	$campos[$modelClass]['nome']['options']['label']['text'] 		= 'Nome';
+	$campos[$modelClass]['nome']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Instancia.nome','#','Instancia.created');
-		$campos['Instancia']['created']['options']['disabled'] 	= 'disabled';
-		$campos['Instancia']['modified']['options']['disabled'] = 'disabled';
+		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Instancia.nome','Instancia.modified','Instancia.created');
+		$edicaoCampos = array($modelClass.'.nome',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Instancia.nome');
+		$edicaoCampos = array($modelClass.'.nome');
 	}
 
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#InstanciaNome").focus();';
+		$on_read_view .= "\n".'$("#'.$modelClass.'Nome").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')
@@ -33,7 +31,6 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 									= array('Instancia.nome','Instancia.modified','Instancia.created');
-		$campos['Instancia']['nome']['estilo_th'] 		= 'width="250px"';
+		$listaCampos = array($modelClass.'.nome',$modelClass.'.modified',$modelClass.'.created');
 	}
 ?>
