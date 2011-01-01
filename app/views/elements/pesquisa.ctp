@@ -1,3 +1,4 @@
+<?php //exibe o formulário de pesquisa ?>
 <div id="pesquisa">
 	<span id="spPesquisa">Pesquisar</span>
 	<?php

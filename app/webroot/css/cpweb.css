@@ -138,6 +138,7 @@ select
 	margin: 10px auto;
 }
 
+.buscaRapidaResposta,
 #pesquisa #rePesquisa
 {
 	position: absolute;
@@ -157,6 +158,7 @@ select
 	min-width: 100px;
 }
 
+.buscaRapidaResposta ul,
 #pesquisa #rePesquisa ul
 {
 	margin: 0px;
@@ -164,17 +166,40 @@ select
 	list-style: none;
 }
 
+.buscaRapidaResposta ul li,
 #pesquisa #rePesquisa ul li
 {
 	margin: 0px;
 	padding: 0px;
 }
 
-#pesquisa #rePesquisa ul li a:hover
+
+/* busca rápida */
+.buscaRapidaResposta
 {
-	background-color: transparent;
+	text-align: left;
+}
+.buscaRapidaResposta ul li
+{
+	text-decoration: none;
+	color: #333;
+}
+#pesquisa #rePesquisa ul li:hover,
+.buscaRapidaResposta ul li:hover
+{
+	color: red;
+	cursor: pointer;
+	background-color: #f9f9d8;
+}
+.inBuscaRapidaEdicao
+{
+	margin: -3.8px 0px 0px 0px;
+	width: 300px;
+	text-transform: uppercase;
+	/*display: none;*/
 }
 
+/* sub formulário */
 #sub_form
 {
 	margin: 0px 0px 0px 135px;

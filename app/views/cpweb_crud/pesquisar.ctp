@@ -1,3 +1,4 @@
+<?php // exibe a resposta da pesquisa ?>
 <ul>
-<?php foreach($pesquisa as $id => $valor) echo "\t".'<li><a href="'.$link.'/'.$id.'">'.$valor.'</a></li>'."\n"; ?>
+<?php foreach($pesquisa as $id => $valor) echo "\t".'<li onclick="document.location.href=\''.$link.'/'.$id.'\'">'.$valor.'</li>'."\n"; ?>
 </ul>

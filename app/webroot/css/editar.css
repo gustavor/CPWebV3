@@ -164,25 +164,3 @@
 {
 	width: 130px;
 }
-
-
-/* busca rápida */
-#edicao .inBuscaRapidaEdicao
-{
-	margin: -3.8px 0px 0px 0px;
-	width: 300px;
-}
-
-#edicao .buscaRapidaResposta
-{
-	position: absolute;
-	z-index: 999;
-	background-color: #cad8ec;
-	min-width: 300px;
-	padding: 0px 0px 0px 3px;
-	line-height: 24px;
-	border: 2px solid #8994a6;
-	display: none;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-}

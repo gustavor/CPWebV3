@@ -58,20 +58,30 @@
 				$opcoes['div'] 				= isset($opcoes['div']) ? $opcoes['div'] : null;
 				$opcoes['label']['class']	= isset($opcoes['label']['class']) ? $opcoes['label']['class'] : 'inEdicao';
 				$tipo 						= isset($opcoes['tipo']) ? $opcoes['tipo'] : 'text';
-				if (isset($mascara)) $on_read_view .= "\n".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
+				if (isset($mascara)) $on_read_view .= "\n\t".'$("#'.$this->Form->domId($_field).'").setMask("'.$mascara.'");';
 				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n";
 				
 				// busca rápida para combos somente na inclusão
-				if (isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida']) && $action=='novo')
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida_url']))
 				{
-					echo '<div id="buscaRapida'.$this->Form->domId($_field).'" class="busca_rapida">';
+					echo '<div id="buscaRapida'.$this->Form->domId($_field).'" class="busca_rapida">'."\n";
 					$opcoesBuscaRapida					= isset($campos[$_arrField[0]][$_arrField[1]]['opcoesBuscaRapida']) 	? $campos[$_arrField[0]][$_arrField[1]]['opcoesBuscaRapida'] : array();
 					$opcoesBuscaRapida['format']		= isset($opcoesBuscaRapida['format']) 			? $opcoesBuscaRapida['format'] 			: array('input');
 					$opcoesBuscaRapida['div'] 			= isset($opcoesBuscaRapida['div']) 				? $opcoesBuscaRapida['div'] 			: null;
+					$opcoesBuscaRapida['type'] 			= isset($opcoesBuscaRapida['type'])				? $opcoesBuscaRapida['type'] 			: 'text';
 					$opcoesBuscaRapida['class'] 		= isset($opcoesBuscaRapida['class'])			? $opcoesBuscaRapida['class'] 			: 'inBuscaRapidaEdicao';
-					echo $this->Form->input('buscaRapida'.$this->Form->domId($_field),$opcoesBuscaRapida);
-					echo '<div id="buscaRapidaResposta'.$this->Form->domId($_field).'" class="buscaRapidaResposta"></div>';
+					$opcoesBuscaRapida['title'] 		= isset($opcoesBuscaRapida['title'])			? $opcoesBuscaRapida['title'] 			: 'Digite aqui o texto para a busca rápida ...';
+					$opcoesBuscaRapida['id'] 			= isset($opcoesBuscaRapida['id'])				? $opcoesBuscaRapida['id'] 				: 'inBuscaRapida'.$this->Form->domId($_field);
+					echo "\t".$this->Form->input($opcoesBuscaRapida['id'],$opcoesBuscaRapida)."\n";
+					echo "\t".'<div id="buscaRapidaResposta'.$this->Form->domId($_field).'" class="buscaRapidaResposta"></div>'."\n";
 					echo '</div>'."\n";
+
+					// atualizando onRead jquery
+					$on_read_view .= "\n\t".'$("#'.$opcoesBuscaRapida['id'].'").keyup(function(e)'."\t\t\t".'{ getBuscaRapida("'.$campos[$_arrField[0]][$_arrField[1]]['busca_rapida_url'].'", (e.keyCode ? e.keyCode : e.which),"'.$this->Form->domId($_field).'"); });';
+					//if ($this->Form->data[$modelClass][$_arrField[1]]) $on_read_view .= "\n\t".'$("#buscaRapida'.$this->Form->domId($_field).'").fadeOut();';
+					//if (!$this->Form->data[$modelClass][$_arrField[1]]) $on_read_view .= "\n\t".'$("#buscaRapida'.$this->Form->domId($_field).'").css("display","block");';
+					if ($this->Form->data[$modelClass][$_arrField[1]]) $on_read_view .= "\n\t".'$("#buscaRapida'.$this->Form->domId($_field).'").css("display","none");';
+					$on_read_view .= "\n\t".'$("#'.$this->Form->domId($_field).'").change(function()'."\t\t\t\t".'{ setBuscaRapidaShow($(this).val(),"'.$this->Form->domId($_field).'");  });';
 				}
 				echo "\n\n";
 			}

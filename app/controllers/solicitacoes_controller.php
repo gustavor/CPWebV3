@@ -138,25 +138,4 @@ class SolicitacoesController extends AppController {
 	{
 		$this->CpwebCrud->imprimir($id);
 	}	
-	/**
-	 * Retorna uma lista para comboBox
-	 * 
-	 * @return string
-	 */
-	public function combo($modelo=null,$campo=null,$filtro=null)
-	{
-		parent::combo($modelo,$campo,$filtro);
-	}
-	
-	/**
-	 * Realiza uma pesquisa no banco de dados
-	 * 
-	 * @parameter 	string 	$texto 	Texto de pesquisa
-	 * @parameter 	string 	$campo 	Campo de pesquisa
-	 * @return 		array 	$lista 	Array com lista de retorno
-	 */
-	public function pesquisar($campo=null,$texto=null)
-	{
-		$this->CpwebCrud->pesquisar($campo,$texto);
-	}	
 }

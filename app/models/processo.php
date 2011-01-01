@@ -158,7 +158,7 @@ class Processo extends AppModel {
 		),
 		'Fase'  		=> array(
 			'className'		=> 'Fase',
-			'foreignKey'	=> 'Fase_id',
+			'foreignKey'	=> 'fase_id',
 			'fields'		=> 'id, nome'
 		),
 		'Instancia'  		=> array(
@@ -205,4 +205,99 @@ class Processo extends AppModel {
         )
     );
 
+	/**
+	 * Antes de validar
+	 * 
+	 * Executa a inclusão dos campos de comboBox, caso nenhuma opção tenha sido selecionada e o campo busca rápida tenha sido preenchido
+	 * 
+	 * @return void
+	 */
+	public function beforeValidate()
+	{
+		//echo '<pre>'.print_r($this->data,true).'</pre>';
+		// executando a inclusão dos comboBox, caso não se
+		// incluindo a cada belongsTo
+		foreach($this->belongsTo as $_modelo => $_arrOpcoes)
+		{
+			$campo = str_replace(' ','',Inflector::humanize(Inflector::underscore($_arrOpcoes['foreignKey'])));
+			$valor = isset($this->data[$this->name]['inBuscaRapida'.$this->name.$campo]) ? $this->data[$this->name]['inBuscaRapida'.$this->name.$campo] : '';
+			if ($valor && empty($this->data[$this->name][$_arrOpcoes['foreignKey']]))
+			{
+				$primaryKey 		= isset($this->$_modelo->primaryKey) ? $this->$_modelo->primaryKey : 'id';
+				$camposBelongsTo	= explode(',',$_arrOpcoes['fields']);
+				$dataBelongsTo[$_modelo][trim($camposBelongsTo[1])] = $valor;
+				$opcoesBelongsTo	= array();
+				
+				// somente para clientes
+				if ($campo=='ClienteId')
+				{
+					$dataBelongsTo['Cliente']['cidade_id']	= 2302;
+					$this->Cliente->validate['endereco']	= null;
+				}
+
+				// incluindo o novo registro para o belongsTo
+				$this->$_modelo->create();
+				if ($this->$_modelo->save($dataBelongsTo,$opcoesBelongsTo))
+				{
+					// agora que criou o belongsTo é precisso atualizar o this->data
+					$this->data[$this->name][$_arrOpcoes['foreignKey']] = $this->$_modelo->$primaryKey;
+				} else
+				{
+					$this->validate[$_arrOpcoes['foreignKey']]['message'] = 'Não foi possível salvar o novo '.$this->$_modelo->name.'<br />';
+					foreach($this->$_modelo->validationErrors as $_erroCampoBelongsTo => $_msgErroCampoBelongsTo)
+					{
+						$this->validate[$_arrOpcoes['foreignKey']]['message'] .= $_msgErroCampoBelongsTo.'<br />';
+					}
+				}
+			}
+		}
+		
+/*
+		foreach($this->data['inBuscaRapida'] as $_campo => $_valor)
+		{
+			if ($_valor)
+			{
+				if (!$this->data[$this->name][$_campo])
+				{
+					$dataBelongsTo 		= array();
+					$camposBelongsTo	= array();
+					$opcoesBelongsTo	= array();
+
+					// somente para clientes
+					if ($_campo=='cliente_id')
+					{
+						$dataBelongsTo['Cliente']['cidade_id']	= 2302;
+						$this->Cliente->validate['endereco']	= null;
+					}
+
+					// incluindo a cada belongsTo
+					foreach($this->belongsTo as $_modelo => $_arrOpcoes)
+					{
+						if ($_arrOpcoes['foreignKey']==$_campo)
+						{
+							$primaryKey 		= isset($this->$_modelo->primaryKey) ? $this->$_modelo->primaryKey : 'id';
+							$camposBelongsTo	= explode(',',$_arrOpcoes['fields']);
+							$dataBelongsTo[$_modelo][trim($camposBelongsTo[1])] = $_valor;
+							
+							// incluindo o novo registro para o belongsTo
+							$this->$_modelo->create();
+							if ($this->$_modelo->save($dataBelongsTo,$opcoesBelongsTo))
+							{
+								// agora que criou o belongsTo é precisso atualizar o this->data
+								$this->data[$this->name][$_campo] = $this->$_modelo->$primaryKey;
+							} else
+							{
+								$this->validate[$_campo]['message'] = 'Não foi possível salvar o novo '.$this->$_modelo->name.'<br />';
+								foreach($this->$_modelo->validationErrors as $_erroCampoBelongsTo => $_msgErroCampoBelongsTo)
+								{
+									$this->validate[$_campo]['message'] .= $_msgErroCampoBelongsTo.'<br />';
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+*/
+	}
 }

@@ -126,16 +126,4 @@ class CidadesController extends AppController {
 	{
 		$this->CpwebCrud->imprimir($id);
 	}
-	
-	/**
-	 * Realiza uma pesquisa no banco de dados
-	 * 
-	 * @parameter 	string 	$texto 	Texto de pesquisa
-	 * @parameter 	string 	$campo 	Campo de pesquisa
-	 * @return 		array 	$lista 	Array com lista de retorno
-	 */
-	public function pesquisar($campo=null,$texto=null)
-	{
-		$this->CpwebCrud->pesquisar($campo,$texto);
-	}
 }

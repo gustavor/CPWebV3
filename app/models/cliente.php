@@ -91,21 +91,10 @@ class Cliente extends AppModel {
 		)
 	);
 
-	public $hasMany = array(
-		'Processo' => array(
-			'className' => 'Processo',
-			'foreignKey' => 'cliente_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Telefone' => array(
+	public $hasMany = array
+	(
+		'Telefone' => array
+		(
 			'className' => 'Telefone',
 			'foreignKey' => 'cliente_id',
 			'dependent' => false,
@@ -127,8 +116,9 @@ class Cliente extends AppModel {
 	 */
 	public function beforeSave()
 	{
-		$this->setCpf();
-
+		// nome do cliente em maiúsculo
+		$this->data[$this->name]['nome'] = mb_strtoupper($this->data[$this->name]['nome']);
+		
 		// salvando o subFormulário
 		$this->Telefone->belongsTo = array();
 		if (!$this->setSubForm('cliente_id',$this->id,'Telefone')) return false;
@@ -154,6 +144,11 @@ class Cliente extends AppModel {
 	 */
 	public function beforeValidate()
 	{
+		// se não postou cpf ou cnpj, remove a validação unique dos mesmos
+		if (!isset($this->data[$this->name]['cpf']))	$this->validate['cpf'][1] = array();
+		if (!isset($this->data[$this->name]['cnpj']))	$this->validate['cnpj'][1] = array();
+
+		// atualizando cpf e cnpj
 		$this->setCpf();
 	}
 

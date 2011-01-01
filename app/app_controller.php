@@ -38,7 +38,10 @@ class AppController extends Controller {
 		} else
 		{
 			// trocando o layout, caso seja pedido ajax
-			if ( strpos($this->params['url']['url'],'combo') || strpos($this->params['url']['url'],'pesquisa') ) $this->layout = 'ajax';
+			if (	strpos($this->params['url']['url'],'combo') 	|| 
+					strpos($this->params['url']['url'],'pesquisa') 	||
+					strpos($this->params['url']['url'],'buscar')
+				) $this->layout = 'ajax';
 
 			$this->Auth->userModel		= 'Usuario';
 			$this->Auth->fields			= array('username'		=> 'login',		'password' 	=> 'senha');
@@ -120,15 +123,19 @@ class AppController extends Controller {
 	}
 	
 	/**
-	 * Retorna uma lista para comboBox
+	 * Retorna uma lista do banco de dados para comboBox
 	 * 
-	 * @return string
+	 * exemplo: http://localhost/cpweb/clientes/
+	 * 
+	 * @parameter	string	$campo 	Nome do campo a ser pesquiado
+	 * @parameter	string	$filtro	Filtro para a consulta
+	 * @access		public
+	 * @return 		string
 	 */
 	public function combo($modelo=null,$campo=null,$filtro=null)
 	{
 		if (!empty($modelo))
 		{
-			$controlador = $this->name;
 			$parametros['conditions'] = (!empty($campo) && !empty($filtro)) ? $campo.'="'.$filtro.'"' : array();
 			$this->loadModel($modelo);
 			$lista = $this->$modelo->find('list',$parametros);
@@ -138,5 +145,52 @@ class AppController extends Controller {
 		{
 			$this->render('../errors/erroCombo');
 		}
+	}
+	
+	/**
+	 * Retorna uma lista do banco de dados para comboBox
+	 * 
+	 * exemplo: http://localhost/cpweb/clientes/nome/geraldo/ProcessoClienteId
+	 * 
+	 * @parameter	string	$campo 	Nome do campo a ser pesquiado
+	 * @parameter	string	$filtro	Filtro para a consulta
+	 * @parameter	string	$comobo	Nome do comboBox que vai ser atualizado pela lista ao ser clicada
+	 * @access		public
+	 * @return 		string
+	 */
+	public function buscar($campo=null,$filtro=null,$combo=null)
+	{
+		$modelo = $this->modelClass;
+		$parametros['conditions'] = (!empty($campo) && !empty($filtro)) ? $campo.' like "%'.$filtro.'%"' : array();
+		$lista = $this->$modelo->find('list',$parametros);
+		$this->set('lista',$lista);
+		$this->set('combo',$combo);
+		$this->render('../cpweb_crud/buscar');
+	}
+	
+	/**
+	 * Realiza uma pesquisa no banco de dados
+	 * 
+	 * @parameter 	string 	$texto 	Texto de pesquisa
+	 * @parameter 	string 	$campo 	Campo de pesquisa
+	 * @parameter	string 	$action	Action para onde será redirecionado ao clicar na resposta
+	 * @return 		array 	$lista 	Array com lista de retorno
+	 */
+	public function pesquisar($campo=null,$texto=null,$action='editar')
+	{
+		$parametros										= array();
+		$pluralHumanName 								= Inflector::humanize(Inflector::underscore($this->name));
+		$modelClass 									= $this->modelClass;
+		$id												= isset($this->modelClass->primaryKey) ? $this->modelClass->primaryKey : 'id';
+		if (!empty($campo)) $parametros['conditions'] 	= $campo.' like "%'.$texto.'%"';
+		if (!empty($campo)) $parametros['order'] 		= $campo;
+		if (!empty($campo)) $parametros['limit'] 		= 12;
+		$parametros['fields'] 							= array($id,$campo);
+		$pesquisa 										= $this->$modelClass->find('list',$parametros);
+
+		$this->Session->write('campoPesquisa'.$this->name,$campo);
+		$this->set('link',Router::url('/',true).mb_strtolower(str_replace(' ','_',$pluralHumanName)).'/'.$action);
+		$this->set('pesquisa',$pesquisa);
+		$this->render('../cpweb_crud/pesquisar');
 	}
 }

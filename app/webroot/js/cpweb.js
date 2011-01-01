@@ -10,6 +10,7 @@
 	{
 		var jId		= '#'+id;
 		var jUrl	= url+encodeURIComponent(filtro);
+
 		$(jId).html(""); 
 		$("<option value=\"o\"> -- Aguarde -- </option>").appendTo(jId);
 		$(jId).load(jUrl, function(resposta, status, xhr)
@@ -25,6 +26,19 @@
 				});
 			}
 		});
+	}
+	
+	/**
+	 * Atualiza a opção do comboSelect
+	 */
+	function setComboSelecao(combo,opcao)
+	{
+		var idResposta 	= 'buscaRapidaResposta'+combo;
+		var divBusca	= 'buscaRapida'+combo;
+		$("#"+combo+" option[value="+opcao+"]").attr("selected","selected") ;
+		$("#"+combo).focus();
+		$("#"+idResposta).fadeOut();
+		$("#"+divBusca).fadeOut();
 	}
 
 	/**
@@ -55,8 +69,63 @@
 			});
 		}
 	}
+
+	/**
+	 * Executa a busca rápida
+	 * ProcessoTipoProcessoId
+	 * ProcessoBuscaRapidaProcessoTipoProcessoId
+	 * resposta:
+	 * item1,valor1;
+	 * item2,valor2;
+	 * item3,valor3;
+	 * http://localhost/cpweb/tipos_processos/buscar/nome/geraldo/ProcessoTipoProcessoId
+	 */
+	function getBuscaRapida(url,code,campo)
+	{
+		var idResposta 	= '#buscaRapidaResposta'+campo;
+		var idInput		= '#inBuscaRapida'+campo;
+		var texto		= $(idInput).val();
+		var urlDestino	= url+'/'+encodeURIComponent(texto)+'/'+campo;
+
+		if (code==27 || !texto)
+		{
+			$(idResposta).fadeOut("4000");
+		} else
+		{
+			$(idResposta).load(urlDestino, function(resposta, status, xhr)
+			{
+				if (status=='success')
+				{
+					if (resposta)
+					{
+						$(idResposta).fadeIn();
+						$(idResposta).html(resposta);
+					}
+				}
+			});
+		}
+	}
 	
 	/**
+	 * 
+	 */
+	function setBuscaRapidaShow(valor,campo)
+	{
+		var idInput 		= '#inBuscaRapida'+campo;
+		var idBuscaRapida 	= '#buscaRapida'+campo;
+		if (!valor) 
+		{
+			$(idBuscaRapida).fadeIn();
+			$(idInput).val('');
+			$(idInput).focus();
+		} else
+		{
+			$(idBuscaRapida).fadeOut();
+		}
+	}
+
+	/**
+	 * Oculta um telefone da tela de edição
 	 *
 	 */
 	function delSubForm(id)

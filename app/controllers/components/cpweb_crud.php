@@ -226,33 +226,7 @@ class CpwebCrudComponent extends Object {
 	{
 		$this->controller->render('../cpweb_crud/sem_permissao');
 	}
-	
-	/**
-	 * Realiza uma pesquisa no banco de dados
-	 * 
-	 * @parameter 	string 	$texto 	Texto de pesquisa
-	 * @parameter 	string 	$campo 	Campo de pesquisa
-	 * @parameter	string 	$action	Action para onde será redirecionado ao clicar na resposta
-	 * @return 		array 	$lista 	Array com lista de retorno
-	 */
-	public function pesquisar($campo=null,$texto=null,$action='editar')
-	{
-		$parametros										= array();
-		$pluralHumanName 								= Inflector::humanize(Inflector::underscore($this->controller->name));
-		$modelClass 									= $this->controller->modelClass;
-		$id												= isset($this->controller->modelClass->primaryKey) ? $this->controller->modelClass->primaryKey : 'id';
-		if (!empty($campo)) $parametros['conditions'] 	= $campo.' like "%'.$texto.'%"';
-		if (!empty($campo)) $parametros['order'] 		= $campo;
-		if (!empty($campo)) $parametros['limit'] 		= 12;
-		$parametros['fields'] 							= array($id,$campo);
-		$pesquisa 										= $this->controller->$modelClass->find('list',$parametros);
 
-		$this->controller->Session->write('campoPesquisa'.$this->name,$campo);
-		$this->controller->set('link',Router::url('/',true).$this->name.'/'.$action);
-		$this->controller->set('pesquisa',$pesquisa);
-		$this->controller->render('../cpweb_crud/pesquisar');
-	}
-	
 	/**
 	 * 
 	 * 
