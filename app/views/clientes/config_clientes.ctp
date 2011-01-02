@@ -46,15 +46,9 @@
 	$campos['Telefone']['options']['label']['text']					= 'Telefones';
 	$campos['Telefone']['options']['multiple']						= 'checkbox';
 
-	if ($action=='editar' || $action=='imprimir' || $action=='excluir')
+	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cliente.cidade_id','#','Cliente.obs');
-	}
-
-	if ($action=='imprimir')
-	{
-		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','Cliente.nome','Cliente.endereco','Cidade.estado_id','Cidade.nome','Cliente.obs','#','Cliente.modified','Cliente.created');
-		if (!$this->Form->data['Cliente']['cpf']) unset($edicaoCampos['Cliente.cpf']);
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')

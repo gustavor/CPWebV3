@@ -1,5 +1,7 @@
 <?php
-$arq = '../views/'.$name.'/config_'.$name.'.ctp'; if (file_exists($arq)) include_once($arq);
+$arq = '../views/'.$name.'/config_'.$name.'.ctp';
+if (file_exists($arq)) include_once($arq);
+
 App::import('Vendor','xtcpdf'); 
 $tcpdf = new XTCPDF();
 $textfont = 'freesans'; // looks better, finer, and more condensed than 'dejavusans'
@@ -58,4 +60,6 @@ if (isset($edicaoCampos))
 $tcpdf->writeHTMLCell($w=0, $h=0, $x='', $y='', '<table>'.$html.'</table>', $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);
 
 echo $tcpdf->Output($nomeArquivo.'.pdf', 'D');
+
+//include_once('../views/cpweb_crud/rodape.ctp');
 ?>

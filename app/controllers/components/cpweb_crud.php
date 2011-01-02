@@ -235,16 +235,16 @@ class CpwebCrudComponent extends Object {
 	 */
 	public function imprimir($id=null)
 	{
-       //Configure::write('debug',0); // Otherwise we cannot use this method while developing
        $modelClass 	= $this->controller->modelClass;
        $data = $this->controller->$modelClass->read(null,$id);
        $this->setRelacionamentos();
+       $relatorio 	= file_exists('../views/'.$this->name.'/rel_registro.ctp') ? '../'.$this->name.'/rel_registro' : '../cpweb_crud/rel_registro';
        $nomeArquivo = ucwords(mb_strtolower($data[$modelClass][$this->controller->$modelClass->displayField]));
        $nomeArquivo = str_replace(' ','',$nomeArquivo);
        $this->controller->set(compact('data','nomeArquivo'));
-       $this->controller->render('../cpweb_crud/rel_registro');
+       $this->controller->render($relatorio);
 	}
-	
+
 	/**
 	 * Imprime o relatório
 	 * 
@@ -254,7 +254,7 @@ class CpwebCrudComponent extends Object {
 	public function relatorios($rel=null)
 	{
 		$data			= $this->controller->paginate();
-		$relatorio 		= file_exists('../'.$this->name.'/rel_'.$rel) ? '../'.$this->name.'/rel_'.$rel : '../cpweb_crud/rel_'.$rel;
+		$relatorio 		= file_exists('../views/'.$this->name.'/rel_'.$rel.'.ctp') ? '../'.$this->name.'/rel_'.$rel : '../cpweb_crud/rel_'.$rel;
 		$nomeArquivo 	= str_replace(' ','',$this->controller->name);
 		$this->controller->set(compact('data','nomeArquivo'));
 		$this->controller->render($relatorio);
