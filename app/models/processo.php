@@ -234,6 +234,12 @@ class Processo extends AppModel {
 					$dataBelongsTo['Cliente']['cidade_id']	= 2302;
 					$this->Cliente->validate['endereco']	= null;
 				}
+				
+				// somente para advogados contrários
+				if ($campo=='AdvogadoContrarioId')
+				{
+					$dataBelongsTo['AdvogadoContrario']['oab']	= 0;
+				}
 
 				// incluindo o novo registro para o belongsTo
 				$this->$_modelo->create();
@@ -251,53 +257,5 @@ class Processo extends AppModel {
 				}
 			}
 		}
-		
-/*
-		foreach($this->data['inBuscaRapida'] as $_campo => $_valor)
-		{
-			if ($_valor)
-			{
-				if (!$this->data[$this->name][$_campo])
-				{
-					$dataBelongsTo 		= array();
-					$camposBelongsTo	= array();
-					$opcoesBelongsTo	= array();
-
-					// somente para clientes
-					if ($_campo=='cliente_id')
-					{
-						$dataBelongsTo['Cliente']['cidade_id']	= 2302;
-						$this->Cliente->validate['endereco']	= null;
-					}
-
-					// incluindo a cada belongsTo
-					foreach($this->belongsTo as $_modelo => $_arrOpcoes)
-					{
-						if ($_arrOpcoes['foreignKey']==$_campo)
-						{
-							$primaryKey 		= isset($this->$_modelo->primaryKey) ? $this->$_modelo->primaryKey : 'id';
-							$camposBelongsTo	= explode(',',$_arrOpcoes['fields']);
-							$dataBelongsTo[$_modelo][trim($camposBelongsTo[1])] = $_valor;
-							
-							// incluindo o novo registro para o belongsTo
-							$this->$_modelo->create();
-							if ($this->$_modelo->save($dataBelongsTo,$opcoesBelongsTo))
-							{
-								// agora que criou o belongsTo é precisso atualizar o this->data
-								$this->data[$this->name][$_campo] = $this->$_modelo->$primaryKey;
-							} else
-							{
-								$this->validate[$_campo]['message'] = 'Não foi possível salvar o novo '.$this->$_modelo->name.'<br />';
-								foreach($this->$_modelo->validationErrors as $_erroCampoBelongsTo => $_msgErroCampoBelongsTo)
-								{
-									$this->validate[$_campo]['message'] .= $_msgErroCampoBelongsTo.'<br />';
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-*/
 	}
 }

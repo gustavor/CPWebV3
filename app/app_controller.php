@@ -43,6 +43,12 @@ class AppController extends Controller {
 					strpos($this->params['url']['url'],'buscar')
 				) $this->layout = 'ajax';
 
+			// trocando o layout, caso seja algum relatório
+			if (	strpos($this->params['url']['url'],'relatorios') 	|| 
+					strpos($this->params['url']['url'],'imprimir') 	||
+					strpos($this->params['url']['url'],'buscar')
+				) $this->layout = 'pdf';
+
 			$this->Auth->userModel		= 'Usuario';
 			$this->Auth->fields			= array('username'		=> 'login',		'password' 	=> 'senha');
 			$this->Auth->autoRedirect 	= false;

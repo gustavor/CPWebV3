@@ -160,6 +160,17 @@ class ClientesController extends AppController {
 	}
 
 	/**
+	 * Imprime em pdf o relatório solicitado
+	 * 
+	 * @access void
+	 * @return void
+	 */
+	public function relatorios($rel=null)
+	{
+		$this->CpwebCrud->relatorios($rel);
+	}
+
+	/**
 	 * Atualiza Camada antes de enviar os relacionamentos para a view
 	 * 
 	 * @return void

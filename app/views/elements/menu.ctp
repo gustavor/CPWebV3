@@ -1,3 +1,4 @@
+<?php // menu principal ?>
 <ul class="sf-menu">
 	<li>
 		<a href="<?php echo Router::url('/'); ?>">Principal</a>
@@ -39,18 +40,16 @@
 	<li>
 		<a href="#">Ferramentas</a>
 		<ul>
-			<li><a href="#">Fer1</a></li>
-			<li><a href="#">Fer2</a></li>
+			<?php foreach($ferramentas as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?>
 		</ul>
 	</li>
 <?php endif ?>
 
-<?php if (isset($ferramentas)) : ?>
+<?php if (isset($relatorios)) : ?>
 	<li>
 		<a href="#">Relatórios</a>
 		<ul>
-			<li><a href="#">Rel1</a></li>
-			<li><a href="#">Rel2</a></li>
+			<?php foreach($relatorios as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?>
 		</ul>
 	</li>
 <?php endif ?>

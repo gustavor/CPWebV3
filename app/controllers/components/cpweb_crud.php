@@ -228,20 +228,36 @@ class CpwebCrudComponent extends Object {
 	}
 
 	/**
+	 * Imprimi o registro de cadastro
 	 * 
-	 * 
+	 * @acccess public
+	 * @return void
 	 */
 	public function imprimir($id=null)
 	{
        //Configure::write('debug',0); // Otherwise we cannot use this method while developing
        $modelClass 	= $this->controller->modelClass;
-       $this->controller->layout = 'pdf'; //this will use the pdf.ctp layout
        $data = $this->controller->$modelClass->read(null,$id);
        $this->setRelacionamentos();
        $nomeArquivo = ucwords(mb_strtolower($data[$modelClass][$this->controller->$modelClass->displayField]));
        $nomeArquivo = str_replace(' ','',$nomeArquivo);
        $this->controller->set(compact('data','nomeArquivo'));
        $this->controller->render('../cpweb_crud/rel_registro');
+	}
+	
+	/**
+	 * Imprime o relatório
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function relatorios($rel=null)
+	{
+		$data			= $this->controller->paginate();
+		$relatorio 		= file_exists('../'.$this->name.'/rel_'.$rel) ? '../'.$this->name.'/rel_'.$rel : '../cpweb_crud/rel_'.$rel;
+		$nomeArquivo 	= str_replace(' ','',$this->controller->name);
+		$this->controller->set(compact('data','nomeArquivo'));
+		$this->controller->render($relatorio);
 	}
 
 	/**

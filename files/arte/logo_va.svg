@@ -57,41 +57,50 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1012.3622)">
-    <rect
-       style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect3050"
-       width="52.04097"
-       height="36.668434"
-       x="1.4795151"
-       y="1014.028"
-       ry="2.1154866" />
     <g
-       id="g3824"
-       transform="translate(-1.7720432,-1.2289174)">
-      <text
-         transform="scale(1.1487379,0.87052059)"
-         sodipodi:linespacing="125%"
-         id="titulo-6"
-         y="1199.8438"
-         x="17.195793"
-         style="font-size:41.20436859px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#004290;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
-         xml:space="preserve"><tspan
-           y="1199.8438"
-           x="17.195793"
-           id="tspan3787"
-           sodipodi:role="line">V</tspan></text>
-      <text
-         transform="scale(1.1487379,0.87052059)"
-         sodipodi:linespacing="125%"
-         id="titulo-6-7"
-         y="1204.5564"
-         x="33.753876"
-         style="font-size:41.20436859px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
-         xml:space="preserve"><tspan
-           y="1204.5564"
-           x="33.753876"
-           id="tspan3812"
-           sodipodi:role="line">A</tspan></text>
+       id="g3764"
+       inkscape:export-filename="/var/www/cpweb/files/arte/cpweb_logo.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g2988">
+        <rect
+           style="fill:#acc4ff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="rect3050"
+           width="52.04097"
+           height="36.668434"
+           x="1.4795151"
+           y="1014.028"
+           ry="2.1154866" />
+        <g
+           id="g3824"
+           transform="matrix(0.88769639,0,0,0.95298927,1.5153129,47.360956)">
+          <text
+             transform="scale(1.1487379,0.87052059)"
+             sodipodi:linespacing="125%"
+             id="titulo-6"
+             y="1199.8438"
+             x="17.195793"
+             style="font-size:41.20436859px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#004290;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+             xml:space="preserve"><tspan
+               y="1199.8438"
+               x="17.195793"
+               id="tspan3787"
+               sodipodi:role="line">V</tspan></text>
+          <text
+             transform="scale(1.1487379,0.87052059)"
+             sodipodi:linespacing="125%"
+             id="titulo-6-7"
+             y="1204.5564"
+             x="33.753876"
+             style="font-size:41.20436859px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+             xml:space="preserve"><tspan
+               y="1204.5564"
+               x="33.753876"
+               id="tspan3812"
+               sodipodi:role="line">A</tspan></text>
+        </g>
+      </g>
     </g>
   </g>
 </svg>

@@ -53,7 +53,8 @@
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','#','Cliente.nome','#','Cliente.endereco','#','Cidade.estado_id','Cidade.nome','#','Cliente.obs');
+		$edicaoCampos = array('Cliente.tipo_cliente','Cliente.cnpj','Cliente.cpf','Cliente.nome','Cliente.endereco','Cidade.estado_id','Cidade.nome','Cliente.obs','#','Cliente.modified','Cliente.created');
+		if (!$this->Form->data['Cliente']['cpf']) unset($edicaoCampos['Cliente.cpf']);
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')
@@ -86,6 +87,9 @@
 		$camposPesquisa['cpf'] 			= 'Cpf';
 		$camposPesquisa['cnpj'] 		= 'Cnpj';
 		$this->set('camposPesquisa',$camposPesquisa);
+
+		$relatorios[0]['url'] 	= Router::url('/',true).mb_strtolower($pluralHumanName).'/relatorios/sintetico';
+		$relatorios[0]['tit'] 	= 'Sintético';
 	}
 
 	if ($action=='editar')
@@ -164,5 +168,18 @@
 		$campos['Cliente']['modified']['estilo_td'] 	= 'style="text-align: center; "';
 		$campos['Cliente']['created']['estilo_th'] 		= 'width="140px"';
 		$campos['Cliente']['created']['estilo_td'] 		= 'style="text-align: center; "';
+	}
+	
+	if ($action=='relatorios')
+	{
+		$relCampos = array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.endereco','Cliente.modified','Cliente.created');
+		$dataRel['Cliente']['nome']['th'] 		= 'width="220px"';
+		$dataRel['Cliente']['cpf']['th'] 		= 'width="100px" text-align="center"';
+		$dataRel['Cliente']['cnpj']['th'] 		= 'width="100px" text-align="center"';
+		$dataRel['Cliente']['modified']['th'] 	= 'width="150px" text-align="center"';
+		$dataRel['Cliente']['created']['th'] 	= 'width="150px" text-align="center"';
+		
+		$dataRel['Cliente']['modified']['td'] 	= 'align="center"';
+		$dataRel['Cliente']['created']['td'] 	= 'align="center"';
 	}
 ?>
