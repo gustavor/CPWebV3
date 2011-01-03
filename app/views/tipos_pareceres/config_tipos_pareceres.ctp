@@ -10,7 +10,7 @@
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.modified',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.nome',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
@@ -31,7 +31,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 									= array($modelClass.'.nome',$modelClass.'.modified',$modelClass.'.created');
+		$listaCampos 									= array($modelClass.'.nome',$modelClass.'.created');
 		$campos[$modelClass]['nome']['estilo_th'] 		= 'width="250px"';
 	}
 ?>
