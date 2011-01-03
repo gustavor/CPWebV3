@@ -75,6 +75,22 @@
 	margin: 0px 0px 0px 20px;
 }
 
+.lista #topo #paginas .pagAtiva
+{
+	width: 120px;
+}
+
+.lista #topo #paginas .pagAtiva input
+{
+	width: 30px;
+	text-align: center;
+}
+
+.lista #topo #paginas .pagAtiva button
+{
+	width: 30px;
+}
+
 .lista #topo #paginas ul,
 .lista #topo #paginas .pags
 {

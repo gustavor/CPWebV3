@@ -62,7 +62,7 @@
 				echo '<div id="div'.$this->Form->domId($_field).'" class="edicaoDiv">'.$this->Form->input($_field,$opcoes).'</div>'."\n";
 				
 				// busca rápida para combos somente na inclusão
-				if (isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida_url']))
+				if ( isset($_arrField[0]) && isset($_arrField[1]) && isset($campos[$_arrField[0]][$_arrField[1]]['busca_rapida_url']))
 				{
 					echo '<div id="buscaRapida'.$this->Form->domId($_field).'" class="busca_rapida">'."\n";
 					$opcoesBuscaRapida					= isset($campos[$_arrField[0]][$_arrField[1]]['opcoesBuscaRapida']) 	? $campos[$_arrField[0]][$_arrField[1]]['opcoesBuscaRapida'] : array();

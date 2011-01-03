@@ -11,11 +11,30 @@
 	</div>
 	<div id="paginas">
 		<ul>
-		<?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo '<li>'.$paginator->first('<<',array('class'=>'bt_primeiro')).'</li>'; ?>
-		<?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1) echo '<li>'.$paginator->prev('<',array('class'=>'bt_anterior')).'</li>'; ?>
-		<ul class="pags"><?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo $paginator->numbers(array('separator'=>"\n",'class'=>'num_pag','tag'=>'li')); ?></ul>
-		<?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo '<li>'.$paginator->next('>',array('class'=>'bt_proximo')).'</li>'; ?>
-		<?php if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options)) echo '<li>'.$paginator->last('>>',array('class'=>'bt_ultimo')).'</li>'; ?>
+		<?php if (isset($paginator->options))
+			{
+				echo '<li>'.$paginator->first('<<',array('class'=>'bt_primeiro')).'</li>';
+				echo '<li>'.$paginator->prev('<',array('class'=>'bt_anterior')).'</li>';
+				echo '<li>'.$paginator->next('>',array('class'=>'bt_proximo')).'</li>';
+				echo '<li>'.$paginator->last('>>',array('class'=>'bt_ultimo')).'</li>';
+			}
+			if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1)
+			{
+				$pagOpcoes['value'] 	= $this->params['paging'][$modelClass]['page'];
+				$pagOpcoes['div'] 		= null;
+				$pagOpcoes['id'] 		= 'pagNum';
+				$pagOpcoes['format'] 	= array('input');
+				echo '<li class="pagAtiva">';
+				echo $this->Form->input('Página',$pagOpcoes).' / ';
+				echo $this->params['paging'][$modelClass]['pageCount'].' ';
+				$irOpcoes['type']		= 'button';
+				$irOpcoes['div'] 		= null;
+				$irOpcoes['id'] 		= 'pagIr';
+				echo $this->Form->button('Ir',$irOpcoes);
+				echo '</li>';
+				$on_read_view .= "\n\t".'$("#pagIr").click(function() { window.location.href="'.Router::url('/',true).mb_strtolower($pluralHumanName).'/listar/page:"+$("#pagNum").val(); });';
+			}
+		?>
 		</ul>
 	</div>
 	<?php if (isset($camposPesquisa)) echo $this->element('pesquisa'); ?>

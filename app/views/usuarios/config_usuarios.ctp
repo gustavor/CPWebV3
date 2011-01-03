@@ -79,6 +79,10 @@
 		{
 			$campos['Usuario']['login']['options']['style']		= 'text-align: center; width: 120px; font-weight: bold; color: green; ';
 			$campos['Usuario']['ativo']['options']['disabled'] 	= 'disabled';
+
+			// administrador será sempre administrador, nunca poderá ser removido dele.
+			unset($perfis[1]);
+			$campos['Perfil']['options']['options']	= $perfis;
 		}
 
 		// limpando o campo ultimo acesso
