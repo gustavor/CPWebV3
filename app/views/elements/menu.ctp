@@ -8,15 +8,15 @@
 		<a href="<?php echo Router::url('/').$this->Session->read('modul_ativo'); ?>">Módulos</a>
 		<ul>
 			<?php if (!in_array('clientes',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Clientes</a></li>
+			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Cadastro de Clientes</a></li>
 			<?php endif; ?>
 			
 			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'processos'; ?>">Processos</a></li>
+			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>
 			
-			<?php if (!in_array('solicitacoes',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'solicitacoes'; ?>">Solicitações</a></li>
+			<?php if (!in_array('advogados_contrarios',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'advogados_contrarios'; ?>">Cadastro de Advogados Contrários</a></li>
 			<?php endif; ?>
 		</ul>
 	</li>

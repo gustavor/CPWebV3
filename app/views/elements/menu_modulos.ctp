@@ -5,22 +5,22 @@
 	// módulo clientes
 	if (!in_array('clientes',$this->Session->read('urlsNao')))
 	{
-		$listaMenu['clientes']['text'] 	= 'Clientes';
+		$listaMenu['clientes']['text'] 	= 'Cadastro de Clientes';
 		$listaMenu['clientes']['url'] 	= Router::url('/',true).'clientes';
 	}
 
 	// módulo processos
 	if (!in_array('processos',$this->Session->read('urlsNao')))
 	{
-		$listaMenu['processos']['text'] = 'Processos';
+		$listaMenu['processos']['text'] = 'Controle de Processos';
 		$listaMenu['processos']['url'] 	= Router::url('/',true).'processos';
 	}
 
 	// módulo processos
-	if (!in_array('solicitacoes',$this->Session->read('urlsNao')))
+	if (!in_array('advogados_contrarios',$this->Session->read('urlsNao')))
 	{
-		$listaMenu['solicitacoes']['text'] = 'Solicitações';
-		$listaMenu['solicitacoes']['url'] 	= Router::url('/',true).'solicitacoes';
+		$listaMenu['advogados_contrarios']['text'] = 'Cadastro de Advogados Contrários';
+		$listaMenu['advogados_contrarios']['url'] 	= Router::url('/',true).'advogados_contrarios';
 	}
 
 	// destacando a opção ativa
