@@ -109,7 +109,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH'.str_repeat('0',5-strlen($this->data['Processo']['id'])).$this->data['Processo']['id'];
+		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH-'.str_repeat('0',5-strlen($this->data['Processo']['id'])).$this->data['Processo']['id'];
 		$edicaoCampos = array
 		(
 			$modelClass.'.id_controle','#',
