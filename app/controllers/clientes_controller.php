@@ -167,7 +167,14 @@ class ClientesController extends AppController {
 	 */
 	public function relatorios($rel=null)
 	{
-		$this->CpwebCrud->relatorios($rel);
+		$relOpcoes = array();
+		switch($rel)
+		{
+			default:
+				$relOpcoes['order'] = 'Cliente.nome';
+		}
+		$data = $this->Cliente->find('all',$relOpcoes);
+		$this->CpwebCrud->relatorios($rel,$data);
 	}
 
 	/**

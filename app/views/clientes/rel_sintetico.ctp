@@ -9,6 +9,8 @@
 	
 	$dataRel['Cliente']['modified']['td'] 	= 'align="center"';
 	$dataRel['Cliente']['created']['td'] 	= 'align="center"';
+	
+	$relatorio['orientacao_pagina']			= 'L';
 
 	require_once('../views/cpweb_crud/rel_sintetico.ctp');
 ?>

@@ -126,4 +126,25 @@ class CidadesController extends AppController {
 	{
 		$this->CpwebCrud->imprimir($id);
 	}
+
+	/**
+	 * Imprime em pdf o relatório solicitado
+	 * 
+	 * @access void
+	 * @return void
+	 */
+	public function relatorios($rel=null)
+	{
+		$relOpcoes = array();
+		switch($rel)
+		{
+			case 'sintetico_estado':
+				$relOpcoes['order'] = 'Estado.nome, Cidade.nome';
+				break;
+			default:
+				$relOpcoes['order'] = 'Cidade.nome';
+		}
+		$data = $this->Cidade->find('all',$relOpcoes);
+		$this->CpwebCrud->relatorios($rel,$data);
+	}
 }

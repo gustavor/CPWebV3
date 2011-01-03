@@ -3,11 +3,12 @@ App::import('Vendor','tcpdf/tcpdf');
 class XTCPDF  extends TCPDF
 {
 
-    var $xheadertext  = 'PDF created using CakePHP and TCPDF';
+    var $xheadertext  = 'PDF criado usando CakePHP and TCPDF';
     var $xheadercolor = array(0,0,200);
-    var $xfootertext  = 'Copyright Â© %d XXXXXXXXXXX. All rights reserved.';
+    var $xfootertext  = '@copyright Copyright 2010, Valéria Esteves Advogados Associados ( www.veadvogados.com.br )';
     var $xfooterfont  = PDF_FONT_NAME_MAIN ;
     var $xfooterfontsize = 8 ;
+    var $xheadersubtext = '';
 
 
     /**
@@ -26,9 +27,9 @@ class XTCPDF  extends TCPDF
         $this->setY(10); // shouldn't be needed due to page margin, but helas, otherwise it's at the page top
         $this->SetFillColor($r, $b, $g);
         $this->SetTextColor(0 , 0, 0);
-        //$this->Cell(0,4, '', 0,1,'C', 1);
         $this->Text(15,10,$this->xheadertext );
         $this->ln();
+        if (!empty($this->xheadersubtext)) $this->Text($this->xheadersubtext);
     }
 
     /**

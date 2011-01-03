@@ -37,6 +37,11 @@
 	{
 		$camposPesquisa['nome'] = 'Nome';
 		$this->set('camposPesquisa',$camposPesquisa);
+
+		$relatorios[0]['url'] 	= Router::url('/',true).mb_strtolower($pluralHumanName).'/relatorios/sintetico';
+		$relatorios[0]['tit'] 	= 'Sintético por Cidade';
+		$relatorios[1]['url'] 	= Router::url('/',true).mb_strtolower($pluralHumanName).'/relatorios/sintetico_estado';
+		$relatorios[1]['tit'] 	= 'Sintético por Estado';
 	}
 
 	if ($action=='listar')	

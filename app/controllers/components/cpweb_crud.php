@@ -251,9 +251,8 @@ class CpwebCrudComponent extends Object {
 	 * @access public
 	 * @return void
 	 */
-	public function relatorios($rel=null)
+	public function relatorios($rel=null,$data=array())
 	{
-		$data			= $this->controller->paginate();
 		$relatorio 		= file_exists('../views/'.$this->name.'/rel_'.$rel.'.ctp') ? '../'.$this->name.'/rel_'.$rel : '../cpweb_crud/rel_'.$rel;
 		$nomeArquivo 	= str_replace(' ','',$this->controller->name);
 		$this->controller->set(compact('data','nomeArquivo'));
