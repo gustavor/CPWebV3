@@ -170,6 +170,7 @@ class UsuariosController extends AppController {
 				$this->Session->setFlash('Usuário autenticado com sucesso !!!');
 				$acessos = $this->Session->read('Auth.Usuario.acessos');
 				$acessos++;
+				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
 				$this->Usuario->updateAll(array('Usuario.acessos'=>$acessos),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
 				$this->redirect('/');
 			} else
