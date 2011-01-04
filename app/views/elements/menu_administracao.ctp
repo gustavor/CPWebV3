@@ -39,8 +39,6 @@
 	$listaMenu['tipos_audiencias']['url'] 		= Router::url('/',true).'tipos_audiencias';
 	$listaMenu['audiencias']['text'] 			= 'Audiências';
 	$listaMenu['audiencias']['url'] 			= Router::url('/',true).'audiencias';
-	$listaMenu['advogados_contrarios']['text'] 	= 'Advogados Contrários';
-	$listaMenu['advogados_contrarios']['url'] 	= Router::url('/',true).'advogados_contrarios';
 	$listaMenu['destinos']['text'] 				= 'Destinos';
 	$listaMenu['destinos']['url'] 				= Router::url('/',true).'destinos';
 	$listaMenu['tipos_pareceres']['text'] 		= 'Tipos Parecer';
@@ -62,7 +60,7 @@
 	$listaMenu['checklists']['text'] 			= 'Checklists';
 	$listaMenu['checklists']['url'] 			= Router::url('/',true).'checklists';
 
-
+	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
 	$listaMenu[$name]['url'] = '#';
 

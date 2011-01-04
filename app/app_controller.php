@@ -199,4 +199,21 @@ class AppController extends Controller {
 		$this->set('pesquisa',$pesquisa);
 		$this->render('../cpweb_crud/pesquisar');
 	}
+
+	/**
+	 * Exibe a tela de ajuda do controloador corrente
+	 * 
+	 */
+	public function ajuda($ajuda=null)
+	{
+		$arq = '../views/'.$this->params['controller'].'/'.$ajuda;
+		if (file_exists($arq))
+		{
+			$this->set('ajuda',$arq);
+			$this->render('../'.$this->params['controller'].'/'.$ajuda);
+		} else
+		{
+			$this->render('../cpweb_crud/ajuda_erro');
+		}
+	}
 }

@@ -7,17 +7,19 @@
 	<li>
 		<a href="<?php echo Router::url('/').$this->Session->read('modul_ativo'); ?>">Módulos</a>
 		<ul>
-			<?php if (!in_array('clientes',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Cadastro de Clientes</a></li>
-			<?php endif; ?>
-			
-			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
-			<?php endif; ?>
-			
+
 			<?php if (!in_array('advogados_contrarios',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'advogados_contrarios'; ?>">Cadastro de Advogados Contrários</a></li>
 			<?php endif; ?>
+
+			<?php if (!in_array('clientes',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Cadastro de Clientes</a></li>
+			<?php endif; ?>
+
+			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
+			<?php endif; ?>
+
 		</ul>
 	</li>
 
@@ -58,6 +60,9 @@
 		<a href="#">Ajuda</a>
 		<ul>
 			<li><a href="<?php echo Router::url('/').'sobre'; ?>">Sobre</a></li>
+			<?php if (isset($pluralHumanName) && isset($ajuda) ) : ?>
+			<li><a href="<?php echo Router::url('/').$this->params['controller'].'/ajuda/sobre'; ?>">Sobre <?php echo $pluralHumanName; ?></a></li>
+			<?php endif; ?>
 		</ul>
 	</li>
 </ul>
