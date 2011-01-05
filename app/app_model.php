@@ -45,11 +45,20 @@ class AppModel extends Model {
 			{
 				$this->validate[$_campo]['rule']		= 'notEmpty';
 				$this->validate[$_campo]['required'] 	= true;
-				$this->validate[$_campo]['message']		= 'É necessário informar um valor para o campo '.$_campo;
+				$this->validate[$_campo]['message']		= 'É necessário informar um valor para o campo <strong>'.$this->getNomeCampo($_campo).'</strong>';
 			}
 		}
 	}
 
+
+	/**
+	 * 
+	 */
+	private function getNomeCampo($campo=null)
+	{
+		foreach($this->belongsTo as $_model => $_arrOpcoes) if (isset($_arrOpcoes['foreignKey']) && $_arrOpcoes['foreignKey']==$campo) return $_arrOpcoes['className'];
+		return $campo;
+	}
 	
 	/**
 	 * Função que valida a Data
