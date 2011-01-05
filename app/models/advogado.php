@@ -47,7 +47,7 @@ class Advogado extends AppModel {
 	 */
 	public function beforeValidate()
 	{
-		$this->data['Advogado']['oab'] 	= ereg_replace('[.-/]','',$this->data['Advogado']['oab']);
-		$this->data['Advogado']['nome'] = mb_strtoupper($this->data['Advogado']['nome']);
+		if (isset($this->data['Advogado']['oab']))	$this->data['Advogado']['oab'] 	= ereg_replace('[.-/]','',$this->data['Advogado']['oab']);
+		if (isset($this->data['Advogado']['nome']))	$this->data['Advogado']['nome'] = mb_strtoupper($this->data['Advogado']['nome']);
 	}
 }
