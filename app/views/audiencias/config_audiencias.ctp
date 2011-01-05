@@ -2,6 +2,7 @@
 	$campos[$modelClass]['data']['options']['label']['text'] 						= 'Data';
 	$campos[$modelClass]['data']['options']['dateFormat'] 							= 'DMY';
 	$campos[$modelClass]['data']['options']['style'] 								= 'width: 100px;';
+	$campos[$modelClass]['data']['mascara'] 										= 'data';
 
 	$campos[$modelClass]['hora']['options']['label']['text'] 						= 'Hora';
 	$campos[$modelClass]['hora']['options']['timeFormat'] 							= 24;
@@ -19,29 +20,31 @@
 	$campos[$modelClass]['tipo_audiencia_id']['options']['style']					= 'width:346px;';
 	if (isset($tipoaudiencias)) $campos[$modelClass]['tipo_audiencia_id']['options']['options'] = $tipoaudiencias;
 
-	$campos[$modelClass]['processos_id']['options']['label']['text'] = 'Processo';
-	$campos[$modelClass]['processos_id']['options']['empty'] 						= '-- escolha um opção --';
-	$campos[$modelClass]['processos_id']['options']['style']						= 'width:346px;';
+	$campos[$modelClass]['processo_id']['options']['label']['text'] 				= 'Processo';
+	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['processo_id']['options']['style']							= 'width:346px;';
 	if (isset($processo)) $campos[$modelClass]['processo_id']['options']['options'] = $processo;
 
 	$campos[$modelClass]['advogado_id']['options']['label']['text'] = 'Advogado';
 	$campos[$modelClass]['advogado_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['advogado_id']['options']['style']							= 'width:346px;';
 	if (isset($advogado)) $campos[$modelClass]['advogado_id']['options']['options'] = $advogado;
+	
+	$campos['Processo']['numero']['options']['label']['text'] 						= 'Processo';
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora','#',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processos_id','#','#',$modelClass.'.advogado_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora','#',$modelClass.'.iscancelada',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processos_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processos_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs');
+		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs');
 	}
 	
 	if ($action=='editar' || $action=='novo')
@@ -55,11 +58,18 @@
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
+	if ($action=='editar')
+	{
+		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
+	}
+
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada',$modelClass.'.tipo_audiencia_id',$modelClass.'.processos_id',$modelClass.'.advogado_id',$modelClass.'.modified');
+		$listaCampos 								= array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','Processo.numero',$modelClass.'.modified');
 		$campos[$modelClass]['data']['estilo_th'] 	= 'width="80px"';
 		$campos[$modelClass]['hora']['estilo_th'] 	= 'width="80px"';
+		$campos['Processo']['numero']['estilo_th'] 	= 'width="160px"';
+		$campos['Processo']['numero']['estilo_td'] 	= 'style="text-align: center;"';
 		
 	}
 ?>

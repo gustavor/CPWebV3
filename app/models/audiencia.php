@@ -45,6 +45,7 @@ class Audiencia extends AppModel {
 		(
 			'className' 	=> 'Processo',
 			'foreignKey' 	=> 'processo_id',
+			'fields'		=> 'id, numero'
 		),
 		'Advogado'	=> array
 		(

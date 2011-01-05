@@ -14,8 +14,8 @@
 		<?php if (isset($paginator->options))
 			{
 				echo '<li>'.$paginator->first('<<',array('class'=>'bt_primeiro')).'</li>';
-				echo '<li>'.$paginator->prev('<',array('class'=>'bt_anterior')).'</li>';
-				echo '<li>'.$paginator->next('>',array('class'=>'bt_proximo')).'</li>';
+				if ($this->params['paging'][$modelClass]['pageCount']>1) echo '<li>'.$paginator->prev('<',array('class'=>'bt_anterior')).'</li>';
+				if ($this->params['paging'][$modelClass]['pageCount']>1) echo '<li>'.$paginator->next('>',array('class'=>'bt_proximo')).'</li>';
 				echo '<li>'.$paginator->last('>>',array('class'=>'bt_ultimo')).'</li>';
 			}
 			if ($this->params['paging'][$modelClass]['pageCount']>1 && isset($paginator->options['url']['page'])) if ($paginator->options['url']['page']!=1)

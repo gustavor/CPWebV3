@@ -189,6 +189,14 @@
 		);
 	}
 	
+	if ($action=='editar')
+	{
+		if (isset($evento) && !empty($evento))				$redirecionamentos['Evento']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'eventos/editar/'.$evento['Evento']['id'].'\'';
+		if (isset($evento_acordo) && !empty($evento_acordo)) $redirecionamentos['Evento Acordo']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'eventos_acordos/editar/'.$evento_acordo['EventoAcordo']['id'].'\'';
+		if (isset($audiencia) && !empty($audiencia)) 		$redirecionamentos['Audiências']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'audiencias/editar/'.$audiencia['Audiencia']['id'].'\'';
+		if (isset($processo_solicitacao) && !empty($processo_solicitacao)) $redirecionamentos['Processos e Solicitações']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/editar/'.$processo_solicitacao['ProcessoSolicitacao']['id'].'\'';
+	}
+
 	if ($action=='editar' || $action=='novo')
 	{
 		$on_read_view .= "\n\t".'$("#'.$modelClass.'TipoProcessoId").focus();';

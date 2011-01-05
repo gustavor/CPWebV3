@@ -39,7 +39,7 @@ class Evento extends AppModel {
 		(
 			'className' => 'Processo',
 			'foreignKey' => 'processo_id',
-			'fields' => 'id, distribuicao'
+			'fields' => 'id, numero'
 		)
 	);
 }

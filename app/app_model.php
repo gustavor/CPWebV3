@@ -32,6 +32,24 @@
  * @subpackage    cake.cake.libs.model
  */
 class AppModel extends Model {
+	/**
+	 * Antes da validação
+	 * 
+	 * @return void
+	 */
+	public function beforeValidate()
+	{
+		foreach($this->_schema as $_campo => $_arrOpcoes)
+		{
+			if (!$_arrOpcoes['null'] && $_campo != $this->primaryKey && !isset($this->validate[$_campo]['rule']['notEmpty']))
+			{
+				$this->validate[$_campo]['rule']		= 'notEmpty';
+				$this->validate[$_campo]['required'] 	= true;
+				$this->validate[$_campo]['message']		= 'É necessário informar um valor para o campo '.$_campo;
+			}
+		}
+	}
+
 	
 	/**
 	 * Função que valida a Data

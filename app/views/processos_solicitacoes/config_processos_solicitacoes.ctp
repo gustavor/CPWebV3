@@ -15,38 +15,48 @@
 	$campos[$modelClass]['data_fechamento']['estilo_td'] 						= 'style="text-align: center; "';
 	
 	$campos[$modelClass]['finalizada']['options']['label']['text'] 				= 'Finalizada';
+	$campos[$modelClass]['finalizada']['options']['empty'] 						= '--';
 	$campos[$modelClass]['finalizada']['options']['options'] 					= array(1=>'Sim', 0=>'Não');
 	
 	$campos[$modelClass]['ispeticao']['options']['label']['text'] 				= 'Petição';
 	$campos[$modelClass]['ispeticao']['options']['options'] 					= array(1=>'Sim', 0=>'Não');
+	$campos[$modelClass]['ispeticao']['options']['empty'] 						= '--';
 	
 	$campos[$modelClass]['isparecer']['options']['label']['text'] 				= 'Parecer';
+	$campos[$modelClass]['isparecer']['options']['empty'] 						= '--';
 	$campos[$modelClass]['isparecer']['options']['options'] 					= array(1=>'Sim', 0=>'Não');
 	
 	$campos[$modelClass]['obs']['options']['label']['text'] 					= 'Obs';
 	
 	$campos[$modelClass]['solicitacao_id']['options']['label']['text'] 			= 'Solicitação';
 	$campos[$modelClass]['solicitacao_id']['options']['style'] 					= 'width:300px';
+	$campos[$modelClass]['solicitacao_id']['options']['empty'] 						= '-- escolha um opção --';
 	if (isset($solicitacoes)) $campos[$modelClass]['solicitacao_id']['options']['options'] 			= $solicitacoes;
+	//$campos[$modelClass]['solicitacao_id']['busca_rapida_url'] 					= Router::url('/',true).'solicitacoes/buscar/solicitacao';
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 			= 'Processo';
 	$campos[$modelClass]['processo_id']['options']['style'] 					= 'width:300px';
+	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha um opção --';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] 				= $processos;
 	
 	$campos[$modelClass]['destino_id']['options']['label']['text'] 				= 'Destino';
 	$campos[$modelClass]['destino_id']['options']['style'] 						= 'width:300px';
+	$campos[$modelClass]['destino_id']['options']['empty'] 						= '-- escolha um opção --';
 	if (isset($destinos)) $campos[$modelClass]['destino_id']['options']['options'] 					= $destinos;
 	
 	$campos[$modelClass]['tipo_peticao_id']['options']['label']['text'] 		= 'TipoPetição';
 	$campos[$modelClass]['tipo_peticao_id']['options']['style'] 				= 'width:300px';
+	$campos[$modelClass]['tipo_peticao_id']['options']['empty'] 				= '-- escolha um opção --';
 	if (isset($tipopeticoes)) $campos[$modelClass]['tipo_peticao_id']['options']['options'] 		= $tipopeticoes;
 	
 	$campos[$modelClass]['tipo_parecer_id']['options']['label']['text'] 		= 'TipoParecer';
 	$campos[$modelClass]['tipo_parecer_id']['options']['style'] 				= 'width:300px';
+	$campos[$modelClass]['tipo_parecer_id']['options']['empty'] 				= '-- escolha um opção --';
 	if (isset($tipopareceres)) $campos[$modelClass]['tipo_parecer_id']['options']['options'] 		= $tipopareceres;
 	
 	$campos[$modelClass]['complexidade_id']['options']['label']['text'] 		= 'Complexidade';
 	$campos[$modelClass]['complexidade_id']['options']['style'] 				= 'width:300px';
+	$campos[$modelClass]['complexidade_id']['options']['empty'] 				= '-- escolha um opção --';
 	if (isset($complexidades)) $campos[$modelClass]['complexidade_id']['options']['options'] 		= $complexidades;
 
 	if ($action=='editar' || $action=='excluir')
@@ -73,6 +83,11 @@
 	{
 		$camposPesquisa['obs'] 	= 'Obs';
 		$this->set('camposPesquisa',$camposPesquisa);
+	}
+
+	if ($action=='editar')
+	{
+		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
 	}
 
 	if ($action=='listar')	

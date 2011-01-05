@@ -14,4 +14,5 @@
 	if (isset($relatorios))		$this->set('relatorios',$relatorios);
 	if (isset($dataRel))		$this->set('dataRel',$dataRel);
 	if (isset($ferramentas))	$this->set('ferramentas',$ferramentas);
+	if (isset($redirecionamentos))	$this->set('redirecionamentos',$redirecionamentos);
 ?>

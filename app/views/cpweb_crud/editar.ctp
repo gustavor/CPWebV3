@@ -20,6 +20,20 @@
 	<?php if (isset($camposPesquisa)) echo $this->element('pesquisa'); ?>
 </div>
 
+<div id="formRedirecionamentos">
+	<?php
+		if (isset($redirecionamentos))
+		{
+			foreach($redirecionamentos as $_item => $_arrOpcoes)
+			{
+				$_arrOpcoes['type']	 = 'button';
+				$_arrOpcoes['class'] = 'inRedirecionamento';
+				echo $this->Form->button($_item,$_arrOpcoes);
+			}
+		}
+	?>
+</div>
+
 <div id="formErros">
 <?php
 	if (isset($errosForm))

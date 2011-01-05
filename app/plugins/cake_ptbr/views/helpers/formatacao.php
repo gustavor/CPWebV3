@@ -304,6 +304,9 @@ class FormatacaoHelper extends AppHelper {
 			case 'datahora':
 				$formatado = $this->dataHora($valor,true);
 				break;
+			case 'data':
+				$formatado = $this->data($valor);
+				break;
 		}
 		return $formatado;
 	}

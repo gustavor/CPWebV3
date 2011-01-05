@@ -28,6 +28,11 @@
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
+	if ($action=='editar')
+	{
+		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
+	}
+
 	if ($action=='listar')	
 	{
 		$listaCampos 								= array($modelClass.'.evento',$modelClass.'.modified',$modelClass.'.created');

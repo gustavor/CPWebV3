@@ -48,7 +48,5 @@ class Solicitacao extends AppModel {
             'className' => 'ProcessoSolicitacao',
             'foreignKey' => 'solicitacao_id'
         )
-    );
-
-    
+    );    
 }

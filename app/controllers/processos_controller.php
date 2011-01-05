@@ -93,6 +93,10 @@ class ProcessosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		$this->loadModel('Evento'); 			$this->set('evento',$this->Evento->find(array('processo_id'=>$id)));
+		$this->loadModel('EventoAcordo'); 		$this->set('evento_acordo',$this->EventoAcordo->find(array('processo_id'=>$id)));
+		$this->loadModel('Audiencia');			$this->set('audiencia',$this->Audiencia->find(array('processo_id'=>$id)));
+		$this->loadModel('ProcessoSolicitacao');$this->set('processo_solicitacao',$this->ProcessoSolicitacao->find(array('processo_id'=>$id)));
 		$this->CpwebCrud->editar($id);
 	}
 	

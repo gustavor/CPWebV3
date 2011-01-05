@@ -24,7 +24,7 @@ class ProcessoSolicitacao extends AppModel {
 	public $name			= 'ProcessoSolicitacao';
 	public $useTable		= 'processos_solicitacoes';
 	public $displayField 	= 'data_atendimento';
-	
+
 	/**
 	 * Relacionamento belongsTo 
 	 */
@@ -38,7 +38,7 @@ class ProcessoSolicitacao extends AppModel {
 		'Processo'  		=> array(
 			'className'		=> 'Processo',
 			'foreignKey'	=> 'processo_id',
-			'fields'		=> 'id, distribuicao'
+			'fields'		=> 'id, numero'
 		),
 		'Destino' 	 		=> array(
 			'className'		=> 'Destino',
@@ -61,4 +61,12 @@ class ProcessoSolicitacao extends AppModel {
 			'fields'		=> 'id, nome'
 		)
 	);
+	
+	/**
+	 * 
+	 */
+	public function beforeValidate()
+	{
+		parent::beforeValidate();
+	}	
 }
