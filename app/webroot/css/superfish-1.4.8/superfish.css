@@ -71,6 +71,7 @@ ul.sf-menu li li li.sfHover ul {
 .sf-menu li li li
 {
 	background:		#f9f9d8;
+	min-width: 300px;
 }
 
 .sf-menu li:hover, .sf-menu li.sfHover,

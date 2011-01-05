@@ -347,3 +347,8 @@ select
 	width: 110px;
 	background: #cacaca url('../img/bt_imprimir.png') no-repeat 5px;
 }
+
+.menu_modulos ul li
+{
+	width: 500px;
+}
