@@ -208,6 +208,8 @@ class Processo extends AppModel {
 	 */
 	public function beforeValidate()
 	{
+		parent::beforeValidate();
+
 		//echo '<pre>'.print_r($this->data,true).'</pre>';
 		// executando a inclusão dos comboBox, caso não se
 		// incluindo a cada belongsTo

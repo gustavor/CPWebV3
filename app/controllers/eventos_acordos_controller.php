@@ -92,8 +92,13 @@ class EventosAcordosController extends AppController {
 	 * 
 	 * @return 		void
 	 */
-	public function novo()
+	public function novo($id=null)
 	{
+		if ($id)
+		{
+			$campos['EventoAcordo']['processo_id']['options']['default'] = $id;
+			$this->set(compact('campos'));
+		}
 		$this->CpwebCrud->novo();
 	}
 	

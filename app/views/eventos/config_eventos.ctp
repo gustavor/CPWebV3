@@ -7,7 +7,8 @@
 	$campos[$modelClass]['evento']['options']['style'] 				= 'width: 600px; ';
 	
 	$campos[$modelClass]['processo_id']['options']['label']['text']	= 'Processo';
-	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options']		= $processos;
+	$campos[$modelClass]['processo_id']['options']['empty'] 		= '-- escolha um opção --';
+	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options']	= $processos;
 
 	if ($action=='editar' || $action=='excluir')
 	{

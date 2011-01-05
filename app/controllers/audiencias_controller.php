@@ -92,9 +92,13 @@ class AudienciasController extends AppController {
 	 * 
 	 * @return 		void
 	 */
-	public function novo()
+	public function novo($id=null)
 	{
-        $this->set( 'advogados', $this->Audiencia->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+		if ($id)
+		{
+			$campos['Audiencia']['processo_id']['options']['default'] = $id;
+			$this->set(compact('campos'));
+		}
 		$this->CpwebCrud->novo();
 	}
 

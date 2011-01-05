@@ -96,15 +96,20 @@ class ProcessosSolicitacoesController extends AppController {
 	}
 	
 	/**
-	 * Exibe formulário de inclusão
+	 * Exibe formulário de inclusão para o model
 	 * 
 	 * @return 		void
 	 */
-	public function novo()
+	public function novo($id=null)
 	{
+		if ($id)
+		{
+			$campos['ProcessoSolicitacao']['processo_id']['options']['default'] = $id;
+			$this->set(compact('campos'));
+		}
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
 	 * Exibe formulário de exclusão
 	 * 
