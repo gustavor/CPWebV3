@@ -53,7 +53,11 @@
 	</div>
 
 	<div id='texto_va'>
-		<a href="<?php echo Router::url('/',true); ?>"><?php echo SISTEMA; ?></a><?php if(isset($pluralVar)) echo ' : <a href="'.Router::url('/',true).$pluralVar.'">'.$pluralHumanName.'</a>'; if(isset($action)) echo ' : <a href="'.Router::url('/',true).$pluralVar.'/'.mb_strtolower($action).'">'.ucfirst(mb_strtolower($action)).'</a>'; ?>
+		<a href="<?php echo Router::url('/',true); ?>"><?php echo SISTEMA; ?></a>
+		<?php 
+			if(isset($titulo[1])) echo ' : <a href="'.$titulo[1]['link'].'">'.$titulo[1]['label'].'</a>'; 
+			if(isset($titulo[2])) echo ' : <a href="'.$titulo[2]['link'].'">'.$titulo[2]['label'].'</a>'; 
+		?>
 
 	</div>
 	<?php echo $this->Session->flash(); ?>

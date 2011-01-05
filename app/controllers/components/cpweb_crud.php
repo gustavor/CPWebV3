@@ -39,14 +39,23 @@ class CpwebCrudComponent extends Object {
 		$singularHumanName 	= Inflector::humanize(Inflector::underscore($modelClass));
 		$pluralHumanName 	= Inflector::humanize(Inflector::underscore($this->controller->name));
 		$action				= $this->controller->action;
-		$id					= isset($this->controller->data[$modelClass][$primaryKey]) ? $this->controller->data[$modelClass][$primaryKey] : 0;
+		$id					= isset($this->controller->params['pass'][0]) ? $this->controller->params['pass'][0] : '';
 		$on_read_view		= '';
 		$campos 			= isset($this->controller->viewVars['campos']) ? $this->controller->viewVars['campos'] : array();
 		$name				= mb_strtolower(str_replace(' ','_',$pluralHumanName));
 		$urlsNao			= $this->controller->Session->check('urlsNao') ? $this->controller->Session->read('urlsNao') : array();
+
+		// configurando o título da tela
+		$id_titulo			= $id ? '/'.$id : '';
+		$titulo[1]['label']	= isset($this->controller->viewVars['titulo'][1]['label']) 	? $this->controller->viewVars['titulo'][1]['label'] : $pluralHumanName;
+		$titulo[1]['link']	= isset($this->controller->viewVars['titulo'][1]['link'])	? $this->controller->viewVars['titulo'][1]['link']	: Router::url('/',true).$pluralHumanName;
+		$titulo[2]['label']	= isset($this->controller->viewVars['titulo'][2]['label']) 	? $this->controller->viewVars['titulo'][2]['label'] : ucfirst(strtolower($action));
+		$titulo[2]['link']	= isset($this->controller->viewVars['titulo'][2]['link'])	? $this->controller->viewVars['titulo'][2]['link']	: Router::url('/',true).strtolower($pluralHumanName).'/'.strtolower($action).$id_titulo;
+
 		$this->name			= $name;
 		$this->action		= $action;
 		$this->urlsNao		= $urlsNao;
+		
 
 		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
@@ -70,7 +79,7 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
 		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
 		
-		$this->controller->set(compact('urlsNao','name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
+		$this->controller->set(compact('titulo','urlsNao','name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
 		
 		$this->setUrlPermissao($name.'/'.$action);
 	}

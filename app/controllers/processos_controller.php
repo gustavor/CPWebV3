@@ -98,6 +98,13 @@ class ProcessosController extends AppController {
 		$this->loadModel('Audiencia');			$this->set('audiencia',$this->Audiencia->find(array('processo_id'=>$id)));
 		$this->loadModel('ProcessoSolicitacao');$this->set('processo_solicitacao',$this->ProcessoSolicitacao->find(array('processo_id'=>$id)));
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        
+        $titulo[1]['label']	= 'Processosss';
+        $titulo[1]['link']	= Router::url('/',true).'processos';
+        $titulo[2]['label'] = 'Editar : VEBH-'.str_repeat('0',5-strlen($id)).$id;
+        $titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
+        
+        $this->set(compact('titulo'));
 		$this->CpwebCrud->editar($id);
 	}
 	
