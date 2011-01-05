@@ -20,6 +20,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 	define('SISTEMA','CPWeb');
+	define('INI',microtime(true));
 /**
  * Use the DS to separate the directories in other defines
  */

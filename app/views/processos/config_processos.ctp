@@ -80,7 +80,7 @@
 
     $campos[$modelClass]['orgao_id']['options']['label']['text'] 						= '';
     $campos[$modelClass]['orgao_id']['options']['empty'] 								= '-- escolha um opção --';
-    $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:264px';
+    $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:264px;';
     if (isset($orgaos)) $campos[$modelClass]['orgao_id']['options']['options'] 			= $orgaos;
     $campos[$modelClass]['orgao_id']['busca_rapida_url'] 								= Router::url('/',true).'orgaos/buscar/nome';
 

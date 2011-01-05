@@ -70,5 +70,7 @@
 </div>
 
 <?php echo str_replace('`','',$this->element('sql_dump')); ?>
+
 </body>
 </html>
+<!-- tempo de carregamento: <?php echo round(microtime(true)-INI,4).' segundos '; ?> -->
