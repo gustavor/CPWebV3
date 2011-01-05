@@ -234,7 +234,13 @@ class Processo extends AppModel {
 					$dataBelongsTo['Cliente']['cidade_id']	= 2302;
 					$this->Cliente->validate['endereco']	= null;
 				}
-				
+
+				// somente para clientes
+				if ($campo=='AdvogadoId')
+				{
+					$this->Advogado->validate['oab']		= null;
+				}
+
 				// somente para advogados contrários
 				if ($campo=='AdvogadoContrarioId')
 				{

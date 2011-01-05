@@ -32,7 +32,7 @@ class Advogado extends AppModel {
 		'oab' => array(
 			'rule' => 'notEmpty',
 			'required' => true,
-			'message' => 'É necessário informar a OAB do Advogado!'
+			'message' => 'É necessário informar a OAB do Advogado !!!'
 		),
 
 		'nome' => array(
