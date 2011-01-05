@@ -7,8 +7,6 @@
 	$listaMenu['estados']['url'] 				= Router::url('/',true).'estados';
 	$listaMenu['telefones']['text'] 			= 'Telefones';
 	$listaMenu['telefones']['url'] 				= Router::url('/',true).'telefones';
-	$listaMenu['advogados']['text'] 			= 'Advogados';
-	$listaMenu['advogados']['url'] 				= Router::url('/',true).'advogados';
 	$listaMenu['naturezas']['text'] 			= 'Natureza';
 	$listaMenu['naturezas']['url'] 				= Router::url('/',true).'naturezas';
 	$listaMenu['comarcas']['text'] 				= 'Comarcas';

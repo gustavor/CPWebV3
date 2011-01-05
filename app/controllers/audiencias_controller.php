@@ -83,7 +83,8 @@ class AudienciasController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		$this->CpwebCrud->editar($id);
+		$this->set( 'advogados', $this->Audiencia->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        $this->CpwebCrud->editar($id);
 	}
 
 	/**
@@ -93,6 +94,7 @@ class AudienciasController extends AppController {
 	 */
 	public function novo()
 	{
+        $this->set( 'advogados', $this->Audiencia->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
 		$this->CpwebCrud->novo();
 	}
 

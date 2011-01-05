@@ -25,7 +25,7 @@
 
 <?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
 	<li>
-		<?php $admin_ativo = ($this->Session->check('admin_ativo')) ? $this->Session->read('admin_ativo') : 'advogados'; ?>
+		<?php $admin_ativo = ($this->Session->check('admin_ativo')) ? $this->Session->read('admin_ativo') : 'audiencias'; ?>
 		<a href="<?php echo Router::url('/').$admin_ativo; ?>">Administração</a>
 	</li>
 	<li>

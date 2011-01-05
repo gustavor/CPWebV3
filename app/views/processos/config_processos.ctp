@@ -17,19 +17,18 @@
 	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['title']					= 'Digite aqui o nome do cliente para a busca rápida ...';
 //	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['style']					= 'width: 400px; margin-top: -5px;';
 	
-	$campos[$modelClass]['advogado_id']['options']['label']['text'] 					= 'Advogado Interno Responsável';
-	$campos[$modelClass]['advogado_id']['options']['empty'] 							= '-- escolha um opção --';
-	$campos[$modelClass]['advogado_id']['options']['style'] 							= 'width:300px';
-	if (isset($advogados)) $campos[$modelClass]['advogado_id']['options']['options'] 	= $advogados;
-	$campos[$modelClass]['advogado_id']['busca_rapida_url'] 							= Router::url('/',true).'advogados/buscar/nome';
-	
+	$campos[$modelClass]['usuario_id']['options']['label']['text'] 					    = 'Advogado Interno Responsável';
+	$campos[$modelClass]['usuario_id']['options']['empty'] 							    = '-- escolha um opção --';
+	$campos[$modelClass]['usuario_id']['options']['style'] 							    = 'width:300px';
+	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] 	= $advogados;
+
 	$campos[$modelClass]['tipo_parte_id']['options']['label']['text'] 					= 'Posição do Cliente no Processo';
 	$campos[$modelClass]['tipo_parte_id']['options']['empty'] 							= '-- escolha um opção --';
 	$campos[$modelClass]['tipo_parte_id']['options']['style'] 							= 'width:300px';
 	if (isset($tipopartes)) $campos[$modelClass]['tipo_parte_id']['options']['options'] = $tipopartes;
 
 	$campos[$modelClass]['parte_contraria']['options']['label']['text'] 				= 'Parte Contraria';
-	$campos[$modelClass]['parte_contraria']['options']['style'] 						= 'width: 294px';
+	$campos[$modelClass]['parte_contraria']['options']['style'] 						= 'width: 294px; text-transform:uppercase';
 
 	$campos[$modelClass]['advogado_contrario_id']['options']['label']['text'] 			= 'Advogado da Parte Contrária';
 	$campos[$modelClass]['advogado_contrario_id']['options']['empty'] 					= '-- escolha um opção --';
@@ -85,7 +84,7 @@
     $campos[$modelClass]['orgao_id']['busca_rapida_url'] 								= Router::url('/',true).'orgaos/buscar/nome';
 
 	$campos[$modelClass]['obs']['options']['label']['text'] 							= 'Observações';
-	$campos[$modelClass]['obs']['options']['style'] 									= 'width:600px;';
+	$campos[$modelClass]['obs']['options']['style'] 									= 'width:600px; text-transform: uppercase';
 
 	$campos[$modelClass]['equipe_id']['options']['label']['text'] 						= 'Equipe';
 	$campos[$modelClass]['equipe_id']['options']['empty'] 								= '-- escolha um opção --';
@@ -115,7 +114,7 @@
 			$modelClass.'.id_controle','#',
 			$modelClass.'.tipo_processo_id','#',
 			$modelClass.'.cliente_id','#',
-			$modelClass.'.advogado_id','#',
+			$modelClass.'.usuario_id','#',
 			$modelClass.'.tipo_parte_id','#',
 			$modelClass.'.parte_contraria','#',
 			$modelClass.'.advogado_contrario_id','#',
@@ -142,7 +141,7 @@
 		(
 			$modelClass.'.id_controle',
 			$modelClass.'.cliente_id',
-			$modelClass.'.advogado_id',
+			$modelClass.'.usuario_id',
 			$modelClass.'.tipo_parte_id',
 			$modelClass.'.parte_contraria',
 			$modelClass.'.advogado_contrario_id',
@@ -170,7 +169,7 @@
 		(
 			$modelClass.'.tipo_processo_id','#',
 			$modelClass.'.cliente_id','#',
-			$modelClass.'.advogado_id','#',
+			$modelClass.'.usuario_id','#',
 			$modelClass.'.tipo_parte_id','#',
 			$modelClass.'.parte_contraria','#',
 			$modelClass.'.advogado_contrario_id','#',

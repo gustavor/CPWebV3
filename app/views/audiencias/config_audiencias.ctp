@@ -12,7 +12,7 @@
 	$campos[$modelClass]['obs']['options']['style']									= 'width:341px;';
 
 	$campos[$modelClass]['iscancelada']['options']['label']['text'] 				= 'Cancelada';
-	$campos[$modelClass]['iscancelada']['options']['empty'] 						= '--';
+	$campos[$modelClass]['iscancelada']['options']['default'] 						= 0;
 	$campos[$modelClass]['iscancelada']['options']['options'] 						= array(0=>'Não',1=>'Sim');
 
 	$campos[$modelClass]['tipo_audiencia_id']['options']['label']['text'] 			= 'Tipo';
@@ -25,26 +25,26 @@
 	$campos[$modelClass]['processo_id']['options']['style']							= 'width:346px;';
 	if (isset($processo)) $campos[$modelClass]['processo_id']['options']['options'] = $processo;
 
-	$campos[$modelClass]['advogado_id']['options']['label']['text'] = 'Advogado';
-	$campos[$modelClass]['advogado_id']['options']['empty'] 						= '-- escolha um opção --';
-	$campos[$modelClass]['advogado_id']['options']['style']							= 'width:346px;';
-	if (isset($advogado)) $campos[$modelClass]['advogado_id']['options']['options'] = $advogado;
+	$campos[$modelClass]['usuario_id']['options']['label']['text']                 = 'Advogado Responsável';
+	$campos[$modelClass]['usuario_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['usuario_id']['options']['style']							= 'width:346px;';
+	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] = $advogados;
 	
 	$campos['Processo']['numero']['options']['label']['text'] 						= 'Processo';
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.advogado_id','#',$modelClass.'.obs');
+		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs');
 	}
 	
 	if ($action=='editar' || $action=='novo')

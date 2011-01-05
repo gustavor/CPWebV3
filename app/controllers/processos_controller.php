@@ -97,6 +97,7 @@ class ProcessosController extends AppController {
 		$this->loadModel('EventoAcordo'); 		$this->set('evento_acordo',$this->EventoAcordo->find(array('processo_id'=>$id)));
 		$this->loadModel('Audiencia');			$this->set('audiencia',$this->Audiencia->find(array('processo_id'=>$id)));
 		$this->loadModel('ProcessoSolicitacao');$this->set('processo_solicitacao',$this->ProcessoSolicitacao->find(array('processo_id'=>$id)));
+        $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -107,7 +108,8 @@ class ProcessosController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->CpwebCrud->novo();
+        $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        $this->CpwebCrud->novo();
 	}
 	
 	/**
