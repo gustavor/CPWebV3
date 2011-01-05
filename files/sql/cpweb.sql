@@ -6,24 +6,6 @@ CREATE SCHEMA IF NOT EXISTS `cpwebv3` DEFAULT CHARACTER SET utf8 COLLATE utf8_ge
 USE `cpwebv3` ;
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`advogados`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`advogados` ;
-
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`advogados` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NOT NULL ,
-  `modified` DATETIME NOT NULL ,
-  `oab` INT(11) NOT NULL ,
-  `nome` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
 -- Table `cpwebv3`.`comarcas`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`comarcas` ;
@@ -292,6 +274,32 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`usuarios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`usuarios` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `login` VARCHAR(45) NOT NULL ,
+  `nome` VARCHAR(60) NOT NULL ,
+  `senha` VARCHAR(99) NOT NULL ,
+  `email` VARCHAR(99) NULL ,
+  `ativo` INT(1) NOT NULL ,
+  `off` INT(1) NOT NULL ,
+  `aniversario` VARCHAR(5) NOT NULL ,
+  `ultimo_acesso` DATETIME NOT NULL ,
+  `acessos` INT NOT NULL ,
+  `trocasenha` TINYINT(1)  NULL ,
+  `isadvogado` TINYINT(1)  NULL DEFAULT 0 ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`processos`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`processos` ;
@@ -307,7 +315,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `ordinal_orgao` INT(2) NULL ,
   `orgao_id` INT(11) NOT NULL ,
   `advogado_contrario_id` INT(11) NOT NULL ,
-  `advogado_id` INT(11) NOT NULL ,
+  `usuario_id` INT NOT NULL ,
   `comarca_id` INT(11) NOT NULL ,
   `fase_id` INT(11) NOT NULL ,
   `instancia_id` INT(11) NOT NULL ,
@@ -323,7 +331,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_comarcas1` (`comarca_id` ASC) ,
   INDEX `fk_processos_status1` (`status_id` ASC) ,
-  INDEX `fk_processos_advogados1` (`advogado_id` ASC) ,
   INDEX `fk_processos_tipos_processos1` (`tipo_processo_id` ASC) ,
   INDEX `fk_processos_fases1` (`fase_id` ASC) ,
   INDEX `fk_processos_instancias1` (`instancia_id` ASC) ,
@@ -337,6 +344,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   INDEX `i_numero` (`numero` ASC) ,
   INDEX `i_numero_auxiliar` (`numero_auxiliar` ASC) ,
   INDEX `fk_processos_gestoes1` (`gestao_id` ASC) ,
+  INDEX `fk_processos_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_processos_comarcas1`
     FOREIGN KEY (`comarca_id` )
     REFERENCES `cpwebv3`.`comarcas` (`id` )
@@ -345,11 +353,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   CONSTRAINT `fk_processos_status1`
     FOREIGN KEY (`status_id` )
     REFERENCES `cpwebv3`.`status` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_processos_advogados1`
-    FOREIGN KEY (`advogado_id` )
-    REFERENCES `cpwebv3`.`advogados` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_tipos_processos1`
@@ -406,6 +409,11 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
     FOREIGN KEY (`gestao_id` )
     REFERENCES `cpwebv3`.`gestoes` (`id` )
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_processos_usuarios1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
@@ -440,20 +448,15 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`audiencias` (
   `modified` DATETIME NOT NULL ,
   `tipo_audiencia_id` INT(11) NOT NULL ,
   `processo_id` INT(11) NOT NULL ,
-  `advogado_id` INT(11) NOT NULL ,
+  `usuario_id` INT NOT NULL ,
   `iscancelada` TINYINT(1) NOT NULL DEFAULT '0' ,
   `data` DATE NOT NULL ,
   `hora` TIME NOT NULL ,
   `obs` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_audiencias_advogados1` (`advogado_id` ASC) ,
   INDEX `fk_audiencias_processos1` (`processo_id` ASC) ,
   INDEX `fk_audiencias_tipos_audiencias1` (`tipo_audiencia_id` ASC) ,
-  CONSTRAINT `fk_audiencias_advogados1`
-    FOREIGN KEY (`advogado_id` )
-    REFERENCES `cpwebv3`.`advogados` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_audiencias_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_audiencias_processos1`
     FOREIGN KEY (`processo_id` )
     REFERENCES `cpwebv3`.`processos` (`id` )
@@ -462,6 +465,11 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`audiencias` (
   CONSTRAINT `fk_audiencias_tipos_audiencias1`
     FOREIGN KEY (`tipo_audiencia_id` )
     REFERENCES `cpwebv3`.`tipos_audiencias` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_audiencias_usuarios1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -771,31 +779,6 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`usuarios`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`usuarios` ;
-
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NOT NULL ,
-  `modified` DATETIME NOT NULL ,
-  `login` VARCHAR(45) NOT NULL ,
-  `nome` VARCHAR(60) NOT NULL ,
-  `senha` VARCHAR(99) NOT NULL ,
-  `email` VARCHAR(99) NULL ,
-  `ativo` INT(1) NOT NULL ,
-  `off` INT(1) NOT NULL ,
-  `aniversario` VARCHAR(5) NOT NULL ,
-  `ultimo_acesso` DATETIME NOT NULL ,
-  `acessos` INT NOT NULL ,
-  `trocasenha` TINYINT(1)  NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
 -- Table `cpwebv3`.`eventos_acordo`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`eventos_acordo` ;
@@ -806,6 +789,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordo` (
   `modified` DATETIME NOT NULL ,
   `processo_id` INT(11) NOT NULL ,
   `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `data` DATE NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
   CONSTRAINT `fk_movimentos_processos10`

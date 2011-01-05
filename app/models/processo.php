@@ -46,12 +46,6 @@ class Processo extends AppModel {
 			'required' 	=> true,
             'message'	=> 'É necessário informar um cliente !!!'
 		),
-		'advogado_internto_id'	=> array
-		(
-			'rule'		=> 'notEmpty',
-			'required' 	=> true,
-            'message'	=> 'É necessário informar um Advogado Contrário !!!'
-		),
 		'tipo_parte_id'	=> array
 		(
 			'rule'		=> 'notEmpty',
@@ -146,9 +140,9 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'advogado_contrario_id',
 			'fields'		=> 'id, nome'
 		),
-		'Advogado'  		=> array(
-			'className'		=> 'Advogado',
-			'foreignKey'	=> 'advogado_id',
+		'Usuario'  		=> array(
+			'className'		=> 'Usuario',
+			'foreignKey'	=> 'usuario_id',
 			'fields'		=> 'id, nome'
 		),
 		'Comarca'  		=> array(
@@ -233,12 +227,6 @@ class Processo extends AppModel {
 				{
 					$dataBelongsTo['Cliente']['cidade_id']	= 2302;
 					$this->Cliente->validate['endereco']	= null;
-				}
-
-				// somente para clientes
-				if ($campo=='AdvogadoId')
-				{
-					$this->Advogado->validate['oab']		= null;
 				}
 
 				// somente para advogados contrários

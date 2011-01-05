@@ -47,10 +47,10 @@ class Audiencia extends AppModel {
 			'foreignKey' 	=> 'processo_id',
 			'fields'		=> 'id, numero'
 		),
-		'Advogado'	=> array
+		'Usuario'	=> array
 		(
-			'className'		=> 'Advogado',
-			'foreignKey'	=> 'advogado_id',
+			'className'		=> 'Usuario',
+			'foreignKey'	=> 'usuario_id',
 		),
 		'TipoAudiencia' => array
 		(
