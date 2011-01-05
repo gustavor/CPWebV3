@@ -105,7 +105,11 @@ class EventosController extends AppController {
 		if ($id)
 		{
 			$campos['Evento']['processo_id']['options']['default'] = $id;
-			$this->set(compact('campos'));
+			$titulo[1]['label']	= 'Eventos';
+			$titulo[1]['link']	= Router::url('/',true).'eventos';
+			$titulo[2]['label'] = 'Novo : VEBH-'.str_repeat('0',5-strlen($id)).$id;
+			$titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
+			$this->set(compact('campos','titulo'));
 		}
 		$this->CpwebCrud->novo();
 	}

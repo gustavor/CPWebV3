@@ -2,6 +2,8 @@
 
 	$campos[$modelClass]['data']['options']['label']['text'] 		= 'Data';
 	$campos[$modelClass]['data']['options']['style'] 				= 'width: 200px; ';
+	$campos[$modelClass]['data']['mascara'] 						= 'data';
+	$campos[$modelClass]['data']['options']['dateFormat'] 			= 'DMY';
 	
 	$campos[$modelClass]['evento']['options']['label']['text'] 		= 'Evento';
 	$campos[$modelClass]['evento']['options']['style'] 				= 'width: 600px; ';
@@ -39,6 +41,8 @@
 	if ($action=='editar')
 	{
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
+		$botoesEdicao['Novo']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$this->Form->data['Processo']['id'].'\'';
+		$this->set(compact('botoesEdicao'));
 	}
 
 	if ($action=='listar')	

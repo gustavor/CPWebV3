@@ -105,7 +105,11 @@ class ProcessosSolicitacoesController extends AppController {
 		if ($id)
 		{
 			$campos['ProcessoSolicitacao']['processo_id']['options']['default'] = $id;
-			$this->set(compact('campos'));
+			$titulo[1]['label']	= 'Processos e Solicitações';
+			$titulo[1]['link']	= Router::url('/',true).'processos_solicitacoes';
+			$titulo[2]['label'] = 'Novo : VEBH-'.str_repeat('0',5-strlen($id)).$id;
+			$titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
+			$this->set(compact('campos','titulo'));
 		}
 		$this->CpwebCrud->novo();
 	}
