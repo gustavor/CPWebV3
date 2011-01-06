@@ -198,6 +198,22 @@ class Processo extends AppModel {
             'foreignKey' => 'processo_id'
         )
     );
+    
+    /**
+     * Executa código antes de deletar um processo
+     * 
+     * @return void
+     */
+    public function beforeDelete()
+    {
+		if (!$this->query('DELETE FROM eventos			WHERE processo_id='.$this->id)) return false;
+		if (!$this->query('DELETE FROM eventos_acordo 	WHERE processo_id='.$this->id)) return false;
+		if (!$this->query('DELETE FROM audiencias 		WHERE processo_id='.$this->id)) return false;
+		if (!$this->query('DELETE FROM processos_solicitacoes WHERE processo_id='.$this->id)) return false;
+		parent::beforeDelete();
+		
+		return true;
+	}
 
 	/**
 	 * Antes de validar
