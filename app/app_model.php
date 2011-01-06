@@ -55,7 +55,7 @@ class AppModel extends Model {
 		{
 			foreach($_arrCampos as $_campo => $_valor)
 			{
-				if (is_string($_valor))
+				if (is_string($_valor) && !strpos($_valor,'@'))
 				{
 					$this->data[$_model][$_campo] = mb_strtoupper($this->data[$_model][$_campo]);
 				}
