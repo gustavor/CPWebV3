@@ -3,14 +3,14 @@
 	$campos[$modelClass]['nome']['options']['label']['text'] 		= 'Nome';
 	$campos[$modelClass]['nome']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
 
-	$campos[$modelClass]['oab']['options']['label']['text'] 		= 'Oab';
+	$campos[$modelClass]['oab']['options']['label']['text'] 		= 'Código OAB';
 	$campos[$modelClass]['oab']['options']['style'] 				= 'width: 100px; text-align: center; text-transform: uppercase; ';
-	$campos[$modelClass]['oab']['mascara'] 							= '99.999';
+	$campos[$modelClass]['oab']['mascara'] 							= '999.999';
 	
-	$campos[$modelClass]['e-mail']['options']['label']['text'] 		= 'e-mail';
+	$campos[$modelClass]['e-mail']['options']['label']['text'] 		= 'E-Mail';
 	$campos[$modelClass]['e-mail']['options']['style'] 				= 'width: 600px;';
 	
-	$campos[$modelClass]['obs']['options']['label']['text'] 		= 'Obs';
+	$campos[$modelClass]['obs']['options']['label']['text'] 		= 'Observações';
 	$campos[$modelClass]['obs']['options']['style'] 				= 'width: 600px;';
 
 	if ($action=='editar' || $action=='excluir')
