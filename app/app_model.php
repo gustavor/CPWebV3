@@ -42,7 +42,7 @@ class AppModel extends Model {
 		// criando a regra para cardinalidades vazias
 		foreach($this->_schema as $_campo => $_arrOpcoes)
 		{
-			if (!$_arrOpcoes['null'] && $_campo != $this->primaryKey && !isset($this->validate[$_campo]['rule']['notEmpty']))
+			if (!$_arrOpcoes['null'] && empty($this->data[$this->name][$_campo]) != $this->primaryKey && !isset($this->validate[$_campo]['rule']['notEmpty']))
 			{
 				$this->validate[$_campo]['rule']		= 'notEmpty';
 				$this->validate[$_campo]['required'] 	= true;

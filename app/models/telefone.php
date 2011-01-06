@@ -42,7 +42,7 @@ class Telefone extends AppModel {
 	{
 		if (isset($this->data[$this->name]['telefone'])) $this->data[$this->name]['telefone'] = ereg_replace('[./-]','',$this->data[$this->name]['telefone']);	
 		
-		parent::beforeValidate();
+		//parent::beforeValidate();
 	}
 }
 ?>
