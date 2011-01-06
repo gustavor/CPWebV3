@@ -25,36 +25,6 @@ class Telefone extends AppModel {
 	public $displayField	= 'contato';
 	public $order			= 'contato';
 
-	/*var $validate = array(
-		'ddd' => array(
-			'ddd-vazio' => array(
-				'rule' => 'notEmpty',
-				'required' => true,
-				'message' => 'É necessário informar o DDD!'
-			),
-			'ddd-maximo' => array(
-				'rule' => array( 'maxLength', 2),
-				'message' => 'O campo DDD pode ter no máximo 2 dígitos!'
-			)
-		),
-		'telefone' => array(
-			'telefone-vazio' => array(
-				'rule' => 'notEmpty',
-				'required' => true,
-				'message' => 'É necessário informar o Telefone!'
-			),
-			'telefone-maximo' => array(
-				'rule' => array( 'maxLength', 8),
-				'message' => 'O campo DDD pode ter no máximo 8 dígitos, sem espaços!'
-			)
-		),
-		'contato' => array(
-			'rule' => 'notEmpty',
-			'required' => true,
-			'message' => 'É necessário informar a Pessoa de Contato!'
-		)
-	);*/
-	
 	public $belongsTo = array(
 		'Cliente' => array(
 			'className' => 'Cliente',
@@ -64,20 +34,13 @@ class Telefone extends AppModel {
 			'order' => 'nome'
 		)
 	);
-
+	
 	/**
 	 * 
 	 */
-	public function beforeSave()
+	public function beforeValidate()
 	{
-		if (isset($this->data['Telefone']['telefone']))
-		{
-			$this->data['Telefone']['telefone'] = str_replace('.','',$this->data['Telefone']['telefone']);
-			$this->data['Telefone']['telefone'] = str_replace('/','',$this->data['Telefone']['telefone']);
-			$this->data['Telefone']['telefone'] = str_replace('-','',$this->data['Telefone']['telefone']);
-			$this->data['Telefone']['telefone'] = str_replace('(','',$this->data['Telefone']['telefone']);
-			$this->data['Telefone']['telefone'] = str_replace(')','',$this->data['Telefone']['telefone']);
-		}
-		return true;
+		if (isset($this->data[$this->name]['telefone'])) $this->data[$this->name]['telefone'] = ereg_replace('[./-]','',$this->data[$this->name]['telefone']);	
 	}
 }
+?>

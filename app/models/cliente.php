@@ -184,10 +184,18 @@ class Cliente extends AppModel {
 		// deletando
 		$delCondicao[$nomeIdPai] = $valorIdPai;
 		if (count($arrIdSalvos)) $delCondicao['NOT'][$this->$modelo->primaryKey] = $arrIdSalvos;
-		if (!$this->$modelo->deleteAll($delCondicao)) return false;
+		if (!$this->$modelo->deleteAll($delCondicao))
+		{
+			exit('Não foi possível deletar '.$modelo.' ...');
+			return false;
+		}
 
 		// atualizando
-		if (count($arrIdSalvos)) if (!$this->$modelo->saveAll($dataModelo[$modelo])) return false;
+		if (count($arrIdSalvos)) if (!$this->$modelo->saveAll($dataModelo[$modelo]))
+		{
+			exit('Não foi possível ATUALIZAR '.$modelo.' ...');
+			return false;
+		}
 		
 		// incluindo
 		$dataModelo	= array();
@@ -203,7 +211,12 @@ class Cliente extends AppModel {
 		{
 			$dataModelo[$modelo][$this->$modelo->primaryKey] = null;
 			$dataModelo[$modelo][$nomeIdPai] = $valorIdPai;
-			if (!$this->$modelo->save($dataModelo[$modelo])) return false;
+			$this->$modelo->create();
+			if (!$this->$modelo->save($dataModelo[$modelo]))
+			{
+				exit('Não foi possível INCLUIR '.$modelo.' ...');
+				return false;
+			}
 		}
 
 		return true;

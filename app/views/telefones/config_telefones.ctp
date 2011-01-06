@@ -9,7 +9,7 @@
 	$campos['Telefone']['telefone']['options']['label']['text'] 	= 'Telefone';
 	$campos['Telefone']['telefone']['estilo_th'] 					= 'width="150px"';
 	$campos['Telefone']['telefone']['estilo_td'] 					= 'style="text-align: center;"';
-	$campos['Telefone']['telefone']['mascara'] 						= 'telefone';
+	$campos['Telefone']['telefone']['mascara'] 						= '9999-9999';
 	
 	$campos['Telefone']['ddd']['options']['label']['text'] 			= 'Ddd';
 	$campos['Telefone']['ddd']['estilo_th'] 						= 'width="50px"';
