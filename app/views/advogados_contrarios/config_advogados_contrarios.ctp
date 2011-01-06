@@ -11,7 +11,7 @@
 	$campos[$modelClass]['e-mail']['options']['style'] 				= 'width: 600px;';
 	
 	$campos[$modelClass]['obs']['options']['label']['text'] 		= 'Observações';
-	$campos[$modelClass]['obs']['options']['style'] 				= 'width: 600px;';
+	$campos[$modelClass]['obs']['options']['style'] 				= 'width: 600px; text-transform: uppercase;';
 
 	if ($action=='editar' || $action=='excluir')
 	{
