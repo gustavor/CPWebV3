@@ -26,6 +26,7 @@
 	if (isset($processo)) $campos[$modelClass]['processo_id']['options']['options'] = $processo;
 
 	$campos[$modelClass]['usuario_id']['options']['label']['text']                 = 'Advogado Responsável';
+	$campos[$modelClass]['usuario_id']['options']['label']['style']                = 'width: 200px;';
 	$campos[$modelClass]['usuario_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['usuario_id']['options']['style']							= 'width:346px;';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] = $advogados;
@@ -35,6 +36,7 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='imprimir')
@@ -45,11 +47,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs');
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
-	
+
 	if ($action=='editar' || $action=='novo')
 	{
-		$botoesEdicao['Listar'] = array();
         $on_read_view .= "\n".'$("#'.$modelClass.'Data").focus();';
 	}
 
@@ -72,7 +74,6 @@
 		$campos[$modelClass]['data']['estilo_th'] 	= 'width="80px"';
 		$campos[$modelClass]['hora']['estilo_th'] 	= 'width="80px"';
 		$campos['Processo']['numero']['estilo_th'] 	= 'width="160px"';
-		$campos['Processo']['numero']['estilo_td'] 	= 'style="text-align: center;"';
-		
+		$campos['Processo']['numero']['estilo_td'] 	= 'style="text-align: center;"';	
 	}
 ?>

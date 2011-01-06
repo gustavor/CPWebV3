@@ -59,9 +59,22 @@
 	$campos[$modelClass]['complexidade_id']['options']['empty'] 				= '-- escolha um opção --';
 	if (isset($complexidades)) $campos[$modelClass]['complexidade_id']['options']['options'] 		= $complexidades;
 
+	// descobrindo o id do processo e criando action2 para o formulário novo
+	$idProcesso	= isset($idProcesso) ? $idProcesso : '';
+	if (empty($idProcesso))	$idProcesso = ( isset($this->params['pass'][1]) && is_numeric($this->params['pass'][1]) ) ? $this->params['pass'][1] : '';
+	if (empty($idProcesso)) $idProcesso = ( isset($this->params['pass'][0]) && is_numeric($this->params['pass'][0]) ) ? $this->params['pass'][0] : '';
+	if (!empty($idProcesso))
+	{
+		if ($action=='novo') $action2 = $idProcesso;
+		$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
+		$tituloCab[3]['label'] = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
+		$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
+	}
+
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.solicitacao_id','#',$modelClass.'.processo_id','#',$modelClass.'.data_atendimento','#',$modelClass.'.data_fechamento','#',$modelClass.'.finalizada','#',$modelClass.'.destino_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.ispeticao','#',$modelClass.'.isparecer','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='imprimir')
@@ -72,8 +85,9 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array($modelClass.'.solicitacao_id','#',$modelClass.'.processo_id','#',$modelClass.'.data_atendimento','#',$modelClass.'.data_fechamento','#',$modelClass.'.finalizada','#',$modelClass.'.destino_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.ispeticao','#',$modelClass.'.isparecer','#',$modelClass.'.obs');
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
-	
+
 	if ($action=='editar' || $action=='novo')
 	{
 		$on_read_view .= "\n".'$("#'.$modelClass.'SolicitacaoId").focus();';

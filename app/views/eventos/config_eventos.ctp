@@ -14,6 +14,7 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.data',$modelClass.'.processo_id','#',$modelClass.'.evento','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='imprimir')
@@ -24,11 +25,11 @@
 	if ($action=='novo')
 	{
 		$edicaoCampos = array($modelClass.'.data',$modelClass.'.processo_id','#',$modelClass.'.evento');
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 	
 	if ($action=='editar' || $action=='novo')
 	{
-        $botoesEdicao['Listar'] = array();
 		$on_read_view .= "\n".'$("#'.$modelClass.'Evento").focus();';
 	}
 
@@ -36,13 +37,14 @@
 	{
 		$camposPesquisa['evento'] 	= 'Evento';
 		$this->set('camposPesquisa',$camposPesquisa);
+		
+		$idProcesso = isset($this->params['pass'][1]) ? $this->params['pass'][1] : 0;
 	}
 
 	if ($action=='editar')
 	{
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
 		$botoesEdicao['Novo']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$this->Form->data['Processo']['id'].'\'';
-		$this->set(compact('botoesEdicao'));
 	}
 
 	if ($action=='listar')	

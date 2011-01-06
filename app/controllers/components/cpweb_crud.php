@@ -47,15 +47,16 @@ class CpwebCrudComponent extends Object {
 
 		// configurando o título da tela
 		$id_titulo			= $id ? '/'.$id : '';
-		$titulo[1]['label']	= isset($this->controller->viewVars['titulo'][1]['label']) 	? $this->controller->viewVars['titulo'][1]['label'] : $pluralHumanName;
-		$titulo[1]['link']	= isset($this->controller->viewVars['titulo'][1]['link'])	? $this->controller->viewVars['titulo'][1]['link']	: Router::url('/',true).$pluralHumanName;
-		$titulo[2]['label']	= isset($this->controller->viewVars['titulo'][2]['label']) 	? $this->controller->viewVars['titulo'][2]['label'] : ucfirst(strtolower($action));
-		$titulo[2]['link']	= isset($this->controller->viewVars['titulo'][2]['link'])	? $this->controller->viewVars['titulo'][2]['link']	: Router::url('/',true).strtolower($pluralHumanName).'/'.strtolower($action).$id_titulo;
+		$tituloCab[1]['label']	= isset($this->controller->viewVars['tituloCab'][1]['label']) 	? $this->controller->viewVars['tituloCab'][1]['label'] : $pluralHumanName;
+		$tituloCab[1]['link']	= isset($this->controller->viewVars['tituloCab'][1]['link'])	? $this->controller->viewVars['tituloCab'][1]['link']	: Router::url('/',true).$pluralHumanName;
+		$tituloCab[2]['label']	= isset($this->controller->viewVars['tituloCab'][2]['label']) 	? $this->controller->viewVars['tituloCab'][2]['label'] : ucfirst(strtolower($action));
+		$tituloCab[2]['link']	= isset($this->controller->viewVars['tituloCab'][2]['link'])	? $this->controller->viewVars['tituloCab'][2]['link']	: Router::url('/',true).strtolower($pluralHumanName).'/'.strtolower($action).$id_titulo;
+		$tituloCab[3]['label']	= '';
+		$tituloCab[3]['link']	= '';
 
 		$this->name			= $name;
 		$this->action		= $action;
 		$this->urlsNao		= $urlsNao;
-		
 
 		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
@@ -79,7 +80,7 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
 		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
 		
-		$this->controller->set(compact('titulo','urlsNao','name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
+		$this->controller->set(compact('tituloCab','urlsNao','name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
 		
 		$this->setUrlPermissao($name.'/'.$action);
 	}

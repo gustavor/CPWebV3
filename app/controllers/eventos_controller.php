@@ -54,13 +54,26 @@ class EventosController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 	
 	/**
+	 * Antes de tudo
 	 * 
+	 * @return void
 	 */
 	public function beforeFilter()
 	{
 		parent::beforeFilter();
 	}
- 
+
+	/**
+	 * Antes de exibir a tela no browser
+	 * 
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		$this->setIdProcesso();
+		parent::beforeRender();
+	}
+
 	/**
 	 * método start
 	 * 

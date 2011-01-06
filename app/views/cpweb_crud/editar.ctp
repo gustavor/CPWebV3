@@ -7,6 +7,7 @@
 <div id='edicao'>
 <?php
 	$url = Router::url('/',true).$name.'/'.$action;
+	if (isset($action2)) $url .= '/'.$action2;
 	if (isset($this->Form->data[$modelClass][$primaryKey])) $url .= '/'.$this->Form->data[$modelClass][$primaryKey];
 	echo $this->Form->create($modelClass,array('url'=>$url))."\n";
 	echo $this->Form->input($primaryKey)."\n";

@@ -11,10 +11,23 @@
 	$campos[$modelClass]['processo_id']['options']['type']      	= 'hidden';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options']		= $processos;
 
+	// descobrindo o id do processo e criando action2 para o formulário novo
+	$idProcesso	= isset($idProcesso) ? $idProcesso : '';
+	if (empty($idProcesso))	$idProcesso = ( isset($this->params['pass'][1]) && is_numeric($this->params['pass'][1]) ) ? $this->params['pass'][1] : '';
+	if (empty($idProcesso)) $idProcesso = ( isset($this->params['pass'][0]) && is_numeric($this->params['pass'][0]) ) ? $this->params['pass'][0] : '';
+	if (!empty($idProcesso))
+	{
+		if ($action=='novo') $action2 = $idProcesso;
+		$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
+		$tituloCab[3]['label'] = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
+		$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
+	}
+
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.data',$modelClass.'.processo_id','#',$modelClass.'.evento','#',$modelClass.'.modified','#',$modelClass.'.created');
 		$on_read_view .= "\n".'$("#'.$modelClass.'Evento").focus();';
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='imprimir')
@@ -24,15 +37,15 @@
 
 	if ($action=='novo')
 	{
-		$botoesEdicao['Listar'] = array();
         $edicaoCampos = array($modelClass.'.data',$modelClass.'.processo_id','#',$modelClass.'.evento');
+        $botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['evento'] 	= 'Evento';
-        $botoesEdicao['Listar'] = array();
 		$this->set('camposPesquisa',$camposPesquisa);
+		$idProcesso = isset($this->params['pass'][1]) ? $this->params['pass'][1] : 0;
 	}
 
 	if ($action=='editar')

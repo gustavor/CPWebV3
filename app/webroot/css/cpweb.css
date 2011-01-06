@@ -54,6 +54,12 @@ select
 {
 	color: red;
 }
+
+#cabecalho .tituloCab3
+{
+	color: #4b4b4b;
+}
+
 #cabecalho #logo_va
 {
 	background: url('../img/logo_va.png') no-repeat left;

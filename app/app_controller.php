@@ -216,4 +216,28 @@ class AppController extends Controller {
 			$this->render('../cpweb_crud/ajuda_erro');
 		}
 	}
+
+	/**
+	 * Configura o id do processo, bem como o action2 para o formulário novo, deve-se executá-la antes da renderição da página.
+	 * 
+	 * @reuturn void
+	 */
+	public function setIdProcesso()
+	{
+		$modelClass = $this->modelClass;
+		$idProcesso	= isset($idProcesso) ? $idProcesso : '';
+		if (empty($idProcesso))	$idProcesso = ( isset($this->data[$modelClass]['processo_id']) 	&& is_numeric($this->data[$modelClass]['processo_id']) ) ? $this->data[$modelClass]['processo_id'] 	: '';
+		if (empty($idProcesso))	$idProcesso = ( isset($this->params['pass'][1]) 	&& is_numeric($this->params['pass'][1]) ) 	? $this->params['pass'][1] 		: '';
+		if (empty($idProcesso)) $idProcesso = ( isset($this->params['pass'][0]) 	&& is_numeric($this->params['pass'][0]) ) 	? $this->params['pass'][0] 		: '';
+		if (!empty($idProcesso))
+		{
+			if ($this->action=='novo') $action2 = $idProcesso;
+			$tituloCab	= $this->viewVars['tituloCab'];
+			$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
+			$tituloCab[3]['label'] = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
+			$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
+			$this->set(compact('idProcesso','action2','tituloCab'));
+		}
+	}
 }
+?>
