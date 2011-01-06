@@ -150,6 +150,8 @@ class Cliente extends AppModel {
 
 		// atualizando cpf e cnpj
 		$this->setCpf();
+		
+		parent::beforeValidate();
 	}
 
 	/**

@@ -39,6 +39,7 @@ class AppModel extends Model {
 	 */
 	public function beforeValidate()
 	{
+		// criando a regra para cardinalidades vazias
 		foreach($this->_schema as $_campo => $_arrOpcoes)
 		{
 			if (!$_arrOpcoes['null'] && $_campo != $this->primaryKey && !isset($this->validate[$_campo]['rule']['notEmpty']))
@@ -46,6 +47,18 @@ class AppModel extends Model {
 				$this->validate[$_campo]['rule']		= 'notEmpty';
 				$this->validate[$_campo]['required'] 	= true;
 				$this->validate[$_campo]['message']		= 'É necessário informar um valor para o campo <strong>'.$this->getNomeCampo($_campo).'</strong>';
+			}
+		}
+		
+		// transformando tudo em maísculos
+		foreach($this->data as $_model => $_arrCampos)
+		{
+			foreach($_arrCampos as $_campo => $_valor)
+			{
+				if (is_string($_valor))
+				{
+					$this->data[$_model][$_campo] = mb_strtoupper($this->data[$_model][$_campo]);
+				}
 			}
 		}
 	}

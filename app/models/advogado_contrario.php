@@ -49,5 +49,7 @@ class Advogadocontrario extends AppModel {
 		if (isset($this->data['AdvogadoContrario']['oab']))		$this->data['AdvogadoContrario']['oab'] 		= ereg_replace('[.-/]','',$this->data['AdvogadoContrario']['oab']);
 		if (isset($this->data['AdvogadoContrario']['nome']))	$this->data['AdvogadoContrario']['nome'] 		= mb_strtoupper($this->data['AdvogadoContrario']['nome']);
 		if (isset($this->data['AdvogadoContrario']['e-mail'])) 	$this->data['AdvogadoContrario']['e-mail'] 		= mb_strtolower($this->data['AdvogadoContrario']['e-mail']);
+		
+		parent::beforeValidate();
 	}
 }

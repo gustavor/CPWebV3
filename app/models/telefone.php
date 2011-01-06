@@ -41,6 +41,8 @@ class Telefone extends AppModel {
 	public function beforeValidate()
 	{
 		if (isset($this->data[$this->name]['telefone'])) $this->data[$this->name]['telefone'] = ereg_replace('[./-]','',$this->data[$this->name]['telefone']);	
+		
+		parent::beforeValidate();
 	}
 }
 ?>
