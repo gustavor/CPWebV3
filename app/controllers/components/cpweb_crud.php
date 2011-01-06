@@ -90,13 +90,25 @@ class CpwebCrudComponent extends Object {
 	 * @parameter integer $pag Número da página a exibir
 	 * @return void
 	 */
-	 public function listar($pag=1)
+	 public function listar($pag=1, $assModel, $assId)
 	 {
-		$this->controller->data = $this->controller->paginate();
-		$this->setParametrosLista();
-		$this->setBotoesLista();
-		$this->setFerramentasLista();
-	 }
+        if( isset( $assModel ) && isset( $assId ) )
+        {
+            $assModel = $this->controller->params['pass'][0];
+            $assId = $this->controller->params['pass'][1];
+            $this->controller->data = $this->controller->paginate( array( $assModel.'_id' => $assId ) );
+            $this->setParametrosLista();
+		    $this->setBotoesLista();
+		    $this->setFerramentasLista();
+        }
+        else
+        {
+            $this->controller->data = $this->controller->paginate();
+            $this->setParametrosLista();
+            $this->setBotoesLista();
+            $this->setFerramentasLista();
+        }
+     }
 	 
 	 /**
 	  * Executa a edição do registro
@@ -361,7 +373,7 @@ class CpwebCrudComponent extends Object {
 	}
 	
 	/**
-	 * Configura os botões para a edição
+	 * Configura os botões na lista
 	 * 
 	 * @return void
 	 */
@@ -370,8 +382,11 @@ class CpwebCrudComponent extends Object {
 		$botoes = array();
 		if (!in_array($this->name.'/novo',$this->urlsNao))
 		{
-			$botoes['Novo']['onClick']		= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'';
-			$botoes['Novo']['title']		= 'Insere um novo registro ...';
+			$botoes['Novo']['onClick']		=  ( isset( $this->controller->params['pass'][1] ) && !empty( $this->controller->params['pass'][1] ) ) ?
+                                                'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo/'.$this->controller->params['pass'][1].'\'' :
+                                                'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/novo\'' ;
+
+			$botoes['Novo']['title']		= 'Clique para inserir um registro...';
 		}
 
 		// configurando as propriedades padrão
