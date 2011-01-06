@@ -231,9 +231,12 @@ class AppController extends Controller {
 		if (empty($idProcesso)) $idProcesso = ( isset($this->params['pass'][0]) 	&& is_numeric($this->params['pass'][0]) ) 	? $this->params['pass'][0] 		: '';
 		if (!empty($idProcesso))
 		{
-			if ($this->action=='novo') $action2 = $idProcesso;
 			$tituloCab	= $this->viewVars['tituloCab'];
-			$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
+			if ($this->action=='novo')
+			{
+				$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
+				$action2 = $idProcesso;
+			}
 			$tituloCab[3]['label'] = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
 			$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
 			$this->set(compact('idProcesso','action2','tituloCab'));
