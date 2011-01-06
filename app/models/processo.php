@@ -23,8 +23,8 @@ class Processo extends AppModel {
 
 	public $name 			= 'Processo';
 	public $useTable		= 'processos';
-	public $order		 	= 'distribuicao';
-	public $displayField 	= 'distribuicao';
+	public $order		 	= 'parte_contraria';
+	public $displayField 	= 'parte_contraria';
 	
 	/**
 	 * Validação
@@ -209,6 +209,11 @@ class Processo extends AppModel {
 	public function beforeValidate()
 	{
 		parent::beforeValidate();
+
+		if (isset($this->data['Processo']['parte_contraria']))
+		{
+			$this->data['Processo']['parte_contraria'] = mb_strtoupper($this->data['Processo']['parte_contraria']);
+		}
 
 		//echo '<pre>'.print_r($this->data,true).'</pre>';
 		// executando a inclusão dos comboBox, caso não se

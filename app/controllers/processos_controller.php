@@ -54,12 +54,25 @@ class ProcessosController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 
 	/**
+	 * Antes de tudo
 	 * 
+	 * @return void
 	 */
 	public function beforeFilter()
 	{
 		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
+	}
+
+	/**
+	 * Antes de exibir a tela no browser
+	 * 
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		$this->setIdProcesso();
+		parent::beforeRender();
 	}
 
 	/**

@@ -1,3 +1,8 @@
+#listaProcessos
+{
+	width: 98%;
+}
+
 #edicao .inEdicao
 {
 	width: 200px;
@@ -13,4 +18,9 @@
 #edicao #divProcessoOrgaoId
 {
 	width: 265px;
+}
+
+.numero_td
+{
+	text-align: center;
 }

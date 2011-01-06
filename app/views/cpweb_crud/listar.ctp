@@ -1,9 +1,11 @@
 <?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
 <?php $this->Html->script('listar.js', array('inline' => false)); ?>
+<?php if (file_exists(WWW_ROOT.'css/'.$this->params['controller'].'.css')) 	echo $this->Html->css($this->params['controller'], null, array('inline'=>false))."\n"; ?>
+
 <?php $arq = mb_strtolower('../views/'.$name.'/config_'.$name.'.ctp'); if (file_exists($arq)) include_once($arq); else exit('não foi possível localizar o arquivo '.$arq); ?>
 <?php if (isset($arqListaMenu)) { $arq = '../views/elements/'.$arqListaMenu.'.ctp'; if (file_exists($arq)) include($arq); } ?>
 
-<div class="lista">
+<div class="lista" id="lista<?php echo $pluralHumanName;?>" >
 
 <div id="topo">
 	<div id="botoes_lista">
@@ -42,7 +44,8 @@
 
 <div id="esquerda">
 <ul>
-<?php if (isset($listaMenu)) 
+<?php
+	if (isset($listaMenu) && in_array('ADMINISTRADOR',$this->Session->read('perfis')) ) 
 	foreach($listaMenu as $_item => $_arrOpcoes) 
 		if (count($_arrOpcoes)) 
 		{

@@ -40,7 +40,7 @@ class Advogadocontrario extends AppModel {
 			'message' => 'É necessário informar o nome do Advogado!'
 		)
 	);
-	
+
 	/**
 	 * Antes de salvar
 	 */

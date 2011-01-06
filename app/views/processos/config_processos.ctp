@@ -15,7 +15,6 @@
 	if (isset($clientes)) $campos[$modelClass]['cliente_id']['options']['options'] 		= $clientes;
 	$campos[$modelClass]['cliente_id']['busca_rapida_url'] 								= Router::url('/',true).'clientes/buscar/nome';
 	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['title']					= 'Digite aqui o nome do cliente para a busca rápida ...';
-//	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['style']					= 'width: 400px; margin-top: -5px;';
 	
 	$campos[$modelClass]['usuario_id']['options']['label']['text'] 					    = 'Advogado Interno Responsável';
 	$campos[$modelClass]['usuario_id']['options']['empty'] 							    = '-- escolha um opção --';
@@ -106,9 +105,13 @@
 
 	$campos['Cliente']['nome']['options']['label']['text'] 								= 'Cliente';
 
-	if ($action=='editar' || $action=='excluir')
+	if (isset($this->data['Processo']['id']))
 	{
 		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH-'.str_repeat('0',5-strlen($this->data['Processo']['id'])).$this->data['Processo']['id'];
+	}
+
+	if ($action=='editar' || $action=='excluir')
+	{
 		$edicaoCampos = array
 		(
 			$modelClass.'.id_controle','#',
@@ -186,6 +189,7 @@
 			$modelClass.'.natureza_id','#',
 			$modelClass.'.gestao_id','#'
 		);
+		$campos[$modelClass]['id_controle'] = null;
 	}
 	
 	if ($action=='editar')
@@ -211,6 +215,10 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos = array($modelClass.'.numero','Cliente.nome',$modelClass.'.modified',$modelClass.'.created');
+		$listaCampos = array($modelClass.'.parte_contraria',$modelClass.'.numero','Cliente.nome',$modelClass.'.modified',$modelClass.'.created');
+		$campos[$modelClass]['parte_contraria']['estilo_th'] 	= 'width="200px"';
+		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
+		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
+		$campos['Cliente']['nome']['estilo_th'] 	= 'width="300px"';
 	}
 ?>
