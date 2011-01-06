@@ -8,8 +8,8 @@
 	$campos[$modelClass]['hora']['options']['timeFormat'] 							= 24;
 	$campos[$modelClass]['hora']['options']['style'] 								= 'width: 50px; text-align:center';
 
-	$campos[$modelClass]['obs']['options']['label']['text'] 						= 'Obs';
-	$campos[$modelClass]['obs']['options']['style']									= 'width:341px;';
+	$campos[$modelClass]['obs']['options']['label']['text'] 						= 'Observações';
+	$campos[$modelClass]['obs']['options']['style']									= 'width:341px; text-transform: uppercase;';
 
 	$campos[$modelClass]['iscancelada']['options']['label']['text'] 				= 'Cancelada';
 	$campos[$modelClass]['iscancelada']['options']['default'] 						= 0;
@@ -29,12 +29,12 @@
 	$campos[$modelClass]['usuario_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['usuario_id']['options']['style']							= 'width:346px;';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] = $advogados;
-	
-	$campos['Processo']['numero']['options']['label']['text'] 						= 'Processo';
+
+    $campos[$modelClass]['processo_id']['options']['type']      	= 'hidden';
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
@@ -44,12 +44,13 @@
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id','#',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs');
+		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs');
 	}
 	
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#'.$modelClass.'Data").focus();';
+		$botoesEdicao['Listar'] = array();
+        $on_read_view .= "\n".'$("#'.$modelClass.'Data").focus();';
 	}
 
 	if ($action=='editar' || $action=='listar')
