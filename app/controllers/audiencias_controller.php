@@ -120,6 +120,7 @@ class AudienciasController extends AppController {
 			$campos['Audiencia']['processo_id']['options']['default'] = $id;
 			$this->set(compact('campos'));
 		}
+        $this->set( 'advogados', $this->Audiencia->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
 		$this->CpwebCrud->novo();
 	}
 

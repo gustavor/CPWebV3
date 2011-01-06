@@ -7,7 +7,6 @@
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
 	if (isset($tipoprocessos)) $campos[$modelClass]['tipo_processo_id']['options']['options'] = $tipoprocessos;
-	$campos[$modelClass]['tipo_processo_id']['busca_rapida_url'] 						= Router::url('/',true).'tipos_processos/buscar/nome';
 	
 	$campos[$modelClass]['cliente_id']['options']['label']['text'] 						= 'Cliente';
 	$campos[$modelClass]['cliente_id']['options']['empty'] 								= '-- escolha um opção --';
@@ -39,25 +38,22 @@
 	$campos[$modelClass]['status_id']['options']['empty'] 								= '-- escolha um opção --';
 	$campos[$modelClass]['status_id']['options']['style'] 								= 'width:300px';
 	if (isset($status)) $campos[$modelClass]['status_id']['options']['options'] 		= $status;
-	$campos[$modelClass]['status_id']['busca_rapida_url'] 								= Router::url('/',true).'status/buscar/nome';
 
 	$campos[$modelClass]['fase_id']['options']['label']['text'] 						= 'Fase do Processo';
 	$campos[$modelClass]['fase_id']['options']['empty'] 								= '-- escolha um opção --';
 	$campos[$modelClass]['fase_id']['options']['style'] 								= 'width:300px';
 	if (isset($fases)) $campos[$modelClass]['fase_id']['options']['options'] 			= $fases;
-	$campos[$modelClass]['fases_id']['busca_rapida_url'] 								= Router::url('/',true).'fases/buscar/nome';
 
 	$campos[$modelClass]['instancia_id']['options']['label']['text'] 					= 'Instância Atual do Processo';
 	$campos[$modelClass]['instancia_id']['options']['empty'] 							= '-- escolha um opção --';
 	$campos[$modelClass]['instancia_id']['options']['style'] 							= 'width:300px';
 	if (isset($instancias)) $campos[$modelClass]['instancia_id']['options']['options'] = $instancias;
-	$campos[$modelClass]['instancia_id']['busca_rapida_url'] 							= Router::url('/',true).'instancias/buscar/nome';
 
 	$campos[$modelClass]['numero']['options']['label']['text'] 							= 'Número do Processo';
 	$campos[$modelClass]['numero']['options']['style'] 									= 'width: 294px; letter-spacing: 4px;';
 	$campos[$modelClass]['numero']['mascara'] 											= '9999999-99.9999.9.99.9999';
 
-	$campos[$modelClass]['numero_auxiliar']['options']['label']['text'] 				= 'Número Auxiliar do Processo';
+	$campos[$modelClass]['numero_auxiliar']['options']['label']['text'] 				= 'Número Auxiliar';
 	$campos[$modelClass]['numero_auxiliar']['options']['style'] 						= 'width: 294px; letter-spacing: 4px;';
 
 	$campos[$modelClass]['distribuicao']['options']['label']['text'] 					= 'Data de Distribuição';
@@ -89,13 +85,11 @@
 	$campos[$modelClass]['equipe_id']['options']['empty'] 								= '-- escolha um opção --';
 	$campos[$modelClass]['equipe_id']['options']['style'] 								= 'width:300px';
 	if (isset($equipes)) $campos[$modelClass]['equipe_id']['options']['options'] 		= $equipes;
-	$campos[$modelClass]['equipe_id']['busca_rapida_url'] 								= Router::url('/',true).'equipes/buscar/nome';
 
 	$campos[$modelClass]['gestao_id']['options']['label']['text'] 						= 'Gestão';
 	$campos[$modelClass]['gestao_id']['options']['empty'] 								= '-- escolha um opção --';
 	$campos[$modelClass]['gestao_id']['options']['style'] 								= 'width:300px';
 	if (isset($gestoes)) $campos[$modelClass]['gestoes_id']['options']['options'] 		= $gestoes;
-	$campos[$modelClass]['gestao_id']['busca_rapida_url'] 								= Router::url('/',true).'gestoes/buscar/nome';
 
 	$campos[$modelClass]['natureza_id']['options']['label']['text'] 					= 'Natureza';
 	$campos[$modelClass]['natureza_id']['options']['empty'] 							= '-- escolha um opção --';
@@ -215,7 +209,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos = array($modelClass.'.parte_contraria',$modelClass.'.numero','Cliente.nome',$modelClass.'.modified',$modelClass.'.created');
+		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.parte_contraria',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
 		$campos[$modelClass]['parte_contraria']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';

@@ -147,7 +147,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente','Cliente.modified');
+		$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente');
 
 		$campos['Cliente']['nome']['estilo_th'] 		= 'width="250px"';
 
