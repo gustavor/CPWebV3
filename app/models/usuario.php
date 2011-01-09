@@ -112,7 +112,7 @@ class Usuario extends AppModel {
 	 */
 	public function afterSave()
 	{
-		if (isset($this->data['Usuario']['senha']) && $this->confereSenha()) $this->saveField('trocasenha',false);
+		if (isset($this->data['Usuario']['id']) && isset($this->data['Usuario']['senha']) && $this->confereSenha()) $this->saveField('trocasenha',false);
 	}
 
 	/**

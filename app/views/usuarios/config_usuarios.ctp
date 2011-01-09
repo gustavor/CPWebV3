@@ -78,8 +78,7 @@
 	// se estamos na edição
 	if ($this->action=='editar')
 	{
-		//if ($this->Session->read('Auth.Usuario.trocasenha'))
-		if ($this->data['Usuario']['trocasenha'])
+		if (isset($this->data['Usuario']['trocasenha']) && $this->data['Usuario']['trocasenha'] && $this->data['Usuario']['login']==$this->Session->read('Auth.Usuario.login'))
 		{
 			$formAlerta = '<p>Caro '.$this->Session->read('Auth.Usuario.nome').', <br />';
 			$formAlerta .= 'É necessário trocar sua senha.<br /><br />';
