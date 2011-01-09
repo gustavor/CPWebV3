@@ -73,7 +73,7 @@
 	$campos['Perfil']['options']['multiple']						= 'checkbox';
 
 	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
-	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.ultimo_acesso');
+	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.isadvogado','Usuario.ultimo_acesso');
 
 	// se estamos na edição
 	if ($this->action=='editar')

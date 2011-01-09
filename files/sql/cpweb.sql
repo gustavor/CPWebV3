@@ -657,6 +657,8 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   `ispeticao` TINYINT(1)  NULL ,
   `isparecer` TINYINT(1)  NULL ,
   `obs` TEXT NULL ,
+  `usuario_solicitante` INT(11) NOT NULL ,
+  `usuario_atribuido` INT(11) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_solicitacoes_solicitacoes1` (`solicitacao_id` ASC) ,
   INDEX `fk_processos_solicitacoes_processos1` (`processo_id` ASC) ,
@@ -916,4 +918,3 @@ COLLATE = utf8_general_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-

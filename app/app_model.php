@@ -35,14 +35,22 @@ class AppModel extends Model {
 	/**
 	 * Antes da validação
 	 * 
-	 * @return void
+	 * Cria regra de preenchimento obrigatório para campos relacionados
+	 * 
+	 * Transforma todos os campos em maiúsculo
+	 * 
+	 * @return boolean
 	 */
 	public function beforeValidate()
 	{
 		// criando a regra para cardinalidades vazias
 		foreach($this->_schema as $_campo => $_arrOpcoes)
 		{
-			if (!$_arrOpcoes['null'] && empty($this->data[$this->name][$_campo]) != $this->primaryKey && !isset($this->validate[$_campo]['rule']['notEmpty']))
+			if 	(
+					empty($_arrOpcoes['null']) 		&&
+					$_campo != $this->primaryKey 	&&
+					!isset($this->validate[$_campo]['rule']['notEmpty'])
+				)
 			{
 				$this->validate[$_campo]['rule']		= 'notEmpty';
 				$this->validate[$_campo]['required'] 	= true;
@@ -61,10 +69,13 @@ class AppModel extends Model {
 				}
 			}
 		}
+		return true;
 	}
 
 	/**
+	 * Retona o nome do campo relacionado
 	 * 
+	 * @return $campo string
 	 */
 	private function getNomeCampo($campo=null)
 	{

@@ -118,8 +118,14 @@ class Processo extends AppModel {
 			'required' 	=> true,
             'message'	=> 'É necessário informar a Natureza !!!'
 		),
+		'usuario_id'		=> array
+		(
+			'rule'		=> 'notEmpty',
+			'required' 	=> true,
+            'message'	=> 'É necessário o Advogado Interno responsável !!!'
+		),
 	);
-	
+
 	/**
 	 * Relacionamento belongsTo 
 	 */
@@ -274,5 +280,6 @@ class Processo extends AppModel {
 				}
 			}
 		}
+		return true;
 	}
 }
