@@ -30,19 +30,26 @@
 	$campos['Usuario']['aniversario']['mascara'] 					= '99/99';
 
 	$campos['Usuario']['ativo']['options']['label']['text'] 		= 'Ativo';
-	$campos['Usuario']['ativo']['options']['label']['style'] 		= 'width: 110px;';
+	$campos['Usuario']['ativo']['options']['label']['style'] 		= 'width: 124px;';
 	$campos['Usuario']['ativo']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['ativo']['options']['style'] 				= 'width: 70px; text-align: center; ';
 	$campos['Usuario']['ativo']['options']['options']	 			= array('1'=>'Sim','0'=>'Não');
 	$campos['Usuario']['ativo']['estilo_th'] 						= 'width="70px"';
 
 	$campos['Usuario']['isadvogado']['options']['label']['text'] 		= 'Advogado';
-	$campos['Usuario']['isadvogado']['options']['label']['style'] 		= 'width: 110px;';
 	$campos['Usuario']['isadvogado']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['isadvogado']['options']['style'] 				= 'width: 70px; text-align: center; ';
 	$campos['Usuario']['isadvogado']['options']['options']	 			= array('1'=>'Sim','0'=>'Não');
     $campos['Usuario']['isadvogado']['options']['default']              = 0;
 	$campos['Usuario']['isadvogado']['estilo_th'] 						= 'width="70px"';
+
+	$campos['Usuario']['trocasenha']['options']['label']['text'] 		= 'TrocaSenha';
+	$campos['Usuario']['trocasenha']['estilo_td'] 						= 'style="text-align: center; "';
+	$campos['Usuario']['trocasenha']['options']['style'] 				= 'width: 70px; text-align: center; ';
+	$campos['Usuario']['trocasenha']['options']['options']	 			= array('1'=>'Sim','0'=>'Não');
+    $campos['Usuario']['trocasenha']['options']['default']              = 0;
+	$campos['Usuario']['trocasenha']['estilo_th'] 						= 'width="70px"';
+
 
 	$campos['Usuario']['acessos']['options']['label']['text'] 		= 'Acessos';
 	$campos['Usuario']['acessos']['options']['label']['style'] 		= 'width: 163px;';
@@ -65,13 +72,27 @@
 	$campos['Perfil']['options']['label']['text']					= 'Perfis';
 	$campos['Perfil']['options']['multiple']						= 'checkbox';
 
-	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','#','Perfil','#','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
 	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.ultimo_acesso');
 
 	// se estamos na edição
 	if ($this->action=='editar')
 	{
-		$on_read_view .= '$("#UsuarioNome").focus();';
+		//if ($this->Session->read('Auth.Usuario.trocasenha'))
+		if ($this->data['Usuario']['trocasenha'])
+		{
+			$formAlerta = '<p>Caro '.$this->Session->read('Auth.Usuario.nome').', <br />';
+			$formAlerta .= 'É necessário trocar sua senha.<br /><br />';
+			$formAlerta .= 'Grato,<br />';
+			$formAlerta .= 'À Gerência.';
+			$formAlerta .= '</p>';
+			$on_read_view .= '$("#UsuarioSenha").focus();';
+			$on_read_view .= '$("#formAlerta").css("width","250px");' ;
+			$on_read_view .= '$("#formAlerta").css("background-color","#e8765b");' ;
+		} else
+		{
+			$on_read_view .= '$("#UsuarioNome").focus();';
+		}
 
 		// cada usuário só pode editar o registro dele próprio, a menos que ele seja administrador
 		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
@@ -79,7 +100,8 @@
 			$botoesEdicao['Novo'] 		= array();
 			$botoesEdicao['Excluir'] 	= array();
 			$botoesEdicao['Listar'] 	= array();
-			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.acessos','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.acessos','Usuario.trocasenha','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+			$campos['Usuario']['trocasenha']['options']['disabled'] 	= 'disabled';
 		}
         
 		// destancando administrador
@@ -87,6 +109,7 @@
 		{
 			$campos['Usuario']['login']['options']['style']		= 'text-align: center; width: 120px; font-weight: bold; color: green; ';
 			$campos['Usuario']['ativo']['options']['disabled'] 	= 'disabled';
+			$campos['Usuario']['trocasenha']['options']['disabled'] 	= 'disabled';
 
 			// administrador será sempre administrador, nunca poderá ser removido dele.
 			//unset($perfis[1]);
@@ -98,7 +121,7 @@
 		{
 			if ($this->data['Usuario']['ultimo_acesso']=='0000-00-00 00:00:00')
 			{
-				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','#','Perfil','#','#','Usuario.modified','#','Usuario.created');
+				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#','#','Usuario.modified','#','Usuario.created');
 			}
 		}
 	}

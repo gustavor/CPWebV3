@@ -96,11 +96,23 @@ class Usuario extends AppModel {
 	/**
 	 * Antes da validação
 	 * 
+	 * @return boolean
 	 */
-	public function beforeValidate()
+	public function beforeValidate($options=array())
 	{
 		if ($this->data['Usuario']['senha']=='4adbc8cacf5e6ede20342fcbb4ff1043efd10e3ccd29232292ee153047d6cff0') $this->data['Usuario']['senha']='';
 		return true;
+	}
+
+
+	/**
+	 * Executa código depois que o registro foi salvo no banco de dados
+	 * 
+	 * @return void
+	 */
+	public function afterSave()
+	{
+		if (isset($this->data['Usuario']['senha']) && $this->confereSenha()) $this->saveField('trocasenha',false);
 	}
 
 	/**
@@ -132,9 +144,11 @@ class Usuario extends AppModel {
 		$sql = 'delete from usuarios_perfil where usuarios_id='.$this->id;
 		if (!$this->query($sql)) $retorno = false;
 		
-		$sql = 'delete from urls_usuarios where usuarios_id='.$this->id;
+		$sql = 'delete from urls_usuario where usuarios_id='.$this->id;
 		if (!$this->query($sql)) $retorno = false;
 		
 		return $retorno;
 	}
 }
+
+?>

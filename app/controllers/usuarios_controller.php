@@ -122,6 +122,7 @@ class UsuariosController extends AppController {
 	 */
 	public function novo()
 	{
+		if (isset($this->data)) $this->data['Usuario']['trocasenha'] = true;
 		$this->CpwebCrud->novo();
 		$this->render('editar');
 	}
@@ -167,12 +168,19 @@ class UsuariosController extends AppController {
 		{
 			if ($this->Auth->user())
 			{
-				$this->Session->setFlash('Usuário autenticado com sucesso !!!');
 				$acessos = $this->Session->read('Auth.Usuario.acessos');
 				$acessos++;
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
 				$this->Usuario->updateAll(array('Usuario.acessos'=>$acessos),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
-				$this->redirect('/');
+				if ($this->Session->read('Auth.Usuario.trocasenha'))
+				{
+					$this->Session->setFlash('Necessário trocar a senha !!!');
+					$this->redirect(Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id'));
+				} else 
+				{
+					$this->Session->setFlash('Usuário autenticado com sucesso !!!');
+					$this->redirect('/');
+				}
 			} else
 			{
 				$this->Session->setFlash('O usuário não pode ser autenticado !!!'); 

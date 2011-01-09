@@ -129,7 +129,7 @@ class CpwebCrudComponent extends Object {
 			$opcoes			= array();
 			foreach($this->controller->data as $_modelo => $_arrCampos) foreach($_arrCampos as $_campo => $_valor) array_unshift($salvarCampos,$_campo);
 			if (count($salvarCampos)) $opcoes['fieldList'] = $salvarCampos;
-			
+
 			if ($this->controller->$modelClass->save($this->controller->data,$opcoes))
 			{
 				$this->controller->Session->setFlash('<span style="font-size: 20px;">Registro atualizado com sucesso !!!</span>');
