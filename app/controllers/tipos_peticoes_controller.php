@@ -58,6 +58,7 @@ class TiposPeticoesController extends AppController {
 	 */
 	public function beforeFilter()
 	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Petições';
 		parent::beforeFilter();
 	}
  

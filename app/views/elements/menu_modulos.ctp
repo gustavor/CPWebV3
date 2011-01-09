@@ -2,6 +2,14 @@
 	// menu da lista cidades
 	$listaMenu = array();
 
+
+	// módulo processos
+	if (!in_array('solicitacoes',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['solicitacoes']['text'] = 'Cadastro de Solicitações';
+		$listaMenu['solicitacoes']['url'] 	= Router::url('/',true).'solicitacoes';
+	}
+
 	// módulo processos
 	if (!in_array('advogados_contrarios',$this->Session->read('urlsNao')))
 	{

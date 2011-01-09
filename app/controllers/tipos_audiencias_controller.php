@@ -52,6 +52,16 @@ class TiposAudienciasController extends AppController {
 	 */
 	public $components	= array('CpwebCrud','Session');
 
+
+	/**
+	 * Antes da renderização da view
+	 * 
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Audiências';
+	}
 	/**
 	 * método start
 	 * 

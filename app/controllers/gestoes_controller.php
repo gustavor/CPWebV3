@@ -58,6 +58,7 @@ class GestoesController extends AppController {
 	 */
 	public function beforeFilter()
 	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Gestões';
 		parent::beforeFilter();
 	}
  

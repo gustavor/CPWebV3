@@ -70,6 +70,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 */
 	public function beforeRender()
 	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Processos e Solicitações';
 		$this->setIdProcesso();
 		parent::beforeRender();
 	}

@@ -5,7 +5,7 @@
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.nome','#',$modelClass.'.modified','#',$modelClass.'.created');
-		$campos[$modelClass]['created']['options']['disabled'] 	= 'disabled';
+		$campos[$modelClass]['created']['options']['disabled'] 		= 'disabled';
 		$campos[$modelClass]['modified']['options']['disabled'] 	= 'disabled';
 	}
 

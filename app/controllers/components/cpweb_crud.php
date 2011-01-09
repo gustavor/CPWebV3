@@ -48,9 +48,9 @@ class CpwebCrudComponent extends Object {
 		// configurando o título da tela
 		$id_titulo			= $id ? '/'.$id : '';
 		$tituloCab[1]['label']	= isset($this->controller->viewVars['tituloCab'][1]['label']) 	? $this->controller->viewVars['tituloCab'][1]['label'] : $pluralHumanName;
-		$tituloCab[1]['link']	= isset($this->controller->viewVars['tituloCab'][1]['link'])	? $this->controller->viewVars['tituloCab'][1]['link']	: Router::url('/',true).$pluralHumanName;
+		$tituloCab[1]['link']	= isset($this->controller->viewVars['tituloCab'][1]['link'])	? $this->controller->viewVars['tituloCab'][1]['link']	: Router::url('/',true).mb_strtolower(str_replace(' ','_',$pluralHumanName));
 		$tituloCab[2]['label']	= isset($this->controller->viewVars['tituloCab'][2]['label']) 	? $this->controller->viewVars['tituloCab'][2]['label'] : ucfirst(strtolower($action));
-		$tituloCab[2]['link']	= isset($this->controller->viewVars['tituloCab'][2]['link'])	? $this->controller->viewVars['tituloCab'][2]['link']	: Router::url('/',true).strtolower($pluralHumanName).'/'.strtolower($action).$id_titulo;
+		$tituloCab[2]['link']	= isset($this->controller->viewVars['tituloCab'][2]['link'])	? $this->controller->viewVars['tituloCab'][2]['link']	: Router::url('/',true).mb_strtolower(str_replace(' ','_',$pluralHumanName)).'/'.strtolower($action).$id_titulo;
 		$tituloCab[3]['label']	= '';
 		$tituloCab[3]['link']	= '';
 

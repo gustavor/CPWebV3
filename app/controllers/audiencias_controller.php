@@ -69,6 +69,7 @@ class AudienciasController extends AppController {
 	 */
 	public function beforeRender()
 	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Audiências';
 		$this->setIdProcesso();
 		parent::beforeRender();
 	}

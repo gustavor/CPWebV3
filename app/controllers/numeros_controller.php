@@ -53,6 +53,14 @@ class NumerosController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 
 	/**
+	 * Antes da renderização da view
+	 */
+	public function beforeRender()
+	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Números';
+	}
+
+	/**
 	 * método start
 	 * 
 	 * @return void
