@@ -20,10 +20,6 @@
 			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>
 
-			<?php if (!in_array('solicitacoes',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'solicitacoes'; ?>">Cadastro de Solicitações</a></li>
-			<?php endif; ?>
-
 		</ul>
 	</li>
 

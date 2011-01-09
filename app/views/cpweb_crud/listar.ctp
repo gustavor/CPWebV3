@@ -5,7 +5,7 @@
 <?php $arq = mb_strtolower('../views/'.$name.'/config_'.$name.'.ctp'); if (file_exists($arq)) include_once($arq); else exit('não foi possível localizar o arquivo '.$arq); ?>
 <?php if (isset($arqListaMenu)) { $arq = '../views/elements/'.$arqListaMenu.'.ctp'; if (file_exists($arq)) include($arq); } ?>
 
-<div class="lista" id="lista<?php echo $pluralHumanName;?>" >
+<div class="lista" id="lista<?php echo str_replace(' ','',$pluralHumanName);?>" >
 
 <div id="topo">
 	<div id="botoes_lista">
