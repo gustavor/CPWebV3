@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/processos_solicitacoes_controller.php
+ * app/controllers/tipos_solicitacoes_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ProcessosSolicitacoesController extends AppController {
+class TiposSolicitacoesController extends AppController {
 
 	/**
 	 * Nome
@@ -27,7 +27,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'ProcessosSolicitacoes';
+	public $name = 'TiposSolicitacoes';
 	
 	/**
 	 * Modelo
@@ -35,7 +35,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'ProcessoSolicitacao';
+	public $uses = 'TipoSolicitacao';
 
 	/**
 	 * Ajudantes 
@@ -52,29 +52,16 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-
+	
 	/**
-	 * Antes de tudo
 	 * 
-	 * @return void
 	 */
 	public function beforeFilter()
 	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Solicitações';
 		parent::beforeFilter();
 	}
-
-	/**
-	 * Antes de exibir a tela no browser
-	 * 
-	 * @return void
-	 */
-	public function beforeRender()
-	{
-		$this->viewVars['tituloCab'][1]['label'] = 'Processos e Solicitações';
-		$this->setIdProcesso();
-		parent::beforeRender();
-	}
-
+ 
 	/**
 	 * método start
 	 * 
@@ -86,7 +73,7 @@ class ProcessosSolicitacoesController extends AppController {
 	}
 
 	/**
-	 * Lista os dados em dbgrid
+	 * Lista os dados em paginação
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -99,17 +86,13 @@ class ProcessosSolicitacoesController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de edição
+	 * Exibe formulário de edição para o model
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
 	 */
 	public function editar($id=null)
 	{
-		if (isset($this->data))
-		{
-			$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
-		}
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -118,26 +101,13 @@ class ProcessosSolicitacoesController extends AppController {
 	 * 
 	 * @return 		void
 	 */
-	public function novo($id=null)
+	public function novo()
 	{
-		if (isset($this->data))
-		{
-			$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
-		}
-		if ($id)
-		{
-			$campos['ProcessoSolicitacao']['processo_id']['options']['default'] = $id;
-			$titulo[1]['label']	= 'Processos e Solicitações';
-			$titulo[1]['link']	= Router::url('/',true).'processos_solicitacoes';
-			$titulo[2]['label'] = 'Novo : VEBH-'.str_repeat('0',5-strlen($id)).$id;
-			$titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
-			$this->set(compact('campos','titulo'));
-		}
 		$this->CpwebCrud->novo();
 	}
-
+	
 	/**
-	 * Exibe formulário de exclusão
+	 * Exibe formulário de exclusão para o model
 	 * 
 	 * @return 		void
 	 */
@@ -164,5 +134,5 @@ class ProcessosSolicitacoesController extends AppController {
 	public function imprimir($id=null)
 	{
 		$this->CpwebCrud->imprimir($id);
-	}	
+	}
 }

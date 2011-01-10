@@ -55,18 +55,15 @@ class ProcessoSolicitacao extends AppModel {
 			'foreignKey'	=> 'tipo_parecer_id',
 			'fields'		=> 'id, nome'
 		),
+		'TiposSolicitacao'  		=> array(
+			'className'		=> 'TipoSolicitacao',
+			'foreignKey'	=> 'tipo_solicitacao_id',
+			'fields'		=> 'id, nome'
+		),
 		'Complexidade'  	=> array(
 			'className'		=> 'Complexidade',
 			'foreignKey'	=> 'complexidade_id',
 			'fields'		=> 'id, nome'
 		)
 	);
-	
-	/**
-	 * 
-	 */
-	public function beforeValidate()
-	{
-		parent::beforeValidate();
-	}	
 }

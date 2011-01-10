@@ -45,6 +45,8 @@
 	$listaMenu['complexidades']['url'] 			= Router::url('/',true).'complexidades';
 	$listaMenu['tipos_peticoes']['text'] 		= 'Tipos Petições';
 	$listaMenu['tipos_peticoes']['url'] 		= Router::url('/',true).'tipos_peticoes';
+	$listaMenu['tipos_solicitacoes']['text'] 	= 'Tipos de Solicitações';
+	$listaMenu['tipos_solicitacoes']['url'] 	= Router::url('/',true).'tipos_solicitacoes';
 	$listaMenu['eventos_acordos']['text'] 		= 'Eventos Acordos';
 	$listaMenu['eventos_acordos']['url'] 		= Router::url('/',true).'eventos_acordos';
 	$listaMenu['processos_solicitacoes']['text']= 'Processos e Solicitações';

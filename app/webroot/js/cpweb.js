@@ -35,7 +35,7 @@
 	{
 		var idResposta 	= 'buscaRapidaResposta'+combo;
 		var divBusca	= 'buscaRapida'+combo;
-		$("#"+combo+" option[value="+opcao+"]").attr("selected","selected") ;
+		$("#"+combo+" option[value="+opcao+"]").attr("selected","selected");
 		$("#"+combo).focus();
 		$("#"+idResposta).fadeOut();
 		$("#"+divBusca).fadeOut();

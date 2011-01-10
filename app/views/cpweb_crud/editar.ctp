@@ -27,8 +27,9 @@
 		{
 			foreach($redirecionamentos as $_item => $_arrOpcoes)
 			{
-				$_arrOpcoes['type']	 = 'button';
-				$_arrOpcoes['class'] = 'inRedirecionamento';
+				$_arrOpcoes['type']	 	= 'button';
+				$_arrOpcoes['class'] 	= 'inRedirecionamento';
+				$_arrOpcoes['id']		= isset($_arrOpcoes['id']) ? $_arrOpcoes['id'] : 're_'.str_replace(' ','_',ereg_replace('[./-]','',mb_strtolower($_item)));
 				echo $this->Form->button($_item,$_arrOpcoes);
 			}
 		}

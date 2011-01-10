@@ -24,12 +24,12 @@ class InstalaController extends AppController {
 	 * nome
 	 */
 	public $name = 'Instala';
-	
+
 	/**
 	 * mensagens de erro
 	 */
 	public $erro = '';
-	
+
 	/**
 	 * tabelas que serão populadas
 	 */
@@ -37,8 +37,8 @@ class InstalaController extends AppController {
                         'status','naturezas','comarcas','gestoes',
                         'segmentos','equipes','fases','tipos_partes',
                         'complexidades','destinos','instancias','tipos_audiencias',
-                        'tipos_processos','orgaos','tipos_pareceres','tipos_peticoes');
-	
+                        'tipos_processos','orgaos','tipos_pareceres','tipos_peticoes','tipos_solicitacoes');
+
 	/**
 	 * Modelo
 	 */
@@ -186,3 +186,4 @@ class InstalaController extends AppController {
 		return true;
 	}
 }
+?>
