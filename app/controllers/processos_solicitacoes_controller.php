@@ -20,7 +20,6 @@
  * @since CPWeb V3
  */
 class ProcessosSolicitacoesController extends AppController {
-
 	/**
 	 * Nome
 	 * 
@@ -28,7 +27,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @access public
 	 */
 	public $name = 'ProcessosSolicitacoes';
-	
+
 	/**
 	 * Modelo
 	 * 
@@ -44,7 +43,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
-	
+
 	/**
 	 * Componentes
 	 * 
@@ -112,9 +111,9 @@ class ProcessosSolicitacoesController extends AppController {
 		}
 		$this->CpwebCrud->editar($id);
 	}
-	
+
 	/**
-	 * Exibe formulário de inclusão para o model
+	 * Exibe formulário de inclusão
 	 * 
 	 * @return 		void
 	 */
@@ -166,3 +165,5 @@ class ProcessosSolicitacoesController extends AppController {
 		$this->CpwebCrud->imprimir($id);
 	}	
 }
+
+?>

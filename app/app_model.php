@@ -48,8 +48,10 @@ class AppModel extends Model {
 		{
 			if 	(
 					empty($_arrOpcoes['null']) 		&&
-					$_campo != $this->primaryKey 	&&
-					!isset($this->validate[$_campo]['rule']['notEmpty'])
+					!isset($this->validate[$_campo]['rule']['notEmpty']) &&
+					$_campo != $this->primaryKey &&
+					$_campo != 'created' &&
+					$_campo != 'modified'
 				)
 			{
 				$this->validate[$_campo]['rule']		= 'notEmpty';

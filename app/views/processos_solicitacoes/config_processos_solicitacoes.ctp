@@ -30,7 +30,7 @@
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 			= 'Processo';
 	$campos[$modelClass]['processo_id']['options']['style'] 					= 'width:300px';
-	$campos[$modelClass]['processo_id']['options']['type'] 						= 'hidden';
+	//$campos[$modelClass]['processo_id']['options']['type'] 						= 'hidden';
 	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha um opção --';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] 				= $processos;
 
@@ -60,7 +60,7 @@
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['default']  			= 3;
 	if (isset($tipossolicitacoes)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] = $tipossolicitacoes;
 
-	//$campos[$modelClass]['usuario_atribuido']['options']['type']			 	= 'hidden';
+	$campos[$modelClass]['usuario_atribuido']['options']['type']			 	= 'hidden';
 
 	// descobrindo o id do processo
 	$idProcesso	= isset($idProcesso) ? $idProcesso : '';
@@ -98,7 +98,7 @@
 		$redirecionamentos['Atribuir a Mim']['onclick'] 		= '';
 		$redirecionamentos['Atribuir a Adv. Resp.']['onclick'] 		= '';
 		$on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); alert("Não esqueça de Salvar para concluir a atribuição !!!"); });';
-		//$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->data['ProcessoSolicitacao']['usuarios_id'].'"); alert("Não esqueça de Salvar para concluir a atribuição !!!"); });';
+		$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$processos[$this->data['ProcessoSolicitacao']['processo_id']].'"); alert("Não esqueça de Salvar para concluir a atribuição !!!"); });';
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
 	}
 

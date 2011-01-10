@@ -250,18 +250,19 @@ class Processo extends AppModel {
 				$camposBelongsTo	= explode(',',$_arrOpcoes['fields']);
 				$dataBelongsTo[$_modelo][trim($camposBelongsTo[1])] = $valor;
 				$opcoesBelongsTo	= array();
-				
+
 				// somente para clientes
 				if ($campo=='ClienteId')
 				{
-					$dataBelongsTo['Cliente']['cidade_id']	= 2302;
-					$this->Cliente->validate['endereco']	= null;
+					$dataBelongsTo['Cliente']['cidade_id']		= 2302;
+					$dataBelongsTo['Cliente']['endereco']		= '.';
+					$dataBelongsTo['Cliente']['tipo_cliente']	= 0;
 				}
 
 				// somente para advogados contrários
 				if ($campo=='AdvogadoContrarioId')
 				{
-					$dataBelongsTo['AdvogadoContrario']['oab']	= 0;
+					$dataBelongsTo['AdvogadoContrario']['oab']		= 0;
 				}
 
 				// incluindo o novo registro para o belongsTo
