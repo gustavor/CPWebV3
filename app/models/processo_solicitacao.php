@@ -40,9 +40,9 @@ class ProcessoSolicitacao extends AppModel {
 			'foreignKey'	=> 'processo_id',
 			'fields'		=> 'id, usuario_id'
 		),
-		'Destino' 	 		=> array(
-			'className'		=> 'Destino',
-			'foreignKey'	=> 'destino_id',
+		'Departamento' 		=> array(
+			'className'		=> 'Departamento',
+			'foreignKey'	=> 'departamento_id',
 			'fields'		=> 'id, nome'
 		),
 		'TipoPeticao'  		=> array(

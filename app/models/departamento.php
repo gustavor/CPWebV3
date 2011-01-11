@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/model/destino.php
+ * app/model/departamento.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,10 +19,10 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Destino extends AppModel {
+class Departamento extends AppModel {
 
-	public $name			= 'Destino';
-	public $useTable		= 'destinos';
+	public $name			= 'Departamento';
+	public $useTable		= 'departamentos';
 	public $displayField 	= 'nome';
 
 	public $validate 		= array
@@ -31,31 +31,8 @@ class Destino extends AppModel {
 		(
 			'rule' => 'notEmpty',
 			'required' => true,
-			'message' => 'É necessário informar o nome do destino !'
+			'message' => 'É necessário informar o nome do departamento !'
 		)
 	);
-
-    public $hasMany = array(
-        'ProcessoSolicitacao' => array(
-            'className' => 'ProcessoSolicitacao',
-            'foreignKey' => 'destino_id'
-        ),
-        'Solicitacao' => array(
-            'className' => 'Solicitacao',
-            'foreignKey' => 'destino_id'
-        )
-    );
-
-    /**
-	 * Antes da validação
-	 *
-	 * @return boolean
-	 */
-	public function beforeValidate()
-	{
-		$this->data['Destino']['nome'] = mb_strtoupper($this->data['Destino']['nome']);
-		return true;
-	}
-
-
 }
+?>

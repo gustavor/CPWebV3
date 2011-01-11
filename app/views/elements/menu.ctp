@@ -4,6 +4,14 @@
 		<a href="<?php echo Router::url('/'); ?>">Principal</a>
 	</li>
 
+	<?php if (!in_array('minhas_solicitacoes',$this->Session->read('urlsNao'))) : ?>
+	<li><a href="<?php echo Router::url('/').'minhas_solicitacoes'; ?>">Minhas Solicitações</a></li>
+	<?php endif; ?>
+
+	<?php if (!in_array('solicitacoes_departamentos',$this->Session->read('urlsNao'))) : ?>
+	<li><a href="<?php echo Router::url('/').'solicitacoes_departamentos'; ?>">Solicitações do Departamento</a></li>
+	<?php endif; ?>
+
 	<li>
 		<a href="<?php echo Router::url('/').$this->Session->read('modul_ativo'); ?>">Módulos</a>
 		<ul>

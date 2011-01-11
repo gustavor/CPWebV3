@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/models/status.php
+ * app/models/solicitacao.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -32,21 +32,5 @@ class Solicitacao extends AppModel {
 			'message' => 'É necessário informar a solicitação!'
 		)
 	);
-	
-	public $belongsTo =  array
-	(
-		'Destino' => array
-		(
-			'className'		=> 'Destino',
-			'foreignKey'	=> 'destino_id',
-			'fields'		=> 'id, nome'
-		)
-	);
-
-    public $hasMany = array(
-        'ProcessoSolicitacao' => array(
-            'className' => 'ProcessoSolicitacao',
-            'foreignKey' => 'solicitacao_id'
-        )
-    );    
 }
+?>

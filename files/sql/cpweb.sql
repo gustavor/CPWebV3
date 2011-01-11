@@ -274,6 +274,21 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`departamentos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`departamentos` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`departamentos` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `nome` VARCHAR(100) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`usuarios`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`usuarios` ;
@@ -293,7 +308,14 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
   `acessos` INT NOT NULL ,
   `trocasenha` TINYINT(1)  NULL ,
   `isadvogado` TINYINT(1)  NULL DEFAULT 0 ,
-  PRIMARY KEY (`id`) )
+  `departamento_id` INT(11) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_usuarios_departamentos1` (`departamento_id` ASC) ,
+  CONSTRAINT `fk_usuarios_departamentos1`
+    FOREIGN KEY (`departamento_id` )
+    REFERENCES `cpwebv3`.`departamentos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
@@ -554,21 +576,6 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`destinos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`destinos` ;
-
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`destinos` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NOT NULL ,
-  `nome` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
 -- Table `cpwebv3`.`solicitacoes`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`solicitacoes` ;
@@ -578,14 +585,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`solicitacoes` (
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `solicitacao` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
-  `destino_id` INT(11) NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_solicitacoes_destinos1` (`destino_id` ASC) ,
-  CONSTRAINT `fk_solicitacoes_destinos1`
-    FOREIGN KEY (`destino_id` )
-    REFERENCES `cpwebv3`.`destinos` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
@@ -669,7 +669,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   `obs` TEXT NULL ,
   `usuario_solicitante` INT(11) NOT NULL ,
   `usuario_atribuido` INT(11) NULL ,
-  `destino_id` INT(11) NOT NULL ,
+  `departamento_id` INT(11) NOT NULL ,
   `tipo_solicitacao_id` INT(11) NOT NULL ,
   `tipo_parecer_id` INT(11) NULL ,
   `tipo_peticao_id` INT(11) NULL ,
@@ -677,7 +677,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_solicitacoes_solicitacoes1` (`solicitacao_id` ASC) ,
   INDEX `fk_processos_solicitacoes_processos1` (`processo_id` ASC) ,
-  INDEX `fk_processos_solicitacoes_destinos1` (`destino_id` ASC) ,
+  INDEX `fk_processos_solicitacoes_departamento1` (`departamento_id` ASC) ,
   INDEX `fk_processos_solicitacoes_tipos_peticoes1` (`tipo_peticao_id` ASC) ,
   INDEX `fk_processos_solicitacoes_tipos_pareceres1` (`tipo_parecer_id` ASC) ,
   INDEX `fk_processos_solicitacoes_complexidades1` (`complexidade_id` ASC) ,
@@ -692,9 +692,9 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
     REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_processos_solicitacoes_destinos1`
-    FOREIGN KEY (`destino_id` )
-    REFERENCES `cpwebv3`.`destinos` (`id` )
+  CONSTRAINT `fk_processos_solicitacoes_departamento1`
+    FOREIGN KEY (`departamento_id` )
+    REFERENCES `cpwebv3`.`departamentos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_solicitacoes_tipos_peticoes1`

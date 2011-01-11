@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/destinos_controller.php
+ * app/controllers/departamentos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class DestinosController extends AppController {
+class DepartamentosController extends AppController {
 
 	/**
 	 * Nome
@@ -27,7 +27,7 @@ class DestinosController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Destinos';
+	public $name = 'Departamentos';
 	
 	/**
 	 * Modelo
@@ -35,7 +35,7 @@ class DestinosController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Destino';
+	public $uses = 'Departamento';
 
 	/**
 	 * Ajudantes 
@@ -52,15 +52,7 @@ class DestinosController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-	
-	/**
-	 * 
-	 */
-	public function beforeFilter()
-	{
-		parent::beforeFilter();
-	}
- 
+
 	/**
 	 * método start
 	 * 
@@ -135,3 +127,4 @@ class DestinosController extends AppController {
 		$this->CpwebCrud->imprimir($id);
 	}	
 }
+?>

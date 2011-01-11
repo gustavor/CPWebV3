@@ -26,38 +26,38 @@
 	$campos[$modelClass]['solicitacao_id']['options']['style'] 					= 'width:300px';
 	$campos[$modelClass]['solicitacao_id']['options']['empty'] 						= '-- escolha um opção --';
 	if (isset($solicitacoes)) $campos[$modelClass]['solicitacao_id']['options']['options'] 			= $solicitacoes;
-	//$campos[$modelClass]['solicitacao_id']['busca_rapida_url'] 					= Router::url('/',true).'solicitacoes/buscar/solicitacao';
+	//$campos[$modelClass]['solicitacao_id']['busca_rapida_url'] 							= Router::url('/',true).'solicitacoes/buscar/solicitacao';
 
-	$campos[$modelClass]['processo_id']['options']['label']['text'] 			= 'Processo';
-	$campos[$modelClass]['processo_id']['options']['style'] 					= 'width:300px';
-	//$campos[$modelClass]['processo_id']['options']['type'] 						= 'hidden';
-	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha um opção --';
-	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] 				= $processos;
+	$campos[$modelClass]['processo_id']['options']['label']['text'] 						= 'Processo';
+	$campos[$modelClass]['processo_id']['options']['style'] 								= 'width:300px';
+	$campos[$modelClass]['processo_id']['options']['type'] 									= 'hidden';
+	$campos[$modelClass]['processo_id']['options']['empty'] 								= '-- escolha um opção --';
+	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] 		= $processos;
 
-	$campos[$modelClass]['destino_id']['options']['label']['text'] 				= 'Destino';
-	$campos[$modelClass]['destino_id']['options']['style'] 						= 'width:300px';
-	$campos[$modelClass]['destino_id']['options']['empty'] 						= '-- escolha um opção --';
-	if (isset($destinos)) $campos[$modelClass]['destino_id']['options']['options'] 					= $destinos;
+	$campos[$modelClass]['departamento_id']['options']['label']['text'] 					= 'Departamento';
+	$campos[$modelClass]['departamento_id']['options']['style'] 							= 'width:300px';
+	$campos[$modelClass]['departamento_id']['options']['empty'] 							= '-- escolha um opção --';
+	if (isset($departamento)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamento;
 
-	$campos[$modelClass]['tipo_peticao_id']['options']['label']['text'] 		= 'TipoPetição';
-	$campos[$modelClass]['tipo_peticao_id']['options']['style'] 				= 'width:400px';
-	$campos[$modelClass]['tipo_peticao_id']['options']['empty'] 				= '-- escolha um opção --';
-	if (isset($tipopeticoes)) $campos[$modelClass]['tipo_peticao_id']['options']['options'] 		= $tipopeticoes;
+	$campos[$modelClass]['tipo_peticao_id']['options']['label']['text'] 					= 'TipoPetição';
+	$campos[$modelClass]['tipo_peticao_id']['options']['style'] 							= 'width:400px';
+	$campos[$modelClass]['tipo_peticao_id']['options']['empty'] 							= '-- escolha um opção --';
+	if (isset($tipopeticoes)) $campos[$modelClass]['tipo_peticao_id']['options']['options'] = $tipopeticoes;
 
-	$campos[$modelClass]['tipo_parecer_id']['options']['label']['text'] 		= 'TipoParecer';
-	$campos[$modelClass]['tipo_parecer_id']['options']['style'] 				= 'width:400px';
-	$campos[$modelClass]['tipo_parecer_id']['options']['empty'] 				= '-- escolha um opção --';
-	if (isset($tipopareceres)) $campos[$modelClass]['tipo_parecer_id']['options']['options'] 		= $tipopareceres;
+	$campos[$modelClass]['tipo_parecer_id']['options']['label']['text'] 					= 'TipoParecer';
+	$campos[$modelClass]['tipo_parecer_id']['options']['style'] 							= 'width:400px';
+	$campos[$modelClass]['tipo_parecer_id']['options']['empty'] 							= '-- escolha um opção --';
+	if (isset($tipopareceres)) $campos[$modelClass]['tipo_parecer_id']['options']['options']= $tipopareceres;
 
-	$campos[$modelClass]['complexidade_id']['options']['label']['text'] 		= 'Complexidade';
-	$campos[$modelClass]['complexidade_id']['options']['style'] 				= 'width:300px';
-	$campos[$modelClass]['complexidade_id']['options']['empty'] 				= '-- escolha um opção --';
-	if (isset($complexidades)) $campos[$modelClass]['complexidade_id']['options']['options'] 		= $complexidades;
+	$campos[$modelClass]['complexidade_id']['options']['label']['text'] 					= 'Complexidade';
+	$campos[$modelClass]['complexidade_id']['options']['style'] 							= 'width:300px';
+	$campos[$modelClass]['complexidade_id']['options']['empty'] 							= '-- escolha um opção --';
+	if (isset($complexidades)) $campos[$modelClass]['complexidade_id']['options']['options']= $complexidades;
 
-	$campos[$modelClass]['tipo_solicitacao_id']['options']['label']['text'] 	= 'TipoSolicitação';
-	$campos[$modelClass]['tipo_solicitacao_id']['options']['style'] 			= 'width:300px';
-	$campos[$modelClass]['tipo_solicitacao_id']['options']['empty'] 			= '-- escolha um opção --';
-	$campos[$modelClass]['tipo_solicitacao_id']['options']['default']  			= 3;
+	$campos[$modelClass]['tipo_solicitacao_id']['options']['label']['text'] 				= 'TipoSolicitação';
+	$campos[$modelClass]['tipo_solicitacao_id']['options']['style'] 						= 'width:300px';
+	$campos[$modelClass]['tipo_solicitacao_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_solicitacao_id']['options']['default']  						= 3;
 	if (isset($tipossolicitacoes)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] = $tipossolicitacoes;
 
 	$campos[$modelClass]['usuario_atribuido']['options']['type']			 	= 'hidden';
@@ -69,17 +69,17 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao_id','#',$modelClass.'.data_atendimento','#',$modelClass.'.destino_id','#',$modelClass.'.tipo_solicitacao_id',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
+		$edicaoCampos = array($modelClass.'.solicitacao_id','#',$modelClass.'.data_atendimento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento',$modelClass.'.finalizada',$modelClass.'.destino_id',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.complexidade_id',$modelClass.'.obs','#',$modelClass.'.modified',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento',$modelClass.'.finalizada',$modelClass.'.departamento_id',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.complexidade_id',$modelClass.'.obs','#',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.data_atendimento','#',$modelClass.'.destino_id','#',$modelClass.'.tipo_solicitacao_id',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs');	
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.data_atendimento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs');	
 	}
 
 	if ($action=='editar' || $action=='novo')
@@ -120,13 +120,13 @@
 				$modelClass.'.tipo_peticao_id',
 				$modelClass.'.tipo_parecer_id',
 				$modelClass.'.complexidade_id','#',
-				$modelClass.'.destino_id','#',
+				$modelClass.'.departamento_id','#',
 				$modelClass.'.obs');
 		}
 		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 		$campos[$modelClass]['tipo_solicitacao_id']['options']['onchange'] = 'getTipoSolicitacao(this.value);';
 		$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
-		$tituloCab[3]['label'] = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
+		$tituloCab[3]['label']  = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
 		$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
 		
 		// se tem parecer exibie parecer e complexidade

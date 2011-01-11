@@ -68,6 +68,19 @@ class Usuario extends AppModel {
         );
 
 	/**
+	 * Relacionamento belongsTo 
+	 */
+	public $belongsTo		= array
+	(
+		'Departamento'  	=> array(
+			'className'		=> 'Departamento',
+			'foreignKey'	=> 'departamento_id',
+			'fields'		=> 'id, nome'
+		)
+	);
+
+
+	/**
 	 * Relacionamento entre as tabelas usuarios e perfis
 	 */
 	public $hasAndBelongsToMany	= array

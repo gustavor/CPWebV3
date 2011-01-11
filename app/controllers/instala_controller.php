@@ -36,7 +36,7 @@ class InstalaController extends AppController {
 	public $csv	= array('estados','perfis','usuarios_perfil','cidades',
                         'status','naturezas','comarcas','gestoes',
                         'segmentos','equipes','fases','tipos_partes',
-                        'complexidades','destinos','instancias','tipos_audiencias',
+                        'complexidades','departamentos','instancias','tipos_audiencias',
                         'tipos_processos','orgaos','tipos_pareceres','tipos_peticoes','tipos_solicitacoes');
 
 	/**

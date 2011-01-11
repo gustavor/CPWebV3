@@ -71,8 +71,13 @@
 
 	$campos['Perfil']['options']['label']['text']					= 'Perfis';
 	$campos['Perfil']['options']['multiple']						= 'checkbox';
+	
+	$campos[$modelClass]['departamento_id']['options']['label']['text']	= 'Departamento';
+	$campos[$modelClass]['departamento_id']['options']['style'] 		= 'width:400px';
+	$campos[$modelClass]['departamento_id']['options']['empty'] 		= '-- escolha um opção --';
+	if (isset($departamentos)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamentos;
 
-	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#',$modelClass.'.departamento_id','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
 	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.isadvogado','Usuario.ultimo_acesso');
 
 	// se estamos na edição
@@ -120,7 +125,7 @@
 		{
 			if ($this->data['Usuario']['ultimo_acesso']=='0000-00-00 00:00:00')
 			{
-				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#','#','Usuario.modified','#','Usuario.created');
+				$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#','Usuario.departamento_id','#','Usuario.modified','#','Usuario.created');
 			}
 		}
 	}
@@ -128,7 +133,7 @@
 	// se estamos na inclusão
 	if ($this->action=='novo')
 	{
-		$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.isadvogado');
+		$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.isadvogado','#','Usuario.departamento_id');
 		$campos['Usuario']['login']['options']['readonly']				= null;
 		$on_read_view .= '$("#UsuarioLogin").focus();';
 	}

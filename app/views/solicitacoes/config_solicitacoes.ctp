@@ -2,16 +2,9 @@
 	$campos[$modelClass]['solicitacao']['options']['label']['text'] 		= 'Solicitacao';
 	$campos[$modelClass]['solicitacao']['options']['style'] 				= 'width: 600px; text-transform: uppercase';
 
-	$campos[$modelClass]['destino_id']['options']['label']['text']		= 'Destino';
-	$campos[$modelClass]['destino_id']['options']['style']				= 'width: 300px';
-	$campos[$modelClass]['destino_id']['options']['empty'] 						= '-- escolha um opção --';
-	if (isset($destinos)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] 	= $destinos;
-
-	$campos['Destino']['nome']['options']['label']['text']					= 'Destino';
-
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao','#',$modelClass.'.destino_id','#',$modelClass.'.modified','#',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.solicitacao','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='imprimir')
@@ -21,9 +14,9 @@
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao','#',$modelClass.'.destino_id');
+		$edicaoCampos = array($modelClass.'.solicitacao');
 	}
-	
+
 	if ($action=='editar' || $action=='novo')
 	{
 		$on_read_view .= "\n".'$("#'.$modelClass.'Solicitacao").focus();';
@@ -37,9 +30,8 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 										= array($modelClass.'.solicitacao','Destino.nome',$modelClass.'.modified',$modelClass.'.created');
+		$listaCampos 										= array($modelClass.'.solicitacao',$modelClass.'.modified',$modelClass.'.created');
 		$campos[$modelClass]['solicitacao']['estilo_th'] 	= 'width="400px"';
-		$campos['Destino']['nome']['estilo_th'] 			= 'width="200px"';
 		$campos[$modelClass]['parent_code']['estilo_th'] 	= 'width="100px"';
 	}
 ?>

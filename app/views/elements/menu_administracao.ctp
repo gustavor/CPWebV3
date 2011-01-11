@@ -37,8 +37,8 @@
 	$listaMenu['tipos_audiencias']['url'] 		= Router::url('/',true).'tipos_audiencias';
 	$listaMenu['audiencias']['text'] 			= 'Audiências';
 	$listaMenu['audiencias']['url'] 			= Router::url('/',true).'audiencias';
-	$listaMenu['destinos']['text'] 				= 'Destinos';
-	$listaMenu['destinos']['url'] 				= Router::url('/',true).'destinos';
+	$listaMenu['departamentos']['text'] 		= 'Departamentos';
+	$listaMenu['departamentos']['url'] 			= Router::url('/',true).'departamentos';
 	$listaMenu['tipos_pareceres']['text'] 		= 'Tipos Parecer';
 	$listaMenu['tipos_pareceres']['url'] 		= Router::url('/',true).'tipos_pareceres';
 	$listaMenu['complexidades']['text'] 		= 'Complexidades';
