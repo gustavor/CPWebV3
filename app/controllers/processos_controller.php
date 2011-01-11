@@ -98,6 +98,19 @@ class ProcessosController extends AppController {
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
 
+    /**
+	 * Filtra os dados em dbgrid utilizando named parameters
+	 *
+	 * @parameter integer 	$pag 		Número da página
+	 * @parameter string 	$ordem 		Campo usado no order by da sql
+	 * @parameter string 	$direcao 	Direção ASC ou DESC
+	 * @return void
+	 */
+	public function filtrar()
+	{
+		$this->CpwebCrud->filtrar();
+	}
+
 	/**
 	 * Exibe formulário de edição
 	 * 

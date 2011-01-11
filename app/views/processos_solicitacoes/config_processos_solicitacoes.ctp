@@ -102,7 +102,7 @@
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
 	}
 
-	if ($action=='listar')	
+	if ($action=='listar' || $action=='filtrar')	
 	{
 		$listaCampos = array($modelClass.'.data_atendimento',$modelClass.'.data_fechamento',$modelClass.'.finalizada',$modelClass.'.modified',$modelClass.'.created');
 	}

@@ -5,11 +5,11 @@
 	</li>
 
 	<?php if (!in_array('minhas_solicitacoes',$this->Session->read('urlsNao'))) : ?>
-	<li><a href="<?php echo Router::url('/').'minhas_solicitacoes'; ?>">Minhas Solicitações</a></li>
+	<li><a href="<?php echo Router::url('/').'processos_solicitacoes/filtrar/usuario_atribuido:' . $this->Session->read( 'Auth.Usuario.id' ) . '/finalizada:0' ; ?>">Minhas Solicitações</a></li>
 	<?php endif; ?>
 
 	<?php if (!in_array('solicitacoes_departamentos',$this->Session->read('urlsNao'))) : ?>
-	<li><a href="<?php echo Router::url('/').'solicitacoes_departamentos'; ?>">Solicitações do Departamento</a></li>
+	<li><a href="<?php echo Router::url('/').'processos_solicitacoes/filtrar/departamento_id:' . $this->Session->read( 'Auth.Usuario.departamento_id' ) . '/finalizada:0'; ?>">Solicitações do Departamento</a></li>
 	<?php endif; ?>
 
 	<li>
