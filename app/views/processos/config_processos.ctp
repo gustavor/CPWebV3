@@ -59,7 +59,7 @@
 	$campos[$modelClass]['distribuicao']['options']['label']['text'] 					= 'Data de Distribuição';
 	$campos[$modelClass]['distribuicao']['options']['dateFormat'] 						= 'DMY';
 	$campos[$modelClass]['distribuicao']['options']['timeFormat'] 						= '24';
-	$campos[$modelClass]['distribuicao']['mascara'] 									= 'datahora';
+	$campos[$modelClass]['distribuicao']['mascara'] 									= 'data';
 	$campos[$modelClass]['distribuicao']['estilo_th'] 									= 'width="200px"';
 	$campos[$modelClass]['distribuicao']['estilo_td'] 									= 'style="text-align: center; "';
 
@@ -207,7 +207,7 @@
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
-	if ($action=='listar')	
+	if ($action=='listar' || $action == 'filtrar')	
 	{
 		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.parte_contraria',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
 		$campos[$modelClass]['parte_contraria']['estilo_th'] 	= 'width="200px"';
