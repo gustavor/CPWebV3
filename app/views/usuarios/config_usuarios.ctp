@@ -1,5 +1,4 @@
 <?php
-	$tamLista 		                                                = '880px';
 	$campos['Usuario']['login']['options']['label']['text'] 		= 'Login';
 	$campos['Usuario']['login']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['login']['options']['style']					= 'text-align: center; width: 120px; ';

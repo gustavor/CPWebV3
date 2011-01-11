@@ -1,1 +1,1 @@
-<div id="logo"><?php debug( $_SESSION )?> </div>
+<div id="logo"></div>

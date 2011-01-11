@@ -9,7 +9,7 @@
 	<?php endif; ?>
 
 	<?php if (!in_array('solicitacoes_departamentos',$this->Session->read('urlsNao'))) : ?>
-	<li><a href="<?php echo Router::url('/').'processos_solicitacoes/filtrar/departamento_id:' . $this->Session->read( 'Auth.Usuario.departamento_id' ) . '/finalizada:0'; ?>">Solicitações do Departamento</a></li>
+	<li><a href="<?php echo Router::url('/').'processos_solicitacoes/filtrar/departamento_id:' . $this->Session->read( 'Auth.Usuario.departamento_id' ) . '/finalizada:0/usuario_atribuido:0'; ?>">Solicitações do Departamento</a></li>
 	<?php endif; ?>
 
 	<li>

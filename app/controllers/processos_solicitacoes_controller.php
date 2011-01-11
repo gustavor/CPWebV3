@@ -121,8 +121,28 @@ class ProcessosSolicitacoesController extends AppController {
 		if (isset($this->data))
 		{
 			$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
+			if (isset($this->data['ProcessoSolicitacao']['finalizada']) && !empty($this->data['ProcessoSolicitacao']['finalizada']) )
+			{
+				$this->Session->setFlash('<span style="font-size: 16px;">Registro atualizado e FINALIZADO com sucesso !!!</span>');
+				$idUsuarioAtribuido = (!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])) ? $this->data['ProcessoSolicitacao']['usuario_atribuido'] : $this->data['ProcessoSolicitacao']['usuario_solicitante'];
+				debug($idUsuarioAtribuido);
+			}
 		}
 		$this->CpwebCrud->editar($id);
+		if (isset($this->data))
+		{
+			if (isset($this->data['ProcessoSolicitacao']['finalizada']) && !empty($this->data['ProcessoSolicitacao']['finalizada']) )
+			{
+				$this->Session->setFlash('<span style="font-size: 16px;">Registro atualizado e FINALIZADO com sucesso !!!</span>');
+				$idUsuarioAtribuido = (!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])) ? $this->data['ProcessoSolicitacao']['usuario_atribuido'] : $this->data['ProcessoSolicitacao']['usuario_solicitante'];
+				if (!empty($idUsuarioAtribuido))
+				{
+					$this->loadModel('Usuario');
+					$usuario = $this->Usuario->read(null,$idUsuarioAtribuido);
+					$this->set('atribuido',$usuario['Usuario']['nome']);
+				}
+			}
+		}
 	}
 
 	/**
