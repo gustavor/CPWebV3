@@ -84,9 +84,6 @@ class InstalaController extends AppController {
 	 */
 	private function getInstala($nome,$admin,$senha,$email)
 	{
-		// desligando o debug
-		Configure::write('debug', 0);
-
 		// instancio o datasource só pra pegar erros do banco
 		$db = ConnectionManager::getDataSource('default'); 
 

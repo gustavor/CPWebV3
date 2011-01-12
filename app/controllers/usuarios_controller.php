@@ -52,6 +52,16 @@ class UsuariosController extends AppController {
 	 */
 	public $components	= array('CpwebCrud','Session');
 
+	/**
+	 * Antes de exibir a tela no browser
+	 * 
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		$this->viewVars['tituloCab'][1]['label'] = 'Usuários';
+		parent::beforeRender();
+	}
 
 	/**
 	 * Método chamado antes de qualquer outro método

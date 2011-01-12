@@ -28,13 +28,16 @@ class AppController extends Controller {
 	public $components = array('Auth','Session');
 
 	/**
+	 * Antes do Filtro
 	 * 
+	 * @return void
 	 */
 	public function beforeFilter()
 	{
 		if ($this->params['controller']=='instala')
 		{
 			$this->Auth->enabled = false;
+			Configure::write('debug', 2);
 		} else
 		{
 			// trocando o layout, caso seja pedido ajax
@@ -71,7 +74,7 @@ class AppController extends Controller {
 				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
 				
 				// atualizando o último acesso do usuário
-				//$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
+				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
 				
 				// jogando os perfis do usuário na sessão
 				if (!$this->Session->check('perfis'))
