@@ -128,7 +128,6 @@ class CpwebCrudComponent extends Object {
          $this->setFerramentasLista();
      }
 
-	 
 	 /**
 	  * Executa a edição do registro
 	  * 
@@ -299,6 +298,25 @@ class CpwebCrudComponent extends Object {
 		$this->controller->render($relatorio);
 	}
 
+	 /**
+	  * Retorna a url de complementação da lista, informando página, ordem e ordenação
+	  * 
+	  * @return string $url
+	  */
+	 public function getParametrosLista()
+	 {
+		$url	= '';
+		$page	= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
+		$sort	= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
+		$dire	= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
+
+		if ($page) $url	.= '/page:'.$page;
+		if ($sort) $url	.= '/sort:'.$sort;
+		if ($dire) $url	.= '/direction:'.$dire;
+
+		return $url;
+	 }
+
 	/**
 	 * Configura os relacionamentos do model corrente, joga na view a lista 
 	 * 
@@ -459,25 +477,6 @@ class CpwebCrudComponent extends Object {
 		if (isset($this->controller->params['named']['page']))  $this->controller->Session->write($this->controller->name.'.Page',$this->controller->params['named']['page']);
 		if (isset($this->controller->params['named']['sort']))  $this->controller->Session->write($this->controller->name.'.Sort',$this->controller->params['named']['sort']);
 		if (isset($this->controller->params['named']['direction']))  $this->controller->Session->write($this->controller->name.'.Dire',$this->controller->params['named']['direction']);
-	 }
-	 
-	 /**
-	  * Retorna a url de complementação da lista, informando página, ordem e ordenação
-	  * 
-	  * @return string $url
-	  */
-	 private function getParametrosLista()
-	 {
-		$url	= '';
-		$page	= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
-		$sort	= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
-		$dire	= ($this->controller->Session->check($this->controller->name.'.Dire')) ? $this->controller->Session->read($this->controller->name.'.Dire') : '';
-
-		if ($page) $url	.= '/page:'.$page;
-		if ($sort) $url	.= '/sort:'.$sort;
-		if ($dire) $url	.= '/direction:'.$dire;
-
-		return $url;
 	 }
 	 
 	 /**

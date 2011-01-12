@@ -237,7 +237,7 @@ class AppController extends Controller {
 				$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
 				$action2 = $idProcesso;
 			}
-			$tituloCab[3]['label'] = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
+			$tituloCab[3]['label'] 	= 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
 			$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
 			$this->set(compact('idProcesso','action2','tituloCab'));
 		}

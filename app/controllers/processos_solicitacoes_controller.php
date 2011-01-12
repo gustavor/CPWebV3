@@ -70,7 +70,7 @@ class ProcessosSolicitacoesController extends AppController {
 	public function beforeRender()
 	{
 		$this->viewVars['tituloCab'][1]['label'] = 'Processos e Solicitações';
-		$this->setIdProcesso();
+		if ($this->action!='filtrar') $this->setIdProcesso();
 		parent::beforeRender();
 	}
 
@@ -120,20 +120,23 @@ class ProcessosSolicitacoesController extends AppController {
 	{
 		if (isset($this->data))
 		{
-			$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
-			if (isset($this->data['ProcessoSolicitacao']['finalizada']) && !empty($this->data['ProcessoSolicitacao']['finalizada']) )
-			{
-				$this->Session->setFlash('<span style="font-size: 16px;">Registro atualizado e FINALIZADO com sucesso !!!</span>');
-				$idUsuarioAtribuido = (!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])) ? $this->data['ProcessoSolicitacao']['usuario_atribuido'] : $this->data['ProcessoSolicitacao']['usuario_solicitante'];
-				debug($idUsuarioAtribuido);
-			}
+			//$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
 		}
 		$this->CpwebCrud->editar($id);
 		if (isset($this->data))
 		{
-			if (isset($this->data['ProcessoSolicitacao']['finalizada']) && !empty($this->data['ProcessoSolicitacao']['finalizada']) )
+			// descobrindo o usuário atribuido por usuário atribuído ou usuário solicitante
+			if (
+					(
+						isset($this->data['ProcessoSolicitacao']['usuario_atribuido']) && 
+						!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])
+					) ||
+					(
+						isset($this->data['ProcessoSolicitacao']['usuario_solicitante']) && 
+						!empty($this->data['ProcessoSolicitacao']['usuario_solicitante'])
+					)
+				)
 			{
-				$this->Session->setFlash('<span style="font-size: 16px;">Registro atualizado e FINALIZADO com sucesso !!!</span>');
 				$idUsuarioAtribuido = (!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])) ? $this->data['ProcessoSolicitacao']['usuario_atribuido'] : $this->data['ProcessoSolicitacao']['usuario_solicitante'];
 				if (!empty($idUsuarioAtribuido))
 				{
@@ -154,7 +157,7 @@ class ProcessosSolicitacoesController extends AppController {
 	{
 		if (isset($this->data))
 		{
-			$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
+			//$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
 		}
 		if ($id)
 		{
@@ -173,7 +176,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * 
 	 * @return 		void
 	 */
-	public function excluir($id=null)
+	public function excluir($id=null,$processo=null,$idProcesso=null)
 	{
 		$this->CpwebCrud->excluir($id);
 	}
@@ -183,9 +186,17 @@ class ProcessosSolicitacoesController extends AppController {
 	 * 
 	 * @return 		void
 	 */
-	public function delete($id=null)
+	public function delete($id=null,$idProcesso=null)
 	{
-		$this->CpwebCrud->delete($id);
+		// excluíndo o registro
+		if ($this->ProcessoSolicitacao->delete($id)) 
+		{
+			$this->Session->setFlash('Solicitação excluída com sucesso !!!');
+			$this->redirect(Router::url('/',true).'processos_solicitacoes/listar/processo/'.$idProcesso.$this->CpwebCrud->getParametrosLista());
+		} else
+		{
+			$this->Session->setFlash('Não foi possível deletar o id '.$id);
+		}
 	}
 
 	/**

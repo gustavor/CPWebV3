@@ -60,10 +60,14 @@
 				{
 					$destaque = '';
 					// Destacando as cidades de MG
-					if ($_modelo=='Estado' && $_campo=='nome' && $_valor=='Minas Gerais') if (!isset($lista['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) $destaque = 'style="background-color: #f2f378;"';
+					if ($_modelo=='Estado' && $_campo=='nome' && $_valor=='Minas Gerais') 
+						if (!isset($lista['estilo_tr_'.$this->data[$_linha]['Cidade']['id']])) 
+							$destaque = 'style="background-color: #f2f378;"';
 
 					// Destacando Belo Horizonte
-					if ($_modelo=='Cidade' && $_campo=='nome' && mb_strtolower($_valor)=='belo horizonte') $destaque = 'style="background-color: #9fed9f;"';
+					if ($_modelo=='Cidade' && $_campo=='nome' && mb_strtolower($_valor)=='belo horizonte')
+						$destaque = 'style="background-color: #9fed9f;"';
+
 					if ($destaque) $lista['estilo_tr_'.$this->data[$_linha]['Cidade']['id']] = $destaque;
 				}
 			}

@@ -58,27 +58,40 @@
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['label']['text'] 				= 'TipoSolicitação';
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['empty'] 						= '-- escolha um opção --';
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['default']  						= 3;
+	$campos[$modelClass]['tipo_solicitacao_id']['options']['class']  						= 'edicaoSelect';
 	
+	$campos[$modelClass]['idProcesso']['options']['label']['text'] 							= 'Id do Processo';
+	$campos[$modelClass]['idProcesso']['estilo_th'] 										= 'width="110px"';
+	$campos[$modelClass]['idProcesso']['estilo_td'] 										= 'style="text-align: center;"';
+
+	$campos[$modelClass]['created']['options']['label']['text'] 							= 'Solicitado em';
+	$campos[$modelClass]['created']['estilo_th'] 											= 'width="118px"';
+
 	if (isset($tipossolicitacoes)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] = $tipossolicitacoes;
 
-	$campos[$modelClass]['usuario_atribuido']['options']['type']			 	= 'hidden';
+	$campos[$modelClass]['usuario_atribuido']['options']['type']			 				= 'hidden';
+
+	$campos['Solicitacao']['solicitacao']['options']['label']['text'] 						= 'Solicitação';
+	$campos['Solicitacao']['solicitacao']['estilo_th'] 										= 'width="190px"';
+
+	$campos['Complexidade']['nome']['options']['label']['text'] 							= 'Complexidade';
+	$campos['Complexidade']['nome']['estilo_th'] 											= 'width="140px"';
+
+	$campos	['TipoParecer']['nome']['options']['label']['text'] 								= 'Tipo de Parecer';
+
+	$campos['TipoPeticao']['nome']['options']['label']['text'] 								= 'Tipo de Petição';
+	$campos['TipoPeticao']['nome']['estilo_th'] 											= 'width="140px"';
 
 	// descobrindo o id do processo
-	$idProcesso	= isset($idProcesso) ? $idProcesso : '';
-	if (empty($idProcesso))	$idProcesso = ( isset($this->params['pass'][1]) && is_numeric($this->params['pass'][1]) ) ? $this->params['pass'][1] : '';
-	if (empty($idProcesso)) $idProcesso = ( isset($this->params['pass'][0]) && is_numeric($this->params['pass'][0]) ) ? $this->params['pass'][0] : '';
+	$idProcesso	= isset($idProcesso) ? $idProcesso : '';	
 
 	if (!empty($atribuido))
 	{
 		$formAlerta = '<p>Solicitação Atribuida a: <br />';
-		$formAlerta .= $atribuido.'<br />';
+		$formAlerta .= $atribuido;
 		$formAlerta .= '</p>';
-	}
-
-	if ($action=='filtrar')
-	{
-		$botoesLista 		= array();
-		$listaFerramentas	= array();
+		$on_read_view .= "\n\t".'$("#formAlerta").css("width","296px");';
+		$on_read_view .= "\n\t".'$("#formAlerta").css("background-color","#a9dea9");';
 	}
 
 	if ($action=='editar' || $action=='excluir')
@@ -120,11 +133,18 @@
 		{
 			$redirecionamentos['Atribuir a Mim']['onclick'] 			= '';
 			$redirecionamentos['Atribuir a Adv. Resp.']['onclick'] 		= '';
-			$on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); alert("Não esqueça de Salvar para concluir a atribuição !!!"); });';
+			$on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); this.form.submit(); });';
 			if (isset($processos[$this->data['ProcessoSolicitacao']['processo_id']]))
 			{
-				$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$processos[$this->data['ProcessoSolicitacao']['processo_id']].'"); alert("Não esqueça de Salvar para concluir a atribuição !!!"); });';
+				$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$processos[$this->data['ProcessoSolicitacao']['processo_id']].'"); this.form.submit(); });';
 			}
+		} else
+		{
+			$formAlerta = '<p>Solicitação Finalizada !!! <p>';
+			$on_read_view .= "\n\t".'$("#formAlerta").css("width","296px");';
+			$on_read_view .= "\n\t".'$("#formAlerta").css("background-color","#9fed9f");';
+			$on_read_view .= "\n\t".'$("#formAlerta").css("font-weight","bold");';
+			$on_read_view .= "\n\t".'$("#formAlerta").css("text-align","center");';
 		}
 
 		// se possui usuário atribuido e a solicitação não foi fechada, cria-se um botão para finalizá-la
@@ -142,7 +162,31 @@
 
 	if ($action=='listar' || $action=='filtrar')	
 	{
-		$listaCampos = array($modelClass.'.data_atendimento',$modelClass.'.finalizada',$modelClass.'.data_fechamento',$modelClass.'.modified',$modelClass.'.created');
+		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','TipoParecer.nome','TipoPeticao.nome');
+		
+		// criando o campo 
+		foreach($this->data as $_linha => $_modelos)
+		{
+			$_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
+			$this->data[$_linha]['ProcessoSolicitacao']['idProcesso'] = 'VEBH - '.str_repeat('0',5-strlen($_idProcesso)).$_idProcesso;
+			foreach($_modelos as $_modelo => $_campos)
+			{
+				foreach($_campos as $_campo => $_valor)
+				{
+					$destaque = '';
+					// Destacando as solicitações finalizadas em verde
+					if ($_modelo=='ProcessoSolicitacao' && $_campo=='finalizada' && $_valor==1)
+						if (!isset($lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']]))
+							$destaque = 'style="background-color: #9fed9f;"';
+
+					if ($_modelo=='ProcessoSolicitacao' && $_campo=='finalizada' && $_valor==0)
+						if (!isset($lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']]))
+							$destaque = 'style="background-color: #f1ccb5;"';
+
+					if ($destaque) $lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']] = $destaque;
+				}
+			}
+		}
 	}
 	
 	// se tem idProcesso
@@ -161,7 +205,13 @@
 				$modelClass.'.departamento_id','#',
 				$modelClass.'.obs');
 		}
-		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
+		if (isset($botoesEdicao['Listar']) 	&& count($botoesEdicao['Listar'])) 		$botoesEdicao['Listar']['onClick'] 	= 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
+		if (isset($botoesEdicao['Novo'])   	&& count($botoesEdicao['Novo']))		$botoesEdicao['Novo']['onClick'] 	= 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$idProcesso.'\'';
+		if (isset($msgEdicao))
+		{
+			$msgEdicao = 'Você tem certeza de Excluir esta solicitação ? <a href="'.Router::url('/',true).$name.'/delete/'.$id.'/'.$idProcesso.''.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
+		}
+		
 		$campos[$modelClass]['tipo_solicitacao_id']['options']['onchange'] = 'getTipoSolicitacao(this.value);';
 		$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
 		$tituloCab[3]['label']  = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
@@ -187,6 +237,6 @@
 		$on_read_view .= "\n\t".'$("#divProcessoSolicitacaoTipoParecerId").fadeIn();';
 		$on_read_view .= "\n\t".'$("#divProcessoSolicitacaoTipoPeticaoId").fadeIn();';
 		$on_read_view .= "\n\t".'$("#divProcessoSolicitacaoComplexidadeId").fadeIn();';
-		$botoesLista = array();
+		if ($action=='filtrar') $botoesLista = array();
 	}
 ?>
