@@ -118,10 +118,6 @@ class ProcessosSolicitacoesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		if (isset($this->data))
-		{
-			//$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
-		}
 		$this->CpwebCrud->editar($id);
 		if (isset($this->data))
 		{
@@ -130,14 +126,10 @@ class ProcessosSolicitacoesController extends AppController {
 					(
 						isset($this->data['ProcessoSolicitacao']['usuario_atribuido']) && 
 						!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])
-					) ||
-					(
-						isset($this->data['ProcessoSolicitacao']['usuario_solicitante']) && 
-						!empty($this->data['ProcessoSolicitacao']['usuario_solicitante'])
 					)
-				)
+                )
 			{
-				$idUsuarioAtribuido = (!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])) ? $this->data['ProcessoSolicitacao']['usuario_atribuido'] : $this->data['ProcessoSolicitacao']['usuario_solicitante'];
+				$idUsuarioAtribuido = (!empty($this->data['ProcessoSolicitacao']['usuario_atribuido'])) ? $this->data['ProcessoSolicitacao']['usuario_atribuido'] : 0;
 				if (!empty($idUsuarioAtribuido))
 				{
 					$this->loadModel('Usuario');

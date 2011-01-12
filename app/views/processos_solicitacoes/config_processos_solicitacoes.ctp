@@ -71,6 +71,10 @@
 
 	$campos[$modelClass]['usuario_atribuido']['options']['type']			 				= 'hidden';
 
+    $campos[$modelClass]['usuario_solicitante']['options']['type']                          = 'hidden';
+    $campos[$modelClass]['usuario_solicitante']['options']['value']                         = $this->Session->read( 'Auth.Usuario.id' );
+
+
 	$campos['Solicitacao']['solicitacao']['options']['label']['text'] 						= 'Solicitação';
 	$campos['Solicitacao']['solicitacao']['estilo_th'] 										= 'width="190px"';
 
@@ -167,7 +171,8 @@
 		// criando o campo 
 		foreach($this->data as $_linha => $_modelos)
 		{
-			$_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
+			$_usuarioAtribuido = $_modelos['ProcessoSolicitacao']['usuario_atribuido'];
+            $_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
 			$this->data[$_linha]['ProcessoSolicitacao']['idProcesso'] = 'VEBH - '.str_repeat('0',5-strlen($_idProcesso)).$_idProcesso;
 			foreach($_modelos as $_modelo => $_campos)
 			{
@@ -179,9 +184,14 @@
 						if (!isset($lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']]))
 							$destaque = 'style="background-color: #9fed9f;"';
 
-					if ($_modelo=='ProcessoSolicitacao' && $_campo=='finalizada' && $_valor==0)
+                    // Destacando as solicitações abertas em vermelho
+                    if ($_modelo=='ProcessoSolicitacao' && $_campo=='finalizada' && $_valor==0)
 						if (!isset($lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']]))
 							$destaque = 'style="background-color: #f1ccb5;"';
+
+                    if ( $_usuarioAtribuido == 0 )
+                        if (!isset($lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']]))
+							$destaque = 'style="background-color: #cccccc;"';
 
 					if ($destaque) $lista['estilo_tr_'.$this->data[$_linha]['ProcessoSolicitacao']['id']] = $destaque;
 				}
@@ -203,6 +213,7 @@
 				$modelClass.'.tipo_parecer_id',
 				$modelClass.'.complexidade_id','#',
 				$modelClass.'.departamento_id','#',
+                $modelClass.'.usuario_solicitante',
 				$modelClass.'.obs');
 		}
 		if (isset($botoesEdicao['Listar']) 	&& count($botoesEdicao['Listar'])) 		$botoesEdicao['Listar']['onClick'] 	= 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
