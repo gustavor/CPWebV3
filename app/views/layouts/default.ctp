@@ -45,7 +45,7 @@
 	<?php endif ?>
 
 	<div id="userOn">
-		<?php if ($this->Session->check('Auth.Usuario.login')) echo '<a href="'.Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id').'">'.$this->Session->read('Auth.Usuario.login').'</a> | <a href="'.Router::url('/',true).'usuarios/sair">sair</a>'; else echo '<a href="'.Router::url('/',true).'login">Login</a>'; ?>
+		<?php if ($this->Session->check('Auth.Usuario.login')) echo '<a href="'.Router::url('/',true).'usuarios/editar/'.$this->Session->read('Auth.Usuario.id').'">'.ucwords(mb_strtolower($this->Session->read('Auth.Usuario.nome'))).'</a> | <a href="'.Router::url('/',true).'usuarios/sair">Sair</a>'; else echo '<a href="'.Router::url('/',true).'login">Login</a>'; ?>
 
 	</div>
 

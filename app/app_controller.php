@@ -71,7 +71,7 @@ class AppController extends Controller {
 				$this->loadModel('Perfil');
 
 				// jogando na visão o tempo máximo em que o usuário pode ficar on-line
-				$this->set('tempoOn',($this->Session->read('Config.timeout')*100));
+				$this->set('tempoOn',($this->Session->read('Config.timeout')*120));
 				
 				// atualizando o último acesso do usuário
 				$this->Usuario->updateAll(array('Usuario.ultimo_acesso'=>'"'.date('Y-m-d H:i:s').'"'),array('Usuario.id'=>$this->Session->read('Auth.Usuario.id')));
