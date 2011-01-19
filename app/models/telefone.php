@@ -24,25 +24,15 @@ class Telefone extends AppModel {
 	public $name 			= 'Telefone';
 	public $displayField	= 'contato';
 	public $order			= 'contato';
-
-	public $belongsTo = array(
-		'Cliente' => array(
-			'className' => 'Cliente',
-			'foreignKey' => 'cliente_id',
-			'conditions' => '',
-			'fields' => 'id, nome',
-			'order' => 'nome'
-		)
-	);
 	
 	/**
+	 * Antes da Validação
 	 * 
+	 * @return void
 	 */
 	public function beforeValidate()
 	{
-		if (isset($this->data[$this->name]['telefone'])) $this->data[$this->name]['telefone'] = ereg_replace('[./-]','',$this->data[$this->name]['telefone']);	
-		
-		//parent::beforeValidate();
+		if (isset($this->data[$this->name]['telefone'])) $this->data[$this->name]['telefone'] = ereg_replace('[./-]','',$this->data[$this->name]['telefone']);
 	}
 }
 ?>

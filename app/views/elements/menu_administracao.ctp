@@ -61,6 +61,9 @@
 	$listaMenu['checklists']['url'] 			= Router::url('/',true).'checklists';
 	$listaMenu['solicitacoes']['text'] 			= 'Solicitações';
 	$listaMenu['solicitacoes']['url'] 			= Router::url('/',true).'solicitacoes';
+	$listaMenu['partes_contrarias']['text'] 	= 'Partes Contrárias';
+	$listaMenu['partes_contrarias']['url'] 		= Router::url('/',true).'partes_contrarias';
+
 
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;

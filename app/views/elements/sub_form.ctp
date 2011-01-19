@@ -38,20 +38,23 @@
 		</tr>
 
 		<?php
-			for($i=0; $i<count($subFormData); $i++)
+			foreach($subFormData as $_linha => $_arrModelo)
 			{
-				$id = $subFormData[$i]['id'];
-				echo "<tr id='tr".($id)."'>\n";
-				foreach($subFormCamposLista	as $_item => $_campo)
+				foreach($_arrModelo as $_modelo => $_arrCampos)
 				{
-					$opcoes		= isset($subFormCampos[$_campo]['options']) 	? $subFormCampos[$_campo]['options'] : array();
-					$mascara	= isset($subFormCampos[$_campo]['mascara']) 	? $subFormCampos[$_campo]['mascara'] : null;
-					$td 		= isset($subFormCampos[$_campo]['td']) 			? ' '.$subFormCampos[$_campo]['td'].' ' : '';
-					if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm_'.$id.'_'.$_campo).'").setMask("'.$mascara.'");';
-					$opcoes['value'] = $subFormData[$i][$_campo];
-					$opcoes['label'] = false;
-					$opcoes['div'] 	 = false;
-					echo '<td'.$td.'>'.$this->Form->input('subForm_'.$id.'_'.$_campo,$opcoes).'</td>'."\n";
+					$id = $_arrCampos['id'];
+					echo "<tr id='tr".($id)."'>\n";
+					foreach($subFormCamposLista	as $_item => $_campo)
+					{
+						$opcoes		= isset($subFormCampos[$_campo]['options']) 	? $subFormCampos[$_campo]['options'] : array();
+						$mascara	= isset($subFormCampos[$_campo]['mascara']) 	? $subFormCampos[$_campo]['mascara'] : null;
+						$td 		= isset($subFormCampos[$_campo]['td']) 			? ' '.$subFormCampos[$_campo]['td'].' ' : '';
+						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm_'.$id.'_'.$_campo).'").setMask("'.$mascara.'");';
+						$opcoes['value'] = $_arrCampos[$_campo];
+						$opcoes['label'] = false;
+						$opcoes['div'] 	 = false;
+						echo '<td'.$td.'>'.$this->Form->input('subForm_'.$id.'_'.$_campo,$opcoes).'</td>'."\n";
+					}
 				}
 
 				// incluindo as ferramentas

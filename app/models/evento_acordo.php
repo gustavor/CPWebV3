@@ -22,7 +22,7 @@
 class EventoAcordo extends AppModel {
 
 	public $name 		= 'EventoAcordo';
-	public $useTable 	= 'eventos_acordo';
+	public $useTable 	= 'eventos_acordos';
 	public $displayField= 'evento';
 
 	public $validate = array(
@@ -32,17 +32,6 @@ class EventoAcordo extends AppModel {
 			'message' => 'É necessário informar a descrição do evento!'
 		)
 	);
-
-	/**
-	 * Relacionamento com processos
-	 */
-	public $belongsTo = array
-	(
-		'Processo' => array
-		(
-			'className' => 'Processo',
-			'foreignKey' => 'processo_id',
-			'fields' => 'id, numero'
-		)
-	);
 }
+
+?>

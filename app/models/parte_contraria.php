@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/model/cliente.php
+ * app/model/parte_contraria.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,11 +19,12 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Cliente extends AppModel {
+class ParteContraria extends AppModel {
 
-        public $nome 			= 'Cliente';
+        public $nome 			= 'ParteContraria';
+        public $useTable		= 'partes_contrarias';
         public $displayField	= 'nome';
-        public $order		 	= 'Cliente.nome';
+        public $order		 	= 'ParteContraria.nome';
 
         public $validate = array(
             'nome' => array
@@ -32,7 +33,7 @@ class Cliente extends AppModel {
 				(
 					'rule' 		=> 'notEmpty',
 					'required' 	=> true,
-					'message' 	=> 'É necessário informar o nome do Cliente!'
+					'message' 	=> 'É necessário informar o nome da Parte Contrária!'
                 )
             ),
 
@@ -71,13 +72,13 @@ class Cliente extends AppModel {
             'endereco' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
-                'message' => 'É necessário informar o endereço do Cliente!'
+                'message' => 'É necessário informar o endereço da Parte Contrária!'
             ),
 
             'cidade_id' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
-                'message' => 'É necessário informar a Cidade de domicílio do Cliente!'
+                'message' => 'É necessário informar a Cidade de domicílio da Parte Contrária!'
             )            
         );
         
@@ -119,4 +120,6 @@ class Cliente extends AppModel {
 		if (isset($this->data['Cliente']['cnpj'])) 	$this->data['Cliente']['cnpj'] = ereg_replace('[./-]','',$this->data['Cliente']['cnpj']);	
 		if (isset($this->data['Cliente']['cpf']))	$this->data['Cliente']['cpf'] = ereg_replace('[./-]','',$this->data['Cliente']['cpf']);
 	}
- }
+}
+
+?>

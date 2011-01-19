@@ -1,0 +1,66 @@
+#divParteContrariaTipoCliente
+{
+	/*background-color: #ddd;*/
+	width: 360px;
+	text-align: right;
+	line-height: 24px;
+}
+
+#divParteContrariaTipoCliente label
+{
+	margin: 0px 0px 0px 5px;
+}
+
+#divParteContrariaTipoCliente input
+{
+	margin: 0px 0px 0px 20px;
+}
+
+#divParteContrariaCnpj
+{
+	width: 210px;
+	margin: 0px 0px 0px 5px;
+	background-color: #9fed9f;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.labelParteContrariaCnpj
+{
+	width: 40px;
+	display: block;
+	float: left;
+	text-align: right;
+	margin-right: 3px;
+	line-height: 24px;
+}
+
+#divParteContrariaCpf
+{
+	display: none;
+	width: 190px;
+	margin: 0px 0px 0px 5px;
+	background-color: #c1d0e5;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#ParteContrariaObs
+{
+	width: 603px;
+}
+
+#ParteContrariaCidadeId
+{
+	width: 250px;
+}
+
+.labelParteContrariaCpf
+{
+	width: 40px;
+	display: block;
+	float: left;
+	text-align: right;
+	margin-right: 3px;
+	line-height: 24px;
+}

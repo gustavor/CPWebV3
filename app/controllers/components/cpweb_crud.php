@@ -343,7 +343,80 @@ class CpwebCrudComponent extends Object {
 			}
 		}
 	}
-	
+
+	/**
+	 * Atualiza o subformulário
+	 * obs: 
+	 * A tabela de subFormalário deve ser hasMany. 
+	 * os ids do modelo que não foram enviados serão deletados.
+	 * campos sem id serão incluídos
+	 * 
+	 * @parameter 	string 	$nomeCampoPai	Nome do campo pai
+	 * @parameter	string	$valorCampoPai	Valor do camo pai
+	 * @parameter 	string 	$modelo	Nome do modelo que será atualizado
+	 * @return		boolean
+	 */
+	public function setSubForm($modeloPai,$idPai,$modelo)
+	{
+		$dataModelo		= array();
+		$arrIdSalvos	= array();
+
+		// recuperando os ids que serão atualizados no modelo filho
+		foreach($this->controller->data[$this->controller->modelClass] as $campo => $valor)
+		{
+			if (substr($campo,0,8)=='subForm_')
+			{
+				$arrCampo 	= explode('_',$campo);
+				$id			= $arrCampo[1];
+				$dataModelo[$modelo][$id][$this->controller->$modelo->primaryKey] = $id;
+				$dataModelo[$modelo][$id][$arrCampo[2]] = $valor;
+				if(!in_array($arrCampo[1],$arrIdSalvos)) array_unshift($arrIdSalvos,$arrCampo[1]);
+			}
+		}
+
+		// deletando o modelo filho
+		$delCondicao['modelo']		= $modeloPai;
+		$delCondicao['modelo_id']	= $idPai;
+		if (count($arrIdSalvos)) $delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
+		if (!$this->controller->$modelo->deleteAll($delCondicao))
+		{
+			exit('Não foi possível deletar '.$modelo.' ...');
+			return false;
+		}
+
+		// atualizando o modelo filho
+		if (count($arrIdSalvos)) if (!$this->controller->$modelo->saveAll($dataModelo[$modelo]))
+		{
+			exit('Não foi possível ATUALIZAR '.$modelo.' ...');
+			return false;
+		}
+		
+		// incluindo omodelo filho
+		$dataModelo	= array();
+		foreach($this->controller->data[$this->controller->modelClass] as $campo => $valor)
+		{
+			if (substr($campo,0,12)=='subNovoForm_')
+			{
+				$arrCampo 	= explode('_',$campo);
+				if ($valor) $dataModelo[$modelo][$arrCampo[1]] = $valor;
+			}
+		}
+		if (count($dataModelo))
+		{
+			$dataModelo[$modelo][$this->controller->$modelo->primaryKey] = null;
+			$dataModelo[$modelo]['modelo']		= $modeloPai;
+			$dataModelo[$modelo]['modelo_id']	= $idPai;
+			$this->controller->$modelo->create();
+			if (!$this->controller->$modelo->save($dataModelo[$modelo]))
+			{
+				exit('Não foi possível INCLUIR '.$modelo.' ...');
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	 * Configura os botões para a edição
 	 * 

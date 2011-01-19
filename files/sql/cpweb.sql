@@ -201,9 +201,17 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`advogados_contrarios` (
   `modified` DATETIME NOT NULL ,
   `oab` INT(11) NOT NULL ,
   `nome` VARCHAR(200) NOT NULL ,
+  `endereco` VARCHAR(200) NOT NULL ,
   `e-mail` VARCHAR(99) NULL ,
   `obs` TEXT NULL ,
-  PRIMARY KEY (`id`) )
+  `cidade_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_advogados_contrarios_cidades1` (`cidade_id` ASC) ,
+  CONSTRAINT `fk_advogados_contrarios_cidades1`
+    FOREIGN KEY (`cidade_id` )
+    REFERENCES `cpwebv3`.`cidades` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
@@ -322,6 +330,36 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`partes_contrarias`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`partes_contrarias` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`partes_contrarias` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `tipo_cliente` TINYINT(1) NOT NULL ,
+  `cnpj` VARCHAR(14) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
+  `cpf` VARCHAR(11) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
+  `endereco` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `cidade_id` INT(11) NOT NULL ,
+  `obs` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_clientes_cidades1` (`cidade_id` ASC) ,
+  INDEX `i_nome` (`nome` ASC) ,
+  CONSTRAINT `fk_clientes_cidades10`
+    FOREIGN KEY (`cidade_id` )
+    REFERENCES `cpwebv3`.`cidades` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`processos`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`processos` ;
@@ -333,7 +371,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `distribuicao` DATE NOT NULL ,
   `cliente_id` INT(11) NOT NULL ,
   `tipo_parte_id` INT(11) NOT NULL ,
-  `parte_contraria` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `ordinal_orgao` INT(2) NULL ,
   `orgao_id` INT(11) NOT NULL ,
   `advogado_contrario_id` INT(11) NOT NULL ,
@@ -350,6 +387,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `obs` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
   `numero` VARCHAR(30) NOT NULL ,
   `numero_auxiliar` VARCHAR(30) NOT NULL ,
+  `parte_contraria_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_comarcas1` (`comarca_id` ASC) ,
   INDEX `fk_processos_status1` (`status_id` ASC) ,
@@ -367,6 +405,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   INDEX `i_numero_auxiliar` (`numero_auxiliar` ASC) ,
   INDEX `fk_processos_gestoes1` (`gestao_id` ASC) ,
   INDEX `fk_processos_usuarios1` (`usuario_id` ASC) ,
+  INDEX `fk_processos_partes_contrarias1` (`parte_contraria_id` ASC) ,
   CONSTRAINT `fk_processos_comarcas1`
     FOREIGN KEY (`comarca_id` )
     REFERENCES `cpwebv3`.`comarcas` (`id` )
@@ -435,6 +474,11 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   CONSTRAINT `fk_processos_usuarios1`
     FOREIGN KEY (`usuario_id` )
     REFERENCES `cpwebv3`.`usuarios` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_processos_partes_contrarias1`
+    FOREIGN KEY (`parte_contraria_id` )
+    REFERENCES `cpwebv3`.`partes_contrarias` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -557,18 +601,16 @@ DROP TABLE IF EXISTS `cpwebv3`.`telefones` ;
 CREATE  TABLE IF NOT EXISTS `cpwebv3`.`telefones` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
-  `cliente_id` INT(11) NOT NULL ,
   `ddd` VARCHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `telefone` VARCHAR(8) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `ramal` VARCHAR(4) NOT NULL ,
   `contato` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `modelo` VARCHAR(45) NOT NULL ,
+  `modelo_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_telefones_clientes` (`cliente_id` ASC) ,
-  CONSTRAINT `fk_telefones_clientes`
-    FOREIGN KEY (`cliente_id` )
-    REFERENCES `cpwebv3`.`clientes` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `i_telefone` (`telefone` ASC) ,
+  INDEX `i_modelo` (`modelo` ASC) ,
+  INDEX `i_modelo_id` (`modelo_id` ASC) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
@@ -802,22 +844,29 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`eventos_acordo`
+-- Table `cpwebv3`.`eventos_acordos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`eventos_acordo` ;
+DROP TABLE IF EXISTS `cpwebv3`.`eventos_acordos` ;
 
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordo` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `processo_id` INT(11) NOT NULL ,
+  `usuario_id` INT NOT NULL ,
   `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `data` DATE NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
+  INDEX `fk_eventos_acordo_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_movimentos_processos10`
     FOREIGN KEY (`processo_id` )
     REFERENCES `cpwebv3`.`processos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eventos_acordo_usuarios1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -931,6 +980,63 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls_usuario` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`efetividades`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`efetividades` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`efetividades` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `nome` VARCHAR(100) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`contatos_telefonicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`contatos_telefonicos` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`contatos_telefonicos` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `data` DATE NOT NULL ,
+  `nome` VARCHAR(60) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `processo_id` INT(11) NOT NULL ,
+  `efetividade_id` INT(11) NOT NULL ,
+  `usuario_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_telefone` (`nome` ASC) ,
+  INDEX `i_nome` (`nome` ASC) ,
+  INDEX `fk_contatos_telefonicos_processos1` (`processo_id` ASC) ,
+  INDEX `fk_contatos_telefonicos_efetividades1` (`efetividade_id` ASC) ,
+  INDEX `fk_contatos_telefonicos_usuarios1` (`usuario_id` ASC) ,
+  CONSTRAINT `fk_contatos_telefonicos_processos1`
+    FOREIGN KEY (`processo_id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contatos_telefonicos_efetividades1`
+    FOREIGN KEY (`efetividade_id` )
+    REFERENCES `cpwebv3`.`efetividades` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contatos_telefonicos_usuarios1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 

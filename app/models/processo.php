@@ -23,8 +23,8 @@ class Processo extends AppModel {
 
 	public $name 			= 'Processo';
 	public $useTable		= 'processos';
-	public $order		 	= 'parte_contraria';
-	public $displayField 	= 'parte_contraria';
+	public $order		 	= 'numero';
+	public $displayField 	= 'numero';
 	
 	/**
 	 * Validação
@@ -52,11 +52,11 @@ class Processo extends AppModel {
 			'required' 	=> true,
             'message'	=> 'É necessário informar uma Posição do Cliente no Processo !!!'
 		),
-		'parte_contraria'	=> array
+		'parte_contraria_id'	=> array
 		(
 			'rule'		=> 'notEmpty',
 			'required' 	=> true,
-            'message'	=> 'É necessário informar a parte contrária !!!'
+            'message'	=> 'É necessário informar a Parte Contrária !!!'
 		),
 		'advogado_contrario_id'	=> array
 		(
@@ -141,6 +141,11 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'tipo_parte_id',
 			'fields'		=> 'id, nome'
 		),
+		'ParteContraria'  	=> array(
+			'className'		=> 'ParteContraria',
+			'foreignKey'	=> 'parte_contraria_id',
+			'fields'		=> 'id, nome'
+		),
 		'AdvogadoContrario'  		=> array(
 			'className'		=> 'AdvogadoContrario',
 			'foreignKey'	=> 'advogado_contrario_id',
@@ -213,7 +218,7 @@ class Processo extends AppModel {
     public function beforeDelete()
     {
 		if (!$this->query('DELETE FROM eventos			WHERE processo_id='.$this->id)) return false;
-		if (!$this->query('DELETE FROM eventos_acordo 	WHERE processo_id='.$this->id)) return false;
+		if (!$this->query('DELETE FROM eventos_acordos 	WHERE processo_id='.$this->id)) return false;
 		if (!$this->query('DELETE FROM audiencias 		WHERE processo_id='.$this->id)) return false;
 		if (!$this->query('DELETE FROM processos_solicitacoes WHERE processo_id='.$this->id)) return false;
 		parent::beforeDelete();
@@ -231,11 +236,6 @@ class Processo extends AppModel {
 	public function beforeValidate()
 	{
 		parent::beforeValidate();
-
-		if (isset($this->data['Processo']['parte_contraria']))
-		{
-			$this->data['Processo']['parte_contraria'] = mb_strtoupper($this->data['Processo']['parte_contraria']);
-		}
 
 		//echo '<pre>'.print_r($this->data,true).'</pre>';
 		// executando a inclusão dos comboBox, caso não se
@@ -259,10 +259,20 @@ class Processo extends AppModel {
 					$dataBelongsTo['Cliente']['tipo_cliente']	= 0;
 				}
 
+				// somente para clientes
+				if ($campo=='ParteContrariaId')
+				{
+					$dataBelongsTo['ParteContraria']['cidade_id']		= 2302;
+					$dataBelongsTo['ParteContraria']['endereco']		= '.';
+					$dataBelongsTo['ParteContraria']['tipo_cliente']	= 0;
+				}
+
 				// somente para advogados contrários
 				if ($campo=='AdvogadoContrarioId')
 				{
-					$dataBelongsTo['AdvogadoContrario']['oab']		= 0;
+					$dataBelongsTo['AdvogadoContrario']['cidade_id']	= 2302;
+					$dataBelongsTo['AdvogadoContrario']['endereco']		= '.';
+					$dataBelongsTo['AdvogadoContrario']['oab']			= 0;
 				}
 
 				// incluindo o novo registro para o belongsTo
@@ -284,3 +294,5 @@ class Processo extends AppModel {
 		return true;
 	}
 }
+
+?>

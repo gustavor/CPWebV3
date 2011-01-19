@@ -118,6 +118,7 @@ class EventosAcordosController extends AppController {
 		if ($id)
 		{
 			$campos['EventoAcordo']['processo_id']['options']['default'] = $id;
+			$campos['EventoAcordo']['usuario_id']['options']['default'] = $this->Session->read('Auth.Usuario.id');
 			$this->set(compact('campos'));
 		}
 		$this->CpwebCrud->novo();

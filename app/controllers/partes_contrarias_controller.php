@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/clientes_controller.php
+ * app/controllers/partes_contrarias_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ClientesController extends AppController {
+class PartesContrariasController extends AppController {
 
 	/**
 	 * Nome da Camada
@@ -27,7 +27,7 @@ class ClientesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Clientes';
+	public $name = 'PartesContrarias';
 	
 	/**
 	 * Modelo para a camada
@@ -35,7 +35,7 @@ class ClientesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Cliente';
+	public $uses = 'ParteContraria';
 
 	/**
 	 * Ajudantes 
@@ -62,7 +62,6 @@ class ClientesController extends AppController {
 	public function beforeFilter()
 	{
 		if ($this->action=='telefones') $this->layout='ajax';
-		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
 	}
 	
@@ -76,12 +75,12 @@ class ClientesController extends AppController {
 		if (isset($this->viewVars['errosForm']))
 		{
 			// recuperando os dados do subFormulário
-			$data 	= $this->Cliente->read(null,$this->data['Cliente']['id']);			
+			$data 	= $this->ParteContraria->read(null,$this->data['ParteContraria']['id']);			
 			$this->data['Telefone'] = $data['Telefone'];
 		}
-		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
+		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_partes_contrarias');
 	}
- 
+
 	/**
 	 * método start
 	 * 
@@ -118,13 +117,13 @@ class ClientesController extends AppController {
 		
 		if (isset($this->data))
 		{
-			if (!$this->CpwebCrud->setSubForm('cliente',$id,'Telefone')) return false;
+			if (!$this->CpwebCrud->setSubForm('parte_contraria',$id,'Telefone')) return false;
 		}
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
-		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'cliente','modelo_id'=>$id))));
+		$this->set('estados',$this->ParteContraria->Cidade->Estado->find('list'));
+		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'parte_contraria','modelo_id'=>$id))));
 		$this->CpwebCrud->editar($id);
 	}
-	
+
 	/**
 	 * Exibe formulário de inclusão para o model
 	 * 
@@ -132,10 +131,10 @@ class ClientesController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
+		$this->set('estados',$this->ParteContraria->Cidade->Estado->find('list'));
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
 	 * Exibe formulário de exclusão para o model
 	 * 
@@ -154,7 +153,7 @@ class ClientesController extends AppController {
 	public function delete($id=null)
 	{
 		$this->loadModel('Telefone');
-		if (!$this->Telefone->deleteAll(array('modelo'=>'cliente','modelo_id'=>$id))) return false;
+		if (!$this->Telefone->deleteAll(array('modelo'=>'parte_contraria','modelo_id'=>$id))) return false;
 		$this->CpwebCrud->delete($id);
 	}
 
@@ -165,7 +164,7 @@ class ClientesController extends AppController {
 	 */
 	public function imprimir($id=null)
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
+		$this->set('estados',$this->ParteContraria->Cidade->Estado->find('list'));
 		$this->CpwebCrud->imprimir($id);
 	}
 
@@ -181,9 +180,9 @@ class ClientesController extends AppController {
 		switch($rel)
 		{
 			default:
-				$relOpcoes['order'] = 'Cliente.nome';
+				$relOpcoes['order'] = 'ParteContraria.nome';
 		}
-		$data = $this->Cliente->find('all',$relOpcoes);
+		$data = $this->ParteContraria->find('all',$relOpcoes);
 		$this->CpwebCrud->relatorios($rel,$data);
 	}
 
@@ -196,10 +195,12 @@ class ClientesController extends AppController {
 	{
 		if (isset($this->data['Cidade']['estado_id']))
 		{
-			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
+			$this->ParteContraria->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
 		} else
 		{
-			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
+			$this->ParteContraria->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
 		}
 	}	
 }
+
+?>

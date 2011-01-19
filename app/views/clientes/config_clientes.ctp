@@ -94,8 +94,8 @@
 			$on_read_view .= "\n".'$("#divClienteCnpj").fadeOut(); $("#divClienteCpf").delay(500).fadeIn();'; 
 
 		// dados do formulário
-		$subFormData = isset($this->data['Telefone']) ? $this->data['Telefone'] : array();
-		
+		$subFormData = isset($telefones) ? $telefones : array();
+
 		// título
 		$subFormTitulo	= '<h3>Telefones</h3>';
 

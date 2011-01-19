@@ -14,7 +14,14 @@
 	if (isset($clientes)) $campos[$modelClass]['cliente_id']['options']['options'] 		= $clientes;
 	$campos[$modelClass]['cliente_id']['busca_rapida_url'] 								= Router::url('/',true).'clientes/buscar/nome';
 	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['title']					= 'Digite aqui o nome do cliente para a busca rápida ...';
-	
+		
+	$campos[$modelClass]['parte_contraria_id']['options']['label']['text'] 				= 'Parte Contrária';
+	$campos[$modelClass]['parte_contraria_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['parte_contraria_id']['options']['style'] 						= 'width:300px';
+	if (isset($clientes)) $campos[$modelClass]['parte_contraria_id']['options']['options'] 		= $partecontrarias;
+	$campos[$modelClass]['parte_contraria_id']['busca_rapida_url'] 						= Router::url('/',true).'partes_contrarias/buscar/nome';
+	$campos[$modelClass]['parte_contraria_id']['opcoesBuscaRapida']['title']			= 'Digite aqui o nome da Parte Contrária para a busca rápida ...';
+
 	$campos[$modelClass]['usuario_id']['options']['label']['text'] 					    = 'Advogado Interno Responsável';
 	$campos[$modelClass]['usuario_id']['options']['empty'] 							    = '-- escolha um opção --';
 	$campos[$modelClass]['usuario_id']['options']['style'] 							    = 'width:300px';
@@ -24,9 +31,6 @@
 	$campos[$modelClass]['tipo_parte_id']['options']['empty'] 							= '-- escolha um opção --';
 	$campos[$modelClass]['tipo_parte_id']['options']['style'] 							= 'width:300px';
 	if (isset($tipopartes)) $campos[$modelClass]['tipo_parte_id']['options']['options'] = $tipopartes;
-
-	$campos[$modelClass]['parte_contraria']['options']['label']['text'] 				= 'Parte Contraria';
-	$campos[$modelClass]['parte_contraria']['options']['style'] 						= 'width: 294px; text-transform:uppercase';
 
 	$campos[$modelClass]['advogado_contrario_id']['options']['label']['text'] 			= 'Advogado da Parte Contrária';
 	$campos[$modelClass]['advogado_contrario_id']['options']['empty'] 					= '-- escolha um opção --';
@@ -113,7 +117,7 @@
 			$modelClass.'.cliente_id','#',
 			$modelClass.'.usuario_id','#',
 			$modelClass.'.tipo_parte_id','#',
-			$modelClass.'.parte_contraria','#',
+			$modelClass.'.parte_contraria_id','#',
 			$modelClass.'.advogado_contrario_id','#',
 			$modelClass.'.status_id','#',
 			$modelClass.'.fase_id','#',
@@ -140,7 +144,7 @@
 			$modelClass.'.cliente_id',
 			$modelClass.'.usuario_id',
 			$modelClass.'.tipo_parte_id',
-			$modelClass.'.parte_contraria',
+			$modelClass.'.parte_contraria_id',
 			$modelClass.'.advogado_contrario_id',
 			$modelClass.'.status_id',
 			$modelClass.'.fase_id',
@@ -168,7 +172,7 @@
 			$modelClass.'.cliente_id','#',
 			$modelClass.'.usuario_id','#',
 			$modelClass.'.tipo_parte_id','#',
-			$modelClass.'.parte_contraria','#',
+			$modelClass.'.parte_contraria_id','#',
 			$modelClass.'.advogado_contrario_id','#',
 			$modelClass.'.status_id','#',
 			$modelClass.'.fase_id','#',
@@ -191,7 +195,7 @@
 		if (isset($evento))			$redirecionamentos['Evento']['onclick'] 			= 'document.location.href=\''.Router::url('/',true).'eventos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 		if (isset($evento_acordo))	$redirecionamentos['Evento Acordo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'eventos_acordos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 		if (isset($audiencia))		$redirecionamentos['Audiências']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'audiencias/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-		if (isset($processo_solicitacao)) $redirecionamentos['Solicitações']['onclick']	= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+		if (isset($processo_solicitacao))	$redirecionamentos['Solicitações']['onclick']		= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 	}
 
 	if ($action=='editar' || $action=='novo')
@@ -201,18 +205,16 @@
 
 	if ($action=='editar' || $action=='listar')
 	{
-		$camposPesquisa['numero'] 			= 'Número';
-		$camposPesquisa['obs'] 				= 'Observações';
-		$camposPesquisa['parte_contraria'] 	= 'Parte Contrária';
+		$camposPesquisa['numero'] 				= 'Número';
+		$camposPesquisa['obs'] 					= 'Observações';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
 	if ($action=='listar' || $action == 'filtrar')	
 	{
-		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.parte_contraria',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
-		$campos[$modelClass]['parte_contraria']['estilo_th'] 	= 'width="200px"';
+		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
-		$campos['Cliente']['nome']['estilo_th'] 	= 'width="300px"';
+		$campos['Cliente']['nome']['estilo_th'] 		= 'width="300px"';
 	}
 ?>
