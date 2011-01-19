@@ -62,6 +62,7 @@ class PartesContrariasController extends AppController {
 	public function beforeFilter()
 	{
 		if ($this->action=='telefones') $this->layout='ajax';
+        $this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
 	}
 	
@@ -72,12 +73,6 @@ class PartesContrariasController extends AppController {
 	 */
 	public function beforeRender()
 	{
-		if (isset($this->viewVars['errosForm']))
-		{
-			// recuperando os dados do subFormulário
-			$data 	= $this->ParteContraria->read(null,$this->data['ParteContraria']['id']);			
-			$this->data['Telefone'] = $data['Telefone'];
-		}
 		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_partes_contrarias');
 	}
 
@@ -200,7 +195,17 @@ class PartesContrariasController extends AppController {
 		{
 			$this->ParteContraria->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
 		}
-	}	
+	}
+
+     /**
+	 * Antes de validar, lima a máscara do cpf e cnpj
+	 *
+	 * @return void
+	 */
+	public function beforeValidate()
+	{
+		parent::beforeValidate();
+	}
 }
 
 ?>

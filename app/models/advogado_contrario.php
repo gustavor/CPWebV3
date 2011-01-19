@@ -25,7 +25,7 @@ class Advogadocontrario extends AppModel {
 	public $useTable 		= 'advogados_contrarios';
 	public $primaryKey		= 'id';
 	public $displayField 	= 'nome';
-	public $order		 	= 'nome';
+	public $order		 	= 'AdvogadoContrario.nome';
 
 	public $validate = array(
 		'oab' => array(
@@ -38,6 +38,16 @@ class Advogadocontrario extends AppModel {
 			'rule' => 'notEmpty',
 			'required' => true,
 			'message' => 'É necessário informar o nome do Advogado!'
+		)
+	);
+
+	public $belongsTo = array(
+		'Cidade' => array(
+			'className' => 'Cidade',
+			'foreignKey' => 'cidade_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 

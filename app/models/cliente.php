@@ -98,25 +98,8 @@ class Cliente extends AppModel {
 	 */
 	public function beforeValidate()
 	{
-		// se não postou cpf ou cnpj, remove a validação unique dos mesmos
-		if (!isset($this->data[$this->name]['cpf']))	$this->validate['cpf'][1] = array();
-		if (!isset($this->data[$this->name]['cnpj']))	$this->validate['cnpj'][1] = array();
-
 		// atualizando cpf e cnpj
-		$this->setCpf();
-		
+		$this->setCpf();		
 		parent::beforeValidate();
-	}
-
-	/**
-	 * Limpa cpf e cnpj 
-	 * 
-	 * @return void
-	 */
-	private function setCpf()
-	{
-		// limpando cnpj e cpf
-		if (isset($this->data['Cliente']['cnpj'])) 	$this->data['Cliente']['cnpj'] = ereg_replace('[./-]','',$this->data['Cliente']['cnpj']);	
-		if (isset($this->data['Cliente']['cpf']))	$this->data['Cliente']['cpf'] = ereg_replace('[./-]','',$this->data['Cliente']['cpf']);
 	}
  }

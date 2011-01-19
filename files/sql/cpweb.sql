@@ -1014,6 +1014,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`contatos_telefonicos` (
   `processo_id` INT(11) NOT NULL ,
   `efetividade_id` INT(11) NOT NULL ,
   `usuario_id` INT NOT NULL ,
+  `obs` TEXT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `i_telefone` (`nome` ASC) ,
   INDEX `i_nome` (`nome` ASC) ,
@@ -1045,3 +1046,4 @@ COLLATE = utf8_general_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

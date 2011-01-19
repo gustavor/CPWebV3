@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/models/evento_acordo.php
+ * app/models/efetividade.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,29 +19,17 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class EventoAcordo extends AppModel {
+class Efetividade extends AppModel {
 
-	public $name 		= 'EventoAcordo';
-	public $useTable 	= 'eventos_acordos';
-	public $displayField= 'evento';
+	public $name 		= 'Efetividade';
+	public $useTable 	= 'efetividades';
+	public $displayField= 'nome';
 
 	public $validate = array(
-		'evento' => array(
+		'nome' => array(
 			'rule' => 'notEmpty',
 			'required' => true,
-			'message' => 'É necessário informar a descrição do evento!'
-		)
-	);
-
-    public $belongsTo = array
-	(
-		'Processo' => array
-		(
-			'className' => 'Processo',
-			'foreignKey' => 'processo_id',
-			'fields' => 'id, numero'
+			'message' => 'É necessário informar o nome da Efetividade!'
 		)
 	);
 }
-
-?>

@@ -36,7 +36,6 @@
 	$campos[$modelClass]['obs']['options']['cols']						= 84;
 	$campos[$modelClass]['obs']['options']['style']						= 'text-transform: uppercase; ';
 
-	$campos['Cidade']['nome']['options']['label']['text'] 				= 'Cidade';
 
 	$campos['Cidade']['estado_id']['options']['label']['text'] 			= 'Estado';
 	$campos['Cidade']['estado_id']['options']['style'] 					= 'width: 220px; ';

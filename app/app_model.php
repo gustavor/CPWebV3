@@ -59,6 +59,13 @@ class AppModel extends Model {
 				$this->validate[$_campo]['message']		= 'É necessário informar um valor para o campo <strong>'.$this->getNomeCampo($_campo).'</strong>';
 			}
 		}
+
+        // se não postou cpf ou cnpj, remove a validação unique dos mesmos
+		if (!isset($this->data[$this->name]['cpf']))	$this->validate['cpf'][1] = array();
+		if (!isset($this->data[$this->name]['cnpj']))	$this->validate['cnpj'][1] = array();
+
+		// atualizando cpf e cnpj
+		$this->setCpf();
 		
 		// transformando tudo em maísculos
 		foreach($this->data as $_model => $_arrCampos)
@@ -212,7 +219,19 @@ class AppModel extends Model {
 		else {
 			return FALSE;
 		}
-	} 
+	}
+
+    /**
+	 * Limpa cpf e cnpj
+	 *
+	 * @return void
+	 */
+	public function setCpf()
+	{
+		// limpando cnpj e cpf
+		if (isset($this->data[$this->name]['cnpj'])) $this->data[$this->name]['cnpj'] = ereg_replace('[./-]','',$this->data[$this->name]['cnpj']);
+		if (isset($this->data[$this->name]['cpf']))	 $this->data[$this->name]['cpf'] = ereg_replace('[./-]','',$this->data[$this->name]['cpf']);
+	}
 
 }
 ?>

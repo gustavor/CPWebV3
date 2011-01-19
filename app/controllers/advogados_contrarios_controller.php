@@ -61,7 +61,8 @@ class AdvogadosContrariosController extends AppController {
 	 */
 	public function beforeFilter()
 	{
-		$this->set('arqListaMenu','menu_modulos');
+		if ($this->action=='telefones') $this->layout='ajax';
+        $this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
 	}
 
@@ -97,6 +98,15 @@ class AdvogadosContrariosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		// carregando model de telefone
+		$this->loadModel('Telefone');
+
+		if (isset($this->data))
+		{
+			if (!$this->CpwebCrud->setSubForm('advogado_contrario',$id,'Telefone')) return false;
+		}
+		$this->set('estados',$this->AdvogadoContrario->Cidade->Estado->find('list'));
+		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'advogado_contrario','modelo_id'=>$id))));
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -107,6 +117,7 @@ class AdvogadosContrariosController extends AppController {
 	 */
 	public function novo()
 	{
+        $this->set('estados',$this->AdvogadoContrario->Cidade->Estado->find('list'));
 		$this->CpwebCrud->novo();
 	}
 	
@@ -127,6 +138,8 @@ class AdvogadosContrariosController extends AppController {
 	 */
 	public function delete($id=null)
 	{
+        $this->loadModel('Telefone');
+		if (!$this->Telefone->deleteAll(array('modelo'=>'advogado_contrario','modelo_id'=>$id))) return false;
 		$this->CpwebCrud->delete($id);
 	}
 
@@ -138,5 +151,32 @@ class AdvogadosContrariosController extends AppController {
 	public function imprimir($id=null)
 	{
 		$this->CpwebCrud->imprimir($id);
+    }
+    
+	/**
+	 * Antes de renderização a visão
+	 *
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_advogados_contrarios');
 	}
+
+	/**
+	 * Atualiza Camada antes de enviar os relacionamentos para a view
+	 *
+	 * @return void
+	 */
+	public function beforeRelacionamentos()
+	{
+		if (isset($this->data['Cidade']['estado_id']))
+		{
+			$this->AdvogadoContrario->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
+		} else
+		{
+			$this->AdvogadoContrario->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
+		}
+	}
+
 }

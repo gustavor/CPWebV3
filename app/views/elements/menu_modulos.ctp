@@ -2,11 +2,18 @@
 	// menu da lista cidades
 	$listaMenu = array();
 
-	// módulo processos
+	// módulo advogados_contrarios
 	if (!in_array('advogados_contrarios',$this->Session->read('urlsNao')))
 	{
 		$listaMenu['advogados_contrarios']['text'] = 'Cadastro de Advogados Contrários';
 		$listaMenu['advogados_contrarios']['url'] 	= Router::url('/',true).'advogados_contrarios';
+	}
+
+	// módulo processos
+	if (!in_array('partes_contrarias',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['partes_contrarias']['text'] = 'Cadastro de Partes Contrárias';
+		$listaMenu['partes_contrarias']['url'] 	= Router::url('/',true).'partes_contrarias';
 	}
 
 	// módulo clientes

@@ -63,6 +63,8 @@
 	$listaMenu['solicitacoes']['url'] 			= Router::url('/',true).'solicitacoes';
 	$listaMenu['partes_contrarias']['text'] 	= 'Partes Contrárias';
 	$listaMenu['partes_contrarias']['url'] 		= Router::url('/',true).'partes_contrarias';
+    $listaMenu['efetividades']['text']          = 'Efetividades';
+    $listaMenu['efetividades']['url']           = Router::url('/',true).'efetividades';
 
 
 	// destacando a opção ativa

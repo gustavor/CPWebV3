@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/clientes_controller.php
+ * app/controllers/eventos_acordos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,23 +19,23 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ClientesController extends AppController {
+class ContatosTelefonicosController extends AppController {
 
 	/**
-	 * Nome da Camada
+	 * Nome
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Clientes';
+	public $name = 'ContatosTelefonicos';
 	
 	/**
-	 * Modelo para a camada
+	 * Modelo
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Cliente';
+	public $uses = 'ContatoTelefonico';
 
 	/**
 	 * Ajudantes 
@@ -52,30 +52,28 @@ class ClientesController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-	
+
 	/**
-	 * Método chamado antes de qualquer outro método
+	 * Antes de tudo
 	 * 
-	 * @access 	public
-	 * @return 	void
+	 * @return void
 	 */
 	public function beforeFilter()
 	{
-		if ($this->action=='telefones') $this->layout='ajax';
-		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
 	}
-	
+
 	/**
-	 * Antes de renderização a visão
+	 * Antes de exibir a tela no browser
 	 * 
 	 * @return void
 	 */
 	public function beforeRender()
 	{
-		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
+		$this->setIdProcesso();
+		parent::beforeRender();
 	}
- 
+
 	/**
 	 * método start
 	 * 
@@ -87,7 +85,7 @@ class ClientesController extends AppController {
 	}
 
 	/**
-	 * Lista os dados em paginação
+	 * Lista dbgrid
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -100,38 +98,34 @@ class ClientesController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de edição para o model
+	 * Exibe formulário de edição
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
 	 */
 	public function editar($id=null)
 	{
-		// carregando model de telefone
-		$this->loadModel('Telefone');
-		
-		if (isset($this->data))
-		{
-			if (!$this->CpwebCrud->setSubForm('cliente',$id,'Telefone')) return false;
-		}
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
-		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'cliente','modelo_id'=>$id))));
 		$this->CpwebCrud->editar($id);
 	}
 	
 	/**
-	 * Exibe formulário de inclusão para o model
+	 * Exibe formulário de inclusão
 	 * 
 	 * @return 		void
 	 */
-	public function novo()
+	public function novo($id=null)
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
+		if ($id)
+		{
+			$campos['ContatoTelefonico']['processo_id']['options']['default'] = $id;
+			$campos['ContatoTelefonico']['usuario_id']['options']['default'] = $this->Session->read('Auth.Usuario.id');
+			$this->set(compact('campos'));
+		}
 		$this->CpwebCrud->novo();
 	}
 	
 	/**
-	 * Exibe formulário de exclusão para o model
+	 * Exibe formulário de exclusão
 	 * 
 	 * @return 		void
 	 */
@@ -141,14 +135,12 @@ class ClientesController extends AppController {
 	}
 
 	/**
-	 * Exclui a cidade do banco de dados
+	 * Executa a exclução no banco de dados
 	 * 
 	 * @return 		void
 	 */
 	public function delete($id=null)
 	{
-		$this->loadModel('Telefone');
-		if (!$this->Telefone->deleteAll(array('modelo'=>'cliente','modelo_id'=>$id))) return false;
 		$this->CpwebCrud->delete($id);
 	}
 
@@ -159,41 +151,6 @@ class ClientesController extends AppController {
 	 */
 	public function imprimir($id=null)
 	{
-		$this->set('estados',$this->Cliente->Cidade->Estado->find('list'));
 		$this->CpwebCrud->imprimir($id);
-	}
-
-	/**
-	 * Imprime em pdf o relatório solicitado
-	 * 
-	 * @access void
-	 * @return void
-	 */
-	public function relatorios($rel=null)
-	{
-		$relOpcoes = array();
-		switch($rel)
-		{
-			default:
-				$relOpcoes['order'] = 'Cliente.nome';
-		}
-		$data = $this->Cliente->find('all',$relOpcoes);
-		$this->CpwebCrud->relatorios($rel,$data);
-	}
-
-	/**
-	 * Atualiza Camada antes de enviar os relacionamentos para a view
-	 * 
-	 * @return void
-	 */
-	public function beforeRelacionamentos()
-	{
-		if (isset($this->data['Cidade']['estado_id']))
-		{
-			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
-		} else
-		{
-			$this->Cliente->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
-		}
 	}	
 }

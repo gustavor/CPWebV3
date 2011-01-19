@@ -1,0 +1,19 @@
+#listaContatosTelefonicos
+{
+	width: 98%;
+}
+div#direita table.linhas tbody tr td
+{
+    text-align: center;
+}
+#edicao .inEdicao
+{
+	width: 200px;
+	display:block;
+	text-align: right;
+	margin-right: 5px;
+	float: left;
+	line-height: 24px;
+	position: relative;
+	/*background-color: #ddd;*/
+}
