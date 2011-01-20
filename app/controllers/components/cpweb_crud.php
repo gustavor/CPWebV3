@@ -287,6 +287,8 @@ class CpwebCrudComponent extends Object {
 	/**
 	 * Imprime o relatório
 	 * 
+	 * @parameter	string	$rel	Nome do relatório
+	 * @parameter	array	$data	Dados as serem impressos
 	 * @access public
 	 * @return void
 	 */
@@ -298,13 +300,34 @@ class CpwebCrudComponent extends Object {
 		$this->controller->render($relatorio);
 	}
 
-	 /**
-	  * Retorna a url de complementação da lista, informando página, ordem e ordenação
-	  * 
-	  * @return string $url
-	  */
-	 public function getParametrosLista()
-	 {
+	/**
+	 * Exibe a tela de filtro, caso o formulário filtro seja enviado é redirecinado para o relatório em questão
+	 * 
+	 * @parameter	string	$fil	nome do filtro, pode ser genérico do cpwebCrud ou da próprio cadastro
+	 * @parameter	string	$rel	nome do relatório 
+	 * @return void
+	 */
+	public function filtro($fil=null,$rel=null)
+	{
+		if (!empty($this->controller->data))
+		{
+			$data = $this->controller->data;
+			$this->relatorios($rel,$data);
+		} else
+		{
+			$filtro	= file_exists('../views/'.$this->name.'/fil_'.$fil.'.ctp') ? '../'.$this->name.'/fil_'.$fil : '../cpweb_crud/fil_'.$fil;
+			$this->controller->set('relatorio',$rel);
+			$this->controller->render($filtro);
+		}
+	}
+
+	/**
+	 * Retorna a url de complementação da lista, informando página, ordem e ordenação
+	 * 
+	 * @return string $url
+	 */
+	public function getParametrosLista()
+	{
 		$url	= '';
 		$page	= ($this->controller->Session->check($this->controller->name.'.Page')) ? $this->controller->Session->read($this->controller->name.'.Page') : '';
 		$sort	= ($this->controller->Session->check($this->controller->name.'.Sort')) ? $this->controller->Session->read($this->controller->name.'.Sort') : '';
@@ -315,7 +338,7 @@ class CpwebCrudComponent extends Object {
 		if ($dire) $url	.= '/direction:'.$dire;
 
 		return $url;
-	 }
+	}
 
 	/**
 	 * Configura os relacionamentos do model corrente, joga na view a lista 

@@ -199,7 +199,43 @@ class ProcessosSolicitacoesController extends AppController {
 	public function imprimir($id=null)
 	{
 		$this->CpwebCrud->imprimir($id);
-	}	
-}
+	}
 
+	/**
+	 * Exibe a tela de filtro, caso o formulário filtro seja enviado é redirecinado para o relatório em questão
+	 * 
+	 * @parameter	string	$fil	nome do filtro, pode ser genérico do cpwebCrud ou da próprio cadastro
+	 * @parameter	string	$rel	nome do relatório 
+	 * @return void
+	 */
+	public function filtro($fil=null,$rel=null)
+	{
+		$this->CpwebCrud->filtro($fil,$rel);
+	}
+
+	/**
+	 * Imprime em pdf o relatório solicitado
+	 * 
+	 * @access void
+	 * @return void
+	 */
+	public function relatorios($rel=null)
+	{
+		$relOpcoes = array();
+		switch($rel)
+		{
+			default:
+				//$relOpcoes['order'] = 'ProcessoSolicitacao.nome';
+		}
+		
+		if ($this->data)
+		{
+			//debug($this->data);
+		}
+
+		// recuperando e imprimindo o relatório
+		$data = $this->ProcessoSolicitacao->find('all',$relOpcoes);
+		$this->CpwebCrud->relatorios($rel,$data);
+	}
+}
 ?>

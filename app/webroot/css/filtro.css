@@ -1,0 +1,40 @@
+#filtro
+{
+	margin: 30px auto;
+	width: 400px;
+	height: 200px;
+	border: 1px solid #ddd;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#filtro #campos
+{
+	height: 80%;
+	margin: 5px 0px 0px 10px;
+}
+
+#filtro #campos ul
+{
+	list-style: none;
+}
+
+#filtro #campos label
+{
+	display: block;
+	float: left;
+	width: 130px;
+	text-align: right;
+	line-height: 21px;
+	margin: 0px 5px 0px 0px;
+}
+
+#filtro #botoes
+{
+	text-align: center;
+}
+
+#filtro #botoes button
+{
+	width: 120px;
+}

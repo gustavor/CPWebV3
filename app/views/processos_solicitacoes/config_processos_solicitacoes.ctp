@@ -118,10 +118,15 @@
 		$on_read_view .= "\n\t".'$("#'.$modelClass.'SolicitacaoId").focus();';
 	}
 
-	if ($action=='editar' || $action=='listar')
+	if ($action=='editar' || $action=='listar' || $action=='filtro')
 	{
 		$camposPesquisa['obs'] 	= 'Obs';
 		$this->set('camposPesquisa',$camposPesquisa);
+
+		$relatorios[0]['url'] 	= Router::url('/',true).$name.'/filtro/processos1/quantitativo';
+		$relatorios[0]['tit'] 	= 'Quantitativo';
+		$relatorios[1]['url'] 	= Router::url('/',true).$name.'/filtro/processos1/qualitativo';
+		$relatorios[1]['tit'] 	= 'Qualitativo';
 	}
 
 	if ($action=='editar')
