@@ -30,15 +30,9 @@
 	$campos['Telefone']['options']['label']['text']					= 'Telefones';
 	$campos['Telefone']['options']['multiple']						= 'checkbox';
 
-if ($action=='editar' || $action=='excluir')
+	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos =array($modelClass.'.nome','#',$modelClass.'.endereco','#','Cidade.estado_id',$modelClass.'.cidade_id','#',$modelClass.'.e-mail','#',$modelClass.'.oab','#',$modelClass.'.obs');
-	}
-
-	if ($action=='imprimir')
-	{
-		$campos[$modelClass]['oab']['mascara'] 	= 'oab';
-		$edicaoCampos =array($modelClass.'.nome','#',$modelClass.'.endereco','#','Cidade.estado_id',$modelClass.'.cidade_id','#',$modelClass.'.e-mail','#',$modelClass.'.oab','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 	}
 
 	if ($action=='novo')

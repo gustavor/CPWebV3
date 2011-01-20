@@ -150,6 +150,7 @@ class AdvogadosContrariosController extends AppController {
 	 */
 	public function imprimir($id=null)
 	{
+		$this->set('estados',$this->AdvogadoContrario->Cidade->Estado->find('list'));
 		$this->CpwebCrud->imprimir($id);
     }
     
