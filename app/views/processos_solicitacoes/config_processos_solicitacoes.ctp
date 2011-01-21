@@ -10,7 +10,7 @@
 	$campos[$modelClass]['data_fechamento']['options']['label']['style'] 		= 'width: 99px;';
 	$campos[$modelClass]['data_fechamento']['options']['dateFormat'] 			= 'DMY';
 	$campos[$modelClass]['data_fechamento']['options']['timeFormat'] 			= '24';
-	$campos[$modelClass]['data_fechamento']['options']['type'] 						= 'hidden';
+	$campos[$modelClass]['data_fechamento']['options']['type'] 					= 'hidden';
 	$campos[$modelClass]['data_fechamento']['mascara'] 							= 'datahora';
 	$campos[$modelClass]['data_fechamento']['estilo_th'] 						= 'width="200px"';
 	$campos[$modelClass]['data_fechamento']['estilo_td'] 						= 'style="text-align: center; "';
