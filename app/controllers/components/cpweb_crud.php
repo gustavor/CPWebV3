@@ -301,7 +301,7 @@ class CpwebCrudComponent extends Object {
 	}
 
 	/**
-	 * Exibe a tela de filtro, caso o formulário filtro seja enviado é redirecinado para o relatório em questão
+	 * Exibe a tela de filtro, caso o formulário filtro seja enviado é redirecinado para o relatório em questão que está no cpwebcrud ou no próprio cadastro
 	 * 
 	 * @parameter	string	$fil	nome do filtro, pode ser genérico do cpwebCrud ou da próprio cadastro
 	 * @parameter	string	$rel	nome do relatório 

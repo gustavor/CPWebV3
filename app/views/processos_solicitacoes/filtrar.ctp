@@ -1,1 +1,1 @@
-<?php require_once('../views/cpweb_crud/listar.ctp'); ?>
+<?php  require_once('../views/cpweb_crud/listar.ctp'); ?>

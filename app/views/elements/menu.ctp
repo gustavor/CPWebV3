@@ -59,14 +59,9 @@
 	</li>
 <?php endif ?>
 
-<?php if (isset($relatorios)) : ?>
 	<li>
-		<a href="#">Relatórios</a>
-		<ul>
-			<?php foreach($relatorios as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?>
-		</ul>
+		<a href="<?php echo Router::url('/',true).'relatorios'; ?>">Relatórios</a>
 	</li>
-<?php endif ?>
 	
 	<li>
 		<a href="#">Ajuda</a>

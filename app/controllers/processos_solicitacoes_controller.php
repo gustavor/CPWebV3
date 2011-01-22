@@ -202,53 +202,6 @@ class ProcessosSolicitacoesController extends AppController {
 	}
 
 	/**
-	 * Exibe a tela de filtro, caso o formulário filtro seja enviado é redirecinado para o relatório em questão
-	 * 
-	 * @parameter	string	$fil	nome do filtro, pode ser genérico do cpwebCrud ou da próprio cadastro
-	 * @parameter	string	$rel	nome do relatório 
-	 * @return void
-	 */
-	public function filtro($fil=null,$rel=null)
-	{
-		// filtro funcionários
-		$this->loadModel('Usuario');
-		$data['funcionario']['options']['label']['text'] 	= 'Funcionário';
-		$data['funcionario']['options']['default'] 			= 0;
-		$data['funcionario']['options']['empty'] 			= '-- escolha uma opção --';
-		$data['funcionario']['options']['options'] 			= $this->Usuario->find('list');
-		
-		// filtro cliente
-		$this->loadModel('Cliente');
-		$data['cliente']['options']['default'] 				= 0;
-		$data['cliente']['options']['empty'] 				= '-- escolha uma opção --';
-		$data['cliente']['options']['options'] 				= $this->Cliente->find('list');
-		
-		// filtro cliente
-		$this->loadModel('Equipe');
-		$data['equipe']['options']['default'] 				= 0;
-		$data['equipe']['options']['empty'] 				= '-- escolha uma opção --';
-		$data['equipe']['options']['options'] 				= $this->Equipe->find('list');
-
-		$data['data_ini']['options']['label']['text']		= 'data Inicio';
-		$data['data_ini']['options']['div'] 				= null;
-		$data['data_ini']['options']['dateFormat'] 			= 'DMY';
-		$data['data_ini']['options']['monthNames'] 			= false;
-		$data['data_ini']['options']['interval']			= 3;
-		$data['data_ini']['options']['type'] 				= 'date';
-
-		$data['data_fim']['options']['label']['text']		= 'data Fim';
-		$data['data_fim']['options']['div'] 				= null;
-		$data['data_fim']['options']['dateFormat'] 			= 'DMY';
-		$data['data_fim']['options']['monthNames'] 			= false;
-		$data['data_fim']['options']['year'] 				= 2012;
-		$data['data_fim']['options']['type'] 				= 'date';
-		$data['data_fim']['options']['value'] 				= strtotime('+30 days');
-		$this->set(compact('data'));
-		$this->set('titulo',$rel);
-		$this->CpwebCrud->filtro($fil,$rel);
-	}
-
-	/**
 	 * Imprime em pdf o relatório solicitado
 	 * 
 	 * @access void
@@ -257,6 +210,8 @@ class ProcessosSolicitacoesController extends AppController {
 	public function relatorios($rel=null)
 	{
 		$relOpcoes = array();
+		
+		// definição para cada tipo de relatório
 		switch($rel)
 		{
 			default:
@@ -266,8 +221,11 @@ class ProcessosSolicitacoesController extends AppController {
 		if ($this->data)
 		{
 			debug($this->data);
-			// recuperando e imprimindo o relatório
+
+			// recuperando os dados para o relatório conforme o filtro postado via post
 			$data = $this->ProcessoSolicitacao->find('all',$relOpcoes);
+			
+			// jogando os dados para o relatório e imprimindo ele na tela
 			$this->CpwebCrud->relatorios($rel,$data);
 		} else
 		{
