@@ -100,6 +100,9 @@
 	$campos[$modelClass]['segmento_id']['options']['style'] 							= 'width:300px';
 	if (isset($segmentos)) $campos[$modelClass]['segmento_id']['options']['options'] 	= $segmentos;
 
+	$campos[$modelClass]['operacao_contrato']['options']['label']['text'] 				= 'Operação(ões)/Contrato(s)';
+	$campos[$modelClass]['operacao_contrato']['options']['style'] 						= 'width:600px; text-transform: uppercase';
+
 	$campos[$modelClass]['natureza_id']['options']['label']['text'] 					= 'Natureza';
 	$campos[$modelClass]['natureza_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['natureza_id']['options']['style'] 							= 'width: 300px';
@@ -137,7 +140,8 @@
 			$modelClass.'.natureza_id','#',
 			$modelClass.'.gestao_id','#',
             $modelClass.'.segmento_id','#',
-			$modelClass.'.modified','#',
+			$modelClass.'.operacao_contrato','#',
+            $modelClass.'.modified','#',
 			$modelClass.'.created'
 		);
 	}
@@ -166,6 +170,7 @@
 			$modelClass.'.natureza_id',
 			$modelClass.'.gestao_id','#',
             $modelClass.'.segmento_id','#',
+            $modelClass.'.operacao_contrato','#',
 			$modelClass.'.modified',
 			$modelClass.'.created'
 		);
@@ -194,6 +199,7 @@
 			$modelClass.'.natureza_id','#',
 			$modelClass.'.gestao_id','#',
             $modelClass.'.segmento_id','#',
+            $modelClass.'.operacao_contrato','#',
 		);
 		$campos[$modelClass]['id_controle'] = null;
 	}
