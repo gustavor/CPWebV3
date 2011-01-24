@@ -13,7 +13,7 @@
 		echo "flush privileges;\n";
 		echo "</pre>";
 		echo "<p class='sql_obs2'>* Para alterar as configurações do banco de dados, edite o arquivo app/config/database.php</p>";
-		echo "<p class='sql_obs3'>Cliquei <a href=".$this->here.">aqui</a> para atualizar.</p>";
+		echo "<p class='sql_obs3'>Clique <a href=".$this->here.">aqui</a> para atualizar.</p>";
 		$on_read_view .= "\n".'$("#instala").fadeOut();';
 	}
 ?>
@@ -46,7 +46,7 @@
 	<li><?php echo $this->Form->input('ed_admin',	array('div'=>null,'label'=>array('text'=>'Login *'),'value'=>'admin')); ?></li>
 	<li><?php echo $this->Form->input('ed_nome',	array('div'=>null,'label'=>array('text'=>'Nome *'),'value'=>'')); ?></li>
 	<li><?php echo $this->Form->input('ed_senha',	array('div'=>null,'label'=>array('text'=>'Senha *'),'type'=>'password')); ?></li>
-	<li><?php echo $this->Form->input('ed_email',	array('div'=>null,'label'=>array('text'=>'e-mail *'))); ?></li>
+	<li><?php echo $this->Form->input('ed_email',	array('div'=>null,'label'=>array('text'=>'E-mail *'))); ?></li>
 </ul>
 <?php echo $this->Form->end('Enviar'); ?>
 
