@@ -201,6 +201,11 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'gestao_id',
 			'fields'		=> 'id, nome'
 		),
+        'Segmento'  		=> array(
+			'className'		=> 'Segmento',
+			'foreignKey'	=> 'segmento_id',
+			'fields'		=> 'id, nome'
+		),
 	);
 
     public $hasMany = array(
