@@ -6,7 +6,7 @@
     $campos[$modelClass]['endereco']['options']['label']['text'] 	= 'Endereço';
     $campos[$modelClass]['endereco']['options']['style'] 			= 'width: 600px; text-transform: uppercase; ';
 
-	$campos[$modelClass]['oab']['options']['label']['text'] 		= 'Código OAB';
+	$campos[$modelClass]['oab']['options']['label']['text'] 		= 'OAB';
 	$campos[$modelClass]['oab']['options']['style'] 				= 'width: 100px; text-align: center; text-transform: uppercase; ';
 	$campos[$modelClass]['oab']['mascara'] 							= '999.999';
 	
