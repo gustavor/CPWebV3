@@ -20,7 +20,7 @@
 	$campos['Telefone']['contato']['estilo_th'] 					= 'width="250px"';
 	
 	$campos['Telefone']['modelo']['options']['label']['text'] 					= 'Cadastro';
-	$campos['Telefone']['modelo']['options']['empty'] 							= '-- escolha um opção --';
+	$campos['Telefone']['modelo']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos['Telefone']['modelo']['options']['options']['advogado_contrario']	= 'Advogados Contrários';
 	$campos['Telefone']['modelo']['options']['options']['cliente']				= 'Clientes';
 	$campos['Telefone']['modelo']['options']['options']['parte_contraria']		= 'Partes Contrárias';

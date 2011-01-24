@@ -4,52 +4,52 @@
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
 	
 	$campos[$modelClass]['tipo_processo_id']['options']['label']['text'] 				= 'Tipo de Processo';
-	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
 	if (isset($tipoprocessos)) $campos[$modelClass]['tipo_processo_id']['options']['options'] = $tipoprocessos;
 	
 	$campos[$modelClass]['cliente_id']['options']['label']['text'] 						= 'Cliente';
-	$campos[$modelClass]['cliente_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['cliente_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['cliente_id']['options']['style'] 								= 'width:300px';
 	if (isset($clientes)) $campos[$modelClass]['cliente_id']['options']['options'] 		= $clientes;
 	$campos[$modelClass]['cliente_id']['busca_rapida_url'] 								= Router::url('/',true).'clientes/buscar/nome';
 	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['title']					= 'Digite aqui o nome do cliente para a busca rápida ...';
 		
 	$campos[$modelClass]['parte_contraria_id']['options']['label']['text'] 				= 'Parte Contrária';
-	$campos[$modelClass]['parte_contraria_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['parte_contraria_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['parte_contraria_id']['options']['style'] 						= 'width:300px';
 	if (isset($clientes)) $campos[$modelClass]['parte_contraria_id']['options']['options'] 		= $partecontrarias;
 	$campos[$modelClass]['parte_contraria_id']['busca_rapida_url'] 						= Router::url('/',true).'partes_contrarias/buscar/nome';
 	$campos[$modelClass]['parte_contraria_id']['opcoesBuscaRapida']['title']			= 'Digite aqui o nome da Parte Contrária para a busca rápida ...';
 
 	$campos[$modelClass]['usuario_id']['options']['label']['text'] 					    = 'Advogado Interno Responsável';
-	$campos[$modelClass]['usuario_id']['options']['empty'] 							    = '-- escolha um opção --';
+	$campos[$modelClass]['usuario_id']['options']['empty'] 							    = '-- escolha uma opção --';
 	$campos[$modelClass]['usuario_id']['options']['style'] 							    = 'width:300px';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] 	= $advogados;
 
 	$campos[$modelClass]['tipo_parte_id']['options']['label']['text'] 					= 'Posição do Cliente no Processo';
-	$campos[$modelClass]['tipo_parte_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_parte_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_parte_id']['options']['style'] 							= 'width:300px';
 	if (isset($tipopartes)) $campos[$modelClass]['tipo_parte_id']['options']['options'] = $tipopartes;
 
 	$campos[$modelClass]['advogado_contrario_id']['options']['label']['text'] 			= 'Advogado da Parte Contrária';
-	$campos[$modelClass]['advogado_contrario_id']['options']['empty'] 					= '-- escolha um opção --';
+	$campos[$modelClass]['advogado_contrario_id']['options']['empty'] 					= '-- escolha uma opção --';
 	$campos[$modelClass]['advogado_contrario_id']['options']['style'] 					= 'width:300px';
 	if (isset($advogadocontrarios)) $campos[$modelClass]['advogado_contrario_id']['options']['options'] = $advogadocontrarios;
 	$campos[$modelClass]['advogado_contrario_id']['busca_rapida_url'] 					= Router::url('/',true).'advogados_contrarios/buscar/nome';
 
 	$campos[$modelClass]['status_id']['options']['label']['text'] 						= 'Status do Processo';
-	$campos[$modelClass]['status_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['status_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['status_id']['options']['style'] 								= 'width:300px';
 	if (isset($status)) $campos[$modelClass]['status_id']['options']['options'] 		= $status;
 
 	$campos[$modelClass]['fase_id']['options']['label']['text'] 						= 'Fase do Processo';
-	$campos[$modelClass]['fase_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['fase_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['fase_id']['options']['style'] 								= 'width:300px';
 	if (isset($fases)) $campos[$modelClass]['fase_id']['options']['options'] 			= $fases;
 
 	$campos[$modelClass]['instancia_id']['options']['label']['text'] 					= 'Instância Atual do Processo';
-	$campos[$modelClass]['instancia_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['instancia_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['instancia_id']['options']['style'] 							= 'width:300px';
 	if (isset($instancias)) $campos[$modelClass]['instancia_id']['options']['options'] = $instancias;
 
@@ -68,7 +68,7 @@
 	$campos[$modelClass]['distribuicao']['estilo_td'] 									= 'style="text-align: center; "';
 
 	$campos[$modelClass]['comarca_id']['options']['label']['text'] 						= 'Comarca de Origem';
-	$campos[$modelClass]['comarca_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['comarca_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['comarca_id']['options']['style'] 								= 'width:300px';
 	if (isset($comarcas)) $campos[$modelClass]['comarca_id']['options']['options'] 		= $comarcas;
 	$campos[$modelClass]['comarcas_id']['busca_rapida_url'] 							= Router::url('/',true).'comarcas/buscar/nome';
@@ -77,7 +77,7 @@
 	$campos[$modelClass]['ordinal_orgao']['options']['style'] 							= 'width:30px;';
 
     $campos[$modelClass]['orgao_id']['options']['label']['text'] 						= '';
-    $campos[$modelClass]['orgao_id']['options']['empty'] 								= '-- escolha um opção --';
+    $campos[$modelClass]['orgao_id']['options']['empty'] 								= '-- escolha uma opção --';
     $campos[$modelClass]['orgao_id']['options']['style'] 								= 'width:264px;';
     if (isset($orgaos)) $campos[$modelClass]['orgao_id']['options']['options'] 			= $orgaos;
     $campos[$modelClass]['orgao_id']['busca_rapida_url'] 								= Router::url('/',true).'orgaos/buscar/nome';
@@ -86,17 +86,22 @@
 	$campos[$modelClass]['obs']['options']['style'] 									= 'width:600px; text-transform: uppercase';
 
 	$campos[$modelClass]['equipe_id']['options']['label']['text'] 						= 'Equipe';
-	$campos[$modelClass]['equipe_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['equipe_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['equipe_id']['options']['style'] 								= 'width:300px';
 	if (isset($equipes)) $campos[$modelClass]['equipe_id']['options']['options'] 		= $equipes;
 
 	$campos[$modelClass]['gestao_id']['options']['label']['text'] 						= 'Gestão';
-	$campos[$modelClass]['gestao_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['gestao_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['gestao_id']['options']['style'] 								= 'width:300px';
 	if (isset($gestoes)) $campos[$modelClass]['gestoes_id']['options']['options'] 		= $gestoes;
 
+	$campos[$modelClass]['segmento_id']['options']['label']['text'] 					= 'Segmentos';
+	$campos[$modelClass]['segmento_id']['options']['empty'] 							= '-- escolha uma opção --';
+	$campos[$modelClass]['segmento_id']['options']['style'] 							= 'width:300px';
+	if (isset($segmentos)) $campos[$modelClass]['segmento_id']['options']['options'] 	= $segmentos;
+
 	$campos[$modelClass]['natureza_id']['options']['label']['text'] 					= 'Natureza';
-	$campos[$modelClass]['natureza_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['natureza_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['natureza_id']['options']['style'] 							= 'width: 300px';
 	if (isset($naturezas)) $campos[$modelClass]['natureza_id']['options']['options'] 	= $naturezas;
 	$campos[$modelClass]['natureza_id']['busca_rapida_url'] 							= Router::url('/',true).'naturezas/buscar/nome';
@@ -131,6 +136,7 @@
 			$modelClass.'.equipe_id','#',
 			$modelClass.'.natureza_id','#',
 			$modelClass.'.gestao_id','#',
+            $modelClass.'.segmento_id','#',
 			$modelClass.'.modified','#',
 			$modelClass.'.created'
 		);
@@ -159,6 +165,7 @@
 			$modelClass.'.equipe_id',
 			$modelClass.'.natureza_id',
 			$modelClass.'.gestao_id','#',
+            $modelClass.'.segmento_id','#',
 			$modelClass.'.modified',
 			$modelClass.'.created'
 		);
@@ -185,7 +192,8 @@
 			$modelClass.'.obs','#',
 			$modelClass.'.equipe_id','#',
 			$modelClass.'.natureza_id','#',
-			$modelClass.'.gestao_id','#'
+			$modelClass.'.gestao_id','#',
+            $modelClass.'.segmento_id','#',
 		);
 		$campos[$modelClass]['id_controle'] = null;
 	}

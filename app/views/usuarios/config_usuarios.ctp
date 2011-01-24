@@ -73,7 +73,7 @@
 	
 	$campos[$modelClass]['departamento_id']['options']['label']['text']	= 'Departamento';
 	$campos[$modelClass]['departamento_id']['options']['style'] 		= 'width:400px';
-	$campos[$modelClass]['departamento_id']['options']['empty'] 		= '-- escolha um opção --';
+	$campos[$modelClass]['departamento_id']['options']['empty'] 		= '-- escolha uma opção --';
 	if (isset($departamentos)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamentos;
 
 	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#',$modelClass.'.departamento_id','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');

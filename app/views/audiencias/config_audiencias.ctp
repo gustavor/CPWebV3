@@ -16,18 +16,18 @@
 	$campos[$modelClass]['iscancelada']['options']['options'] 						= array(0=>'Não',1=>'Sim');
 
 	$campos[$modelClass]['tipo_audiencia_id']['options']['label']['text'] 			= 'Tipo';
-	$campos[$modelClass]['tipo_audiencia_id']['options']['empty'] 					= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_audiencia_id']['options']['empty'] 					= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_audiencia_id']['options']['style']					= 'width:346px;';
 	if (isset($tipoaudiencias)) $campos[$modelClass]['tipo_audiencia_id']['options']['options'] = $tipoaudiencias;
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 				= 'Processo';
-	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['processo_id']['options']['style']							= 'width:346px;';
 	if (isset($processo)) $campos[$modelClass]['processo_id']['options']['options'] = $processo;
 
 	$campos[$modelClass]['usuario_id']['options']['label']['text']                 = 'Advogado Responsável';
 	$campos[$modelClass]['usuario_id']['options']['label']['style']                = 'width: 200px;';
-	$campos[$modelClass]['usuario_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['usuario_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['usuario_id']['options']['style']							= 'width:346px;';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] = $advogados;
 

@@ -3,12 +3,12 @@
 	$campos[$modelClass]['numero']['options']['style'] 					= 'width: 600px;';
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 	= 'Processo';
-	$campos[$modelClass]['processo_id']['options']['empty'] 			= '-- escolha um opção --';
+	$campos[$modelClass]['processo_id']['options']['empty'] 			= '-- escolha uma opção --';
 	$campos[$modelClass]['processo_id']['options']['style'] 			= 'width: 300px;';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] = $processos;
 
 	$campos[$modelClass]['tipo_numero_id']['options']['label']['text'] 	= 'TipoNúmero';
-	$campos[$modelClass]['tipo_numero_id']['options']['empty'] 			= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_numero_id']['options']['empty'] 			= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_numero_id']['options']['style'] 			= 'width: 300px;';
 	if (isset($tiponumeros)) $campos[$modelClass]['tipo_numero_id']['options']['options'] = $tiponumeros;	
 

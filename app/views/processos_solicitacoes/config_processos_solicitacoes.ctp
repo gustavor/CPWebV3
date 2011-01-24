@@ -26,37 +26,37 @@
 	$campos[$modelClass]['obs']['options']['style'] 							= 'width: 730px;';
 
 	$campos[$modelClass]['solicitacao_id']['options']['label']['text'] 						= 'Solicitação';
-	$campos[$modelClass]['solicitacao_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['solicitacao_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['solicitacao_id']['options']['class']  							= 'edicaoSelect';
 	if (isset($solicitacoes)) $campos[$modelClass]['solicitacao_id']['options']['options'] 	= $solicitacoes;
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 						= 'Processo';
 	$campos[$modelClass]['processo_id']['options']['type'] 									= 'hidden';
-	$campos[$modelClass]['processo_id']['options']['empty'] 								= '-- escolha um opção --';
+	$campos[$modelClass]['processo_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['processo_id']['options']['class']  								= 'edicaoSelect';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] 		= $processos;
 
 	$campos[$modelClass]['departamento_id']['options']['label']['text'] 					= 'Departamento';
-	$campos[$modelClass]['departamento_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['departamento_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['departamento_id']['options']['class']  							= 'edicaoSelect';
 	if (isset($departamento)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamento;
 
 	$campos[$modelClass]['tipo_peticao_id']['options']['label']['text'] 					= 'TipoPetição';
-	$campos[$modelClass]['tipo_peticao_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_peticao_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_peticao_id']['options']['class']  							= 'edicaoSelect';
 	if (isset($tipopeticoes)) $campos[$modelClass]['tipo_peticao_id']['options']['options'] = $tipopeticoes;
 
 	$campos[$modelClass]['tipo_parecer_id']['options']['label']['text'] 					= 'TipoParecer';
-	$campos[$modelClass]['tipo_parecer_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_parecer_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_parecer_id']['options']['class']  							= 'edicaoSelect';
 	if (isset($tipopareceres)) $campos[$modelClass]['tipo_parecer_id']['options']['options']= $tipopareceres;
 
 	$campos[$modelClass]['complexidade_id']['options']['label']['text'] 					= 'Complexidade';
-	$campos[$modelClass]['complexidade_id']['options']['empty'] 							= '-- escolha um opção --';
+	$campos[$modelClass]['complexidade_id']['options']['empty'] 							= '-- escolha uma opção --';
 	if (isset($complexidades)) $campos[$modelClass]['complexidade_id']['options']['options']= $complexidades;
 
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['label']['text'] 				= 'TipoSolicitação';
-	$campos[$modelClass]['tipo_solicitacao_id']['options']['empty'] 						= '-- escolha um opção --';
+	$campos[$modelClass]['tipo_solicitacao_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['default']  						= 3;
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['class']  						= 'edicaoSelect';
 	
