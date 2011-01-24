@@ -385,6 +385,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `equipe_id` INT(11) NULL ,
   `gestao_id` INT(11) NULL ,
   `obs` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
+  `operacao_contrato` TEXT NULL ,
   `numero` VARCHAR(30) NOT NULL ,
   `numero_auxiliar` VARCHAR(30) NOT NULL ,
   `parte_contraria_id` INT(11) NOT NULL ,
