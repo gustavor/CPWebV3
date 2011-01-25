@@ -35,7 +35,7 @@
 		</ul>
 	</li>
 
-<?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
+	<?php if (in_array('ADMINISTRADOR',$this->Session->read('perfis'))) : ?>
 	<li>
 		<?php $admin_ativo = ($this->Session->check('admin_ativo')) ? $this->Session->read('admin_ativo') : 'audiencias'; ?>
 		<a href="<?php echo Router::url('/').$admin_ativo; ?>">Administração</a>
@@ -48,19 +48,19 @@
 			<li><a href="<?php echo Router::url('/').'usuarios'; ?>">Usuários</a></li>
 		</ul>
 	</li>
-<?php endif ?>
+	<?php endif ?>
 
-<?php if (isset($ferramentas)) : ?>
+	<?php if (isset($ferramentas)) : ?>
 	<li>
 		<a href="#">Ferramentas</a>
 		<ul>
 			<?php foreach($ferramentas as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?>
 		</ul>
 	</li>
-<?php endif ?>
+	<?php endif ?>
 
 	<li>
-		<a href="<?php echo Router::url('/',true).'relatorios'; ?>">Relatórios</a>
+		<a href="<?php echo Router::url('/',true).'relatorios/processos1'; ?>">Relatórios</a>
 	</li>
 	
 	<li>

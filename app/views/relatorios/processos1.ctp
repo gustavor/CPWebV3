@@ -1,7 +1,7 @@
 <?php $this->Html->css('relatorios.css', null, array('inline' => false)); ?>
 <?php echo $this->element('menu_relatorios'); ?>
 <br />
-<h2><center>Processos 1</center></h2>
+<div id="titulo">Filtro para Processos e Solicitações</div>
 
 <?php echo $this->Form->create('processos1',array('url'=>array('controller'=>'relatorios','action'=>'processos1')))."\n"; ?>
 <div id="filtro">
@@ -14,17 +14,15 @@
 			<li><?php echo $this->Form->input('data_fim',$data['data_fim']['options']); ?></li>
 		</ul>
 	</div>
-	
+	<br />
 	<div id="ordem">
 		<ul>
-			<?php echo $this->Form->input('ordem',array('type'=>'select','options'=>array('created','data_fechamento'))); ?>
+			<li><?php echo $this->Form->input('ordem',$data['ordem']['options']); ?></li>
 		</ul>
 	</div>
-	
+	<br />
 	<div id="botoes">
-		<?php 
-			echo $this->Form->button('Imprimir');
-		?>
+		<?php echo $this->Form->button('Imprimir'); ?>
 	</div>
 </div>
 <?php echo $this->Form->end(); ?>

@@ -32,6 +32,8 @@
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 						= 'Processo';
 	$campos[$modelClass]['processo_id']['options']['type'] 									= 'hidden';
+	$campos[$modelClass]['processo_id']['estilo_th'] 										= 'width=120px';
+	$campos[$modelClass]['processo_id']['estilo_td'] 										= 'style="text-align: center; "';
 	$campos[$modelClass]['processo_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['processo_id']['options']['class']  								= 'edicaoSelect';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options'] 		= $processos;
@@ -65,11 +67,16 @@
 	$campos[$modelClass]['idProcesso']['estilo_td'] 										= 'style="text-align: center;"';
 
 	$campos[$modelClass]['created']['options']['label']['text'] 							= 'Solicitado em';
-	$campos[$modelClass]['created']['estilo_th'] 											= 'width="118px"';
+	$campos[$modelClass]['created']['estilo_th'] 											= 'width=220px';
+	$campos[$modelClass]['created']['estilo_td'] 											= 'style="text-align: center; "';
+	$campos[$modelClass]['created']['mascara'] 												= 'datahora';
 
 	if (isset($tipossolicitacoes)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] = $tipossolicitacoes;
 
+	$campos[$modelClass]['usuario_atribuido']['options']['label']['text']	 				= 'Usuário Atribuído';
 	$campos[$modelClass]['usuario_atribuido']['options']['type']			 				= 'hidden';
+	$campos[$modelClass]['usuario_atribuido']['estilo_td'] 									= 'style="text-align: center; "';
+	$campos[$modelClass]['usuario_atribuido']['estilo_th'] 									= 'width="210px"';
 
     $campos[$modelClass]['usuario_solicitante']['options']['type']                          = 'hidden';
     $campos[$modelClass]['usuario_solicitante']['options']['value']                         = $this->Session->read( 'Auth.Usuario.id' );
@@ -81,7 +88,7 @@
 	$campos['Complexidade']['nome']['options']['label']['text'] 							= 'Complexidade';
 	$campos['Complexidade']['nome']['estilo_th'] 											= 'width="140px"';
 
-	$campos	['TipoParecer']['nome']['options']['label']['text'] 								= 'Tipo de Parecer';
+	$campos['TipoParecer']['nome']['options']['label']['text'] 								= 'Tipo de Parecer';
 
 	$campos['TipoPeticao']['nome']['options']['label']['text'] 								= 'Tipo de Petição';
 	$campos['TipoPeticao']['nome']['estilo_th'] 											= 'width="140px"';

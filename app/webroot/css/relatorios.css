@@ -1,31 +1,64 @@
 #menu_relatorios
 {
 	float: left;
+	clear: both;
 	width: 200px;
-	
+	margin: 10px 0px 0px 8px;
+	z-index: 999;
+}
+
+#menu_relatorios a
+{
+	text-decoration: none;
+	color: #333;
+}
+
+#menu_relatorios a:hover
+{
+	text-decoration: normal;
+	color: green;
+}
+
+#menu_relatorios span
+{
+	font-weight: bold;
+}
+
+#titulo
+{
+	position: absolute;
+	width: 500px;
+	left: 50%;
+	margin-left: -250px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
 }
 
 #filtro
 {
-	margin: 30px auto;
+	margin: 50px auto;
 	width: 500px;
 	height: 200px;
 	border: 1px solid #ddd;
+	padding: 10px 0px 10px 0px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 }
 
+#filtro #ordem,
 #filtro #campos
 {
-	height: 80%;
-	margin: 5px 0px 0px 10px;
+	margin: 0px 0px 0px 0px;
 }
 
+#filtro #ordem ul,
 #filtro #campos ul
 {
 	list-style: none;
 }
 
+#filtro #ordem label,
 #filtro #campos label
 {
 	display: block;
@@ -44,4 +77,9 @@
 #filtro #botoes button
 {
 	width: 120px;
+}
+
+#lista table th
+{
+	background-color: #ddd;
 }

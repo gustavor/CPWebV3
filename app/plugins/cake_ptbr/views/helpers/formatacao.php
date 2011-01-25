@@ -302,10 +302,10 @@ class FormatacaoHelper extends AppHelper {
 				if (!empty($valor)) $formatado = substr($_valor,0,2).'.'.substr($_valor,2,strlen($_valor));
 				break;
 			case 'datahora':
-				$formatado = $this->dataHora($valor,true);
+				if (!empty($valor)) $formatado = $this->dataHora($valor,true);
 				break;
 			case 'data':
-				$formatado = $this->data($valor);
+				if (!empty($valor)) $formatado = $this->data($valor);
 				break;
 		}
 		return $formatado;
