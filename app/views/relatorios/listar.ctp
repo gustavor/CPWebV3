@@ -14,7 +14,8 @@
 
 <?php echo $this->element('menu_relatorios'); ?>
 <div id="lista">
-<table>
+<div id="lcabecalho"></div>
+<table id="tabela">
 <?php //cabeçalho
 	foreach($camposLista as $_campo)
 	{

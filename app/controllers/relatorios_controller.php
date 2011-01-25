@@ -58,6 +58,7 @@ class RelatoriosController extends AppController {
 	 */
 	public function beforeFilter()
 	{
+		$this->set('arqListaMenu','menu_relatorios');
 		parent::beforeFilter();
 	}
  
