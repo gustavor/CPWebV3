@@ -1,9 +1,19 @@
+<?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
 <?php $this->Html->css('relatorios.css', null, array('inline' => false)); ?>
-<?php echo $this->element('menu_relatorios'); ?>
-<br />
+
+<div class="lista" id="listaRelatorios">
+
+<div id="topo">
 <div id="titulo">Filtro para Processos e Solicitações</div>
+</div>
+
+<?php echo $this->element('menu_relatorios'); ?>
+
+<div id="direita">
 
 <?php echo $this->Form->create('processos1',array('url'=>array('controller'=>'relatorios','action'=>'processos1')))."\n"; ?>
+<?php echo $this->Form->input('relatorio',array('value'=>$relatorio,'type'=>'hidden')); ?>
+
 <div id="filtro">
 	<div id="campos">
 		<ul>
@@ -22,9 +32,13 @@
 	</div>
 	<br />
 	<div id="botoes">
-		<?php echo $this->Form->button('Imprimir'); ?>
+		<?php echo $this->Form->button('Enviar'); ?>
 	</div>
 </div>
 <?php echo $this->Form->end(); ?>
 
 <?php include_once('../views/cpweb_crud/rodape.ctp'); ?>
+
+</div>
+
+</div>

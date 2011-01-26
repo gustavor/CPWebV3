@@ -51,7 +51,7 @@ class RelatoriosController extends AppController {
 	 * @var array Componentes
 	 * @access public
 	 */
-	public $components	= array('CpwebCrud','Session');
+	public $components	= array('Session');
 	
 	/**
 	 * 
@@ -61,7 +61,26 @@ class RelatoriosController extends AppController {
 		$this->set('arqListaMenu','menu_relatorios');
 		parent::beforeFilter();
 	}
- 
+
+	/**
+	 * 
+	 */
+	public function beforeRender()
+	{
+		$listaRelatorio['quantitativo']['text'] 		= 'Quantitativo';
+		$listaRelatorio['quantitativo']['url'] 			= Router::url('/',true).'relatorios/processos1/quantitativo';
+		$listaRelatorio['qualitativo']['text'] 			= 'Qualitativo';
+		$listaRelatorio['qualitativo']['url'] 			= Router::url('/',true).'relatorios/processos1/qualitativo';
+		
+		$combo['label']['text'] 						= 'Imprimir para';
+		$combo['options']['options']['lay_xls']			= 'Planilha Eletrônica';
+		$combo['options']['options']['lay_tabela']		= 'Tabela em Pdf';
+		$combo['options']['empty'] 						= '-- escolha uma opção --';
+		
+		$this->set(compact('listaRelatorio','combo'));
+		parent::beforeRender();
+	}
+
 	/**
 	 * método start
 	 * 
@@ -85,9 +104,11 @@ class RelatoriosController extends AppController {
 	}
 
 	/**
+	 * Filtro para Processos e Solicitações, modelo 1.
 	 * 
+	 * @return void
 	 */
-	public function processos1()
+	public function processos1($relatorio='')
 	{
 		// filtro funcionários
 		$this->loadModel('Usuario');
@@ -96,14 +117,14 @@ class RelatoriosController extends AppController {
 		$data['funcionario']['options']['style'] 			= 'width: 320px;';
 		$data['funcionario']['options']['empty'] 			= '-- escolha uma opção --';
 		$data['funcionario']['options']['options'] 			= $this->Usuario->find('list');
-		
+
 		// filtro cliente
 		$this->loadModel('Cliente');
 		$data['cliente']['options']['default'] 				= 0;
 		$data['cliente']['options']['empty'] 				= '-- escolha uma opção --';
 		$data['cliente']['options']['style'] 				= 'width: 320px;';
 		$data['cliente']['options']['options'] 				= $this->Cliente->find('list');
-		
+
 		// filtro cliente
 		$this->loadModel('Departamento');
 		$data['departamento']['options']['label']['text'] 	= 'Departamento';
@@ -135,9 +156,13 @@ class RelatoriosController extends AppController {
 		$data['data_fim']['options']['type'] 				= 'date';
 		$data['data_fim']['options']['value'] 				= strtotime('+30 days');
 
+		// enviando o nome do model para a view
+		$this->set('modelo','ProcessoSolicitacao');
+
 		if (isset($this->data['processos1']) && !empty($this->data['processos1']))
 		{
 			$condicoes = array();
+			$relatorio = $this->data['processos1']['relatorio'];
 
 			// filtro usuario
 			if (isset($this->data['processos1']['funcionario']) && !(empty($this->data['processos1']['funcionario'])))
@@ -226,12 +251,14 @@ class RelatoriosController extends AppController {
 
 			// enviar data para a visão lista_relatorio
 			$this->set(compact('dataLista','camposLista','viewLista'));
+			$this->set('relatorio',$relatorio);
 
 			// exibindo 
 			$this->render('listar');
 		} else
 		{
 			$this->set(compact('data'));
+			$this->set('relatorio',$relatorio);
 		}
 	}
 }

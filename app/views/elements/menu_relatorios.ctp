@@ -1,12 +1,11 @@
-<?php $on_read_view_sub_form = ''; ?>
-<div id="menu_relatorios">
+<?php $listaRelatorio[$relatorio]['url'] 				= '#'; ?>
+<?php $listaRelatorio[$relatorio]['options']['style'] = 'background-color: #ddd;';	?>
+<div id="esquerda">
 <ul>
-	<li id="l1"><span>Processos Solicitações</span>
+	<li id="l1"><span><strong>Processos Solicitações</strong></span>
 		<ul id="p1">
-			<li><a href="<?php echo Router::url('/',true).'relatorios/processos1';?>">Quantitativo</a></li>
-			<li><a href="<?php echo Router::url('/',true).'relatorios/processos1';?>">Qualitativo</a></li>
+			<?php foreach($listaRelatorio as $_rel => $_arrOpcoes) echo "<li>\n\t".$this->Html->link($_arrOpcoes['text'],$_arrOpcoes['url'],(isset($_arrOpcoes['options'])? $_arrOpcoes['options'] : null), (isset($_arrOpcoes['confirmMessage']) ? $_arrOpcoes['confirmMessage'] : null) )."\n\t</li>\n"; ?>
 		</ul>
 	</li>
 </ul>
 </div>
-<?php $this->set('on_read_view_sub_form',$on_read_view_sub_form); ?>

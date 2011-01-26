@@ -1,5 +1,5 @@
+<?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
 <?php $this->Html->css('relatorios.css', null, array('inline' => false)); ?>
-
 <?php 
 	foreach($viewLista as $_view => $_modelClass)
 	{
@@ -12,10 +12,15 @@
 	}
 ?>
 
+<div class="lista" id="listaRelatorios" >
+<div id="topo">
+	<div id="titulo">Lista para Relatório <?php echo $this->viewVars['listaRelatorio'][$relatorio]['text']; ?></div>
+	<div id="combo"><?php echo $this->Form->input($combo['label']['text'],$combo['options']); ?>
+	</div>
+</div>
 <?php echo $this->element('menu_relatorios'); ?>
-<div id="lista">
-<div id="lcabecalho"></div>
-<table id="tabela">
+<div id="direita">
+<table class="linhas" cellpadding="0" cellspacing="0" border="0" >
 <?php //cabeçalho
 	foreach($camposLista as $_campo)
 	{
@@ -49,4 +54,10 @@
 	}
 ?>
 </table>
+</div>
+
+<div class="listaRodape">
+Página <?php echo $this->params['paging'][$modelo]['page']; ?> de <?php echo $this->params['paging'][$modelo]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelo]['count']; ?></td>
+</div>
+
 </div>

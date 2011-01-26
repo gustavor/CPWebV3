@@ -60,7 +60,7 @@
 	<?php endif ?>
 
 	<li>
-		<?php $relat_ativo = ($this->Session->check('relat_ativo')) ? $this->Session->read('relat_ativo') : 'relatorios/processos1'; ?>
+		<?php $relat_ativo = ($this->Session->check('relat_ativo')) ? $this->Session->read('relat_ativo') : 'relatorios/processos1/quantitativo'; ?>
 		<a href="<?php echo Router::url('/').$relat_ativo; ?>">Relatórios</a>
 	</li>
 
