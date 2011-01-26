@@ -78,6 +78,9 @@ class RelatoriosController extends AppController {
 		$combo['options']['empty'] 						= '-- escolha uma opção --';
 		
 		$this->set(compact('listaRelatorio','combo'));
+		$this->set('action','');
+		$this->set('on_read_view','');
+		$this->set('primaryKey','');
 		parent::beforeRender();
 	}
 
