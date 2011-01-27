@@ -147,21 +147,21 @@ class RelatoriosController extends AppController {
 				{
 					foreach($_arrCampos as $_campo => $_valor)
 					{
-						$condicoes['ProcessoSolicitacao.usuario_atribuido'][$_valor];
+						$condicoes['ProcessoSolicitacao.usuario_atribuido']  = $_valor;
 					}
 				}
 			}
 
-			// filtrando cliente do processo
+			// filtrando os processos do cliente
 			if (isset($this->data['processos1']['cliente']) && !(empty($this->data['processos1']['cliente'])))
 			{
 				$this->loadModel('Processo');
 				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('cliente_id'=>$this->data['processos1']['cliente'])));
 				foreach($dataProcesso as $_modelo => $_arrCampos)
 				{
-					foreach($_arrCampos as $_campo => $_valor)
+					foreach($_arrCampos as $_campo => $_arrValor)
 					{
-						$condicoes['ProcessoSolicitacao.processo_id'][$_valor];
+						if (isset($_arrValor['id'])) $condicoes['ProcessoSolicitacao.processo_id'] = $_arrValor['id'];
 					}
 				}
 			}
