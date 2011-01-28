@@ -2,14 +2,14 @@
 
 	$listaRelatorio[0]['titulo'] 					= 'Clientes';
 	$listaRelatorio[0]['sintetico']['text'] 		= 'Sintético';
-	$listaRelatorio[0]['sintetico']['url'] 			= Router::url('/',true).'relatorios/clientes/sintetico';
+	$listaRelatorio[0]['sintetico']['url'] 			= Router::url('/',true).'relatorios/fil_clientes/sintetico';
 
 	$listaRelatorio[1]['titulo']					= 'Processos e Solicitações';
-	$listaRelatorio[1]['quantitativo']['url'] 		= Router::url('/',true).'relatorios/processos1/quantitativo';
+	$listaRelatorio[1]['quantitativo']['url'] 		= Router::url('/',true).'relatorios/fil_processos/quantitativo';
 	$listaRelatorio[1]['quantitativo']['text'] 		= 'Quantitativo';
 
 	$listaRelatorio[1]['qualitativo']['text'] 		= 'Qualitativo';
-	$listaRelatorio[1]['qualitativo']['url'] 		= Router::url('/',true).'relatorios/processos1/qualitativo';
+	$listaRelatorio[1]['qualitativo']['url'] 		= Router::url('/',true).'relatorios/fil_processos/qualitativo';
 
 	foreach($listaRelatorio as $_item => $_arrRel)
 	{

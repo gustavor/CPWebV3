@@ -13,7 +13,7 @@
 
 <div id="direita">
 
-<?php echo $this->Form->create('clientes',array('url'=>array('controller'=>'relatorios','action'=>'clientes')))."\n"; ?>
+<?php echo $this->Form->create($action,array('url'=>array('controller'=>'relatorios','action'=>$action)))."\n"; ?>
 <?php echo $this->Form->input('relatorio',array('value'=>$relatorio,'type'=>'hidden')); ?>
 
 <div id="filtro">

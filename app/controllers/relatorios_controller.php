@@ -67,7 +67,8 @@ class RelatoriosController extends AppController {
 	 */
 	public function beforeRender()
 	{
-		$this->set('action','');
+		if (isset($this->params['pass'][1])) $this->layout = ($this->params['pass'][1]=='lay_planilha') ? 'planilha' : 'pdf';
+		$this->set('action',$this->action);
 		$this->set('on_read_view','');
 		$this->set('primaryKey','');
 		parent::beforeRender();
@@ -100,10 +101,11 @@ class RelatoriosController extends AppController {
 	 * 
 	 * @return void
 	 */
-	public function processos1($relatorio='', $layout='')
+	public function fil_processos($relatorio='', $layout='')
 	{
+		
 		// configurando o nome do relatório
-		$relatorio = isset($this->data['processos1']['relatorio']) ? $this->data['processos1']['relatorio'] : $relatorio;
+		$relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
 
 		// modelo padrão
 		$this->loadModel('ProcessoSolicitacao');
@@ -129,20 +131,20 @@ class RelatoriosController extends AppController {
 		$dataOrdem['ordem']['options']['options'] 				= array('created'=>'Criado','data_fechamento'=>'Data de Fechamento');
 
 		// se o formulário foi postado ou o pedido de impressão para o layout
-		if 	(	(isset($this->data['processos1'])) || (!empty($layout)) )
+		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
 		{
 			$condicoes = array();
 
 			// filtrando funcionário
-			if (isset($this->data['processos1']['funcionario']) && !(empty($this->data['processos1']['funcionario'])))
+			if (isset($this->data[$this->action]['funcionario']) && !(empty($this->data[$this->action]['funcionario'])))
 			{
-				$condicoes['ProcessoSolicitacao.usuario_atribuido']	= $this->data['processos1']['funcionario'];
+				$condicoes['ProcessoSolicitacao.usuario_atribuido']	= $this->data[$this->action]['funcionario'];
 			}
 
 			// filtrando departamento
-			if (isset($this->data['processos1']['departamento']) && !(empty($this->data['processos1']['departamento'])))
+			if (isset($this->data[$this->action]['departamento']) && !(empty($this->data[$this->action]['departamento'])))
 			{
-				$dataDepartamento = $this->Usuario->find('all',array('conditions'=>array('Usuario.departamento_id'=>$this->data['processos1']['departamento'])));
+				$dataDepartamento = $this->Usuario->find('all',array('conditions'=>array('Usuario.departamento_id'=>$this->data[$this->action]['departamento'])));
 				foreach($dataDepartamento as $_modelo => $_arrCampos)
 				{
 					foreach($_arrCampos as $_campo => $_valor)
@@ -153,10 +155,10 @@ class RelatoriosController extends AppController {
 			}
 
 			// filtrando os processos do cliente
-			if (isset($this->data['processos1']['cliente']) && !(empty($this->data['processos1']['cliente'])))
+			if (isset($this->data[$this->action]['cliente']) && !(empty($this->data[$this->action]['cliente'])))
 			{
 				$this->loadModel('Processo');
-				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('cliente_id'=>$this->data['processos1']['cliente'])));
+				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('cliente_id'=>$this->data[$this->action]['cliente'])));
 				foreach($dataProcesso as $_modelo => $_arrCampos)
 				{
 					foreach($_arrCampos as $_campo => $_arrValor)
@@ -167,20 +169,20 @@ class RelatoriosController extends AppController {
 			}
 
 			// filtrando data
-			if (	isset($this->data['processos1']['data_ini']) && !(empty($this->data['processos1']['data_ini'])) &&
-					isset($this->data['processos1']['data_fim']) && !(empty($this->data['processos1']['data_fim']))
+			if (	isset($this->data[$this->action]['data_ini']) && !(empty($this->data[$this->action]['data_ini'])) &&
+					isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
 				)
 			{
-				$dtIni = $this->data['processos1']['data_ini']['year'].'/'.$this->data['processos1']['data_ini']['month'].'/'.$this->data['processos1']['data_ini']['day'];
-				$dtFim = $this->data['processos1']['data_fim']['year'].'/'.$this->data['processos1']['data_fim']['month'].'/'.$this->data['processos1']['data_fim']['day'];
+				$dtIni = $this->data[$this->action]['data_ini']['year'].'/'.$this->data[$this->action]['data_ini']['month'].'/'.$this->data[$this->action]['data_ini']['day'];
+				$dtFim = $this->data[$this->action]['data_fim']['year'].'/'.$this->data[$this->action]['data_fim']['month'].'/'.$this->data[$this->action]['data_fim']['day'];
 				$condicoes['ProcessoSolicitacao.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 			}
 
 			// ordentando
-			if 	(	isset($this->data['processos1']['ordem']) )
+			if 	(	isset($this->data[$this->action]['ordem']) )
 			{
-				$this->paginate = array('order'=>array($this->data['processos1']['ordem']=>'ASC'));
-				$this->Session->write('ordemRelatorio',$this->data['processos1']['ordem']);
+				$this->paginate = array('order'=>array($this->data[$this->action]['ordem']=>'ASC'));
+				$this->Session->write('ordemRelatorio',$this->data[$this->action]['ordem']);
 			}
 
 			// carregar ProcessosSolicitações
@@ -222,18 +224,10 @@ class RelatoriosController extends AppController {
 					}
 				}
 			}
-
-			if (!empty($layout))
-			{
-				$this->layout = 'pdf';
-				$render = $layout;
-			} else
-			{
-				$render = 'listar';
-			}
+			$render = (!empty($layout)) ? $layout : 'listar';
 		} else
 		{
-			$render = 'processos1';
+			$render = $this->action;
 		}
 
 		// atualizando a view
@@ -244,17 +238,22 @@ class RelatoriosController extends AppController {
 	}
 	
 	/**
+	 * Exibe a Lista de Clientes Modelo Sintético
 	 * 
+	 * @param	string	$relatorio			Nome do Relatório
+	 * @param	string	$layout				Nome do layout a ser usado no relatório
+	 * @param	array	$campoLista			Campos que vão compor a lista
+	 * @param	array	$viewLista			Outras visões que serão incorporadas
+	 * @param	array	$paramRelatorio		Configurações para o Relatório
+	 * @param	string	$modeloPrincipal	Modelo principal que irá ser paginado ou listado
+	 * @return void
 	 */
-	public function clientes($relatorio='', $layout='')
+	public function fil_clientes($relatorio='', $layout='')
 	{
-		// página de renderização
-		$render 		= '';
-
 		// campos para a lista
 		$camposLista 	= array('Cliente.nome','Cliente.endereco','Cliente.cpf','Cliente.cnpj','Cliente.modified','Cliente.created');
 
-		// config view
+		// configs na view
 		$viewLista 		= array('clientes'=>'Cliente');
 
 		// parametros do relatório
@@ -264,29 +263,14 @@ class RelatoriosController extends AppController {
 		// carregando o modelo principal
 		$this->loadModel('Cliente');
 
-		// filtrando os dados e definindo a página de renderização
-		if 	(isset($this->data['clientes']['relatorio']) || !empty($layout))
-		{
-			if (!empty($layout))
-			{
-				$dataLista = $this->Cliente->find('all',null,null,array('order'=>'Cliente.nome'));
-				$this->layout = 'pdf';
-				$render = $layout;
-			} else
-			{
-				$dataLista = $this->paginate('Cliente');
-				$render = 'listar';
-			}
-		} else
-		{
-			$render = 'filtro';	// renderizando a lista
-		}
+		$dataLista	= (!empty($layout)) ? $this->Cliente->find('all',null,null,array('order'=>'Cliente.nome')) : $this->paginate('Cliente');
+		$render 	= (!empty($layout)) ? $layout : 'listar';
 
 		// atualizando a view
 		$this->set(compact('dataLista','camposLista','viewLista','paramRelatorio'));
 		$this->set('modelo','Cliente');
 		$this->set('relatorio','sintetico');
-		
+
 		$this->render($render);
 	}
 	

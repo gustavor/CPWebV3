@@ -27,11 +27,11 @@
 	$campos[$modelo]['created']['options']['disabled'] 			= 'disabled';
 
 	$combo['label']['text'] 						= 'Imprimir para';
-	$combo['options']['options']['lay_xls']			= 'Planilha Eletrônica';
+	$combo['options']['options']['lay_planilha']	= 'Planilha Eletrônica';
 	$combo['options']['options']['lay_tabela']		= 'Tabela em Pdf';
 	$combo['options']['empty'] 						= '-- escolha um layout de saída --';
 	$combo['options']['id'] 						= 'imprimirPara';
-	$combo['options']['onchange']					= 'if (this.value) window.location.href=\''.$this->here.'/'.$relatorio.'/\'+this.value;';
+	$combo['options']['onchange']					= 'if (this.value) window.location.href=\''.Router::url('/',true).'relatorios/'.$action.'/'.$relatorio.'/\'+this.value;';
 ?>
 <div class="lista" id="listaRelatorios" >
 <div id="topo">

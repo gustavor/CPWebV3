@@ -3,35 +3,35 @@
 	$this->Html->css('relatorios.css', null, array('inline' => false));
 
 	$dataFiltro['funcionario']['options']['label']['text'] 	= 'Funcionário';
-	$dataFiltro['funcionario']['options']['default'] 			= 0;
+	$dataFiltro['funcionario']['options']['default'] 		= 0;
 	$dataFiltro['funcionario']['options']['style'] 			= 'width: 320px;';
 	$dataFiltro['funcionario']['options']['empty'] 			= '-- escolha uma opção --';
-	$dataFiltro['cliente']['options']['default'] 				= 0;
+	$dataFiltro['cliente']['options']['default'] 			= 0;
 	$dataFiltro['cliente']['options']['empty'] 				= '-- escolha uma opção --';
 	$dataFiltro['cliente']['options']['style'] 				= 'width: 320px;';
-	$dataFiltro['departamento']['options']['label']['text'] 	= 'Departamento';
+	$dataFiltro['departamento']['options']['label']['text'] = 'Departamento';
 	$dataFiltro['departamento']['options']['default'] 		= 0;
-	$dataFiltro['departamento']['options']['style'] 			= 'width: 320px;';
-	$dataFiltro['departamento']['options']['empty'] 			= '-- escolha uma opção --';
-	$dataFiltro['ordem']['options']['label']['text'] 			= 'Ordenar por';
+	$dataFiltro['departamento']['options']['style'] 		= 'width: 320px;';
+	$dataFiltro['departamento']['options']['empty'] 		= '-- escolha uma opção --';
+	$dataFiltro['ordem']['options']['label']['text'] 		= 'Ordenar por';
 	$dataFiltro['ordem']['options']['default'] 				= 0;
-	$dataFiltro['ordem']['options']['style'] 					= 'width: 320px;';
-	$dataFiltro['ordem']['options']['empty'] 					= '-- escolha uma opção --';
+	$dataFiltro['ordem']['options']['style'] 				= 'width: 320px;';
+	$dataFiltro['ordem']['options']['empty'] 				= '-- escolha uma opção --';
 	$dataFiltro['ordem']['options']['default'] 				= 'created';
 	$dataFiltro['data_ini']['options']['label']['text']		= 'data Inicio';
 	$dataFiltro['data_ini']['options']['div'] 				= null;
-	$dataFiltro['data_ini']['options']['dateFormat'] 			= 'DMY';
-	$dataFiltro['data_ini']['options']['monthNames'] 			= false;
+	$dataFiltro['data_ini']['options']['dateFormat'] 		= 'DMY';
+	$dataFiltro['data_ini']['options']['monthNames'] 		= false;
 	$dataFiltro['data_ini']['options']['interval']			= 3;
 	$dataFiltro['data_ini']['options']['type'] 				= 'date';
-	$dataFiltro['data_ini']['options']['value'] 				= strtotime('-5 days');
+	$dataFiltro['data_ini']['options']['value'] 			= strtotime('-5 days');
 	$dataFiltro['data_fim']['options']['label']['text']		= 'data Fim';
 	$dataFiltro['data_fim']['options']['div'] 				= null;
-	$dataFiltro['data_fim']['options']['dateFormat'] 			= 'DMY';
-	$dataFiltro['data_fim']['options']['monthNames'] 			= false;
+	$dataFiltro['data_fim']['options']['dateFormat'] 		= 'DMY';
+	$dataFiltro['data_fim']['options']['monthNames'] 		= false;
 	$dataFiltro['data_fim']['options']['year'] 				= 2012;
 	$dataFiltro['data_fim']['options']['type'] 				= 'date';
-	$dataFiltro['data_fim']['options']['value'] 				= strtotime('+30 days');
+	$dataFiltro['data_fim']['options']['value'] 			= strtotime('+30 days');
 ?>
 
 <div class="lista" id="listaRelatorios">
@@ -44,7 +44,7 @@
 
 <div id="direita">
 
-<?php echo $this->Form->create('processos1',array('url'=>array('controller'=>'relatorios','action'=>'processos1')))."\n"; ?>
+<?php echo $this->Form->create($action,array('url'=>array('controller'=>'relatorios','action'=>$action)))."\n"; ?>
 <?php echo $this->Form->input('relatorio',array('value'=>$relatorio,'type'=>'hidden')); ?>
 
 <div id="filtro">
