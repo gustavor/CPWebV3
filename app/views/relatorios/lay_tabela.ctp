@@ -117,4 +117,5 @@ $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, 
 
 // imprimindo o arquivo
 $pdf->Output($paramRelatorio['titulo'].'Lista.pdf', 'I');
+
 ?>

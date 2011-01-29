@@ -1,6 +1,9 @@
-<?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
-<?php $this->Html->css('relatorios.css', null, array('inline' => false)); ?>
-<?php 
+<?php
+
+	$this->Html->css('listar.css', null, array('inline' => false));
+
+	$this->Html->css('relatorios.css', null, array('inline' => false));
+
 	foreach($viewLista as $_view => $_modelo)
 	{
 		$arq = '../views/'.$_view.'/config_'.$_view.'.ctp'; 

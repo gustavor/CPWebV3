@@ -61,4 +61,5 @@ foreach($dataLista as $_linha => $_arrModelo)
 $html .= '</table>'."\n";
 
 echo $html;
+
 ?>

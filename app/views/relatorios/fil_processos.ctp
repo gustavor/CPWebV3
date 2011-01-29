@@ -37,7 +37,9 @@
 <div class="lista" id="listaRelatorios">
 
 <div id="topo">
+
 <div id="titulo"><?php echo $paramRelatorio['titulo']; ?></div>
+
 </div>
 
 <?php echo $this->element('menu_relatorios'); ?>

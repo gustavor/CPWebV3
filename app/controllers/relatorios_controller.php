@@ -75,7 +75,7 @@ class RelatoriosController extends AppController {
 	}
 
 	/**
-	 * método start
+	 * Método start
 	 * 
 	 * @return void
 	 */
@@ -273,7 +273,6 @@ class RelatoriosController extends AppController {
 
 		$this->render($render);
 	}
-	
 }
 
 ?>
