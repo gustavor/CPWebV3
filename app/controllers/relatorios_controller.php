@@ -20,7 +20,6 @@
  * @since CPWeb V3
  */
 class RelatoriosController extends AppController {
-
 	/**
 	 * Nome
 	 * 
@@ -28,7 +27,7 @@ class RelatoriosController extends AppController {
 	 * @access public
 	 */
 	public $name = 'Relatorios';
-	
+
 	/**
 	 * Modelo
 	 * 
@@ -44,7 +43,7 @@ class RelatoriosController extends AppController {
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
-	
+
 	/**
 	 * Componentes
 	 * 
@@ -52,7 +51,7 @@ class RelatoriosController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('Session');
-	
+
 	/**
 	 * 
 	 */
@@ -63,7 +62,9 @@ class RelatoriosController extends AppController {
 	}
 
 	/**
+	 * Antes da renderização da visão
 	 * 
+	 * @return void
 	 */
 	public function beforeRender()
 	{
@@ -103,7 +104,7 @@ class RelatoriosController extends AppController {
 	 */
 	public function fil_processos($relatorio='', $layout='')
 	{
-		
+	
 		// configurando o nome do relatório
 		$relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
 
@@ -236,7 +237,7 @@ class RelatoriosController extends AppController {
 		$this->set('relatorio',$relatorio);
 		$this->render($render);
 	}
-	
+
 	/**
 	 * Exibe a Lista de Clientes Modelo Sintético
 	 * 
@@ -274,5 +275,4 @@ class RelatoriosController extends AppController {
 		$this->render($render);
 	}
 }
-
 ?>

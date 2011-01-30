@@ -20,7 +20,6 @@
  * @since CPWeb V3
  */
 class CpwebCrudComponent extends Object {
-
 	 /**
 	 * método start
 	 * @return void
@@ -62,7 +61,7 @@ class CpwebCrudComponent extends Object {
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
 		if ($arqListaMenu=='menu_sistema')			$this->controller->Session->write('siste_ativo',$name);
 //		if ($arqListaMenu=='menu_relatorios')		$this->controller->Session->write('relat_ativo',$name);
-		
+
 		$campos[$modelClass]['nome']['estilo_th'] 						= 'width="450px"';
 
 		$campos[$modelClass]['modified']['options']['label']['text'] 	= 'Modificado';
@@ -80,12 +79,12 @@ class CpwebCrudComponent extends Object {
 		$campos[$modelClass]['created']['estilo_th'] 					= 'width="160px"';
 		$campos[$modelClass]['created']['estilo_td'] 					= 'style="text-align: center; "';
 		$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
-		
+
 		$this->controller->set(compact('tituloCab','urlsNao','name','arqListaMenu','action','id','on_read_view','title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar','singularHumanName', 'pluralHumanName','tamLista','campos'));
-		
+
 		$this->setUrlPermissao($name.'/'.$action);
 	}
-	
+
 	/**
 	 * Executa o método de paginação
 	 * 
@@ -206,7 +205,7 @@ class CpwebCrudComponent extends Object {
 				unset($this->controller->$modelClass->validationErrors);
 			}
 		}
-		
+
 		// verifica  a permissão de url
 		$this->setUrlPermissao();
 
@@ -214,7 +213,7 @@ class CpwebCrudComponent extends Object {
 		$this->setBotoesEdicao();
 		$this->setRelacionamentos();
 	 }
-	
+
 	/**
 	 * Deleta um registro do banco de dados. Em caso de sucesso retorna para a lista.
 	 * 
@@ -237,7 +236,7 @@ class CpwebCrudComponent extends Object {
 			$this->controller->Session->setFlash('Não foi possível deletar o id '.$id);
 		}
 	}
-	
+
 	/**
 	 * Exibe o formulário de exclusão de um registro.
 	 * 
@@ -414,7 +413,7 @@ class CpwebCrudComponent extends Object {
 			exit('Não foi possível ATUALIZAR '.$modelo.' ...');
 			return false;
 		}
-		
+
 		// incluindo omodelo filho
 		$dataModelo	= array();
 		foreach($this->controller->data[$this->controller->modelClass] as $campo => $valor)
@@ -437,7 +436,6 @@ class CpwebCrudComponent extends Object {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -478,7 +476,7 @@ class CpwebCrudComponent extends Object {
 				$this->controller->viewVars['msgEdicao'] = 'Você tem certeza de Excluir <strong>'.$this->controller->data[$modelClass][$this->controller->$modelClass->displayField].'</strong> ? <a href="'.Router::url('/',true).$this->name.'/delete/'.$id.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:return false;" onclick="javascript:$(\'#msgEdicao\').fadeOut(); $(\'#botoesEdicao\').show();" class="linkEdicaoExcluir">Não</a>';
 			}
 		}
-		
+
 		if (!in_array($this->name.'/salvar',$this->urlsNao))
 		{
 			$botoes['Salvar']['type']		= 'submit';
@@ -486,7 +484,7 @@ class CpwebCrudComponent extends Object {
 			if ($id) $botoes['Atualizar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/editar/'.$id.'\'';
 			if ($id) $botoes['Atualizar']['title']		= 'Atualize o registro ...';		
 		}
-		
+
 		if (!in_array($this->name.'/listar',$this->urlsNao))
 		{
 			$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/listar'.$urlLista.'\'';
@@ -505,7 +503,7 @@ class CpwebCrudComponent extends Object {
 		// atualizando a view
 		$this->controller->viewVars['botoesEdicao'] = $botoes;
 	}
-	
+
 	/**
 	 * Configura os botões na lista
 	 * 
@@ -534,7 +532,7 @@ class CpwebCrudComponent extends Object {
 		// atualizando a view
 		$this->controller->viewVars['botoesLista'] = $botoes;
 	}
-	 
+
 	 /**
 	  * Configura as ferramentas que serão usadas na Lista. Implementando as opções que são padrão
 	  * bem como, implementando as opções que vem co controller pai.

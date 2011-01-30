@@ -80,7 +80,12 @@ class Cliente extends AppModel {
                 'message' => 'É necessário informar a Cidade de domicílio do Cliente!'
             )            
         );
-        
+	/**
+	 * Relacionamento 1 para n
+	 * 
+	 * @var		array
+	 * @access	public
+	 */
 	public $belongsTo = array(
 		'Cidade' => array(
 			'className' => 'Cidade',
