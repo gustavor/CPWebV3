@@ -169,6 +169,12 @@
 			unset($redirecionamentos['Atribuir a Mim']);
 			unset($redirecionamentos['Atribuir a Adv. Resp.']);
 		}
+
+        //somente o usuário atribuido pode finalizar sua solicitação
+        if( isset( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] ) && ( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] != $this->Session->read( 'Auth.User.id' ) ) )
+        {
+            unset($redirecionamentos['Finalizar']);
+        }
 	}
 
 	if ($action=='listar' || $action=='filtrar')	
