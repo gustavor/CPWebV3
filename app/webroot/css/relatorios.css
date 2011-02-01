@@ -1,3 +1,9 @@
+.lista
+{
+	margin: 0px auto;
+	width: 90%;
+}
+
 #menu_relatorios
 {
 	float: left;
@@ -41,8 +47,8 @@
 	height: 200px;
 	border: 1px solid #ddd;
 	padding: 10px 0px 10px 0px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 #filtro #ordem,
@@ -96,4 +102,10 @@
 #combo select
 {
 	width: 300px;
+}
+
+.relAlerta
+{
+	color: red;
+	font-weight: bold;
 }

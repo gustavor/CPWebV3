@@ -145,22 +145,20 @@
 		$this->set('subFormFerramentas',$subFormFerramentas);
 	}
 
-	if ($action=='listar')	
-	{
-		$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente');
+	$listaCampos 									= array('Cliente.nome','Cliente.cpf','Cliente.cnpj','Cliente.tipo_cliente');
 
-		$campos['Cliente']['nome']['estilo_th'] 		= 'width="250px"';
+	$campos['Cliente']['nome']['estilo_th'] 		= 'width="250px"';
 
-		$campos['Cliente']['cpf']['estilo_th'] 			= 'width="150px"';
+	$campos['Cliente']['cpf']['estilo_th'] 			= 'width="150px"';
 
-		$campos['Cliente']['cnpj']['estilo_th'] 		= 'width="150px"';
+	$campos['Cliente']['cnpj']['estilo_th'] 		= 'width="150px"';
 
-		$campos['Cliente']['tipo_cliente']['estilo_th'] = 'width="150px"';
-		$campos['Cliente']['tipo_cliente']['estilo_td'] = 'style="text-align: center; "';
+	$campos['Cliente']['tipo_cliente']['estilo_th'] = 'width="150px"';
+	$campos['Cliente']['tipo_cliente']['estilo_td'] = 'style="text-align: center; "';
 
-		$campos['Cliente']['modified']['estilo_th'] 	= 'width="160px"';
-		$campos['Cliente']['modified']['estilo_td'] 	= 'style="text-align: center; "';
-		$campos['Cliente']['created']['estilo_th'] 		= 'width="140px"';
-		$campos['Cliente']['created']['estilo_td'] 		= 'style="text-align: center; "';
-	}
+	$campos['Cliente']['modified']['estilo_th'] 	= 'width="160px"';
+	$campos['Cliente']['modified']['estilo_td'] 	= 'style="text-align: center; "';
+	$campos['Cliente']['created']['estilo_th'] 		= 'width="140px"';
+	$campos['Cliente']['created']['estilo_td'] 		= 'style="text-align: center; "';
+
 ?>

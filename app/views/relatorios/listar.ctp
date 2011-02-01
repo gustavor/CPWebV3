@@ -1,21 +1,45 @@
-<?php $this->Html->css('listar.css', null, array('inline' => false)); ?>
-<?php $this->Html->css('relatorios.css', null, array('inline' => false)); ?>
-<?php 
-	foreach($viewLista as $_view => $_modelClass)
+<?php
+
+	$this->Html->css('listar.css', null, array('inline' => false));
+
+	$this->Html->css('relatorios.css', null, array('inline' => false));
+
+	foreach($viewLista as $_view => $_modelo)
 	{
 		$arq = '../views/'.$_view.'/config_'.$_view.'.ctp'; 
 		if (file_exists($arq))
 		{
-			$modelClass = $_modelClass;
+			$modelClass = $_modelo;
 			include_once($arq);
 		}
 	}
-?>
 
+	$campos[$modelo]['modified']['options']['label']['text'] 	= 'Modificado';
+	$campos[$modelo]['modified']['options']['dateFormat'] 		= 'DMY';
+	$campos[$modelo]['modified']['options']['timeFormat'] 		= '24';
+	$campos[$modelo]['modified']['mascara'] 					= 'datahora';
+	$campos[$modelo]['modified']['estilo_th'] 					= 'width="180px"';
+	$campos[$modelo]['modified']['estilo_td'] 					= 'style="text-align: center; "';
+	$campos[$modelo]['modified']['options']['disabled'] 		= 'disabled';
+	$campos[$modelo]['created']['options']['label']['text'] 	= 'Criado';
+	$campos[$modelo]['created']['options']['dateFormat'] 		= 'DMY';
+	$campos[$modelo]['created']['options']['timeFormat'] 		= '24';
+	$campos[$modelo]['created']['mascara'] 						= 'datahora';
+	$campos[$modelo]['created']['estilo_th'] 					= 'width="160px"';
+	$campos[$modelo]['created']['estilo_td'] 					= 'style="text-align: center; "';
+	$campos[$modelo]['created']['options']['disabled'] 			= 'disabled';
+
+	$combo['label']['text'] 									= 'Imprimir para';
+	$combo['options']['options']['lay_planilha']				= 'Planilha Eletrônica Simples';
+	$combo['options']['options']['lay_tabela']					= 'Tabela em Pdf';
+	$combo['options']['empty'] 									= '-- escolha um layout de saída --';
+	$combo['options']['id'] 									= 'imprimirPara';
+	$combo['options']['onchange']								= 'if (this.value) window.location.href=\''.Router::url('/',true).'relatorios/'.$action.'/'.$relatorio.'/\'+this.value;';
+?>
 <div class="lista" id="listaRelatorios" >
 <div id="topo">
-	<div id="titulo">Lista para Relatório <?php echo $this->viewVars['listaRelatorio'][$relatorio]['text']; ?></div>
-	<div id="combo"><?php echo $this->Form->input($combo['label']['text'],$combo['options']); ?>
+	<div id="titulo"><?php echo $paramRelatorio['titulo']; ?></div>
+	<div id="combo"><?php if (count($dataLista)) echo $this->Form->input($combo['label']['text'],$combo['options']); else echo '<span class="relAlerta">Sua pesquisa não retornou nenhum dado !!!</span>'; ?>
 	</div>
 </div>
 <?php echo $this->element('menu_relatorios'); ?>
@@ -57,7 +81,7 @@
 </div>
 
 <div class="listaRodape">
-Página <?php echo $this->params['paging'][$modelo]['page']; ?> de <?php echo $this->params['paging'][$modelo]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelo]['count']; ?></td>
+Página <?php echo $this->params['paging'][$modelo]['page']; ?> de <?php echo $this->params['paging'][$modelo]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelo]['count']; ?>
 </div>
 
 </div>
