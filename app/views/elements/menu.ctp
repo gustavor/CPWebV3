@@ -1,4 +1,7 @@
-<?php // menu principal ?>
+<?php // menu principal 
+	$ferramentas[0]['url'] = Router::url('/',true).'popular';
+	$ferramentas[0]['tit'] = 'Popular as tabelas';
+?>
 <ul class="sf-menu">
 	<li>
 		<a href="<?php echo Router::url('/'); ?>">Principal</a>
