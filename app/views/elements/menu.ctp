@@ -1,6 +1,11 @@
 <?php // menu principal 
-	$ferramentas[0]['url'] = Router::url('/',true).'popular';
-	$ferramentas[0]['tit'] = 'Popular as tabelas';
+
+	// menu ferramentas
+	if ($this->Session->check( 'Auth.Usuario.id') && $this->Session->read('Auth.Usuario.id')==1)
+	{
+		$ferramentas[0]['url'] = Router::url('/',true).'popular';
+		$ferramentas[0]['tit'] = 'Popular as tabelas';
+	}
 ?>
 <ul class="sf-menu">
 	<li>
