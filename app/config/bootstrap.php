@@ -28,6 +28,6 @@
 	require APP . 'plugins' . DS . 'cake_ptbr' . DS . 'config' . DS . 'bootstrap.php';
 
     //versão do sistema
-    Configure::write('CPWeb.Versao', '3.0.0');
+    Configure::write('CPWeb.Versao', '3.0.1');
 	
 ?>
