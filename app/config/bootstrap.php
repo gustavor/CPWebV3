@@ -29,5 +29,12 @@
 
     //versão do sistema
     Configure::write('CPWeb.Versao', '3.0.1');
-	
+
+    //algumas constantes do sistema
+	define( 'DEPT_NUC_JUR_TRAB', 2 );
+    define( 'DEPT_NUC_JUR_CIV', 1 );
+    define( 'DEPT_POOL_CIVEL', 3 );
+    define( 'DEPT_POOL_TRAB', 4 );
+    define( 'DEPT_ACORDO', 5 );
+    define( 'DEPT_FINANCEIRO', 6 );
 ?>
