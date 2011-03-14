@@ -5,13 +5,13 @@
 	$campos[$modelClass]['nome']['estilo_th'] 						    = 'width="240px"';
 
 	$campos[$modelClass]['data_entrevista']['options']['label']['text'] = 'Data da Entrevista';
-	$campos[$modelClass]['data_entrevista']['options']['style'] 		= 'width: 150px; text-align: center; ';
-	$campos[$modelClass]['data_entrevista']['estilo_td'] 				= 'style="text-align: center; "';
 	$campos[$modelClass]['data_entrevista']['estilo_th'] 				= 'width="90px"';
-	$campos[$modelClass]['data_entrevista']['mascara'] 					= 'DMY';
+	$campos[$modelClass]['data_entrevista']['options']['dateFormat'] 	= 'DMY';
+	$campos[$modelClass]['data_entrevista']['options']['timeFormat'] 	= '24';
+	$campos[$modelClass]['data_entrevista']['mascara'] 					= 'data';
 
 	$campos[$modelClass]['aprovado']['options']['label']['text'] 		= 'Aprovado';
-	$campos[$modelClass]['aprovado']['options']['label']['style'] 		= 'width: 124px;';
+	$campos[$modelClass]['aprovado']['options']['label']['style'] 		= 'width: 83px; ';
 	$campos[$modelClass]['aprovado']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos[$modelClass]['aprovado']['options']['style'] 				= 'width: 70px; text-align: center; ';
 	$campos[$modelClass]['aprovado']['options']['options']	 			= array('1'=>'Sim','0'=>'Não');
@@ -29,11 +29,11 @@
     $campos[$modelClass]['usuario_id']['options']['empty'] 				= '-- escolha uma opção --';
 	$campos[$modelClass]['usuario_id']['options']['style'] 				= 'width: 70px; text-align: center; ';
 	if (isset($usuarios)) $campos[$modelClass]['usuario_id']['options']['options'] = $usuarios;
+	
+	$campos[$modelClass]['obs']['options']['label']['text'] 			= 'Observações';
+	$campos[$modelClass]['obs']['options']['style'] 					= 'width:550px; text-transform: uppercase';
 
-	$campos[$modelClass]['modified']['options']['disabled'] 		= 'disabled';
-	$campos[$modelClass]['created']['options']['disabled'] 			= 'disabled';
-
-	$edicaoCampos 	= array( $modelClass . '.nome', '#', $modelClass . '.data_entrevista', '#', $modelClass . '.aprovado' ,$modelClass . '.convocado', '#', $modelClass . '.obs' );
+	$edicaoCampos 	= array( $modelClass . '.nome', '#', $modelClass . '.data_entrevista', $modelClass . '.aprovado' ,$modelClass . '.convocado', '#', $modelClass . '.obs' );
 	$listaCampos 	= array( $modelClass . '.nome', $modelClass . '.data_entrevista', $modelClass . '.aprovado' ,$modelClass . '.convocado');
 
 	if ($action=='editar' || $action=='listar')
@@ -41,7 +41,19 @@
 		$camposPesquisa['nome'] 	= 'Nome';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
-	
+
+	if ($action=='novo')
+	{
+		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
+	}
+
+	if ($action=='editar')
+	{
+		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id'])) $redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
+		$botoesEdicao['Novo']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$this->Form->data['Processo']['id'].'\'';
+		$this->set(compact('botoesEdicao'));
+	}
+
 	if ($this->action=='imprimir')
 	{
 		$edicaoCampos 	= array( $modelClass . '.nome', $modelClass . '.data_entrevista', $modelClass . '.aprovado' ,$modelClass . '.convocado', $modelClass . '.obs'  );

@@ -65,6 +65,8 @@
 	$listaMenu['partes_contrarias']['url'] 		= Router::url('/',true).'partes_contrarias';
     $listaMenu['efetividades']['text']          = 'Efetividades';
     $listaMenu['efetividades']['url']           = Router::url('/',true).'efetividades';
+    $listaMenu['testemunhas']['text']           = 'Testemunhas';
+    $listaMenu['testemunhas']['url']            = Router::url('/',true).'testemunhas';
 
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;

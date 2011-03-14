@@ -206,12 +206,12 @@
 	
 	if ($action=='editar')
 	{
-		if (isset($evento))			$redirecionamentos['Eventos']['onclick'] 			= 'document.location.href=\''.Router::url('/',true).'eventos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-		if (isset($evento_acordo))	$redirecionamentos['Eventos Acordo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'eventos_acordos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-		if (isset($audiencia))		$redirecionamentos['Audiências']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'audiencias/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-		if (isset($processo_solicitacao))	$redirecionamentos['Solicitações']['onclick']		= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-        if (isset($processo_solicitacao))	$redirecionamentos['Contatos Telefônicos']['onclick']		= 'document.location.href=\''.Router::url('/',true).'contatos_telefonicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-        if (isset($testemunha))	$redirecionamentos['Testemunhas']['onclick']		= 'document.location.href=\''.Router::url('/',true).'testemunhas/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+		if (isset($evento))					$redirecionamentos['Eventos']['onclick'] 				= 'document.location.href=\''.Router::url('/',true).'eventos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+		if (isset($evento_acordo))			$redirecionamentos['Eventos Acordo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'eventos_acordos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+		if (isset($audiencia))				$redirecionamentos['Audiências']['onclick'] 			= 'document.location.href=\''.Router::url('/',true).'audiencias/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+		if (isset($processo_solicitacao))	$redirecionamentos['Solicitações']['onclick']			= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+        if (isset($processo_solicitacao))	$redirecionamentos['Contatos Telefônicos']['onclick']	= 'document.location.href=\''.Router::url('/',true).'contatos_telefonicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+        if (isset($testemunha))				$redirecionamentos['Testemunhas']['onclick']			= 'document.location.href=\''.Router::url('/',true).'testemunhas/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 	}
 
 	if ($action=='editar' || $action=='novo')

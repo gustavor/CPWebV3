@@ -73,8 +73,10 @@ class TestemunhasController extends AppController {
 	public function beforeRender()
 	{
 		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
+		$this->setIdProcesso();
+		parent::beforeRender();
 	}
-	
+
 	/**
 	 * método start
 	 * 
@@ -116,17 +118,22 @@ class TestemunhasController extends AppController {
         $this->CpwebCrud->editar($id);
     }
 
-	
 	/**
 	 * Exibe formulário de inclusão para o model
 	 * 
+	 * @parameter	integer	$id Id do processo
 	 * @return 		void
 	 */
-	public function novo()
+	public function novo($id=null)
 	{
+		if ($id)
+		{
+			$campos['Testemunha']['processo_id']['options']['default'] = $id;
+			$this->set(compact('campos'));
+		}
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
 	 * Exibe formulário de exclusão para o model
 	 * 
