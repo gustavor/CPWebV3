@@ -72,7 +72,7 @@ class TestemunhasController extends AppController {
 	 */
 	public function beforeRender()
 	{
-		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
+		//if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_clientes');
 		$this->setIdProcesso();
 		parent::beforeRender();
 	}
@@ -109,12 +109,13 @@ class TestemunhasController extends AppController {
     public function editar($id=null)
     {
         // carregando model de telefone
-        $this->loadModel('Telefone');
+        /*$this->loadModel('Telefone');
 
         if (isset($this->data))
         {
             if (!$this->CpwebCrud->setSubForm('testemunha',$id,'Telefone')) return false;
-        }
+        }*/
+        $this->set( 'advogados', $this->Testemunha->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
         $this->CpwebCrud->editar($id);
     }
 
@@ -131,6 +132,7 @@ class TestemunhasController extends AppController {
 			$campos['Testemunha']['processo_id']['options']['default'] = $id;
 			$this->set(compact('campos'));
 		}
+		$this->set( 'advogados', $this->Testemunha->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
 		$this->CpwebCrud->novo();
 	}
 

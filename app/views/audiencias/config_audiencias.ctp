@@ -23,6 +23,7 @@
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 				= 'Processo';
 	$campos[$modelClass]['processo_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['processo_id']['options']['style']							= 'width:346px;';
+	$campos[$modelClass]['processo_id']['options']['type']      					= 'hidden';
 	if (isset($processo)) $campos[$modelClass]['processo_id']['options']['options'] = $processo;
 
 	$campos[$modelClass]['usuario_id']['options']['label']['text']                 = 'Advogado Responsável';
@@ -31,7 +32,6 @@
 	$campos[$modelClass]['usuario_id']['options']['style']							= 'width:346px;';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] = $advogados;
 
-    $campos[$modelClass]['processo_id']['options']['type']      	= 'hidden';
 
 	if ($action=='editar' || $action=='excluir')
 	{
