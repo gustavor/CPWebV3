@@ -58,6 +58,12 @@ class RelatoriosController extends AppController {
 	public function beforeFilter()
 	{
 		$this->set('arqListaMenu','menu_relatorios');
+
+		// recuperando os tipos de solicitações
+		$this->loadModel('Solicitacao');
+		$solicitacoes = $this->Solicitacao->find('list',array('conditions'=>array('length(solicitacao) <'=>200)));
+		$this->set(compact('solicitacoes'));
+
 		parent::beforeFilter();
 	}
 
@@ -125,7 +131,7 @@ class RelatoriosController extends AppController {
 		$this->loadModel('Usuario');
 		$dataFiltro['funcionario']['options']['options'] 		= $this->Usuario->find('list');
 		$this->loadModel('Cliente');
-		$dataFiltro['cliente']['options']['options'] 			= $this->Cliente->find('list');
+		$dataFiltro['cliente']['options']['options'] 			= $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
 		$this->loadModel('Departamento');
 		$dataFiltro['departamento']['options']['options'] 		= $this->Departamento->find('list');
 		// ordem
@@ -272,6 +278,43 @@ class RelatoriosController extends AppController {
 		$this->set('modelo','Cliente');
 		$this->set('relatorio','sintetico');
 
+		$this->render($render);
+	}
+
+	/**
+	 * Exibe a Lista de Clientes Modelo Sintético
+	 * 
+	 * @param	string	$relatorio			Nome do Relatório
+	 * @param	string	$layout				Nome do layout a ser usado no relatório
+	 * @return void
+	 */
+	public function fil_solicitacao($relatorio='', $layout='')
+	{
+		// filtors
+		$dataFiltro = array();
+		$this->loadModel('Cliente');
+		$dataFiltro['cliente']['options']['options'] 			= $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
+
+		// ordem
+		$dataOrdem['ordem']['options']['options'] 	= array('created'=>'Criado','data_fechamento'=>'Data de Fechamento');
+		$dataLista		= array();
+		$camposLista	= array();
+		$viewLista		= array();
+		if (isset($this->viewVars['solicitacoes'][$relatorio])) $paramRelatorio	= array('titulo'=>'Lista por '.$this->viewVars['solicitacoes'][$relatorio]);
+		
+		// se o formulário foi postado ou o pedido de impressão para o layout
+		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+		{
+			$render = (!empty($layout)) ? $layout : 'listar';
+		} else
+		{
+			$render = $this->action;
+		}
+
+		// atualizando a view
+		$this->set(compact('dataFiltro','dataOrdem','dataLista','camposLista','viewLista','paramRelatorio'));
+		$this->set('modelo','ProcessoSolicitacao');
+		$this->set('relatorio',$relatorio);
 		$this->render($render);
 	}
 }

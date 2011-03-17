@@ -11,6 +11,13 @@
 	$listaRelatorio[1]['qualitativo']['text'] 		= 'Qualitativo';
 	$listaRelatorio[1]['qualitativo']['url'] 		= Router::url('/',true).'relatorios/fil_processos/qualitativo';
 
+	$listaRelatorio[2]['titulo']					= 'Solicitações';
+	foreach($solicitacoes as $_id => $_solicitacao)
+	{
+		$listaRelatorio[2][$_id]['url'] 			= Router::url('/',true).'relatorios/fil_solicitacao/'.$_id;
+		$listaRelatorio[2][$_id]['text'] 			= ucwords(mb_strtolower($_solicitacao));
+	}
+
 	foreach($listaRelatorio as $_item => $_arrRel)
 	{
 		foreach($_arrRel as $_rel => $_arrOpc)

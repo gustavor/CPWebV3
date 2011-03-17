@@ -38,7 +38,7 @@
 ?>
 <div class="lista" id="listaRelatorios" >
 <div id="topo">
-	<div id="titulo"><?php echo $paramRelatorio['titulo']; ?></div>
+	<div id="titulo"><?php if (isset($paramRelatorio['titulo'])) echo $paramRelatorio['titulo']; ?></div>
 	<div id="combo"><?php if (count($dataLista)) echo $this->Form->input($combo['label']['text'],$combo['options']); else echo '<span class="relAlerta">Sua pesquisa não retornou nenhum dado !!!</span>'; ?>
 	</div>
 </div>
@@ -81,7 +81,7 @@
 </div>
 
 <div class="listaRodape">
-Página <?php echo $this->params['paging'][$modelo]['page']; ?> de <?php echo $this->params['paging'][$modelo]['pageCount']; ?> - Total de Registro: <?php echo $this->params['paging'][$modelo]['count']; ?>
+Página <?php if (isset($this->params['paging'])) echo $this->params['paging'][$modelo]['page']; ?> de <?php if (isset($this->params['paging'])) echo $this->params['paging'][$modelo]['pageCount']; ?> - Total de Registro: <?php if (isset($this->params['paging'])) echo $this->params['paging'][$modelo]['count']; ?>
 </div>
 
 </div>
