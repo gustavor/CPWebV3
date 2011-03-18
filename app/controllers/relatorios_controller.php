@@ -185,7 +185,7 @@ class RelatoriosController extends AppController {
 				$condicoes['ProcessoSolicitacao.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 			}
 
-			// ordentando
+			// ordenando
 			if 	(	isset($this->data[$this->action]['ordem']) )
 			{
 				$this->paginate = array('order'=>array($this->data[$this->action]['ordem']=>'ASC'));
@@ -293,18 +293,101 @@ class RelatoriosController extends AppController {
 		// filtors
 		$dataFiltro = array();
 		$this->loadModel('Cliente');
-		$dataFiltro['cliente']['options']['options'] 			= $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
+		$dataFiltro['cliente']['options']['options'] = $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
 
 		// ordem
-		$dataOrdem['ordem']['options']['options'] 	= array('created'=>'Criado','data_fechamento'=>'Data de Fechamento');
+		$dataOrdem['ordem']['options']['options'] 	= array('created'=>'Criado','distribuicao'=>'Distribuição');
+
+		// dados da lista
 		$dataLista		= array();
-		$camposLista	= array();
-		$viewLista		= array();
+
+		// campos que vão compor a lista
+		$camposLista	= array('Processo.id','Processo.numero','ParteContraria.nome','Processo.created');
+
+		// config view
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processo'=>'Processo');
+
+		// parâmetro para o relatório
 		if (isset($this->viewVars['solicitacoes'][$relatorio])) $paramRelatorio	= array('titulo'=>'Lista por '.$this->viewVars['solicitacoes'][$relatorio]);
-		
+
 		// se o formulário foi postado ou o pedido de impressão para o layout
 		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
 		{
+			// debug
+			//pr($this->data);
+
+			// carregando o modelo de processos
+			$this->loadModel('Processo');
+
+			// filtro
+			$condicoes = array();
+
+			// filtrando por cliente
+			if (isset($this->data[$this->action]['cliente']) && !(empty($this->data[$this->action]['cliente'])))
+			{
+				$condicoes['Processo.cliente_id'] = $this->data[$this->action]['cliente'];
+			}
+
+			// filtrando por solicitação
+			/*if (isset($this->data[$this->action]['solicitacao']) && !(empty($this->data[$this->action]['solicitacao'])))
+			{
+				$this->loadModel('ProcessoSolicitacao');
+				$processosSolicitados = $this->ProcessoSolicitacao->find('all',array('conditions'=>array('processo_id'=>$this->data[$this->action]['solicitacao'])));
+				$idsProSol = array();
+				foreach($processosSolicitados as $_model => $_arrCampos)
+				{
+					foreach($_arrCampos as $_campo => $_arrValor)
+					{
+						if (isset($_arrValor['id'])) array_push($idsProSol,$_arrValor['id']);
+					}
+				}
+				//$condicoes['Processo.id'] = $this->data[$this->action]['cliente'];
+			}*/
+
+			// filtrando data
+			if (	isset($this->data[$this->action]['data_ini']) && !(empty($this->data[$this->action]['data_ini'])) &&
+					isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
+				)
+			{
+				$dtIni = $this->data[$this->action]['data_ini']['year'].'/'.$this->data[$this->action]['data_ini']['month'].'/'.$this->data[$this->action]['data_ini']['day'];
+				$dtFim = $this->data[$this->action]['data_fim']['year'].'/'.$this->data[$this->action]['data_fim']['month'].'/'.$this->data[$this->action]['data_fim']['day'];
+				$condicoes['Processo.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+			}
+
+			// ordenando
+			if 	(	isset($this->data[$this->action]['ordem']) )
+			{
+				$this->paginate = array('order'=>array($this->data[$this->action]['ordem']=>'ASC'));
+				$this->Session->write('ordemRelatorio',$this->data[$this->action]['ordem']);
+			}
+
+			// Buscando processos com o filtro para Lista
+			if (!empty($layout))
+			{
+				$pagina = $this->Processo->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+				$condicoes = $this->Session->read('filtroRelatorio');
+			} else
+			{
+				$pagina = $this->paginate('Processo',$condicoes);
+				$this->Session->write('filtroRelatorio',$condicoes);
+			}
+
+			// atualizando o conteúdo do relatório somente por causa deste filtro específico
+			$dataLista = array();
+			foreach($pagina as $_linha => $_arrModelos)
+			{
+				foreach($_arrModelos as $_modelo => $_arrCampos)
+				{
+					foreach($_arrCampos as $_campo => $_valor)
+					{
+						$valor = $_valor;
+						if ($_campo=='id') $valor = 'VEBH-'.str_repeat('0',5-strlen($valor)).$valor;
+						$dataLista[$_linha][$_modelo][$_campo] = $valor;
+					}
+				}
+			}
+
+			// definindo o que renderizar
 			$render = (!empty($layout)) ? $layout : 'listar';
 		} else
 		{
