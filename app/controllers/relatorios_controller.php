@@ -305,7 +305,7 @@ class RelatoriosController extends AppController {
 		$camposLista	= array('Processo.id','Processo.numero','ParteContraria.nome','Processo.created');
 
 		// config view
-		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processo'=>'Processo');
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processos'=>'Processo');
 
 		// parâmetro para o relatório
 		if (isset($this->viewVars['solicitacoes'][$relatorio])) $paramRelatorio	= array('titulo'=>'Lista por '.$this->viewVars['solicitacoes'][$relatorio]);
@@ -381,8 +381,9 @@ class RelatoriosController extends AppController {
 					foreach($_arrCampos as $_campo => $_valor)
 					{
 						$valor = $_valor;
-						if ($_campo=='id') $valor = 'VEBH-'.str_repeat('0',5-strlen($valor)).$valor;
+						if ($_campo=='id' && $_modelo=='Processo') $valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
+						
 					}
 				}
 			}
@@ -396,7 +397,7 @@ class RelatoriosController extends AppController {
 
 		// atualizando a view
 		$this->set(compact('dataFiltro','dataOrdem','dataLista','camposLista','viewLista','paramRelatorio'));
-		$this->set('modelo','ProcessoSolicitacao');
+		$this->set('modelo','Processo');
 		$this->set('relatorio',$relatorio);
 		$this->render($render);
 	}

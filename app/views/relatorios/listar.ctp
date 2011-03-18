@@ -85,4 +85,4 @@ Página <?php if (isset($this->params['paging'])) echo $this->params['paging'][$
 </div>
 
 </div>
-<?php pr($dataLista); ?>
+<?php //pr($dataLista); ?>

@@ -285,6 +285,13 @@ class FormatacaoHelper extends AppHelper {
 				$_valor = str_replace('/','',$_valor);
 				if (!empty($valor)) $formatado = substr($_valor,0,2).'.'.substr($_valor,2,3).'.'.substr($_valor,5,3).'/'.substr($_valor,8,4).'-'.substr($_valor,12,2);
 				break;
+			case 'processo': // 1234567-89.0123.4.56.7890
+			case '9999999-99.9999.9.99.9999';
+				$_valor = str_replace('.','',$valor);
+				$_valor = str_replace('-','',$_valor);
+				$_valor = str_replace('/','',$_valor);
+				if (!empty($valor)) $formatado = substr($_valor,0,7).'-'.substr($_valor,7,2).'.'.substr($_valor,9,4).'.'.substr($_valor,12,1).'.'.substr($_valor,13,2).'.'.substr($_valor,15,4);
+				break;
 			case 'telefone': // (12)3456-78901
 				$_valor = str_replace('.','',$valor);
 				$_valor = str_replace('(','',$_valor);
