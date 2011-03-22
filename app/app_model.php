@@ -233,5 +233,7 @@ class AppModel extends Model {
 		if (isset($this->data[$this->name]['cpf']))	 $this->data[$this->name]['cpf'] = ereg_replace('[./-]','',$this->data[$this->name]['cpf']);
 	}
 
+    public $actsAs = array('Containable');
+
 }
 ?>
