@@ -290,7 +290,7 @@ class FormatacaoHelper extends AppHelper {
 				$_valor = str_replace('.','',$valor);
 				$_valor = str_replace('-','',$_valor);
 				$_valor = str_replace('/','',$_valor);
-				if (!empty($valor)) $formatado = substr($_valor,0,7).'-'.substr($_valor,7,2).'.'.substr($_valor,9,4).'.'.substr($_valor,12,1).'.'.substr($_valor,13,2).'.'.substr($_valor,15,4);
+				if (!empty($valor)) $formatado = substr($_valor,0,7).'-'.substr($_valor,7,2).'.'.substr($_valor,9,4).'.'.substr($_valor,13,1).'.'.substr($_valor,14,2).'.'.substr($_valor,16,4);
 				break;
 			case 'telefone': // (12)3456-78901
 				$_valor = str_replace('.','',$valor);
