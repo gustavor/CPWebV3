@@ -295,27 +295,21 @@ class RelatoriosController extends AppController {
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
-		$paramRelatorio['titulo'] 				= 'Relatório de Solicitações '.$this->viewVars['solicitacoes'][$relatorio];
+		$paramRelatorio['titulo'] 				= 'Relatório de Solicitações Abertas do Tipo '.$this->viewVars['solicitacoes'][$relatorio];
 
 		// filtors
 		$dataFiltro = array();
 		$this->loadModel('Cliente');
 		$dataFiltro['cliente']['options']['options'] = $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
 
-		// ordem
-		$dataOrdem['ordem']['options']['options'] 	= array('created'=>'Criado','distribuicao'=>'Distribuição');
-
 		// dados da lista
 		$dataLista		= array();
 
 		// campos que vão compor a lista
-		$camposLista	= array('Processo.id','Processo.numero','ParteContraria.nome','Processo.created');
+		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','ParteContraria.nome','ProcessoSolicitacao.created');
 
 		// config view
-		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processos'=>'Processo');
-
-		// parâmetro para o relatório
-		//if (isset($this->viewVars['solicitacoes'][$relatorio])) $paramRelatorio	= array('titulo'=>'Lista por '.$this->viewVars['solicitacoes'][$relatorio]);
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processos'=>'Processo','partes_contrarias'=>'ParteContraria');
 
 		// se o formulário foi postado ou o pedido de impressão para o layout
 		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
@@ -323,16 +317,37 @@ class RelatoriosController extends AppController {
 			// debug
 			//pr($this->data);
 
-			// carregando o modelo de processos
-			$this->loadModel('Processo');
+			// carregando o modelo de processos e solicitações
+			$this->loadModel('ProcessoSolicitacao');
+
+			// carregando o modelo de partes_contrarias
+			$this->loadModel('ParteContraria');
+			$dataParteContraria = $this->ParteContraria->find('list');
 
 			// filtro
 			$condicoes = array();
 
-			// filtrando por cliente
+			// filtro padrão (somente solicitações abertas)
+			$condicoes['ProcessoSolicitacao.finalizada'] = 0;
+
+			// filtrando os processos do cliente
 			if (isset($this->data[$this->action]['cliente']) && !(empty($this->data[$this->action]['cliente'])))
 			{
-				$condicoes['Processo.cliente_id'] = $this->data[$this->action]['cliente'];
+				$this->loadModel('Processo');
+				$dataProcesso = $this->Processo->find('list',array('conditions'=>array('cliente_id'=>$this->data[$this->action]['cliente'])));
+				foreach($dataProcesso as $_modelo => $_arrCampos)
+				{
+					foreach($_arrCampos as $_campo => $_arrValor)
+					{
+						if (isset($_arrValor['id'])) $condicoes['ProcessoSolicitacao.processo_id'] = $_arrValor['id'];
+					}
+				}
+			}
+
+			// filtrando a solicitação
+			if (isset($this->data[$this->action]['relatorio']) && !(empty($this->data[$this->action]['relatorio'])))
+			{
+				$condicoes['ProcessoSolicitacao.solicitacao_id'] = $this->data[$this->action]['relatorio'];
 			}
 
 			// filtrando data
@@ -342,24 +357,24 @@ class RelatoriosController extends AppController {
 			{
 				$dtIni = $this->data[$this->action]['data_ini']['year'].'/'.$this->data[$this->action]['data_ini']['month'].'/'.$this->data[$this->action]['data_ini']['day'];
 				$dtFim = $this->data[$this->action]['data_fim']['year'].'/'.$this->data[$this->action]['data_fim']['month'].'/'.$this->data[$this->action]['data_fim']['day'];
-				$condicoes['Processo.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+				$condicoes['ProcessoSolicitacao.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 			}
 
 			// ordenando
 			if 	(	isset($this->data[$this->action]['ordem']) )
 			{
-				$this->paginate = array('order'=>array($this->data[$this->action]['ordem']=>'ASC'));
-				$this->Session->write('ordemRelatorio',$this->data[$this->action]['ordem']);
+				$this->paginate = array('order'=>array('ProcessoSolicitacao.'.$this->data[$this->action]['ordem']=>'ASC'));
+				$this->Session->write('ordemRelatorio','ProcessoSolicitacao.'.$this->data[$this->action]['ordem']);
 			}
 
 			// Buscando processos com o filtro para Lista
 			if (!empty($layout))
 			{
-				$pagina = $this->Processo->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+				$pagina = $this->ProcessoSolicitacao->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
 				$condicoes = $this->Session->read('filtroRelatorio');
 			} else
 			{
-				$pagina = $this->paginate('Processo',$condicoes);
+				$pagina = $this->paginate('ProcessoSolicitacao',$condicoes);
 				$this->Session->write('filtroRelatorio',$condicoes);
 			}
 
@@ -373,10 +388,14 @@ class RelatoriosController extends AppController {
 					foreach($_arrCampos as $_campo => $_valor)
 					{
 						$valor = $_valor;
-						if ($_campo=='id' && $_modelo=='Processo')
+						if ($_campo=='processo_id')
 						{
 							$valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
 							$link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
+						}
+						if ($_campo=='parte_contraria_id' && $_modelo=='Processo')
+						{
+							$dataLista[$_linha]['ParteContraria']['nome'] = $dataParteContraria[$_valor];
 						}
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
 					}
@@ -391,8 +410,8 @@ class RelatoriosController extends AppController {
 		}
 
 		// atualizando a view
-		$this->set(compact('dataFiltro','dataOrdem','dataLista','camposLista','viewLista','paramRelatorio','link'));
-		$this->set('modelo','Processo');
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link'));
+		$this->set('modelo','ProcessoSolicitacao');
 		$this->set('relatorio',$relatorio);
 		$this->render($render);
 	}

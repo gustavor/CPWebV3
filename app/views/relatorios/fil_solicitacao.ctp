@@ -8,7 +8,7 @@
 
 	$dataFiltro['solicitacao']['options']['label']['text'] 	= 'Solicitacao';
 	$dataFiltro['solicitacao']['options']['default'] 		= 0;
-	$dataFiltro['solicitacao']['options']['type'] 			= 'hidden';
+	$dataFiltro['solicitacao']['options']['disabled'] 		= 'disabled';
 	$dataFiltro['solicitacao']['options']['value'] 			= $relatorio;
 
 	$dataFiltro['ordem']['options']['label']['text'] 		= 'Ordenar por';
@@ -16,13 +16,14 @@
 	$dataFiltro['ordem']['options']['style'] 				= 'width: 320px;';
 	$dataFiltro['ordem']['options']['empty'] 				= '-- escolha uma opção --';
 	$dataFiltro['ordem']['options']['default'] 				= 'created';
+	$dataFiltro['ordem']['options']['options'] 				= array('created'=>'Criado','distribuicao'=>'Distribuição');
 	$dataFiltro['data_ini']['options']['label']['text']		= 'data Inicio';
 	$dataFiltro['data_ini']['options']['div'] 				= null;
 	$dataFiltro['data_ini']['options']['dateFormat'] 		= 'DMY';
 	$dataFiltro['data_ini']['options']['monthNames'] 		= false;
 	$dataFiltro['data_ini']['options']['interval']			= 3;
 	$dataFiltro['data_ini']['options']['type'] 				= 'date';
-	$dataFiltro['data_ini']['options']['value'] 			= strtotime('-5 days');
+	$dataFiltro['data_ini']['options']['value'] 			= strtotime('-1 year');
 	$dataFiltro['data_fim']['options']['label']['text']		= 'data Fim';
 	$dataFiltro['data_fim']['options']['div'] 				= null;
 	$dataFiltro['data_fim']['options']['dateFormat'] 		= 'DMY';
@@ -59,7 +60,7 @@
 	<br />
 	<div id="ordem">
 		<ul>
-			<li><?php echo $this->Form->input('ordem',$dataOrdem['ordem']['options']); ?></li>
+			<li><?php echo $this->Form->input('ordem',$dataFiltro['ordem']['options']); ?></li>
 		</ul>
 	</div>
 	<br />

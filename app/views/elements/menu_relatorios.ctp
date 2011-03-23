@@ -11,7 +11,7 @@
 	$listaRelatorio[1]['qualitativo']['text'] 		= 'Qualitativo';
 	$listaRelatorio[1]['qualitativo']['url'] 		= Router::url('/',true).'relatorios/fil_processos/qualitativo';
 
-	$listaRelatorio[2]['titulo']					= 'Solicitações';
+	$listaRelatorio[2]['titulo']					= 'Solicitações Abertas';
 	foreach($solicitacoes as $_id => $_solicitacao)
 	{
 		$listaRelatorio[2][$_id]['url'] 			= Router::url('/',true).'relatorios/fil_solicitacao/'.$_id;
