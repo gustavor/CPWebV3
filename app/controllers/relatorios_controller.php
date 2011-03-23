@@ -188,8 +188,8 @@ class RelatoriosController extends AppController {
 			// ordenando
 			if 	(	isset($this->data[$this->action]['ordem']) )
 			{
-				$this->paginate = array('order'=>array($this->data[$this->action]['ordem']=>'ASC'));
-				$this->Session->write('ordemRelatorio',$this->data[$this->action]['ordem']);
+				$this->paginate = array('order'=>array('ProcessoSolicitacao.'.$this->data[$this->action]['ordem']=>'ASC'));
+				$this->Session->write('ordemRelatorio','ProcessoSolicitacao.'.$this->data[$this->action]['ordem']);
 			}
 
 			// carregar ProcessosSolicitações
@@ -285,11 +285,18 @@ class RelatoriosController extends AppController {
 	 * Exibe a Lista de Clientes Modelo Sintético
 	 * 
 	 * @param	string	$relatorio			Nome do Relatório
-	 * @param	string	$layout				Nome do layout a ser usado no relatório
+	 * @param	string	$layout				Layout a ser usado no relatório, deve estar em app/views/relatorios/
 	 * @return void
 	 */
 	public function fil_solicitacao($relatorio='', $layout='')
 	{
+		// nome do relatório, pode ser passado via formulário
+		$relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
+
+		// parametros do relatório
+		$paramRelatorio['orientacao_pagina'] 	= 'L';
+		$paramRelatorio['titulo'] 				= 'Relatório de Solicitações '.$this->viewVars['solicitacoes'][$relatorio];
+
 		// filtors
 		$dataFiltro = array();
 		$this->loadModel('Cliente');
@@ -308,7 +315,7 @@ class RelatoriosController extends AppController {
 		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processos'=>'Processo');
 
 		// parâmetro para o relatório
-		if (isset($this->viewVars['solicitacoes'][$relatorio])) $paramRelatorio	= array('titulo'=>'Lista por '.$this->viewVars['solicitacoes'][$relatorio]);
+		//if (isset($this->viewVars['solicitacoes'][$relatorio])) $paramRelatorio	= array('titulo'=>'Lista por '.$this->viewVars['solicitacoes'][$relatorio]);
 
 		// se o formulário foi postado ou o pedido de impressão para o layout
 		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
@@ -327,22 +334,6 @@ class RelatoriosController extends AppController {
 			{
 				$condicoes['Processo.cliente_id'] = $this->data[$this->action]['cliente'];
 			}
-
-			// filtrando por solicitação
-			/*if (isset($this->data[$this->action]['solicitacao']) && !(empty($this->data[$this->action]['solicitacao'])))
-			{
-				$this->loadModel('ProcessoSolicitacao');
-				$processosSolicitados = $this->ProcessoSolicitacao->find('all',array('conditions'=>array('processo_id'=>$this->data[$this->action]['solicitacao'])));
-				$idsProSol = array();
-				foreach($processosSolicitados as $_model => $_arrCampos)
-				{
-					foreach($_arrCampos as $_campo => $_arrValor)
-					{
-						if (isset($_arrValor['id'])) array_push($idsProSol,$_arrValor['id']);
-					}
-				}
-				//$condicoes['Processo.id'] = $this->data[$this->action]['cliente'];
-			}*/
 
 			// filtrando data
 			if (	isset($this->data[$this->action]['data_ini']) && !(empty($this->data[$this->action]['data_ini'])) &&
@@ -373,7 +364,8 @@ class RelatoriosController extends AppController {
 			}
 
 			// atualizando o conteúdo do relatório somente por causa deste filtro específico
-			$dataLista = array();
+			$dataLista	= array();
+			$link		= array();
 			foreach($pagina as $_linha => $_arrModelos)
 			{
 				foreach($_arrModelos as $_modelo => $_arrCampos)
@@ -381,9 +373,12 @@ class RelatoriosController extends AppController {
 					foreach($_arrCampos as $_campo => $_valor)
 					{
 						$valor = $_valor;
-						if ($_campo=='id' && $_modelo=='Processo') $valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
+						if ($_campo=='id' && $_modelo=='Processo')
+						{
+							$valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
+							$link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
+						}
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
-						
 					}
 				}
 			}
@@ -396,7 +391,7 @@ class RelatoriosController extends AppController {
 		}
 
 		// atualizando a view
-		$this->set(compact('dataFiltro','dataOrdem','dataLista','camposLista','viewLista','paramRelatorio'));
+		$this->set(compact('dataFiltro','dataOrdem','dataLista','camposLista','viewLista','paramRelatorio','link'));
 		$this->set('modelo','Processo');
 		$this->set('relatorio',$relatorio);
 		$this->render($render);

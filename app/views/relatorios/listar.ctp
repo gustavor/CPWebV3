@@ -1,4 +1,5 @@
 <?php
+	if (!isset($relatorio)) exit('Nome do relatório inválido !!!');
 
 	$this->Html->css('listar.css', null, array('inline' => false));
 
@@ -60,7 +61,9 @@
 <?php // linha a linha
 	foreach($dataLista as $_linha => $_arrModelos)
 	{
-		echo "<tr>\n";
+		echo "<tr";
+		if (isset($link[$_linha])) echo " onclick='document.location.href=\"".$link[$_linha]."\"' title='Clique aqui para editar este processo ...' onmouseout='javascript:this.className=\"lista_linha_fora\"' onmouseover='javascript:this.className=\"lista_linha_ativa\"' ";
+		echo ">\n";
 		foreach($camposLista as $_campo)
 		{
 			$arrCampo 	= explode('.',$_campo);
