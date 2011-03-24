@@ -330,17 +330,22 @@ class RelatoriosController extends AppController {
 			// filtro padrão (somente solicitações abertas)
 			$condicoes['ProcessoSolicitacao.finalizada'] = 0;
 
-			// filtrando os processos do cliente
+			// filtrando os processos e solicitações pelos processos do cliente solicitado
 			if (isset($this->data[$this->action]['cliente']) && !(empty($this->data[$this->action]['cliente'])))
 			{
 				$this->loadModel('Processo');
-				$dataProcesso = $this->Processo->find('list',array('conditions'=>array('cliente_id'=>$this->data[$this->action]['cliente'])));
+				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('cliente_id'=>$this->data[$this->action]['cliente'])));
+				$arrIdsProcessos = array();
 				foreach($dataProcesso as $_modelo => $_arrCampos)
 				{
 					foreach($_arrCampos as $_campo => $_arrValor)
 					{
-						if (isset($_arrValor['id'])) $condicoes['ProcessoSolicitacao.processo_id'] = $_arrValor['id'];
+						if (isset($_arrValor['id'])) array_push($arrIdsProcessos,$_arrValor['id']);
 					}
+				}
+				if (count($arrIdsProcessos))
+				{
+					$condicoes['ProcessoSolicitacao.processo_id'] = $arrIdsProcessos;
 				}
 			}
 
@@ -370,11 +375,11 @@ class RelatoriosController extends AppController {
 			// Buscando processos com o filtro para Lista
 			if (!empty($layout))
 			{
-				$pagina = $this->ProcessoSolicitacao->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
-				$condicoes = $this->Session->read('filtroRelatorio');
+				$pagina 	= $this->ProcessoSolicitacao->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+				//$condicoes 	= $this->Session->read('filtroRelatorio');
 			} else
 			{
-				$pagina = $this->paginate('ProcessoSolicitacao',$condicoes);
+				$pagina 	= $this->paginate('ProcessoSolicitacao',$condicoes);
 				$this->Session->write('filtroRelatorio',$condicoes);
 			}
 
@@ -400,6 +405,12 @@ class RelatoriosController extends AppController {
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
 					}
 				}
+			}
+
+			// se filtrou pelo cliente mas não achou nenhum processo do cliente zera a lista
+			if (isset($dataProcesso))
+			{
+				if (!count($dataProcesso)) $dataLista = array();
 			}
 
 			// definindo o que renderizar
