@@ -14,8 +14,12 @@
 	$listaRelatorio[2]['titulo']					= 'Solicitações Abertas';
 	foreach($solicitacoes as $_id => $_solicitacao)
 	{
-		$listaRelatorio[2][$_id]['url'] 			= Router::url('/',true).'relatorios/fil_solicitacao/'.$_id;
-		$listaRelatorio[2][$_id]['text'] 			= ucwords(mb_strtolower($_solicitacao));
+		$mostraRelatorios = array( '1', '13', '16', '19', '26', '24', '26', '29', '30', '37', '40', '39', '6', '49', '52', '58' );
+            if( in_array( $_id, $mostraRelatorios ) )
+            {
+                $listaRelatorio[2][$_id]['url'] 			= Router::url('/',true).'relatorios/fil_solicitacao/'.$_id;
+		        $listaRelatorio[2][$_id]['text'] 			= ucwords(mb_strtolower($_solicitacao));
+            }
 	}
 
 	foreach($listaRelatorio as $_item => $_arrRel)

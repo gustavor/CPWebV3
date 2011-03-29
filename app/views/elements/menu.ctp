@@ -28,14 +28,14 @@
 			<li><a href="<?php echo Router::url('/').'advogados_contrarios'; ?>">Cadastro de Advogados Contrários</a></li>
 			<?php endif; ?>
 
-			<?php if (!in_array('partes_contrarias',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'partes_contrarias'; ?>">Cadastro de Partes Contrárias</a></li>
-			<?php endif; ?>
-
 			<?php if (!in_array('clientes',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'clientes'; ?>">Cadastro de Clientes</a></li>
 			<?php endif; ?>
 
+			<?php if (!in_array('partes_contrarias',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'partes_contrarias'; ?>">Cadastro de Partes Contrárias</a></li>
+			<?php endif; ?>
+            
 			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>
