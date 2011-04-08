@@ -222,7 +222,7 @@
 	if ($action=='editar' || $action=='listar')
 	{
 		$camposPesquisa['numero'] 				= 'Número';
-		$camposPesquisa['obs'] 					= 'Observações';
+		$camposPesquisa['numero_auxiliar']      = 'N. Auxiliar';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
