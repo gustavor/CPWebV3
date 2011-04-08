@@ -22,7 +22,7 @@
 class TipoProcesso extends AppModel {
 	public $name 		= 'TipoProcesso';
 	public $useTable 	= 'tipos_processos';
-	public $displayField= 'nome';
+	public $displayField = 'nome';
 
 	public $validate = array
 	(
