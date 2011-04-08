@@ -87,7 +87,7 @@
 			$formAlerta = '<p>Caro '.$this->Session->read('Auth.Usuario.nome').', <br />';
 			$formAlerta .= 'É necessário trocar sua senha.<br /><br />';
 			$formAlerta .= 'Grato,<br />';
-			$formAlerta .= 'À Gerência.';
+			$formAlerta .= 'Equipe CPWeb.';
 			$formAlerta .= '</p>';
 			$on_read_view .= '$("#UsuarioSenha").focus();';
 			$on_read_view .= '$("#formAlerta").css("width","250px");' ;
