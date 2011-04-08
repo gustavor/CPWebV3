@@ -228,7 +228,7 @@
 
 	if ($action=='listar' || $action == 'filtrar')	
 	{
-		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
+		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.tipo_processo_id',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
 		$campos['Cliente']['nome']['estilo_th'] 		= 'width="300px"';
