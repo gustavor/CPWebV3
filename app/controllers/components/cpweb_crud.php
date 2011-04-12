@@ -114,8 +114,18 @@ class CpwebCrudComponent extends Object {
      public function filtrar()
      {
          if( isset( $this->controller->params['named'] ) && !empty( $this->controller->params['named'] ) )
+         {
+             debug($this->controller->params['named']);
              foreach( $this->controller->params['named'] as $_campo => $_valor )
-                 $findConditions[$this->controller->modelClass.'.'.$_campo] = $_valor;
+                $findConditions[$this->controller->modelClass.'.'.$_campo] = $_valor;
+             $errados = array( 'page', 'direction', 'sort');
+             foreach( $errados as $errado )
+             {
+                 if(array_key_exists($this->controller->modelClass.'.'.$errado, $findConditions))
+                     unset( $findConditions[$this->controller->modelClass.'.'.$errado] );
+             }
+             debug($findConditions);
+         }
          else
          {
              $this->controller->Session->setFlash('<span style="font-size: 20px;">Erro! Não foram passados parâmetros para o filtro!</span>');
