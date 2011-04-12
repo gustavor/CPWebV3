@@ -145,9 +145,9 @@
 			$redirecionamentos['Atribuir a Mim']['onclick'] 			= '';
 			$redirecionamentos['Atribuir a Adv. Resp.']['onclick'] 		= '';
 			$on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); this.form.submit(); });';
-			if (isset($processos[$this->data['ProcessoSolicitacao']['processo_id']]))
+			if (isset($this->data['Processo']['usuario_id']) && !empty($this->data['Processo']['usuario_id']))
 			{
-				$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$processos[$this->data['ProcessoSolicitacao']['processo_id']].'"); this.form.submit(); });';
+				$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->data['Processo']['usuario_id'].'"); this.form.submit(); });';
 			}
 		} else
 		{
@@ -171,7 +171,7 @@
 		}
 
         //somente o usuário atribuido pode finalizar sua solicitação
-        if( isset( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] ) && ( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] != $this->Session->read( 'Auth.User.id' ) ) )
+        if( isset( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] ) && ( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] != $this->Session->read( 'Auth.Usuario.id' ) ) )
         {
             unset($redirecionamentos['Finalizar']);
         }
