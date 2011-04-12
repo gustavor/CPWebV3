@@ -23,7 +23,7 @@
 	$dataFiltro['data_ini']['options']['monthNames'] 		= false;
 	$dataFiltro['data_ini']['options']['interval']			= 3;
 	$dataFiltro['data_ini']['options']['type'] 				= 'date';
-	$dataFiltro['data_ini']['options']['value'] 			= strtotime('-1 year');
+	$dataFiltro['data_ini']['options']['value'] 			= strtotime('today');
 	$dataFiltro['data_fim']['options']['label']['text']		= 'data Fim';
 	$dataFiltro['data_fim']['options']['div'] 				= null;
 	$dataFiltro['data_fim']['options']['dateFormat'] 		= 'DMY';
