@@ -111,6 +111,8 @@
 
 	$campos['Cliente']['nome']['options']['label']['text'] 								= 'Cliente';
 
+    $campos['TipoProcesso']['nome']['options']['label']['text']                         = 'Tipo do Processo';
+
 	if (isset($this->data['Processo']['id']))
 	{
 		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH-'.str_repeat('0',5-strlen($this->data['Processo']['id'])).$this->data['Processo']['id'];
@@ -228,7 +230,7 @@
 
 	if ($action=='listar' || $action == 'filtrar')	
 	{
-		$listaCampos = array($modelClass.'.distribuicao',$modelClass.'.tipo_processo_id',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
+		$listaCampos = array($modelClass.'.distribuicao','TipoProcesso.nome',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
 		$campos['Cliente']['nome']['estilo_th'] 		= 'width="300px"';
