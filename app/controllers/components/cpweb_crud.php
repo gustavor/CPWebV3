@@ -115,14 +115,10 @@ class CpwebCrudComponent extends Object {
      {
          if( isset( $this->controller->params['named'] ) && !empty( $this->controller->params['named'] ) )
          {
-             foreach( $this->controller->params['named'] as $_campo => $_valor )
-                $findConditions[$this->controller->modelClass.'.'.$_campo] = $_valor;
-             $errados = array( 'page', 'direction', 'sort');
-             foreach( $errados as $errado )
-             {
-                 if(array_key_exists($this->controller->modelClass.'.'.$errado, $findConditions))
-                     unset( $findConditions[$this->controller->modelClass.'.'.$errado] );
-             }
+            foreach( $this->controller->params['named'] as $_campo => $_valor )
+            {
+				if (!in_array($_campo,array( 'page', 'direction', 'sort'))) $findConditions[$this->controller->modelClass.'.'.$_campo] = $_valor;
+			}
          }
          else
          {
