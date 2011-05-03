@@ -24,6 +24,7 @@ class Solicitacao extends AppModel {
 	public $name 			= 'Solicitacao';
 	public $useTable		= 'solicitacoes';
 	public $displayField 	= 'solicitacao';
+    public $order           = 'Solicitacao.solicitacao ASC';
 
 	public $validate = array(
 		'solicitacao' => array(

@@ -61,6 +61,7 @@
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['default']  						= 3;
 	$campos[$modelClass]['tipo_solicitacao_id']['options']['class']  						= 'edicaoSelect';
+    $campos[$modelClass]['tipo_solicitacao_id']['options']['type']			 				= 'hidden';
 	
 	$campos[$modelClass]['idProcesso']['options']['label']['text'] 							= 'Id do Processo';
 	$campos[$modelClass]['idProcesso']['estilo_th'] 										= 'width="110px"';
@@ -81,9 +82,10 @@
     $campos[$modelClass]['usuario_solicitante']['options']['type']                          = 'hidden';
     $campos[$modelClass]['usuario_solicitante']['options']['value']                         = $this->Session->read( 'Auth.Usuario.id' );
 
-
 	$campos['Solicitacao']['solicitacao']['options']['label']['text'] 						= 'Solicitação';
-	$campos['Solicitacao']['solicitacao']['estilo_th'] 										= 'width="190px"';
+	//$campos['Solicitacao']['solicitacao']['estilo_th'] 										= 'width="190px"';
+	$campos['Solicitacao']['solicitacao']['busca_rapida_url'] 								= Router::url('/',true).'solicitacoes/buscar/solicitacao';
+	$campos['Solicitacao']['solicitacao']['opcoesBuscaRapida']['title']					    = 'Digite aqui o nome da Solicitacao para a busca rápida ...';
 
 	$campos['Complexidade']['nome']['options']['label']['text'] 							= 'Complexidade';
 	$campos['Complexidade']['nome']['estilo_th'] 											= 'width="140px"';
@@ -175,6 +177,20 @@
         {
             unset($redirecionamentos['Finalizar']);
         }
+
+        //no caso da solicitação ser de petição pronta para revisão, colocar botão "Solicitar Aperfeiçoamento" e "Protocoloar"
+        if( isset( $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] ) && $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] == 2 )
+        {
+            $processoId = $this->Form->data['Processo']['id'];
+            $solicitanteId = $this->Session->read( 'Auth.Usuario.id' );
+            $atribuidoId = $this->Form->data['ProcessoSolicitacao']['usuario_solicitante'];
+            $aperfeicoar = 4;
+            $protocolar = 6;
+            $nucleoJuridico = $this->Form->data['Processo']['tipo_processo_id'];
+            $protocolo = 9;
+            $redirecionamentos['Aperfeiçoar']['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$processoId.'/'.$aperfeicoar.'/'.$nucleoJuridico.'/'.$solicitanteId.'/'.$atribuidoId.'\'';
+            $redirecionamentos['Protocolo']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$processoId.'/'.$protocolar.'/'.$protocolo.'/'.$solicitanteId.'/0'.'\'';
+        }
 	}
 
 	if ($action=='listar' || $action=='filtrar')	
@@ -221,7 +237,6 @@
 			$edicaoCampos = array(
 				$modelClass.'.solicitacao_id','#',
 				$modelClass.'.processo_id',
-				$modelClass.'.tipo_solicitacao_id','#',
 				$modelClass.'.tipo_peticao_id',
 				$modelClass.'.tipo_parecer_id',
 				$modelClass.'.complexidade_id','#',
@@ -235,8 +250,8 @@
 		{
 			$msgEdicao = 'Você tem certeza de Excluir esta solicitação ? <a href="'.Router::url('/',true).$name.'/delete/'.$id.'/'.$idProcesso.''.'" class="linkEdicaoExcluir">Sim</a>&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="linkEdicaoExcluir">Não</a>';
 		}
-		
-		$campos[$modelClass]['tipo_solicitacao_id']['options']['onchange'] = 'getTipoSolicitacao(this.value);';
+        
+        $campos[$modelClass]['solicitacao_id']['options']['onchange'] = 'getTipoSolicitacao(this.value);';
 		$tituloCab[2]['link']	= $tituloCab[2]['link'].'/'.$idProcesso.'\'';
 		$tituloCab[3]['label']  = 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
 		$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
