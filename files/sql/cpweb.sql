@@ -441,8 +441,8 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`contatos` (
   `modified` DATETIME NOT NULL ,
   `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `tipo_contato` TINYINT(1) NOT NULL ,
-  `cnpj` VARCHAR(14) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL DEFAULT NULL ,
-  `cpf` VARCHAR(11) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL DEFAULT NULL ,
+  `cnpj` VARCHAR(14) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `cpf` VARCHAR(11) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
   `endereco` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL ,
   `cep` VARCHAR(8) NULL ,
   `bairro` VARCHAR(45) NULL ,
@@ -622,22 +622,6 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `cpwebv3`.`tipos_solicitacoes`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cpwebv3`.`tipos_solicitacoes` ;
-
-CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_solicitacoes` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `created` DATETIME NULL ,
-  `nome` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `i_nome` (`nome` ASC) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-
--- -----------------------------------------------------
 -- Table `cpwebv3`.`processos_solicitacoes`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`processos_solicitacoes` ;
@@ -655,7 +639,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   `usuario_solicitante` INT(11) NOT NULL ,
   `usuario_atribuido` INT(11) NOT NULL ,
   `departamento_id` INT(11) NOT NULL ,
-  `tipo_solicitacao_id` INT(11) NOT NULL ,
   `tipo_parecer_id` INT(11) NULL ,
   `tipo_peticao_id` INT(11) NULL ,
   `complexidade_id` INT(11) NULL ,
@@ -666,7 +649,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   INDEX `fk_processos_solicitacoes_tipos_peticoes1` (`tipo_peticao_id` ASC) ,
   INDEX `fk_processos_solicitacoes_tipos_pareceres1` (`tipo_parecer_id` ASC) ,
   INDEX `fk_processos_solicitacoes_complexidades1` (`complexidade_id` ASC) ,
-  INDEX `fk_processos_solicitacoes_tipos_solicitacoes1` (`tipo_solicitacao_id` ASC) ,
   CONSTRAINT `fk_processos_solicitacoes_solicitacoes1`
     FOREIGN KEY (`solicitacao_id` )
     REFERENCES `cpwebv3`.`solicitacoes` (`id` )
@@ -695,11 +677,6 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   CONSTRAINT `fk_processos_solicitacoes_complexidades1`
     FOREIGN KEY (`complexidade_id` )
     REFERENCES `cpwebv3`.`complexidades` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_processos_solicitacoes_tipos_solicitacoes1`
-    FOREIGN KEY (`tipo_solicitacao_id` )
-    REFERENCES `cpwebv3`.`tipos_solicitacoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
