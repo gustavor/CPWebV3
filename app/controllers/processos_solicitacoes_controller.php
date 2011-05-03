@@ -232,5 +232,25 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->redirect(Router::url('/',true).'processos_solicitacoes/filtro/processos1/'.$rel);
 		}
 	}
+
+   /**
+     * Função para criar novas solicitações
+     */
+    public function criaSolicitacao( $processoId = null, $solicitacaoId = null, $departamentoId = null, $solicitanteId = null, $atribuidoId = null )
+    {
+        $data['processo_id'] = isset( $processoId ) ? $processoId : null;
+        $data['solicitacao_id'] = isset( $solicitacaoId ) ? $solicitacaoId : null;
+        $data['usuario_solicitante'] = isset( $solicitanteId ) ? $solicitanteId : null;
+        $data['usuario_atribuido'] = isset( $atribuidoId ) ? $atribuidoId : null;
+        $data['departamento_id'] = isset( $departamentoId ) ? $departamentoId : null;
+        $data['tipo_solicitacao_id'] = 3;
+        $data['finalizada'] = 0;
+        debug($data);
+        $this->ProcessoSolicitacao->create();
+        if( $this->ProcessoSolicitacao->save( $data ) )
+        {
+            $this->redirect( array( 'controller' => 'processos_solicitacoes', 'action' => 'editar' , $this->ProcessoSolicitacao->id ) );
+        }
+    }
 }
 ?>

@@ -74,7 +74,11 @@ class ProcessoSolicitacao extends AppModel {
 	public function beforeSave()
 	{
 		// se a solicitação foi fechada, então salva sua data de fechamento
-		if (isset($this->data[$this->name]['finalizada']) && !empty($this->data[$this->name]['finalizada']) )
+		if (isset($this->data[$this->name]['usuario_atribuido']) && !empty($this->data[$this->name]['usuario_atribuido']) )
+		{
+            $this->data[$this->name]['data_atendimento'] = date('Y-m-d h:i:s');
+		}
+        if (isset($this->data[$this->name]['finalizada']) && !empty($this->data[$this->name]['finalizada']) )
 		{
 			$this->data[$this->name]['data_fechamento'] = date('Y-m-d h:i:s');
 		}
