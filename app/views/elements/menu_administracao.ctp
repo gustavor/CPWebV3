@@ -21,12 +21,6 @@
 	$listaMenu['orgaos']['url'] 				= Router::url('/',true).'orgaos';
 	$listaMenu['eventos']['text'] 				= 'Eventos';
 	$listaMenu['eventos']['url'] 				= Router::url('/',true).'eventos';
-	$listaMenu['modelos']['text'] 				= 'Modelos';
-	$listaMenu['modelos']['url'] 				= Router::url('/',true).'modelos';
-	$listaMenu['itens']['text'] 				= 'Itens';
-	$listaMenu['itens']['url'] 					= Router::url('/',true).'itens';
-	$listaMenu['teses']['text'] 				= 'Teses';
-	$listaMenu['teses']['url'] 					= Router::url('/',true).'teses';
 	$listaMenu['numeros']['text'] 				= 'Números';
 	$listaMenu['numeros']['url'] 				= Router::url('/',true).'numeros';
 	$listaMenu['tipos_partes']['text'] 			= 'Tipos Partes';
@@ -45,8 +39,6 @@
 	$listaMenu['complexidades']['url'] 			= Router::url('/',true).'complexidades';
 	$listaMenu['tipos_peticoes']['text'] 		= 'Tipos Petições';
 	$listaMenu['tipos_peticoes']['url'] 		= Router::url('/',true).'tipos_peticoes';
-	$listaMenu['tipos_solicitacoes']['text'] 	= 'Tipos de Solicitações';
-	$listaMenu['tipos_solicitacoes']['url'] 	= Router::url('/',true).'tipos_solicitacoes';
 	$listaMenu['eventos_acordos']['text'] 		= 'Eventos Acordos';
 	$listaMenu['eventos_acordos']['url'] 		= Router::url('/',true).'eventos_acordos';
 	$listaMenu['processos_solicitacoes']['text']= 'Processos e Solicitações';
@@ -57,12 +49,8 @@
 	$listaMenu['segmentos']['url'] 				= Router::url('/',true).'segmentos';
 	$listaMenu['equipes']['text'] 				= 'Equipes';
 	$listaMenu['equipes']['url'] 				= Router::url('/',true).'equipes';
-	$listaMenu['checklists']['text'] 			= 'Checklists';
-	$listaMenu['checklists']['url'] 			= Router::url('/',true).'checklists';
 	$listaMenu['solicitacoes']['text'] 			= 'Solicitações';
 	$listaMenu['solicitacoes']['url'] 			= Router::url('/',true).'solicitacoes';
-	$listaMenu['partes_contrarias']['text'] 	= 'Partes Contrárias';
-	$listaMenu['partes_contrarias']['url'] 		= Router::url('/',true).'partes_contrarias';
     $listaMenu['efetividades']['text']          = 'Efetividades';
     $listaMenu['efetividades']['url']           = Router::url('/',true).'efetividades';
     $listaMenu['testemunhas']['text']           = 'Testemunhas';

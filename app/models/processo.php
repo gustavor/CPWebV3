@@ -40,30 +40,6 @@ class Processo extends AppModel {
 			'required' 	=> true,
             'message'	=> 'É necessário informar um Tipo de processo !!!'
 		),
-		'cliente_id'	=> array
-		(
-			'rule'		=> 'notEmpty',
-			'required' 	=> true,
-            'message'	=> 'É necessário informar um cliente !!!'
-		),
-		'tipo_parte_id'	=> array
-		(
-			'rule'		=> 'notEmpty',
-			'required' 	=> true,
-            'message'	=> 'É necessário informar uma Posição do Cliente no Processo !!!'
-		),
-		'parte_contraria_id'	=> array
-		(
-			'rule'		=> 'notEmpty',
-			'required' 	=> true,
-            'message'	=> 'É necessário informar a Parte Contrária !!!'
-		),
-		'advogado_contrario_id'	=> array
-		(
-			'rule'		=> 'notEmpty',
-			'required' 	=> true,
-            'message'	=> 'É necessário informar um Advogado Contrário !!!'
-		),
 		'status_id'	=> array
 		(
 			'rule'		=> 'notEmpty',
@@ -131,26 +107,6 @@ class Processo extends AppModel {
 	 */
 	public $belongsTo		= array
 	(
-		'Cliente'  		=> array(
-			'className'		=> 'Cliente',
-			'foreignKey'	=> 'cliente_id',
-			'fields'		=> 'id, nome'
-		),
-		'TipoParte'  		=> array(
-			'className'		=> 'TipoParte',
-			'foreignKey'	=> 'tipo_parte_id',
-			'fields'		=> 'id, nome'
-		),
-		'ParteContraria'  	=> array(
-			'className'		=> 'ParteContraria',
-			'foreignKey'	=> 'parte_contraria_id',
-			'fields'		=> 'id, nome'
-		),
-		'AdvogadoContrario'  		=> array(
-			'className'		=> 'AdvogadoContrario',
-			'foreignKey'	=> 'advogado_contrario_id',
-			'fields'		=> 'id, nome'
-		),
 		'Usuario'  		=> array(
 			'className'		=> 'Usuario',
 			'foreignKey'	=> 'usuario_id',
@@ -212,7 +168,11 @@ class Processo extends AppModel {
         'ProcessoSolicitacao' => array(
             'className' => 'ProcessoSolicitacao',
             'foreignKey' => 'processo_id'
-        )
+        ),
+        'ContatoProcesso' => array(
+            'className' => 'ContatoProcesso',
+            'foreignKey' => 'processo_id'
+        ),
     );
     
     /**
@@ -226,15 +186,15 @@ class Processo extends AppModel {
 		if (!$this->query('DELETE FROM eventos_acordos 	WHERE processo_id='.$this->id)) return false;
 		if (!$this->query('DELETE FROM audiencias 		WHERE processo_id='.$this->id)) return false;
 		if (!$this->query('DELETE FROM processos_solicitacoes WHERE processo_id='.$this->id)) return false;
-		parent::beforeDelete();
-		
+		parent::beforeDelete();		
 		return true;
 	}
 
 	/**
 	 * Antes de validar
 	 * 
-	 * Executa a inclusão dos campos de comboBox, caso nenhuma opção tenha sido selecionada e o campo busca rápida tenha sido preenchido
+	 * Executa a inclusão dos campos de comboBox, caso nenhuma opção tenha sido selecionada e o campo busca 
+	 * rápida tenha sido preenchido.
 	 * 
 	 * @return void
 	 */
@@ -256,30 +216,6 @@ class Processo extends AppModel {
 				$dataBelongsTo[$_modelo][trim($camposBelongsTo[1])] = $valor;
 				$opcoesBelongsTo	= array();
 
-				// somente para clientes
-				if ($campo=='ClienteId')
-				{
-					$dataBelongsTo['Cliente']['cidade_id']		= 2302;
-					$dataBelongsTo['Cliente']['endereco']		= '.';
-					$dataBelongsTo['Cliente']['tipo_cliente']	= 0;
-				}
-
-				// somente para clientes
-				if ($campo=='ParteContrariaId')
-				{
-					$dataBelongsTo['ParteContraria']['cidade_id']		= 2302;
-					$dataBelongsTo['ParteContraria']['endereco']		= '.';
-					$dataBelongsTo['ParteContraria']['tipo_cliente']	= 0;
-				}
-
-				// somente para advogados contrários
-				if ($campo=='AdvogadoContrarioId')
-				{
-					$dataBelongsTo['AdvogadoContrario']['cidade_id']	= 2302;
-					$dataBelongsTo['AdvogadoContrario']['endereco']		= '.';
-					$dataBelongsTo['AdvogadoContrario']['oab']			= 0;
-				}
-
 				// incluindo o novo registro para o belongsTo
 				$this->$_modelo->create();
 				if ($this->$_modelo->save($dataBelongsTo,$opcoesBelongsTo))
@@ -299,5 +235,4 @@ class Processo extends AppModel {
 		return true;
 	}
 }
-
 ?>

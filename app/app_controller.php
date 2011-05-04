@@ -134,7 +134,7 @@ class AppController extends Controller {
 	/**
 	 * Retorna uma lista do banco de dados para comboBox
 	 * 
-	 * exemplo: http://localhost/cpweb/clientes/
+	 * exemplo: http://localhost/cpweb/contatos/
 	 * 
 	 * @parameter	string	$campo 	Nome do campo a ser pesquiado
 	 * @parameter	string	$filtro	Filtro para a consulta
@@ -159,7 +159,7 @@ class AppController extends Controller {
 	/**
 	 * Retorna uma lista do banco de dados para comboBox
 	 * 
-	 * exemplo: http://localhost/cpweb/clientes/nome/geraldo/ProcessoClienteId
+	 * exemplo: http://localhost/cpweb/contatos/nome/geraldo/ProcessoContatoId
 	 * 
 	 * @parameter	string	$campo 	Nome do campo a ser pesquiado
 	 * @parameter	string	$filtro	Filtro para a consulta
@@ -242,8 +242,9 @@ class AppController extends Controller {
 			}
 			$tituloCab[3]['label'] 	= 'VEBH-'.str_repeat('0',5-strlen($idProcesso)).$idProcesso;
 			$tituloCab[3]['link']	= Router::url('/',true).'processos/editar/'.$idProcesso;
-			$this->set(compact('idProcesso','action2','tituloCab'));
+			$this->set(compact('action2','tituloCab'));
 		}
+		$this->set(compact('idProcesso'));
 	}
 }
 ?>

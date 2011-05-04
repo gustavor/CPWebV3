@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/model/parte_contraria.php
+ * app/model/contato.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,12 +19,11 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ParteContraria extends AppModel {
+class Contato extends AppModel {
 
-        public $nome 			= 'ParteContraria';
-        public $useTable		= 'partes_contrarias';
+        public $nome 			= 'Contato';
         public $displayField	= 'nome';
-        public $order		 	= 'ParteContraria.nome';
+        public $order		 	= 'Contato.nome';
 
         public $validate = array(
             'nome' => array
@@ -33,7 +32,7 @@ class ParteContraria extends AppModel {
 				(
 					'rule' 		=> 'notEmpty',
 					'required' 	=> true,
-					'message' 	=> 'É necessário informar o nome da Parte Contrária!'
+					'message' 	=> 'É necessário informar o nome do Contato!'
                 )
             ),
 
@@ -72,16 +71,21 @@ class ParteContraria extends AppModel {
             'endereco' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
-                'message' => 'É necessário informar o endereço da Parte Contrária!'
+                'message' => 'É necessário informar o endereço do Contato!'
             ),
 
             'cidade_id' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
-                'message' => 'É necessário informar a Cidade de domicílio da Parte Contrária!'
+                'message' => 'É necessário informar a Cidade de domicílio do Contato!'
             )            
         );
-        
+	/**
+	 * Relacionamento 1 para n
+	 * 
+	 * @var		array
+	 * @access	public
+	 */
 	public $belongsTo = array(
 		'Cidade' => array(
 			'className' => 'Cidade',
@@ -101,8 +105,9 @@ class ParteContraria extends AppModel {
 	{
 		// atualizando cpf e cnpj
 		$this->setCpf();
-        parent::beforeValidate();
+		//echo '<pre>'.print_r($this->data,true).'</pre>';
+		if (empty($this->data['Contato']['cnpj']))	$this->data['Contato']['cnpj'] = 0;
+		if (empty($this->data['Contato']['cpf']))	$this->data['Contato']['cpf'] = 0;
+		parent::beforeValidate();
 	}
-}
-
-?>
+ }

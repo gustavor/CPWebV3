@@ -7,36 +7,11 @@
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
 	if (isset($tipoprocessos)) $campos[$modelClass]['tipo_processo_id']['options']['options'] = $tipoprocessos;
-	
-	$campos[$modelClass]['cliente_id']['options']['label']['text'] 						= 'Cliente';
-	$campos[$modelClass]['cliente_id']['options']['empty'] 								= '-- escolha uma opção --';
-	$campos[$modelClass]['cliente_id']['options']['style'] 								= 'width:300px';
-	if (isset($clientes)) $campos[$modelClass]['cliente_id']['options']['options'] 		= $clientes;
-	$campos[$modelClass]['cliente_id']['busca_rapida_url'] 								= Router::url('/',true).'clientes/buscar/nome';
-	$campos[$modelClass]['cliente_id']['opcoesBuscaRapida']['title']					= 'Digite aqui o nome do cliente para a busca rápida ...';
-		
-	$campos[$modelClass]['parte_contraria_id']['options']['label']['text'] 				= 'Parte Contrária';
-	$campos[$modelClass]['parte_contraria_id']['options']['empty'] 						= '-- escolha uma opção --';
-	$campos[$modelClass]['parte_contraria_id']['options']['style'] 						= 'width:300px';
-	if (isset($clientes)) $campos[$modelClass]['parte_contraria_id']['options']['options'] 		= $partecontrarias;
-	$campos[$modelClass]['parte_contraria_id']['busca_rapida_url'] 						= Router::url('/',true).'partes_contrarias/buscar/nome';
-	$campos[$modelClass]['parte_contraria_id']['opcoesBuscaRapida']['title']			= 'Digite aqui o nome da Parte Contrária para a busca rápida ...';
 
 	$campos[$modelClass]['usuario_id']['options']['label']['text'] 					    = 'Advogado Interno Responsável';
 	$campos[$modelClass]['usuario_id']['options']['empty'] 							    = '-- escolha uma opção --';
 	$campos[$modelClass]['usuario_id']['options']['style'] 							    = 'width:300px';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] 	= $advogados;
-
-	$campos[$modelClass]['tipo_parte_id']['options']['label']['text'] 					= 'Posição do Cliente no Processo';
-	$campos[$modelClass]['tipo_parte_id']['options']['empty'] 							= '-- escolha uma opção --';
-	$campos[$modelClass]['tipo_parte_id']['options']['style'] 							= 'width:300px';
-	if (isset($tipopartes)) $campos[$modelClass]['tipo_parte_id']['options']['options'] = $tipopartes;
-
-	$campos[$modelClass]['advogado_contrario_id']['options']['label']['text'] 			= 'Advogado da Parte Contrária';
-	$campos[$modelClass]['advogado_contrario_id']['options']['empty'] 					= '-- escolha uma opção --';
-	$campos[$modelClass]['advogado_contrario_id']['options']['style'] 					= 'width:300px';
-	if (isset($advogadocontrarios)) $campos[$modelClass]['advogado_contrario_id']['options']['options'] = $advogadocontrarios;
-	$campos[$modelClass]['advogado_contrario_id']['busca_rapida_url'] 					= Router::url('/',true).'advogados_contrarios/buscar/nome';
 
 	$campos[$modelClass]['status_id']['options']['label']['text'] 						= 'Status do Processo';
 	$campos[$modelClass]['status_id']['options']['empty'] 								= '-- escolha uma opção --';
@@ -109,8 +84,6 @@
 	if (isset($naturezas)) $campos[$modelClass]['natureza_id']['options']['options'] 	= $naturezas;
 	$campos[$modelClass]['natureza_id']['busca_rapida_url'] 							= Router::url('/',true).'naturezas/buscar/nome';
 
-	$campos['Cliente']['nome']['options']['label']['text'] 								= 'Cliente';
-
     $campos['TipoProcesso']['nome']['options']['label']['text']                         = 'Tipo do Processo';
 
 	if (isset($this->data['Processo']['id']))
@@ -124,11 +97,7 @@
 		(
 			$modelClass.'.id_controle','#',
 			$modelClass.'.tipo_processo_id','#',
-			$modelClass.'.cliente_id','#',
 			$modelClass.'.usuario_id','#',
-			$modelClass.'.tipo_parte_id','#',
-			$modelClass.'.parte_contraria_id','#',
-			$modelClass.'.advogado_contrario_id','#',
 			$modelClass.'.status_id','#',
 			$modelClass.'.fase_id','#',
 			$modelClass.'.instancia_id','#',
@@ -153,11 +122,7 @@
 		$edicaoCampos = array
 		(
 			$modelClass.'.id_controle',
-			$modelClass.'.cliente_id',
 			$modelClass.'.usuario_id',
-			$modelClass.'.tipo_parte_id',
-			$modelClass.'.parte_contraria_id',
-			$modelClass.'.advogado_contrario_id',
 			$modelClass.'.status_id',
 			$modelClass.'.fase_id',
 			$modelClass.'.instancia_id',
@@ -183,11 +148,7 @@
 		$edicaoCampos = array
 		(
 			$modelClass.'.tipo_processo_id','#',
-			$modelClass.'.cliente_id','#',
 			$modelClass.'.usuario_id','#',
-			$modelClass.'.tipo_parte_id','#',
-			$modelClass.'.parte_contraria_id','#',
-			$modelClass.'.advogado_contrario_id','#',
 			$modelClass.'.status_id','#',
 			$modelClass.'.fase_id','#',
 			$modelClass.'.instancia_id','#',
@@ -230,9 +191,8 @@
 
 	if ($action=='listar' || $action == 'filtrar')	
 	{
-		$listaCampos = array($modelClass.'.distribuicao','TipoProcesso.nome',$modelClass.'.numero',$modelClass.'.numero_auxiliar','Cliente.nome');
+		$listaCampos = array($modelClass.'.distribuicao','TipoProcesso.nome',$modelClass.'.numero',$modelClass.'.numero_auxiliar');
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
-		$campos['Cliente']['nome']['estilo_th'] 		= 'width="300px"';
 	}
 ?>

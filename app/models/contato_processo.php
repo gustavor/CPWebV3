@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/models/modelo.php
+ * app/models/contato_processo.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,30 +19,10 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Modelo extends AppModel {
+class ContatoProcesso extends AppModel {
 
-	public $name 		= 'Modelo';
-	public $useTable 	= 'modelos';
-	public $displayField= 'nome';
-	public $order		= 'nome';
-
-	public $validate = array(
-		'evento' => array(
-			'rule' => 'notEmpty',
-			'required' => true,
-			'message' => 'É necessário informar a descrição do evento!'
-		)
-	);
-	
-	/**
-	 * Antes da validação
-	 * 
-	 * @return boolean
-	 */
-	public function beforeValidate()
-	{
-		$this->data['Modelo']['nome'] = mb_strtoupper($this->data['Modelo']['nome']);
-		return true;
-	}
+	public $name 		= 'ContatoProcesso';
+	public $useTable 	= 'contatos_processos';
+	public $displayField= 'modified';
+	public $order		= 'modified';
 }
-?>

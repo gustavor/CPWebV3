@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/modelos_controller.php
+ * app/controllers/contatos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,23 +19,23 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class ModelosController extends AppController {
+class ContatosController extends AppController {
 
 	/**
-	 * Nome
+	 * Nome do controlador
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Modelos';
-	
+	public $name = 'Contatos';
+
 	/**
-	 * Modelo
+	 * Modelo para o controlador
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Modelo';
+	public $uses = 'Contato';
 
 	/**
 	 * Ajudantes 
@@ -54,11 +54,26 @@ class ModelosController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 	
 	/**
+	 * Método chamado antes de qualquer outro método
 	 * 
+	 * @access 	public
+	 * @return 	void
 	 */
 	public function beforeFilter()
 	{
+		if ($this->action=='telefones') $this->layout='ajax';
+		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
+	}
+	
+	/**
+	 * Antes de renderização a visão
+	 * 
+	 * @return void
+	 */
+	public function beforeRender()
+	{
+		if ($this->action=='editar' || $this->action=='novo') $this->set('subForm','sub_form_contatos');
 	}
  
 	/**
@@ -92,6 +107,15 @@ class ModelosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		// carregando model de telefone
+		$this->loadModel('Telefone');
+		
+		if (isset($this->data))
+		{
+			if (!$this->CpwebCrud->setSubForm('contato',$id,'Telefone')) return false;
+		}
+		$this->set('estados',$this->Contato->Cidade->Estado->find('list'));
+		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'contato','modelo_id'=>$id))));
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -102,6 +126,7 @@ class ModelosController extends AppController {
 	 */
 	public function novo()
 	{
+		$this->set('estados',$this->Contato->Cidade->Estado->find('list'));
 		$this->CpwebCrud->novo();
 	}
 	
@@ -122,6 +147,8 @@ class ModelosController extends AppController {
 	 */
 	public function delete($id=null)
 	{
+		$this->loadModel('Telefone');
+		if (!$this->Telefone->deleteAll(array('modelo'=>'contato','modelo_id'=>$id))) return false;
 		$this->CpwebCrud->delete($id);
 	}
 
@@ -132,6 +159,41 @@ class ModelosController extends AppController {
 	 */
 	public function imprimir($id=null)
 	{
+		$this->set('estados',$this->Contato->Cidade->Estado->find('list'));
 		$this->CpwebCrud->imprimir($id);
 	}
+
+	/**
+	 * Imprime em pdf o relatório solicitado
+	 * 
+	 * @access void
+	 * @return void
+	 */
+	public function relatorios($rel=null)
+	{
+		$relOpcoes = array();
+		switch($rel)
+		{
+			default:
+				$relOpcoes['order'] = 'Contato.nome';
+		}
+		$data = $this->Contato->find('all',$relOpcoes);
+		$this->CpwebCrud->relatorios($rel,$data);
+	}
+
+	/**
+	 * Atualiza Camada antes de enviar os relacionamentos para a view
+	 * 
+	 * @return void
+	 */
+	public function beforeRelacionamentos()
+	{
+		if (isset($this->data['Cidade']['estado_id']))
+		{
+			$this->Contato->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id='.$this->data['Cidade']['estado_id'];
+		} else
+		{
+			$this->Contato->belongsTo['Cidade']['conditions'] = 'Cidade.estado_id=1';
+		}
+	}	
 }
