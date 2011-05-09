@@ -121,7 +121,7 @@ class RelatoriosController extends AppController {
 		$camposLista 	= array('ProcessoSolicitacao.processo_id','ProcessoSolicitacao.usuario_atribuido','ProcessoSolicitacao.created','ProcessoSolicitacao.data_fechamento');
 
 		// config view
-		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','departamentos'=>'Departamento');
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','departamentos'=>'Departamento');
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
@@ -130,8 +130,8 @@ class RelatoriosController extends AppController {
 		// filtros
 		$this->loadModel('Usuario');
 		$dataFiltro['funcionario']['options']['options'] 		= $this->Usuario->find('list');
-		$this->loadModel('Cliente');
-		$dataFiltro['cliente']['options']['options'] 			= $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
+		$this->loadModel('Contato');
+		$dataFiltro['contato']['options']['options'] 			= $this->Contato->find('list',array('conditions'=>array('length(Contato.nome) <'=>100)));
 		$this->loadModel('Departamento');
 		$dataFiltro['departamento']['options']['options'] 		= $this->Departamento->find('list');
 		// ordem
@@ -161,11 +161,11 @@ class RelatoriosController extends AppController {
 				}
 			}
 
-			// filtrando os processos do cliente
-			if (isset($this->data[$this->action]['cliente']) && !(empty($this->data[$this->action]['cliente'])))
+			// filtrando os processos do contato
+			if (isset($this->data[$this->action]['contato']) && !(empty($this->data[$this->action]['contato'])))
 			{
 				$this->loadModel('Processo');
-				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('cliente_id'=>$this->data[$this->action]['cliente'])));
+				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('contato_id'=>$this->data[$this->action]['contato'])));
 				foreach($dataProcesso as $_modelo => $_arrCampos)
 				{
 					foreach($_arrCampos as $_campo => $_arrValor)
@@ -245,7 +245,7 @@ class RelatoriosController extends AppController {
 	}
 
 	/**
-	 * Exibe a Lista de Clientes Modelo Sintético
+	 * Exibe a Lista de Contatos Modelo Sintético
 	 * 
 	 * @param	string	$relatorio			Nome do Relatório
 	 * @param	string	$layout				Nome do layout a ser usado no relatório
@@ -255,34 +255,34 @@ class RelatoriosController extends AppController {
 	 * @param	string	$modeloPrincipal	Modelo principal que irá ser paginado ou listado
 	 * @return void
 	 */
-	public function fil_clientes($relatorio='', $layout='')
+	public function fil_contatos($relatorio='', $layout='')
 	{
 		// campos para a lista
-		$camposLista 	= array('Cliente.nome','Cliente.endereco','Cliente.cpf','Cliente.cnpj','Cliente.modified','Cliente.created');
+		$camposLista 	= array('Contato.nome','Contato.endereco','Contato.cpf','Contato.cnpj','Contato.modified','Contato.created');
 
 		// configs na view
-		$viewLista 		= array('clientes'=>'Cliente');
+		$viewLista 		= array('contatos'=>'Contato');
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
-		$paramRelatorio['titulo'] 				= 'Relatório Sintético de Clientes';
+		$paramRelatorio['titulo'] 				= 'Relatório Sintético de Contatos';
 
 		// carregando o modelo principal
-		$this->loadModel('Cliente');
+		$this->loadModel('Contato');
 
-		$dataLista	= (!empty($layout)) ? $this->Cliente->find('all',null,null,array('order'=>'Cliente.nome')) : $this->paginate('Cliente');
+		$dataLista	= (!empty($layout)) ? $this->Contato->find('all',null,null,array('order'=>'Contato.nome')) : $this->paginate('Contato');
 		$render 	= (!empty($layout)) ? $layout : 'listar';
 
 		// atualizando a view
 		$this->set(compact('dataLista','camposLista','viewLista','paramRelatorio'));
-		$this->set('modelo','Cliente');
+		$this->set('modelo','Contato');
 		$this->set('relatorio','sintetico');
 
 		$this->render($render);
 	}
 
 	/**
-	 * Exibe a Lista de Clientes Modelo Sintético
+	 * Exibe a Lista de Contatos Modelo Sintético
 	 * 
 	 * @param	string	$relatorio			Nome do Relatório
 	 * @param	string	$layout				Layout a ser usado no relatório, deve estar em app/views/relatorios/
@@ -299,8 +299,8 @@ class RelatoriosController extends AppController {
 
 		// filtors
 		$dataFiltro = array();
-		$this->loadModel('Cliente');
-		$dataFiltro['cliente']['options']['options'] = $this->Cliente->find('list',array('conditions'=>array('length(Cliente.nome) <'=>100)));
+		$this->loadModel('Contato');
+		$dataFiltro['contato']['options']['options'] = $this->Contato->find('list',array('conditions'=>array('length(Contato.nome) <'=>100)));
 
 		// dados da lista
 		$dataLista		= array();
@@ -309,7 +309,7 @@ class RelatoriosController extends AppController {
 		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','ParteContraria.nome','ProcessoSolicitacao.created');
 
 		// config view
-		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','clientes'=>'Cliente','processos'=>'Processo','partes_contrarias'=>'ParteContraria');
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','processos'=>'Processo','partes_contrarias'=>'ParteContraria');
 
 		// se o formulário foi postado ou o pedido de impressão para o layout
 		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
@@ -330,11 +330,11 @@ class RelatoriosController extends AppController {
 			// filtro padrão (somente solicitações abertas)
 			$condicoes['ProcessoSolicitacao.finalizada'] = 0;
 
-			// filtrando os processos e solicitações pelos processos do cliente solicitado
-			if (isset($this->data[$this->action]['cliente']) && !(empty($this->data[$this->action]['cliente'])))
+			// filtrando os processos e solicitações pelos processos do contato solicitado
+			if (isset($this->data[$this->action]['contato']) && !(empty($this->data[$this->action]['contato'])))
 			{
 				$this->loadModel('Processo');
-				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('cliente_id'=>$this->data[$this->action]['cliente'])));
+				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('contato_id'=>$this->data[$this->action]['contato'])));
 				$arrIdsProcessos = array();
 				foreach($dataProcesso as $_modelo => $_arrCampos)
 				{
@@ -407,7 +407,7 @@ class RelatoriosController extends AppController {
 				}
 			}
 
-			// se filtrou pelo cliente mas não achou nenhum processo do cliente zera a lista
+			// se filtrou pelo contato mas não achou nenhum processo do contato zera a lista
 			if (isset($dataProcesso))
 			{
 				if (!count($dataProcesso)) $dataLista = array();

@@ -1,9 +1,9 @@
-#listaClientes
+#listaContatos
 {
 	width: 98%;
 }
 
-#divClienteTipoCliente
+#divContatoTipoContato
 {
 	/*background-color: #ddd;*/
 	width: 360px;
@@ -11,17 +11,17 @@
 	line-height: 24px;
 }
 
-#divClienteTipoCliente label
+#divContatoTipoContato label
 {
 	margin: 0px 0px 0px 5px;
 }
 
-#divClienteTipoCliente input
+#divContatoTipoContato input
 {
 	margin: 0px 0px 0px 20px;
 }
 
-#divClienteCnpj
+#divContatoCnpj
 {
 	width: 210px;
 	margin: 0px 0px 0px 5px;
@@ -30,7 +30,7 @@
 	-webkit-border-radius: 6px;
 }
 
-.labelClienteCnpj
+.labelContatoCnpj
 {
 	width: 40px;
 	display: block;
@@ -40,7 +40,7 @@
 	line-height: 24px;
 }
 
-#divClienteCpf
+#divContatoCpf
 {
 	display: none;
 	width: 190px;
@@ -50,17 +50,17 @@
 	-webkit-border-radius: 6px;
 }
 
-#ClienteObs
+#ContatoObs
 {
 	width: 603px;
 }
 
-#ClienteCidadeId
+#ContatoCidadeId
 {
 	width: 250px;
 }
 
-.labelClienteCpf
+.labelContatoCpf
 {
 	width: 40px;
 	display: block;

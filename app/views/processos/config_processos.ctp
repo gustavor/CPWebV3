@@ -58,7 +58,7 @@
     $campos[$modelClass]['orgao_id']['busca_rapida_url'] 								= Router::url('/',true).'orgaos/buscar/nome';
 
 	$campos[$modelClass]['obs']['options']['label']['text'] 							= 'Observações';
-	$campos[$modelClass]['obs']['options']['style'] 									= 'width:600px; text-transform: uppercase';
+	$campos[$modelClass]['obs']['options']['style'] 									= 'width:800px; height: 18px; text-transform: uppercase';
 
 	$campos[$modelClass]['equipe_id']['options']['label']['text'] 						= 'Equipe';
 	$campos[$modelClass]['equipe_id']['options']['empty'] 								= '-- escolha uma opção --';
@@ -76,7 +76,7 @@
 	if (isset($segmentos)) $campos[$modelClass]['segmento_id']['options']['options'] 	= $segmentos;
 
 	$campos[$modelClass]['operacao_contrato']['options']['label']['text'] 				= 'Operação(ões)/Contrato(s)';
-	$campos[$modelClass]['operacao_contrato']['options']['style'] 						= 'width:600px; text-transform: uppercase';
+	$campos[$modelClass]['operacao_contrato']['options']['style'] 						= 'width:800px; height: 18px; text-transform: uppercase';
 
 	$campos[$modelClass]['natureza_id']['options']['label']['text'] 					= 'Natureza';
 	$campos[$modelClass]['natureza_id']['options']['empty'] 							= '-- escolha uma opção --';
@@ -96,23 +96,23 @@
 		$edicaoCampos = array
 		(
 			$modelClass.'.id_controle','#',
-			$modelClass.'.tipo_processo_id','#',
+			$modelClass.'.tipo_processo_id',
 			$modelClass.'.usuario_id','#',
-			$modelClass.'.status_id','#',
+			$modelClass.'.status_id',
 			$modelClass.'.fase_id','#',
 			$modelClass.'.instancia_id','#',
-			$modelClass.'.numero','#',
+			$modelClass.'.numero',
 			$modelClass.'.numero_auxiliar','#',
 			$modelClass.'.distribuicao','#',
-			$modelClass.'.comarca_id','#',
+			$modelClass.'.comarca_id',
 			$modelClass.'.ordinal_orgao',$modelClass.'.orgao_id','#',
-			$modelClass.'.obs','#','#',
-			$modelClass.'.equipe_id','#',
+			$modelClass.'.obs','#',
+			$modelClass.'.equipe_id',
 			$modelClass.'.natureza_id','#',
-			$modelClass.'.gestao_id','#',
+			$modelClass.'.gestao_id',
             $modelClass.'.segmento_id','#',
 			$modelClass.'.operacao_contrato','#',
-            $modelClass.'.modified','#',
+            $modelClass.'.modified',
 			$modelClass.'.created'
 		);
 	}
@@ -147,20 +147,20 @@
 	{
 		$edicaoCampos = array
 		(
-			$modelClass.'.tipo_processo_id','#',
+			$modelClass.'.tipo_processo_id',
 			$modelClass.'.usuario_id','#',
-			$modelClass.'.status_id','#',
+			$modelClass.'.status_id',
 			$modelClass.'.fase_id','#',
 			$modelClass.'.instancia_id','#',
-			$modelClass.'.numero','#',
+			$modelClass.'.numero',
 			$modelClass.'.numero_auxiliar','#',
 			$modelClass.'.distribuicao','#',
-			$modelClass.'.comarca_id','#',
+			$modelClass.'.comarca_id',
 			$modelClass.'.ordinal_orgao',$modelClass.'.orgao_id','#',
 			$modelClass.'.obs','#',
-			$modelClass.'.equipe_id','#',
+			$modelClass.'.equipe_id',
 			$modelClass.'.natureza_id','#',
-			$modelClass.'.gestao_id','#',
+			$modelClass.'.gestao_id',
             $modelClass.'.segmento_id','#',
             $modelClass.'.operacao_contrato','#',
 		);

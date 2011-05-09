@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/perfis_controller.php
+ * app/controllers/profissoes_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,21 +19,21 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class PerfisController extends AppController {
+class ProfissoesController extends AppController {
 
 	/**
 	 * nome
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Perfis';
+	public $name = 'Profissoes';
 	
 	/**
 	 * Model
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Perfil';
+	public $uses = 'Profissao';
 	
 	/**
 	 * Ajudantes 
@@ -57,7 +57,7 @@ class PerfisController extends AppController {
 	 */
 	public function beforeFilter()
 	{
-		$this->set('arqListaMenu','menu_sistema');
+		$this->set('arqListaMenu','menu_administracao');
 		parent::beforeFilter();
 	}
 

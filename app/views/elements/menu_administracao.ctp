@@ -55,6 +55,8 @@
     $listaMenu['efetividades']['url']           = Router::url('/',true).'efetividades';
     $listaMenu['testemunhas']['text']           = 'Testemunhas';
     $listaMenu['testemunhas']['url']            = Router::url('/',true).'testemunhas';
+    $listaMenu['profissoes']['text']            = 'Profissões';
+    $listaMenu['profissoes']['url']             = Router::url('/',true).'profissoes';
 
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;

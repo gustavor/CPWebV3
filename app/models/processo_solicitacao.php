@@ -79,4 +79,20 @@ class ProcessoSolicitacao extends AppModel {
 		}
 		return true;
 	}
+
+	/**
+	 * Called after each successful save operation.
+	 *
+	 * @param boolean $created True if this save created a new record
+	 * @access public
+	 * @link http://book.cakephp.org/view/1048/Callback-Methods#afterSave-1053
+	 */
+	/*public function afterSave($created) 
+	{
+		if (isset($this->data['ProcessoSolicitacao']['usuario_atribuido']) && !empty($this->data['ProcessoSolicitacao']['usuario_atribuido']) )
+		{
+			$this->recursive = false;
+			$this->updateAll(array('ProcessoSolicitacao.data_atendimento'=>'"'.date('Y-m-d h:i:s').'"'),array('ProcessoSolicitacao.id'=>$this->id));
+		}
+	}*/
 }

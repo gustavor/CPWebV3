@@ -22,26 +22,38 @@
 class InstalaController extends AppController {
 	/**
 	 * nome
+	 * 
+	 * @var		string
+	 * @access	public
 	 */
 	public $name = 'Instala';
 
 	/**
 	 * mensagens de erro
+	 * 
+	 * @var		string
+	 * @access	public
 	 */
 	public $erro = '';
 
 	/**
 	 * tabelas que serão populadas
+	 * 
+	 * @var		array
+	 * @access	public
 	 */
 	public $csv	= array('estados','perfis','usuarios_perfil','cidades',
                         'status','naturezas','comarcas','gestoes',
                         'segmentos','equipes','fases','tipos_partes',
                         'complexidades','departamentos','instancias','tipos_audiencias',
                         'tipos_processos','orgaos','tipos_pareceres','tipos_peticoes',
-                        'efetividades', 'solicitacoes');
+                        'efetividades', 'solicitacoes', 'profissoes');
 
 	/**
 	 * Modelo
+	 * 
+	 * @var		string
+	 * @access	public
 	 */
 	public $uses = 'Instala';
 
@@ -162,7 +174,7 @@ class InstalaController extends AppController {
 						$t = count($linha);
 						foreach($linha as $valor)
 						{
-							if ($arr_campos[$i]=='created' || $arr_campos[$i]=='modified') $valor = date("Y-m-d H:i:s");
+							if ($arr_campos[$i]=='created' || $arr_campos[$i]=='modified') $valor = date("Y-m-d h:i:s");
 							$valores .= "'".str_replace("'","\'",$valor)."'";
 							$i++;
 							if ($i!=$t) $valores .= ',';

@@ -2,6 +2,7 @@
 	$campos[$modelClass]['data_atendimento']['options']['label']['text'] 		= 'dtAtendimento';
 	$campos[$modelClass]['data_atendimento']['options']['dateFormat'] 			= 'DMY';
 	$campos[$modelClass]['data_atendimento']['options']['timeFormat'] 			= '24';
+	$campos[$modelClass]['data_atendimento']['options']['type'] 				= 'hidden';
 	$campos[$modelClass]['data_atendimento']['mascara'] 						= 'datahora';
 	$campos[$modelClass]['data_atendimento']['estilo_th'] 						= 'width="200px"';
 	$campos[$modelClass]['data_atendimento']['estilo_td'] 						= 'style="text-align: center; "';
@@ -29,6 +30,7 @@
 	$campos[$modelClass]['solicitacao_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['solicitacao_id']['options']['class']  							= 'edicaoSelect';
 	if (isset($solicitacoes)) $campos[$modelClass]['solicitacao_id']['options']['options'] 	= $solicitacoes;
+	$campos[$modelClass]['solicitacao_id']['busca_rapida_url'] 								= Router::url('/',true).'solicitacoes/buscar/solicitacao';
 
 	$campos[$modelClass]['processo_id']['options']['label']['text'] 						= 'Processo';
 	$campos[$modelClass]['processo_id']['options']['type'] 									= 'hidden';
@@ -109,7 +111,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.finalizada',$modelClass.'.data_fechamento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.finalizada',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
 	}
 
 	if ($action=='imprimir')

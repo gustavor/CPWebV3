@@ -5,6 +5,9 @@
 
 	$campos['Contato']['endereco']['options']['label']['text'] 		= 'Endereço';
 	$campos['Contato']['endereco']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
+	
+	$campos['Contato']['email']['options']['label']['text'] 		= 'e-mail';
+	$campos['Contato']['email']['options']['style'] 				= 'width: 408px; text-transform: lowercase; ';
 
    	$campos['Contato']['tipo_Contato']['options']['label']['text']  = 'Tipo do Contato';
    	$campos['Contato']['tipo_Contato']['options']['type']           = 'radio';
@@ -32,6 +35,16 @@
 	$campos['Contato']['tipo_Contato']['options']['label']['text'] 	= 'Tipo';
 	$campos['Contato']['tipo_Contato']['options']['default'] 		= 1;
 
+	$campos['Contato']['oab']['options']['label']['text'] 			= 'OAB';
+	$campos['Contato']['oab']['options']['label']['style']			= 'width: 50px;';
+	$campos['Contato']['oab']['options']['style'] 					= 'width: 130px; ';
+	$campos['Contato']['oab']['options']['maxlength'] 				= 11;
+	$campos['Contato']['oab']['estilo_td'] 							= 'style="text-align: center; "';
+
+	$campos['Contato']['profissao_id']['options']['label']['text'] 	= 'Profissão';
+	$campos['Contato']['profissao_id']['options']['style'] 			= 'width: 220px; ';
+	if (isset($profissao)) $campos['Contato']['profissao_id']['options']['options']	= $profissao;
+	
 	$campos['Contato']['obs']['options']['label']['text']			= 'Observações';
 	$campos['Contato']['obs']['options']['cols']					= 84;
 	$campos['Contato']['obs']['options']['style']					= 'text-transform: uppercase; ';
@@ -48,7 +61,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Contato.tipo_Contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
+		$edicaoCampos = array('Contato.tipo_Contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')
@@ -70,7 +83,7 @@
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Contato.tipo_Contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
+		$edicaoCampos = array('Contato.tipo_Contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.profissao_id','#','Contato.obs');
 		$on_read_view .= "\n".'$("#divContatoCnpj").show(); $("#divContatoCpf").fadeOut();';
 	}
 
@@ -88,7 +101,7 @@
 
 	if ($action=='editar')
 	{
-		if ($this->Form->data['Contato']['tipo_Contato']==1) 
+		if ($this->Form->data['Contato']['tipo_contato']==1) 
 			$on_read_view .= "\n".'$("#divContatoCpf").fadeOut(); $("#divContatoCnpj").delay(500).fadeIn();'; 
 		else
 			$on_read_view .= "\n".'$("#divContatoCnpj").fadeOut(); $("#divContatoCpf").delay(500).fadeIn();'; 

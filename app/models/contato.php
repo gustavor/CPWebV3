@@ -93,6 +93,13 @@ class Contato extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Profissao' => array(
+			'className' => 'Profissao',
+			'foreignKey' => 'profissao_id',
+			'conditions' => '',
+			'fields' => 'id, nome',
+			'order' => ''
 		)
 	);
 

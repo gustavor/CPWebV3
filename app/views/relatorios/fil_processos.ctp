@@ -6,9 +6,9 @@
 	$dataFiltro['funcionario']['options']['default'] 		= 0;
 	$dataFiltro['funcionario']['options']['style'] 			= 'width: 320px;';
 	$dataFiltro['funcionario']['options']['empty'] 			= '-- escolha uma opção --';
-	$dataFiltro['cliente']['options']['default'] 			= 0;
-	$dataFiltro['cliente']['options']['empty'] 				= '-- escolha uma opção --';
-	$dataFiltro['cliente']['options']['style'] 				= 'width: 320px;';
+	$dataFiltro['contato']['options']['default'] 			= 0;
+	$dataFiltro['contato']['options']['empty'] 				= '-- escolha uma opção --';
+	$dataFiltro['contato']['options']['style'] 				= 'width: 320px;';
 	$dataFiltro['departamento']['options']['label']['text'] = 'Departamento';
 	$dataFiltro['departamento']['options']['default'] 		= 0;
 	$dataFiltro['departamento']['options']['style'] 		= 'width: 320px;';
@@ -53,7 +53,7 @@
 	<div id="campos">
 		<ul>
 			<li><?php echo $this->Form->input('funcionario',$dataFiltro['funcionario']['options']); ?></li>
-			<li><?php echo $this->Form->input('cliente',$dataFiltro['cliente']['options']); ?></li>
+			<li><?php echo $this->Form->input('contato',$dataFiltro['contato']['options']); ?></li>
 			<li><?php echo $this->Form->input('departamento',$dataFiltro['departamento']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_ini',$dataFiltro['data_ini']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_fim',$dataFiltro['data_fim']['options']); ?></li>
