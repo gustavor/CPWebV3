@@ -47,7 +47,8 @@
 			{
 				foreach($_arrModelo as $_modelo => $_arrCampos)
 				{
-					$id = $_arrCampos['id'];
+					//$id = $_arrCampos['id'];
+					$id = $_arrCampos[$campo_id];
 					echo "<tr id='tr".($id)."'>\n";
 					foreach($subFormCamposLista	as $_item => $_campo)
 					{
@@ -69,7 +70,8 @@
 				// incluindo as ferramentas
 				foreach($subFormFerramentas as $_item => $parametros)
 				{
-					echo "<td align='center' width='20'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$parametros['ico']."' border='0' onclick='delSubForm(\"$id\");' /></td>\n";
+					$onclick = isset($parametros['onclick']) ? str_replace('{id}',$id,$parametros['onclick']) : "delSubForm($id);";
+					echo "<td align='center' width='20'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$parametros['ico']."' border='0' onclick=$onclick /></td>\n";
 				}
 				echo "</tr>\n";
 			}

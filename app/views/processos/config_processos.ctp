@@ -178,7 +178,7 @@
         
         // dados do formulário
 		$subFormData = isset($contatos) ? $contatos : array();
-//echo '<pre>'.print_r($subFormData,true).'</pre>';
+
 		// título
 		$subFormTitulo	= '<h3>Contatos</h3>';
 
@@ -220,6 +220,9 @@
 		// ferramentas que irão repetir em cada linha da lista
 		$subFormFerramentas['excluir']['ico'] 	= 'bt_excluir.png';
 		$subFormFerramentas['excluir']['acao']	= 'excluir';
+		$subFormFerramentas['editar']['ico'] 	= 'bt_editar.png';
+		$subFormFerramentas['editar']['acao']	= 'editar';
+		$subFormFerramentas['editar']['onclick']= 'document.location.href=\''.Router::url('/',true).'contatos/editar/{id}\'';
 
 		// botão salvar
 		$formSubForm['action'] = Router::url('/',true).'processos/contatos_processos/salvar/';
@@ -227,6 +230,7 @@
 
 		// jogando tudo na view
 		$this->set('subFormData',$subFormData);
+		$this->set('campo_id','contato_id');
 		$this->set('subFormTitulo',$subFormTitulo);
 		$this->set('subFormCampos',$subFormCampos);
 		$this->set('formSubForm',$formSubForm);
