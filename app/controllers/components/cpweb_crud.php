@@ -387,6 +387,7 @@ class CpwebCrudComponent extends Object {
 	{
 		$dataModelo		= array();
 		$arrIdSalvos	= array();
+		$delCondicao	= array();
 
 		// salvando os ids que serão atualizados, e portanto  não deleteados
 		if (isset($this->controller->data['subForm']))
@@ -402,29 +403,32 @@ class CpwebCrudComponent extends Object {
 			}
 		}
 
-		// deletando o modelos que foram deletado na view
+		// só deleta quem não foi salvo
+		$delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
+
+		// gambi para telefones
 		if ($salvarModeloPai)
 		{
 			$delCondicao['modelo']		= $modeloPai;
 			$delCondicao['modelo_id']	= $idPai;
 		}
-		if (count($arrIdSalvos))
+
+		if (!$this->controller->$modelo->deleteAll($delCondicao))
 		{
-			$delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
-			if (!$this->controller->$modelo->deleteAll($delCondicao))
-			{
-				exit('Não foi possível deletar '.$modelo.' ...');
-				return false;
-			}
+			exit('Não foi possível deletar '.$modelo.' ...');
+			return false;
 		}
 
 		// atualizando o modelo filho
-		if (count($arrIdSalvos)) if (!$this->controller->$modelo->saveAll($dataModelo[$modelo]))
+		if (count($dataModelo))
 		{
-			echo '<pre>'.print_r($dataModelo,true).'</pre>';
-			echo '<pre>'.print_r($this->controller->$modelo->validationErrors,true).'</pre>';
-			exit('Não foi possível ATUALIZAR '.$modelo.' ...');
-			return false;
+			if (!$this->controller->$modelo->saveAll($dataModelo[$modelo]))
+			{
+				echo '<pre>'.print_r($dataModelo,true).'</pre>';
+				echo '<pre>'.print_r($this->controller->$modelo->validationErrors,true).'</pre>';
+				exit('Não foi possível ATUALIZAR '.$modelo.' ...');
+				return false;
+			}
 		}
 
 		// incluindo o modelo filho
