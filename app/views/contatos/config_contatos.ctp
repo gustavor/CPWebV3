@@ -9,11 +9,11 @@
 	$campos['Contato']['email']['options']['label']['text'] 		= 'e-mail';
 	$campos['Contato']['email']['options']['style'] 				= 'width: 408px; text-transform: lowercase; ';
 
-   	$campos['Contato']['tipo_Contato']['options']['label']['text']  = 'Tipo do Contato';
-   	$campos['Contato']['tipo_Contato']['options']['type']           = 'radio';
-   	$campos['Contato']['tipo_Contato']['options']['legend']         = false;
-   	$campos['Contato']['tipo_Contato']['options']['options']['0']   = 'Pessoa Física';
-   	$campos['Contato']['tipo_Contato']['options']['options']['1']   = 'Pessoa Jurídica';
+   	$campos['Contato']['tipo_contato']['options']['label']['text']  = 'Tipo do Contato';
+   	$campos['Contato']['tipo_contato']['options']['type']           = 'radio';
+   	$campos['Contato']['tipo_contato']['options']['legend']         = false;
+   	$campos['Contato']['tipo_contato']['options']['options']['0']   = 'Pessoa Física';
+   	$campos['Contato']['tipo_contato']['options']['options']['1']   = 'Pessoa Jurídica';
 
 	$campos['Contato']['cnpj']['options']['label']['text'] 			= 'CNPJ';
 	$campos['Contato']['cnpj']['options']['maxlength'] 				= 18;
@@ -32,8 +32,8 @@
 	$campos['Contato']['cidade_id']['options']['default'] 			= 2302;
 	if (isset($cidades)) $campos['Contato']['cidade_id']['options']['options'] 			= $cidades;
 
-	$campos['Contato']['tipo_Contato']['options']['label']['text'] 	= 'Tipo';
-	$campos['Contato']['tipo_Contato']['options']['default'] 		= 1;
+	$campos['Contato']['tipo_contato']['options']['label']['text'] 	= 'Tipo';
+	$campos['Contato']['tipo_contato']['options']['default'] 		= 1;
 
 	$campos['Contato']['oab']['options']['label']['text'] 			= 'OAB';
 	$campos['Contato']['oab']['options']['label']['style']			= 'width: 50px;';
@@ -61,7 +61,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Contato.tipo_Contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
+		$edicaoCampos = array('Contato.tipo_contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')
@@ -83,7 +83,7 @@
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Contato.tipo_Contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.profissao_id','#','Contato.obs');
+		$edicaoCampos = array('Contato.tipo_contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.profissao_id','#','Contato.obs');
 		$on_read_view .= "\n".'$("#divContatoCnpj").show(); $("#divContatoCpf").fadeOut();';
 	}
 
@@ -157,8 +157,8 @@
 		$this->set('subFormCamposLista',$subFormCamposLista);
 		$this->set('subFormFerramentas',$subFormFerramentas);
 	}
+	$listaCampos 									= array('Contato.nome','Contato.cpf','Contato.cnpj','Contato.tipo_contato');
 
-	$listaCampos 									= array('Contato.nome','Contato.cpf','Contato.cnpj','Contato.tipo_Contato');
 
 	$campos['Contato']['nome']['estilo_th'] 		= 'width="250px"';
 
@@ -166,8 +166,8 @@
 
 	$campos['Contato']['cnpj']['estilo_th'] 		= 'width="150px"';
 
-	$campos['Contato']['tipo_Contato']['estilo_th'] = 'width="150px"';
-	$campos['Contato']['tipo_Contato']['estilo_td'] = 'style="text-align: center; "';
+	$campos['Contato']['tipo_contato']['estilo_th'] = 'width="150px"';
+	$campos['Contato']['tipo_contato']['estilo_td'] = 'style="text-align: center; "';
 
 	$campos['Contato']['modified']['estilo_th'] 	= 'width="160px"';
 	$campos['Contato']['modified']['estilo_td'] 	= 'style="text-align: center; "';

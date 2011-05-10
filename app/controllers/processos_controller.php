@@ -124,8 +124,12 @@ class ProcessosController extends AppController {
 		$this->loadModel('Audiencia');			$this->set('audiencia',$this->Audiencia->find(array('processo_id'=>$id)));
 		$this->loadModel('ProcessoSolicitacao');$this->set('processo_solicitacao',$this->ProcessoSolicitacao->find(array('processo_id'=>$id)));
 		$this->loadModel('Testemunha');			$this->set('testemunha',$this->Testemunha->find(array('processo_id'=>$id)));
+		$this->loadModel('Contato');			$this->set('contato',$this->Contato->find('list'));
 
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+
+        // recuperando os contatos deste processo
+        $this->set('contatos',$this->Processo->ContatoProcesso->find( 'list', array( 'conditions' => array( 'processo_id' => $id ))));
 
         $titulo[1]['label']	= 'Processos';
         $titulo[1]['link']	= Router::url('/',true).'processos';
