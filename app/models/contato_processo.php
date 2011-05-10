@@ -25,4 +25,5 @@ class ContatoProcesso extends AppModel {
 	public $useTable 	= 'contatos_processos';
 	public $displayField= 'modified';
 	public $order		= 'modified';
+	public $primaryKey	= 'id';
 }

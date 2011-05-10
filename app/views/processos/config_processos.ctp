@@ -175,6 +175,64 @@
 		if (isset($processo_solicitacao))	$redirecionamentos['Solicitações']['onclick']			= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($processo_solicitacao))	$redirecionamentos['Contatos Telefônicos']['onclick']	= 'document.location.href=\''.Router::url('/',true).'contatos_telefonicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($testemunha))				$redirecionamentos['Testemunhas']['onclick']			= 'document.location.href=\''.Router::url('/',true).'testemunhas/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+        
+        // dados do formulário
+		$subFormData = isset($contatos) ? $contatos : array();
+//echo '<pre>'.print_r($subFormData,true).'</pre>';
+		// título
+		$subFormTitulo	= '<h3>Contatos</h3>';
+
+		// detalhes de cada campo do formulário
+		$subFormCampos['contato_id']['options']['label']['text'] 		= 'Contato';
+		$subFormCampos['contato_id']['options']['style']				= 'width: 360px';
+		$subFormCampos['contato_id']['options']['empty'] 				= '-- escolha um cliente --';
+		$subFormCampos['contato_id']['options']['options']				= $contato;
+		$subFormCampos['contato_id']['td'] 								= 'align="center"';
+
+		$subFormCampos['tipo_parte_id']['options']['label']['text'] 	= 'Tipo';
+		$subFormCampos['tipo_parte_id']['options']['style']				= 'width: 190px';
+		$subFormCampos['tipo_parte_id']['options']['empty'] 			= '-- escolha o tipo do cliente --';
+		$subFormCampos['tipo_parte_id']['options']['options']			= $tipo_parte;
+		$subFormCampos['tipo_parte_id']['td'] 							= 'align="center"';
+		$subFormCampos['tipo_parte_id']['th'] 							= 'width=60px;';
+
+		$subFormCampos['envolvimento_id']['options']['label']['text'] 	= 'Envolvimento';
+		$subFormCampos['envolvimento_id']['options']['style']			= 'width: 190px';
+		$subFormCampos['envolvimento_id']['options']['empty'] 			= '-- escolha o tipo de envolvimento --';
+		$subFormCampos['envolvimento_id']['options']['options']			= $envolvimento;
+		$subFormCampos['envolvimento_id']['td'] 						= 'align="center"';
+		$subFormCampos['envolvimento_id']['th'] 						= 'width=60px;';
+
+		$subFormCampos['principal']['options']['label']['text'] 		= 'Principal';
+		$subFormCampos['principal']['options']['style']					= 'width: 80px';
+		//$subFormCampos['principal']['options']['empty'] 				= ' -- ';
+		$subFormCampos['principal']['options']['options']				= array(0=>'Não',1=>'Sim');
+		$subFormCampos['principal']['td'] 								= 'align="center"';
+		$subFormCampos['principal']['th'] 								= 'width=60px;';
+
+		$subFormCampos['processo_id']['options']['label']['text'] 		= 'Processo';
+		$subFormCampos['processo_id']['options']['type']				= 'hidden';
+		$subFormCampos['processo_id']['options']['value']				= $id;
+
+		// campos que vão compor a lista
+		$subFormCamposLista	= array('contato_id','tipo_parte_id','envolvimento_id','principal','processo_id');
+
+		// ferramentas que irão repetir em cada linha da lista
+		$subFormFerramentas['excluir']['ico'] 	= 'bt_excluir.png';
+		$subFormFerramentas['excluir']['acao']	= 'excluir';
+
+		// botão salvar
+		$formSubForm['action'] = Router::url('/',true).'processos/contatos_processos/salvar/';
+		if (isset($this->data['Usuario']['id'])) $formSubForm['action'] .= $this->data['Usuario']['id'];
+
+		// jogando tudo na view
+		$this->set('subFormData',$subFormData);
+		$this->set('subFormTitulo',$subFormTitulo);
+		$this->set('subFormCampos',$subFormCampos);
+		$this->set('formSubForm',$formSubForm);
+		$this->set('subFormCamposLista',$subFormCamposLista);
+		$this->set('subFormFerramentas',$subFormFerramentas);
+
 	}
 
 	if ($action=='editar' || $action=='novo')

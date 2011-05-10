@@ -125,17 +125,25 @@ class ProcessosController extends AppController {
 		$this->loadModel('ProcessoSolicitacao');$this->set('processo_solicitacao',$this->ProcessoSolicitacao->find(array('processo_id'=>$id)));
 		$this->loadModel('Testemunha');			$this->set('testemunha',$this->Testemunha->find(array('processo_id'=>$id)));
 		$this->loadModel('Contato');			$this->set('contato',$this->Contato->find('list'));
-
+		$this->loadModel('TipoParte');			$this->set('tipo_parte',$this->TipoParte->find('list'));
+		$this->loadModel('Envolvimento');		$this->set('envolvimento',$this->Envolvimento->find('list',array('fields'=>array('id','nome'))));
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
-
-        // recuperando os contatos deste processo
-        $this->set('contatos',$this->Processo->ContatoProcesso->find( 'list', array( 'conditions' => array( 'processo_id' => $id ))));
 
         $titulo[1]['label']	= 'Processos';
         $titulo[1]['link']	= Router::url('/',true).'processos';
         $titulo[2]['label'] = 'Editar : VEBH-'.str_repeat('0',5-strlen($id)).$id;
         $titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
         
+        if (isset($this->data['subNovoForm']['contato_id']) || count($this->data['subForm']))
+		{
+			$this->loadModel('ContatoProcesso');
+			if (isset($this->data['subNovoForm']['contato_id']) && empty($this->data['subNovoForm']['contato_id'])) $this->data['subNovoForm'] = array();
+			if (!$this->CpwebCrud->setSubForm('processo',$id,'ContatoProcesso')) return false;
+		}
+
+        // recuperando os contatos deste processo
+        $this->set('contatos',$this->Processo->ContatoProcesso->find( 'all', array( 'conditions' => array( 'processo_id' => $id ))));
+
         $this->set(compact('titulo'));
 		$this->CpwebCrud->editar($id);
 	}

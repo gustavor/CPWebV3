@@ -186,6 +186,7 @@ class Processo extends AppModel {
 		if (!$this->query('DELETE FROM eventos_acordos 	WHERE processo_id='.$this->id)) return false;
 		if (!$this->query('DELETE FROM audiencias 		WHERE processo_id='.$this->id)) return false;
 		if (!$this->query('DELETE FROM processos_solicitacoes WHERE processo_id='.$this->id)) return false;
+		if (!$this->query('DELETE FROM contatos_processos WHERE processo_id='.$this->id)) return false;
 		parent::beforeDelete();		
 		return true;
 	}

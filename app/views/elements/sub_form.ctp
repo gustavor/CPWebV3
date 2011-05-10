@@ -10,13 +10,17 @@
 		<?php
 			foreach($subFormCamposLista as $_item => $_campo)
 			{
-				$opcoes		= isset($subFormCampos[$_campo]['options']) 	? $subFormCampos[$_campo]['options'] 	: array();
-				$td 		= isset($subFormCampos[$_campo]['td']) 			? ' '.$subFormCampos[$_campo]['td'].' ' : '';
-				$mascara	= isset($subFormCampos[$_campo]['mascara']) 	? $subFormCampos[$_campo]['mascara'] 	: '';
+				$opcoes		= isset($subFormCampos[$_campo]['options']) 		? $subFormCampos[$_campo]['options'] 			: array();
+				$tipo		= isset($subFormCampos[$_campo]['options']['type'])	? $subFormCampos[$_campo]['options']['type'] 	: '';
+				$td 		= isset($subFormCampos[$_campo]['td']) 				? ' '.$subFormCampos[$_campo]['td'].' ' 		: '';
+				$mascara	= isset($subFormCampos[$_campo]['mascara']) 		? $subFormCampos[$_campo]['mascara'] 			: '';
+
 				if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subNovoForm_'.$_campo).'").setMask("'.$mascara.'");';
 				$opcoes['label'] = false;
 				$opcoes['div'] 	 = false;
-				echo '<td'.$td.'>'.$this->Form->input('subNovoForm_'.$_campo,$opcoes).'</td>'."\n";
+				if ($tipo!='hidden') echo '<td'.$td.'>';
+				echo $this->Form->input('subNovoForm.'.$_campo,$opcoes);
+				if ($tipo!='hidden') echo '</td>'."\n";
 			}
 		?>
 		</tr>
@@ -27,10 +31,11 @@
 			<?php 
 				foreach($subFormCamposLista as $_item => $_campo)
 				{
-					$titulo 	= isset($subFormCampos[$_campo]['options']['label']['text']) ? $subFormCampos[$_campo]['options']['label']['text'] : $_campo;
-					$obrigatorio= isset($subFormCampos[$_campo]['obrigatorio']) ? '<span class="obrigaSubForm">'.$subFormCampos[$_campo]['obrigatorio'].'</span>' : '';
-					$th			= isset($subFormCampos[$_campo]['th']) ? ' '.$subFormCampos[$_campo]['th'] : '';
-					echo '<th'.$th.'>'.$obrigatorio.$titulo.'</th>'."\n";
+					$titulo 	= isset($subFormCampos[$_campo]['options']['label']['text']) 	? $subFormCampos[$_campo]['options']['label']['text'] 	: $_campo;
+					$tipo		= isset($subFormCampos[$_campo]['options']['type'])				? $subFormCampos[$_campo]['options']['type'] 			: '';
+					$obrigatorio= isset($subFormCampos[$_campo]['obrigatorio']) 				? '<span class="obrigaSubForm">'.$subFormCampos[$_campo]['obrigatorio'].'</span>' : '';
+					$th			= isset($subFormCampos[$_campo]['th']) 							? ' '.$subFormCampos[$_campo]['th'] 					: '';					
+					if ($tipo!='hidden') echo '<th'.$th.'>'.$obrigatorio.$titulo.'</th>'."\n";
 				}
 				foreach($subFormFerramentas as $_item => $parametros)	echo '<th>#</th>'."\n";
 			?>
@@ -46,14 +51,18 @@
 					echo "<tr id='tr".($id)."'>\n";
 					foreach($subFormCamposLista	as $_item => $_campo)
 					{
-						$opcoes		= isset($subFormCampos[$_campo]['options']) 	? $subFormCampos[$_campo]['options'] : array();
-						$mascara	= isset($subFormCampos[$_campo]['mascara']) 	? $subFormCampos[$_campo]['mascara'] : null;
-						$td 		= isset($subFormCampos[$_campo]['td']) 			? ' '.$subFormCampos[$_campo]['td'].' ' : '';
-						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm_'.$id.'_'.$_campo).'").setMask("'.$mascara.'");';
+						$opcoes		= isset($subFormCampos[$_campo]['options']) 		? $subFormCampos[$_campo]['options'] 			: array();
+						$mascara	= isset($subFormCampos[$_campo]['mascara']) 		? $subFormCampos[$_campo]['mascara'] 			: null;
+						$td 		= isset($subFormCampos[$_campo]['td']) 				? ' '.$subFormCampos[$_campo]['td'].' ' 		: '';
+						$tipo		= isset($subFormCampos[$_campo]['options']['type']) ? $subFormCampos[$_campo]['options']['type'] 	: '';
+
+						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm.'.$id.'.'.$_campo).'").setMask("'.$mascara.'");';
 						$opcoes['value'] = $_arrCampos[$_campo];
 						$opcoes['label'] = false;
 						$opcoes['div'] 	 = false;
-						echo '<td'.$td.'>'.$this->Form->input('subForm_'.$id.'_'.$_campo,$opcoes).'</td>'."\n";
+						if ($tipo!='hidden') echo '<td'.$td.'>';
+						echo $this->Form->input('subForm.'.$id.'.'.$_campo,$opcoes);
+						if ($tipo!='hidden') echo '</td>'."\n";
 					}
 				}
 
@@ -68,4 +77,5 @@
 
 	</table>
 </div>
+<?php if (!empty($camposOcultos)) echo $camposOcultos; ?>
 <?php $this->set('on_read_view_sub_form',$on_read_view_sub_form); ?>

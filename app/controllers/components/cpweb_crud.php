@@ -383,60 +383,69 @@ class CpwebCrudComponent extends Object {
 	 * @parameter 	string 	$modelo	Nome do modelo que será atualizado
 	 * @return		boolean
 	 */
-	public function setSubForm($modeloPai,$idPai,$modelo)
+	public function setSubForm($modeloPai,$idPai,$modelo,$salvarModeloPai=false)
 	{
 		$dataModelo		= array();
 		$arrIdSalvos	= array();
 
-		// recuperando os ids que serão atualizados no modelo filho
-		foreach($this->controller->data[$this->controller->modelClass] as $campo => $valor)
+		// salvando os ids que serão atualizados, e portanto  não deleteados
+		if (isset($this->controller->data['subForm']))
 		{
-			if (substr($campo,0,8)=='subForm_')
+			foreach($this->controller->data['subForm'] as $_id => $_arrCampos)
 			{
-				$arrCampo 	= explode('_',$campo);
-				$id			= $arrCampo[1];
-				$dataModelo[$modelo][$id][$this->controller->$modelo->primaryKey] = $id;
-				$dataModelo[$modelo][$id][$arrCampo[2]] = $valor;
-				if(!in_array($arrCampo[1],$arrIdSalvos)) array_unshift($arrIdSalvos,$arrCampo[1]);
+				if(!in_array($_id,$arrIdSalvos)) array_unshift($arrIdSalvos,$_id);
+				foreach($_arrCampos as $_campo => $_valor)
+				{
+					$dataModelo[$modelo][$_id][$this->controller->$modelo->primaryKey] = $_id;
+					$dataModelo[$modelo][$_id][$_campo] = $_valor;
+				}
 			}
 		}
 
-		// deletando o modelo filho
-		$delCondicao['modelo']		= $modeloPai;
-		$delCondicao['modelo_id']	= $idPai;
-		if (count($arrIdSalvos)) $delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
-		if (!$this->controller->$modelo->deleteAll($delCondicao))
+		// deletando o modelos que foram deletado na view
+		if ($salvarModeloPai)
 		{
-			exit('Não foi possível deletar '.$modelo.' ...');
-			return false;
+			$delCondicao['modelo']		= $modeloPai;
+			$delCondicao['modelo_id']	= $idPai;
+		}
+		if (count($arrIdSalvos))
+		{
+			$delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
+			if (!$this->controller->$modelo->deleteAll($delCondicao))
+			{
+				exit('Não foi possível deletar '.$modelo.' ...');
+				return false;
+			}
 		}
 
 		// atualizando o modelo filho
 		if (count($arrIdSalvos)) if (!$this->controller->$modelo->saveAll($dataModelo[$modelo]))
 		{
+			echo '<pre>'.print_r($dataModelo,true).'</pre>';
+			echo '<pre>'.print_r($this->controller->$modelo->validationErrors,true).'</pre>';
 			exit('Não foi possível ATUALIZAR '.$modelo.' ...');
 			return false;
 		}
 
-		// incluindo omodelo filho
+		// incluindo o modelo filho
 		$dataModelo	= array();
-		foreach($this->controller->data[$this->controller->modelClass] as $campo => $valor)
+		foreach($this->controller->data['subNovoForm'] as $_campo => $_valor)
 		{
-			if (substr($campo,0,12)=='subNovoForm_')
-			{
-				$arrCampo 	= explode('_',$campo);
-				if ($valor) $dataModelo[$modelo][$arrCampo[1]] = $valor;
-			}
+			if ($_valor) $dataModelo[$modelo][$_campo] = $_valor;
 		}
 		if (count($dataModelo))
 		{
 			$dataModelo[$modelo][$this->controller->$modelo->primaryKey] = null;
-			$dataModelo[$modelo]['modelo']		= $modeloPai;
-			$dataModelo[$modelo]['modelo_id']	= $idPai;
+			if ($salvarModeloPai)
+			{
+				$dataModelo[$modelo]['modelo']		= $modeloPai;
+				$dataModelo[$modelo]['modelo_id']	= $idPai;
+			}
 			$this->controller->$modelo->create();
 			if (!$this->controller->$modelo->save($dataModelo[$modelo]))
 			{
-				exit('Não foi possível INCLUIR '.$modelo.' ...');
+				echo '<pre>'.print_r($this->controller->$modelo->validationErrors,true).'</pre>';
+				exit('Não foi possível INCLUIR '.$modelo.', no subFormulário !!!');
 				return false;
 			}
 		}

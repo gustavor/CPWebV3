@@ -120,15 +120,14 @@
 		$subFormCampos['ddd']['th'] 							= 'width=60px;';
 
 		$subFormCampos['telefone']['options']['label']['text'] 	= 'Telefone';
+		$subFormCampos['telefone']['options']['type'] 			= 'text';
 		$subFormCampos['telefone']['options']['style']			= 'text-align: center; ';
-		$subFormCampos['telefone']['mascara'] 					= '9999-9999';
 		$subFormCampos['telefone']['td'] 						= 'align="center"';
 		$subFormCampos['telefone']['th'] 						= 'width=200px;';
 		//$subFormCampos['telefone']['obrigatorio'] 				= '*';
 		
 		$subFormCampos['ramal']['options']['label']['text'] 	= 'Ramal';
 		$subFormCampos['ramal']['options']['style']				= 'text-align: center; ';
-		$subFormCampos['ramal']['mascara'] 						= '9999';
 		$subFormCampos['ramal']['td'] 							= 'align="center"';
 		$subFormCampos['ramal']['th'] 							= 'width=90px;';
 
@@ -136,7 +135,9 @@
 		$subFormCampos['contato']['options']['style']			= 'text-align: left; padding-left: 5px; text-transform: uppercase; ';
 		$subFormCampos['contato']['td'] 						= 'align="center"';
 
-		$on_read_view .= "\n".'$("#novotelefone").setMask("9999-9999");';
+		$on_read_view .= "\n".'$("#subNovoFormDdd").setMask("99");';
+		$on_read_view .= "\n".'$("#subNovoFormTelefone").setMask("9999-9999");';
+		$on_read_view .= "\n".'$("#subNovoFormRamal").setMask("9999");';
 
 		// campos que vão compor a lista
 		$subFormCamposLista	= array('ddd','telefone','ramal','contato');
@@ -146,7 +147,7 @@
 		$subFormFerramentas['excluir']['acao']	= 'excluir';
 
 		// botão salvar
-		$formSubForm['action'] = Router::url('/',true).'Contatos/telefones/salvar/';
+		$formSubForm['action'] = Router::url('/',true).'contatos/telefones/salvar/';
 		if (isset($this->data['Usuario']['id'])) $formSubForm['action'] .= $this->data['Usuario']['id'];
 
 		// jogando tudo na view
