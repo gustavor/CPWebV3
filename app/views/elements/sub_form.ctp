@@ -43,13 +43,14 @@
 		</tr>
 
 		<?php
+			$l=0;
 			foreach($subFormData as $_linha => $_arrModelo)
 			{
 				foreach($_arrModelo as $_modelo => $_arrCampos)
 				{
-					//$id = $_arrCampos['id'];
-					$id = $_arrCampos[$campo_id];
-					echo "<tr id='tr".($id)."'>\n";
+					$l++;
+					$id = isset($_arrCampos[$campo_id]) ? $_arrCampos[$campo_id] : $_arrCampos['id'];
+					echo "<tr id='tr".($l)."'>\n";
 					foreach($subFormCamposLista	as $_item => $_campo)
 					{
 						$opcoes		= isset($subFormCampos[$_campo]['options']) 		? $subFormCampos[$_campo]['options'] 			: array();
@@ -57,12 +58,12 @@
 						$td 		= isset($subFormCampos[$_campo]['td']) 				? ' '.$subFormCampos[$_campo]['td'].' ' 		: '';
 						$tipo		= isset($subFormCampos[$_campo]['options']['type']) ? $subFormCampos[$_campo]['options']['type'] 	: '';
 
-						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm.'.$id.'.'.$_campo).'").setMask("'.$mascara.'");';
+						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm.'.$l.'.'.$_campo).'").setMask("'.$mascara.'");';
 						$opcoes['value'] = $_arrCampos[$_campo];
 						$opcoes['label'] = false;
 						$opcoes['div'] 	 = false;
 						if ($tipo!='hidden') echo '<td'.$td.'>';
-						echo $this->Form->input('subForm.'.$id.'.'.$_campo,$opcoes);
+						echo $this->Form->input('subForm.'.$l.'.'.$_campo,$opcoes);
 						if ($tipo!='hidden') echo '</td>'."\n";
 					}
 				}
@@ -70,7 +71,7 @@
 				// incluindo as ferramentas
 				foreach($subFormFerramentas as $_item => $parametros)
 				{
-					$onclick = isset($parametros['onclick']) ? str_replace('{id}',$id,$parametros['onclick']) : "delSubForm($id);";
+					$onclick = isset($parametros['onclick']) ? str_replace('{id}',$id,$parametros['onclick']) : "delSubForm($l);";
 					echo "<td align='center' width='20'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$parametros['ico']."' border='0' onclick=$onclick /></td>\n";
 				}
 				echo "</tr>\n";
