@@ -109,7 +109,7 @@ class ContatosController extends AppController {
 	{
 		// carregando model de telefone
 		$this->loadModel('Telefone');
-		
+
 		if (isset($this->data))
 		{
 			if (!$this->CpwebCrud->setSubForm('contato',$id,'Telefone',true)) return false;
@@ -118,7 +118,7 @@ class ContatosController extends AppController {
 		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'contato','modelo_id'=>$id))));
 		$this->CpwebCrud->editar($id);
 	}
-	
+
 	/**
 	 * Exibe formulário de inclusão para o model
 	 * 
@@ -129,7 +129,7 @@ class ContatosController extends AppController {
 		$this->set('estados',$this->Contato->Cidade->Estado->find('list'));
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
 	 * Exibe formulário de exclusão para o model
 	 * 

@@ -51,7 +51,7 @@ class Contato extends AppModel {
 					'message'	=> 'Cpf inválido !!!',
 				)
 			),
-			
+
 			'cnpj' => array
             (
 				1	=> array
