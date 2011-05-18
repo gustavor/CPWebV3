@@ -58,7 +58,7 @@
     $campos[$modelClass]['orgao_id']['busca_rapida_url'] 								= Router::url('/',true).'orgaos/buscar/nome';
 
 	$campos[$modelClass]['obs']['options']['label']['text'] 							= 'Observações';
-	$campos[$modelClass]['obs']['options']['style'] 									= 'width:800px; height: 18px; text-transform: uppercase';
+	$campos[$modelClass]['obs']['options']['style'] 									= 'width:800px; height: 100px; text-transform: uppercase';
 
 	$campos[$modelClass]['equipe_id']['options']['label']['text'] 						= 'Equipe';
 	$campos[$modelClass]['equipe_id']['options']['empty'] 								= '-- escolha uma opção --';
@@ -76,7 +76,7 @@
 	if (isset($segmentos)) $campos[$modelClass]['segmento_id']['options']['options'] 	= $segmentos;
 
 	$campos[$modelClass]['operacao_contrato']['options']['label']['text'] 				= 'Operação(ões)/Contrato(s)';
-	$campos[$modelClass]['operacao_contrato']['options']['style'] 						= 'width:800px; height: 18px; text-transform: uppercase';
+	$campos[$modelClass]['operacao_contrato']['options']['style'] 						= 'width:800px; height: 100px; text-transform: uppercase';
 
 	$campos[$modelClass]['natureza_id']['options']['label']['text'] 					= 'Natureza';
 	$campos[$modelClass]['natureza_id']['options']['empty'] 							= '-- escolha uma opção --';
