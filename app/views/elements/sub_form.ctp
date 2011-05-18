@@ -58,12 +58,12 @@
 						$td 		= isset($subFormCampos[$_campo]['td']) 				? ' '.$subFormCampos[$_campo]['td'].' ' 		: '';
 						$tipo		= isset($subFormCampos[$_campo]['options']['type']) ? $subFormCampos[$_campo]['options']['type'] 	: '';
 
-						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm.'.$l.'.'.$_campo).'").setMask("'.$mascara.'");';
+						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm.'.$id.'.'.$_campo).'").setMask("'.$mascara.'");';
 						$opcoes['value'] = $_arrCampos[$_campo];
 						$opcoes['label'] = false;
 						$opcoes['div'] 	 = false;
 						if ($tipo!='hidden') echo '<td'.$td.'>';
-						echo $this->Form->input('subForm.'.$l.'.'.$_campo,$opcoes);
+						echo $this->Form->input('subForm.'.$id.'.'.$_campo,$opcoes);
 						if ($tipo!='hidden') echo '</td>'."\n";
 					}
 				}
