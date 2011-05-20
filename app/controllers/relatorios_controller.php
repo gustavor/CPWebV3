@@ -297,7 +297,7 @@ class RelatoriosController extends AppController {
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
 		$paramRelatorio['titulo'] 				= 'Relatório de Solicitações Abertas do Tipo '.$this->viewVars['solicitacoes'][$relatorio];
 
-		// filtors
+		// filtros
 		$dataFiltro = array();
 		$this->loadModel('Contato');
 		$dataFiltro['contato']['options']['options'] = $this->Contato->find('list',array('conditions'=>array('length(Contato.nome) <'=>100)));
@@ -306,10 +306,10 @@ class RelatoriosController extends AppController {
 		$dataLista		= array();
 
 		// campos que vão compor a lista
-		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','ParteContraria.nome','ProcessoSolicitacao.created');
+		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','ProcessoSolicitacao.created','Contato.nome');
 
 		// config view
-		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','processos'=>'Processo','partes_contrarias'=>'ParteContraria');
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','processos'=>'Processo');
 
 		// se o formulário foi postado ou o pedido de impressão para o layout
 		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
@@ -320,27 +320,24 @@ class RelatoriosController extends AppController {
 			// carregando o modelo de processos e solicitações
 			$this->loadModel('ProcessoSolicitacao');
 
-			// carregando o modelo de partes_contrarias
-			$this->loadModel('ParteContraria');
-			$dataParteContraria = $this->ParteContraria->find('list');
-
 			// filtro
 			$condicoes = array();
 
 			// filtro padrão (somente solicitações abertas)
 			$condicoes['ProcessoSolicitacao.finalizada'] = 0;
 
-			// filtrando os processos e solicitações pelos processos do contato solicitado
+			// atualizando condições com os processos do contato solicitado
 			if (isset($this->data[$this->action]['contato']) && !(empty($this->data[$this->action]['contato'])))
 			{
-				$this->loadModel('Processo');
-				$dataProcesso = $this->Processo->find('all',array('conditions'=>array('contato_id'=>$this->data[$this->action]['contato'])));
+				$this->loadModel('ContatoProcesso');
+				$this->Session->write('contato_id',$this->data[$this->action]['contato']);
+				$dataProcesso = $this->ContatoProcesso->find('all',array('conditions'=>array('contato_id'=>$this->data[$this->action]['contato'])));
 				$arrIdsProcessos = array();
 				foreach($dataProcesso as $_modelo => $_arrCampos)
 				{
 					foreach($_arrCampos as $_campo => $_arrValor)
 					{
-						if (isset($_arrValor['id'])) array_push($arrIdsProcessos,$_arrValor['id']);
+						if (isset($_arrValor['processo_id'])) array_push($arrIdsProcessos,$_arrValor['processo_id']);
 					}
 				}
 				if (count($arrIdsProcessos))
@@ -398,11 +395,8 @@ class RelatoriosController extends AppController {
 							$valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
 							$link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
 						}
-						if ($_campo=='parte_contraria_id' && $_modelo=='Processo')
-						{
-							$dataLista[$_linha]['ParteContraria']['nome'] = $dataParteContraria[$_valor];
-						}
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
+						$dataLista[$_linha]['Contato']['nome'] = $dataFiltro['contato']['options']['options'][$this->Session->read('contato_id')];
 					}
 				}
 			}
