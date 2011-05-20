@@ -152,6 +152,7 @@
 
 		// jogando tudo na view
 		$this->set('subFormData',$subFormData);
+        $this->set('campo_id','id');
 		$this->set('subFormTitulo',$subFormTitulo);
 		$this->set('subFormCampos',$subFormCampos);
 		$this->set('formSubForm',$formSubForm);
