@@ -188,6 +188,63 @@ class ProcessosController extends AppController {
 	{
 		$this->CpwebCrud->imprimir($id);
 	}
+
+	/**
+	 * Realiza uma pesquisa no banco de dados
+	 * 
+	 * @parameter 	string 	$texto 	Texto de pesquisa
+	 * @parameter 	string 	$campo 	Campo de pesquisa
+	 * @parameter	string 	$action	Action para onde será redirecionado ao clicar na resposta
+	 * @return 		array 	$lista 	Array com lista de retorno
+	 */
+	public function pesquisar($campo=null,$texto=null,$action='editar')
+	{	
+		$parametros										= array();
+		$pluralHumanName 								= Inflector::humanize(Inflector::underscore($this->name));
+		$modelClass 									= $this->modelClass;
+		$id												= isset($this->modelClass->primaryKey) ? $this->modelClass->primaryKey : 'id';
+		if (!empty($campo)) $parametros['limit'] 		= 12;
+
+		if ($campo=='nome')
+		{
+			// localizando os contatos
+			$this->loadModel('Contato');
+			$idContatos = array();
+			$parametros['conditions'] 	= 'Contato.'.$campo.' like "%'.$texto.'%"';
+			$parametros['order'] 		= $campo;
+			$parametros['fields'] 		= array($id,$campo);
+			$pesquisa 					= $this->Contato->find('list',$parametros);
+			foreach($pesquisa as $_id => $_nome) array_push($idContatos,$_id);
+			$parametros = array();
+			$pesquisa	= array();
+			
+			// localizando os contatos processos
+			$this->loadModel('ContatoProcesso');
+			$idContatosProcessos = array();
+			$parametros['conditions']['ContatoProcesso.contato_id'] = $idContatos;
+			$pesquisa = $this->ContatoProcesso->find('all',$parametros);
+			foreach($pesquisa as $_linhas => $_arrModel)
+			{
+				array_push($idContatosProcessos,$_arrModel['ContatoProcesso']['processo_id']);
+			}
+			$parametros = array();
+			$pesquisa 	= array();
+			$parametros['conditions']['Processo.id'] 	= $idContatosProcessos;
+			$parametros['order'] 						= 'numero';
+			$parametros['fields'] 						= array($id,'numero');
+			$pesquisa 									= $this->Processo->find('list',$parametros);
+		} else
+		{
+			if (!empty($campo)) $parametros['conditions'] 	= $campo.' like "%'.$texto.'%"';
+			if (!empty($campo)) $parametros['order'] 		= $campo;
+			$parametros['fields'] 							= array($id,$campo);
+			$pesquisa 										= $this->$modelClass->find('list',$parametros);
+		}		
+
+		$this->Session->write('campoPesquisa'.$this->name,$campo);
+		$this->set('link',Router::url('/',true).mb_strtolower(str_replace(' ','_',$pluralHumanName)).'/'.$action);
+		$this->set('pesquisa',$pesquisa);
+	}
 }
 
 ?>

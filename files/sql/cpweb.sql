@@ -472,6 +472,20 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `cpwebv3`.`tipos_eventos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_eventos` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_eventos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NULL ,
+  `nome` VARCHAR(200) NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `cpwebv3`.`eventos`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cpwebv3`.`eventos` ;
@@ -480,14 +494,21 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
-  `processo_id` INT(11) NOT NULL ,
   `data` DATE NOT NULL ,
   `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `processo_id` INT(11) NOT NULL ,
+  `tipo_evento_id` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_movimentos_processos1` (`processo_id` ASC) ,
+  INDEX `fk_eventos_tipos_eventos1` (`tipo_evento_id` ASC) ,
   CONSTRAINT `fk_movimentos_processos1`
     FOREIGN KEY (`processo_id` )
     REFERENCES `cpwebv3`.`processos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eventos_tipos_eventos1`
+    FOREIGN KEY (`tipo_evento_id` )
+    REFERENCES `cpwebv3`.`tipos_eventos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -729,7 +750,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`perfis` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci
-COMMENT = 'tabela de perfis';
+COMMENT = 'tabela de perfis' ;
 
 
 -- -----------------------------------------------------
@@ -771,8 +792,8 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls` (
   UNIQUE INDEX `i_url` (`url` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci
-COMMENT = 'url aonde o usuário não terá permissão de acesso';
+COLLATE = utf8_general_ci, 
+COMMENT = 'url aonde o usuário não terá permissão de acesso' ;
 
 
 -- -----------------------------------------------------

@@ -185,13 +185,13 @@
 		// detalhes de cada campo do formulário
 		$subFormCampos['contato_id']['options']['label']['text'] 		= 'Contato';
 		$subFormCampos['contato_id']['options']['style']				= 'width: 360px';
-		$subFormCampos['contato_id']['options']['empty'] 				= '-- escolha um cliente --';
+		$subFormCampos['contato_id']['options']['empty'] 				= '-- escolha um contato --';
 		$subFormCampos['contato_id']['options']['options']				= $contato;
 		$subFormCampos['contato_id']['td'] 								= 'align="center"';
 
 		$subFormCampos['tipo_parte_id']['options']['label']['text'] 	= 'Tipo';
 		$subFormCampos['tipo_parte_id']['options']['style']				= 'width: 190px';
-		$subFormCampos['tipo_parte_id']['options']['empty'] 			= '-- escolha o tipo do cliente --';
+		$subFormCampos['tipo_parte_id']['options']['empty'] 			= '-- escolha o tipo do contato --';
 		$subFormCampos['tipo_parte_id']['options']['options']			= $tipo_parte;
 		$subFormCampos['tipo_parte_id']['td'] 							= 'align="center"';
 		$subFormCampos['tipo_parte_id']['th'] 							= 'width=60px;';
@@ -248,6 +248,7 @@
 	{
 		$camposPesquisa['numero'] 				= 'Número';
 		$camposPesquisa['numero_auxiliar']      = 'N. Auxiliar';
+		$camposPesquisa['nome']			 	= 'Contato';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 

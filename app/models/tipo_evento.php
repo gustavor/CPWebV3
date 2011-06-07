@@ -1,9 +1,9 @@
 <?php
 /**
  * CPWeb - Controle Virtual de Processos
- * Versão 3.0 - Novembro de 2010
+ * Versão 3.0 - Junho de 2011
  *
- * app/models/evento.php
+ * app/models/tipo_evento.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,33 +19,27 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class Evento extends AppModel {
+class TipoEvento extends AppModel {
 
-	public $name 		= 'evento';
-	public $useTable 	= 'eventos';
-	public $displayField= 'evento';
+	public $name 		= 'TipoEvento';
+	public $useTable 	= 'tipos_eventos';
+	public $displayField= 'nome';
 
 	public $validate = array(
-		'evento' => array(
+		'nome' => array(
 			'rule' => 'notEmpty',
 			'required' => true,
-			'message' => 'É necessário informar a descrição do evento!'
+			'message' => 'É necessário informar o nome do tipo evento!'
 		)
 	);
-
-	public $belongsTo = array
-	(
-		'Processo' => array
-		(
-			'className' => 'Processo',
-			'foreignKey' => 'processo_id',
-			'fields' => 'id, numero'
-		),
-		'TipoEvento' => array
-		(
-			'className' => 'TipoEvento',
-			'foreignKey' => 'tipo_evento_id',
-			'fields' => 'id, nome'
-		)
-	);
+	
+	/**
+	 * Antes da validação
+	 */
+	public function beforeValidate()
+	{
+		$this->data['TipoEvento']['nome'] = mb_strtoupper($this->data['TipoEvento']['nome']);
+		return true;
+	}
 }
+?>

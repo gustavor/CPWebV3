@@ -1,9 +1,9 @@
 <?php
 /**
  * CPWeb - Controle Virtual de Processos
- * Versão 3.0 - Novembro de 2010
+ * Versão 3.0 - Junho de 2011
  *
- * app/controllers/tipos_audiencias_controller.php
+ * app/controllers/tipos_eventos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,24 +19,24 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class TiposAudienciasController extends AppController {
+class TiposEventosController extends AppController {
 	/**
-	 * Nome
+	 * Nome do controlador
 	 * 
-	 * @var string
-	 * @access public
+	 * @var		string
+	 * @access	public
 	 */
-	public $name = 'TiposAudiencias';
+	public $name 	= 'TiposEventos';
 
 	/**
-	 * Modelo
+	 * Modelo usado pelo controlador
 	 * 
-	 * @var string
-	 * @access public
+	 * @var		string
+	 * @access	public
 	 */
-	public $uses = 'TipoAudiencia';
+	public $uses	= 'TipoEvento';
 
-	/**
+		/**
 	 * Ajudantes 
 	 * 
 	 * @var array
@@ -60,7 +60,7 @@ class TiposAudienciasController extends AppController {
 	 */
 	public function beforeRender()
 	{
-		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Audiências';
+		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Eventos';
 	}
 	/**
 	 * método start

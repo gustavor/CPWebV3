@@ -25,7 +25,7 @@ class Processo extends AppModel {
 	public $useTable		= 'processos';
 	public $order		 	= 'numero';
 	public $displayField 	= 'numero';
-	
+
 	/**
 	 * Validação
 	 * 

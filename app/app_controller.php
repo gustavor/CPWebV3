@@ -178,7 +178,7 @@ class AppController extends Controller {
 	}
 	
 	/**
-	 * Realiza uma pesquisa no banco de dados
+	 * Realiza uma pesquisa no banco de dados. O Campo de pesquisa tem que ser chave única.
 	 * 
 	 * @parameter 	string 	$texto 	Texto de pesquisa
 	 * @parameter 	string 	$campo 	Campo de pesquisa
