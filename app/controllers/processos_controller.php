@@ -138,7 +138,7 @@ class ProcessosController extends AppController {
 		{
 			$this->loadModel('ContatoProcesso');
 			if (isset($this->data['subNovoForm']['contato_id']) && empty($this->data['subNovoForm']['contato_id'])) $this->data['subNovoForm'] = array();
-			if (!$this->CpwebCrud->setSubForm('processo',$id,'ContatoProcesso')) return false;
+			if (!$this->CpwebCrud->setSubForm('processo',$id,'ContatoProcesso',array('processo_id'))) return false;
 		}
 
         // recuperando os contatos deste processo

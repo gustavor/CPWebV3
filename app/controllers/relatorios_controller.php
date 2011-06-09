@@ -282,6 +282,100 @@ class RelatoriosController extends AppController {
 	}
 
 	/**
+	 * Exibe a Lista de Eventos
+	 * 
+	 * @param	string	$relatorio			Nome do Relatório
+	 * @param	string	$layout				Nome do layout a ser usado no relatório
+	 * @param	array	$campoLista			Campos que vão compor a lista
+	 * @param	array	$viewLista			Outras visões que serão incorporadas
+	 * @param	array	$paramRelatorio		Configurações para o Relatório
+	 * @param	string	$modeloPrincipal	Modelo principal que irá ser paginado ou listado
+	 * @return void
+	 */
+	public function fil_eventos($relatorio='', $layout='')
+	{
+		// campos para a lista
+		$camposLista 	= array('Evento.evento','Evento.data','Evento.created','Evento.modified');
+
+		// dados da lista
+		$dataLista		= array();
+
+		// configs na view usados na lista
+		$viewLista 		= array('eventos'=>'Evento');
+
+		// campos que vão compor a lista
+		$camposLista	= array('Processo.id','Processo.numero','Evento.created');
+
+		// parametros do relatório
+		$paramRelatorio['orientacao_pagina'] 	= 'L';
+		$paramRelatorio['titulo'] 				= 'Relatório de Eventos';
+
+		// filtros
+		$dataFiltro = array();
+		$this->loadModel('Contato');
+		$dataFiltro['contato']['options']['options'] = $this->Contato->find('list',array('conditions'=>array('length(Contato.nome) <'=>100)));
+		$this->loadModel('TipoEvento');
+		$dataFiltro['tipoevento']['options']['options'] = $this->TipoEvento->find('list',array('conditions'=>array('length(TipoEvento.nome) <'=>100)));
+
+		// carregando o modelo principal
+		$this->loadModel('Evento');
+
+		// se o filtro foi postado
+		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+		{
+			// debug
+			//pr($this->data);
+			$condicoes = array();
+			
+			// filtrando pelo tipo de evento
+			if (isset($this->data[$this->action]['tipoevento']) && !empty($this->data[$this->action]['tipoevento']))
+			{
+				$condicoes['TipoEvento.id'] = $this->data[$this->action]['tipoevento'];
+			}
+
+			// filtrando pelo contato
+			// localizar todos os contatos do filtro, com isso, vai pegar dos os ids do processos e implementá-los no filtro de eventos.
+			if (isset($this->data[$this->action]['contato']) && !empty($this->data[$this->action]['contato']))
+			{
+				$this->loadModel('ContatoProcesso');
+				$this->loadModel('Contato');
+				$dataContatosProcessos = $this->ContatoProcesso->find('all',array('conditions'=>array('ContatoProcesso.contato_id'=>$this->data[$this->action]['contato'])));
+				//pr($dataContatosProcessos);
+				$idsProcessos 	= array();
+				$idsContatos	= array();
+				foreach($dataContatosProcessos as $linha => $_arrModelos)
+				{
+					foreach($_arrModelos as $_modelo => $_arrCampos)
+					{
+						array_unshift($idsProcessos,$_arrCampos['processo_id']);
+						array_unshift($idsContatos,$_arrCampos['contato_id']);
+					}
+				}
+				$condicoes['Processo.id'] = $idsProcessos;
+			}
+
+			$dataLista = (!empty($layout)) ? $this->Evento->find('all',array('conditions'=>$condicoes),null,array('order'=>'Evento.id')) : $this->paginate('Evento',$condicoes);
+			
+			// incluindo o contato na dataLista
+			
+			//pr($dataLista);
+
+			// definindo o que renderizar
+			$render = (!empty($layout)) ? $layout : 'listar';
+		} else
+		{
+			$render = $this->action;
+		}
+
+		// atualizando a view
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio'));
+		$this->set('modelo','Evento');
+		$this->set('relatorio','sintetico');
+
+		$this->render($render);
+	}
+
+	/**
 	 * Exibe a Lista de Contatos Modelo Sintético
 	 * 
 	 * @param	string	$relatorio			Nome do Relatório
@@ -308,7 +402,7 @@ class RelatoriosController extends AppController {
 		// campos que vão compor a lista
 		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','ProcessoSolicitacao.created','Contato.nome');
 
-		// config view
+		// config view usados na lista
 		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','processos'=>'Processo');
 
 		// se o formulário foi postado ou o pedido de impressão para o layout

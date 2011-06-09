@@ -112,7 +112,7 @@ class ContatosController extends AppController {
 
 		if (isset($this->data))
 		{
-			if (!$this->CpwebCrud->setSubForm('contato',$id,'Telefone',true)) return false;
+			if (!$this->CpwebCrud->setSubForm('contato',$id,'Telefone',array('modelo_id','modelo'))) return false;
 		}
 		$this->set('estados',$this->Contato->Cidade->Estado->find('list'));
 		$this->set('telefones',$this->Telefone->find('all',array('conditions'=>array('modelo'=>'contato','modelo_id'=>$id))));

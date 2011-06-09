@@ -383,12 +383,13 @@ class CpwebCrudComponent extends Object {
 	 * @parameter 	string 	$modelo	Nome do modelo que será atualizado
 	 * @return		boolean
 	 */
-	public function setSubForm($modeloPai,$idPai,$modelo,$salvarModeloPai=false)
+	//public function setSubForm($modeloPai,$idPai,$modelo,$salvarModeloPai=false)
+	public function setSubForm($modeloPai,$idPai,$modelo,$salvarModeloPai=array())
 	{
 		$dataModelo		= array();
 		$arrIdSalvos	= array();
 		$delCondicao	= array();
-
+		//if (isset($this->controller->data['subForm'])) pr($this->controller->data['subForm']);
 		// salvando os ids que serão atualizados, e portanto  não deleteados
 		if (isset($this->controller->data['subForm']))
 		{
@@ -406,13 +407,17 @@ class CpwebCrudComponent extends Object {
 		// só deleta quem não foi salvo
 		$delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
 
-		// gambi para telefones
-		if ($salvarModeloPai)
+		// incluindo mais campos para condição de exclusão
+		if (count($salvarModeloPai))
 		{
-			$delCondicao['modelo']		= $modeloPai;
-			$delCondicao['modelo_id']	= $idPai;
+			$l = 0;
+			foreach($salvarModeloPai as $_campo)
+			{
+				if (!$l) $delCondicao['AND'][$_campo] = $idPai; else $delCondicao['AND'][$_campo] = $modeloPai;
+				$l++;
+			}
 		}
-
+		//pr($delCondicao);
 		if (!$this->controller->$modelo->deleteAll($delCondicao))
 		{
 			exit('Não foi possível deletar '.$modelo.' ...');
