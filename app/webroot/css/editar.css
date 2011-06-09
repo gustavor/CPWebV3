@@ -105,6 +105,7 @@
 #edicao .quebraLinha
 {
 	line-height: 26px;
+	clear: both;
 }
 
 #edicao .inEdicao

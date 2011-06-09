@@ -86,6 +86,10 @@
 
     $campos['TipoProcesso']['nome']['options']['label']['text']                         = 'Tipo do Processo';
 
+	$campos['Contato']['bcontato']['options']['label']['text']							= 'Localizar contato';
+	$campos['Contato']['bcontato']['busca_rapida_url'] 									= Router::url('/',true).'contatos/buscar/nome';
+
+
 	if (isset($this->data['Processo']['id']))
 	{
 		$campos[$modelClass]['id_controle']['options']['value'] = 'VEBH-'.str_repeat('0',5-strlen($this->data['Processo']['id'])).$this->data['Processo']['id'];
@@ -169,13 +173,17 @@
 	
 	if ($action=='editar')
 	{
+		// subformulário só para processos
+		$nomeSubForm = 'sub_form_processos';
+
+		// botões de eventos
 		if (isset($evento))					$redirecionamentos['Eventos']['onclick'] 				= 'document.location.href=\''.Router::url('/',true).'eventos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 		if (isset($evento_acordo))			$redirecionamentos['Eventos Acordo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'eventos_acordos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 		if (isset($audiencia))				$redirecionamentos['Audiências']['onclick'] 			= 'document.location.href=\''.Router::url('/',true).'audiencias/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 		if (isset($processo_solicitacao))	$redirecionamentos['Solicitações']['onclick']			= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($processo_solicitacao))	$redirecionamentos['Contatos Telefônicos']['onclick']	= 'document.location.href=\''.Router::url('/',true).'contatos_telefonicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($testemunha))				$redirecionamentos['Testemunhas']['onclick']			= 'document.location.href=\''.Router::url('/',true).'testemunhas/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
-        
+
         // dados do formulário
 		$subFormData = isset($contatos) ? $contatos : array();
 
@@ -230,6 +238,7 @@
 
 		// jogando tudo na view
 		$this->set('subFormData',$subFormData);
+		$this->set('nomeSubForm',$nomeSubForm);
 		$this->set('campo_id','contato_id');
 		$this->set('subFormTitulo',$subFormTitulo);
 		$this->set('subFormCampos',$subFormCampos);

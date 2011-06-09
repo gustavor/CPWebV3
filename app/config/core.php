@@ -33,7 +33,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 0);
+	Configure::write('debug', 2);
 
 /**
  * CakePHP Log Level:
@@ -286,17 +286,16 @@
  *
  *
  * Memcache (http://www.danga.com/memcached/)
- *
- * 	 Cache::config('default', array(
- *		'engine' => 'Memcache', //[required]
- *		'duration'=> 3600, //[optional]
- *		'probability'=> 100, //[optional]
- * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
- * 		'servers' => array(
- * 			'127.0.0.1:11211' // localhost, default port 11211
- * 		), //[optional]
- * 		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
- *	));
- *
  */
-	Cache::config('default', array('engine' => 'File'));
+/*Cache::config('default', array(
+		'engine' => 'Memcache', //[required]
+		'duration'=> 3600, //[optional]
+		'probability'=> 100, //[optional]
+ 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
+ 		'servers' => array(
+ 			'127.0.0.1:11211' // localhost, default port 11211
+ 		), //[optional]
+ 		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
+ ));
+*/
+Cache::config('default', array('engine' => 'File'));

@@ -94,7 +94,10 @@
 
 					// atualizando onRead jquery
 					$on_read_view .= "\n\t".'$("#'.$opcoesBuscaRapida['id'].'").keyup(function(e)'."\t\t\t".'{ getBuscaRapida("'.$campos[$_arrField[0]][$_arrField[1]]['busca_rapida_url'].'", (e.keyCode ? e.keyCode : e.which),"'.$this->Form->domId($_field).'"); });';
-					if ($this->Form->data[$modelClass][$_arrField[1]]) $on_read_view .= "\n\t".'$("#buscaRapida'.$this->Form->domId($_field).'").css("display","none");';
+					if (isset($this->Form->data[$modelClass][$_arrField[1]]))
+					{
+						$on_read_view .= "\n\t".'$("#buscaRapida'.$this->Form->domId($_field).'").css("display","none");';
+					}
 					$on_read_view .= "\n\t".'$("#'.$this->Form->domId($_field).'").change(function()'."\t\t\t\t".'{ setBuscaRapidaShow($(this).val(),"'.$this->Form->domId($_field).'");  });';
 				}
 				echo "\n\n";
@@ -108,7 +111,7 @@
 	
 	if (isset($subFormData))
 	{
-		echo $this->element('sub_form');
+		if (!isset($nomeSubForm)) echo $this->element('sub_form'); else echo $this->element($nomeSubForm);
 	}	
 ?>
 
