@@ -1,5 +1,7 @@
 <?php
 
+	$campos[$modelClass]['id']['options']['label']['text']								= 'Processo';
+
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
 	

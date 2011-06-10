@@ -301,10 +301,11 @@ class RelatoriosController extends AppController {
 		$dataLista		= array();
 
 		// configs na view usados na lista
-		$viewLista 		= array('eventos'=>'Evento');
+		$viewLista 		= array('eventos'=>'Evento','contatos'=>'Contato','processos'=>'Processo');
+		//$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario',);
 
 		// campos que vão compor a lista
-		$camposLista	= array('Processo.id','Processo.numero','Evento.created');
+		$camposLista	= array('TipoEvento.nome','Processo.id','Processo.numero','Processo.contatos','Evento.created');
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
@@ -326,6 +327,7 @@ class RelatoriosController extends AppController {
 			// debug
 			//pr($this->data);
 			$condicoes = array();
+			$this->loadModel('ContatoProcesso');
 			
 			// filtrando pelo tipo de evento
 			if (isset($this->data[$this->action]['tipoevento']) && !empty($this->data[$this->action]['tipoevento']))
@@ -333,31 +335,71 @@ class RelatoriosController extends AppController {
 				$condicoes['TipoEvento.id'] = $this->data[$this->action]['tipoevento'];
 			}
 
-			// filtrando pelo contato
-			// localizar todos os contatos do filtro, com isso, vai pegar dos os ids do processos e implementá-los no filtro de eventos.
+			// filtrando os processos do contato solicitado
 			if (isset($this->data[$this->action]['contato']) && !empty($this->data[$this->action]['contato']))
 			{
-				$this->loadModel('ContatoProcesso');
-				$this->loadModel('Contato');
 				$dataContatosProcessos = $this->ContatoProcesso->find('all',array('conditions'=>array('ContatoProcesso.contato_id'=>$this->data[$this->action]['contato'])));
-				//pr($dataContatosProcessos);
 				$idsProcessos 	= array();
-				$idsContatos	= array();
 				foreach($dataContatosProcessos as $linha => $_arrModelos)
 				{
 					foreach($_arrModelos as $_modelo => $_arrCampos)
 					{
 						array_unshift($idsProcessos,$_arrCampos['processo_id']);
-						array_unshift($idsContatos,$_arrCampos['contato_id']);
 					}
 				}
 				$condicoes['Processo.id'] = $idsProcessos;
 			}
+			
+			// filtrando pela data inicio e fim (filtra em create)
 
-			$dataLista = (!empty($layout)) ? $this->Evento->find('all',array('conditions'=>$condicoes),null,array('order'=>'Evento.id')) : $this->paginate('Evento',$condicoes);
-			
-			// incluindo o contato na dataLista
-			
+			// recuperando os eventos solicitados pelo filtro
+			$_dataLista = (!empty($layout)) ? $this->Evento->find('all',array('conditions'=>$condicoes),null,array('order'=>'Evento.id')) : $this->paginate('Evento',$condicoes);
+			//pr($_dataLista);
+
+			// separando todos os ids de processos
+			$arrIdsProcessos = array();
+			foreach($_dataLista as $_linha => $_arrModel) if (!in_array($_arrModel['Processo']['id'],$arrIdsProcessos)) array_push($arrIdsProcessos,$_arrModel['Processo']['id']);
+			//pr($arrIdsProcessos);
+
+			// recuperando todos os contato_processos do processos envolvidos
+			$dataContatosProcessos = $this->ContatoProcesso->find('all',array('conditions'=>array('ContatoProcesso.processo_id'=>$arrIdsProcessos)));
+			//pr($dataContatosProcessos);
+
+			// separando todos os ids de contatos
+			$arrIdsContatos	= array();
+			$arrProcesConta = array();
+			foreach($dataContatosProcessos as $_linha => $_arrModel)
+			{
+				$idContato 	= $_arrModel['ContatoProcesso']['contato_id'];
+				$idProcesso	= $_arrModel['ContatoProcesso']['processo_id'];
+				if (!in_array($idContato,$arrIdsContatos)) array_push($arrIdsContatos,$idContato);
+				if (!isset($arrProcesConta[$idProcesso])) $arrProcesConta[$idProcesso] = array();
+				if (!in_array($idContato,$arrProcesConta[$idProcesso])) array_push($arrProcesConta[$idProcesso],$idContato);
+			}
+			//pr($arrProcesConta);
+
+			// recuperando todos os contatos envolvidos
+			$this->loadModel('Contato');
+			$dataContatos = $this->Contato->find('list',array('conditions'=>array('Contato.id'=>$arrIdsContatos)));
+			//pr($dataContatos);
+
+			// re-escrevendo a data lista incrementando o nome de cada contato
+			foreach($_dataLista as $_linha => $_arrModel)
+			{
+				$dataLista[$_linha] = $_arrModel;
+				foreach($arrProcesConta as $_idProcesso => $_arrIdsContatos)
+				{
+					if ($_arrModel['Processo']['id'] == $_idProcesso)
+					{
+						$dataLista[$_linha]['Processo']['contatos'] = '';
+						foreach($_arrIdsContatos as $_idContato)
+						{
+							$dataLista[$_linha]['Processo']['contatos'] .= $dataContatos[$_idContato].', ';
+						}
+					}
+				}
+				$dataLista[$_linha]['Processo']['id'] = 'VEBH-'.str_repeat('0',5-strlen($dataLista[$_linha]['Processo']['id'])).$dataLista[$_linha]['Processo']['id'];
+			}
 			//pr($dataLista);
 
 			// definindo o que renderizar
