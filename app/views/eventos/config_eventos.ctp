@@ -17,14 +17,8 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id','#','Evento.modified','#','Evento.created');
+		$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id','#','Evento.evento','#','Evento.modified','#','Evento.created');
 		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
-
-		// campo evento só deve aparecer quando o tipo for igual a publicação
-		if (mb_strtoupper($this->data['TipoEvento']['nome'])=='PUBLICAÇÃO')
-		{
-			$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id','#','Evento.evento','#','Evento.modified','#','Evento.created');
-		}
 	}
 
 	if ($action=='imprimir')
@@ -56,7 +50,7 @@
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id']))
 		{
 			$redirecionamentos['Processo']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos/editar/'.$this->Form->data['Processo']['id'].'\'';
-			$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id');
+			//$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id');
 		}
 		$botoesEdicao['Novo']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$this->Form->data['Processo']['id'].'\'';
 	}
