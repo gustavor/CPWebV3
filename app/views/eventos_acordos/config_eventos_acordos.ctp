@@ -59,7 +59,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array($modelClass.'.evento',$modelClass.'.modified',$modelClass.'.created');
+		$listaCampos 									= array($modelClass.'.evento',$modelClass.'.modified',$modelClass.'.created');
 		$campos[$modelClass]['evento']['estilo_th'] 	= 'width="400px"';
 	}
 ?>

@@ -23,12 +23,12 @@
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array('Evento.data','Evento.evento','#','Evento.modified','Evento.created');
+		$edicaoCampos = array('Evento.data','Evento.evento','#','Evento.evento','#','Evento.modified','Evento.created');
 	}
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id');
+		$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.evento','#','Evento.tipo_evento_id');
 		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 	

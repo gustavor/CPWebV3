@@ -102,7 +102,7 @@
  * or in each action using $this->cacheAction = true.
  *
  */
-	//Configure::write('Cache.check', true);
+Configure::write('Cache.check', true);
 
 /**
  * Defines the default error type when using the log() function. Used for
@@ -287,7 +287,7 @@
  *
  * Memcache (http://www.danga.com/memcached/)
  */
-/*Cache::config('default', array(
+Cache::config('default', array(
 		'engine' => 'Memcache', //[required]
 		'duration'=> 3600, //[optional]
 		'probability'=> 100, //[optional]
@@ -297,5 +297,5 @@
  		), //[optional]
  		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
  ));
-*/
-Cache::config('default', array('engine' => 'File'));
+
+//Cache::config('default', array('engine' => 'File'));
