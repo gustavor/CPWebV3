@@ -24,6 +24,28 @@ class ContatoProcesso extends AppModel {
 	public $name 		= 'ContatoProcesso';
 	public $useTable 	= 'contatos_processos';
 	public $displayField= 'modified';
-	public $order		= 'modified';
+	public $order		= 'ContatoProcesso.modified';
 	public $primaryKey	= 'id';
+	
+	public $belongsTo = array
+	(
+		'Contato' => array
+		(
+			'className' 	=> 'Contato',
+			'foreignKey' 	=> 'contato_id',
+			'fields'		=> array('id','nome'),
+		),
+		'Processo' => array
+		(
+			'className' 	=> 'Processo',
+			'foreignKey' 	=> 'processo_id',
+			'fields'		=> array('id','numero'),
+		),
+		'TipoParte' => array
+		(
+			'className' 	=> 'TipoParte',
+			'foreignKey' 	=> 'tipo_parte_id',
+			'fields'		=> array('id','nome'),
+		)
+	);
 }

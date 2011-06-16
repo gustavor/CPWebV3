@@ -194,10 +194,11 @@
 
 		// detalhes de cada campo do formulário
 		$subFormCampos['contato_id']['options']['label']['text'] 		= 'Contato';
-		$subFormCampos['contato_id']['options']['style']				= 'width: 360px';
+		$subFormCampos['contato_id']['options']['style']				= 'width: 290px';
 		$subFormCampos['contato_id']['options']['empty'] 				= '-- escolha um contato --';
 		$subFormCampos['contato_id']['options']['options']				= $contato;
-		$subFormCampos['contato_id']['td'] 								= 'align="center"';
+		$subFormCampos['contato_id']['td'] 								= 'align="left"';
+		//$subFormCampos['contato_id']['th'] 								= 'width=200px;';
 
 		$subFormCampos['tipo_parte_id']['options']['label']['text'] 	= 'Tipo';
 		$subFormCampos['tipo_parte_id']['options']['style']				= 'width: 190px';
@@ -217,6 +218,7 @@
 		$subFormCampos['principal']['options']['style']					= 'width: 80px';
 		//$subFormCampos['principal']['options']['empty'] 				= ' -- ';
 		$subFormCampos['principal']['options']['options']				= array(0=>'Não',1=>'Sim');
+		//$subFormCampos['principal']['options']['disabled']				= 'disabled';
 		$subFormCampos['principal']['td'] 								= 'align="center"';
 		$subFormCampos['principal']['th'] 								= 'width=60px;';
 

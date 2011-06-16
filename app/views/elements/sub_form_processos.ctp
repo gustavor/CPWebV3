@@ -1,14 +1,14 @@
 <?php $on_read_view_sub_form = "\n\t".'$("#inBuscaRapidasubNovoFormContatoId").keyup(function(e)'."\t\t\t".'{ getBuscaRapida("'.Router::url('/',true).'contatos/buscar/nome'.'", (e.keyCode ? e.keyCode : e.which),"subNovoFormContatoId"); });'; ?>
 <div id="sub_form">
 	<?php if (isset($subFormTitulo)) echo $subFormTitulo; ?>
-	<div id='busca_contato'><label>buscar:</label><input type='text' name='inBuscaRapidasubNovoFormContatoId' id='inBuscaRapidasubNovoFormContatoId' style='width: 500px;' /></div>
-	<div id='buscaRapidaRespostasubNovoFormContatoId' class='buscaRapidaResposta' style='display: none'></div>
+	<div id='busca_contato' style='float: left;'><label>buscar:</label><input type='text' name='inBuscaRapidasubNovoFormContatoId' id='inBuscaRapidasubNovoFormContatoId' style='width: 350px;' /></div>
+	<div id='buscaRapidaRespostasubNovoFormContatoId' class='buscaRapidaResposta' style='display: none; margin: 24px 0px 0px 130px;'></div>
 	
 	<div id="sub_resposta"></div>
 
-	<table border="0" cellpadding="0" cellspacing="0" id="tabelaSubForm">
+	<table border="0" cellpadding="0" cellspacing="2" id="tabelaSubForm">
 
-		<thead id="tr0">
+		<thead id="tr00">
 		<tr>
 		<?php
 			foreach($subFormCamposLista as $_item => $_campo)
@@ -49,11 +49,11 @@
 			$l=0;
 			foreach($subFormData as $_linha => $_arrModelo)
 			{
+				$l++;
+				echo "<tr id='tr".($l)."'>\n";
 				foreach($_arrModelo as $_modelo => $_arrCampos)
 				{
-					$l++;
 					$id = isset($_arrCampos[$campo_id]) ? $_arrCampos[$campo_id] : $_arrCampos['id'];
-					echo "<tr id='tr".($l)."'>\n";
 					foreach($subFormCamposLista	as $_item => $_campo)
 					{
 						$opcoes		= isset($subFormCampos[$_campo]['options']) 		? $subFormCampos[$_campo]['options'] 			: array();
@@ -62,20 +62,23 @@
 						$tipo		= isset($subFormCampos[$_campo]['options']['type']) ? $subFormCampos[$_campo]['options']['type'] 	: '';
 
 						if ($mascara) $on_read_view_sub_form .= "\n\t".'$("#'.$this->Form->domId('subForm.'.$id.'.'.$_campo).'").setMask("'.$mascara.'");';
-						$opcoes['value'] = $_arrCampos[$_campo];
-						$opcoes['label'] = false;
-						$opcoes['div'] 	 = false;
-						if ($tipo!='hidden') echo '<td'.$td.'>';
-						echo $this->Form->input('subForm.'.$id.'.'.$_campo,$opcoes);
-						if ($tipo!='hidden') echo '</td>'."\n";
+						if (isset($_arrCampos[$_campo]))
+						{
+							$opcoes['value'] = $_arrCampos[$_campo];
+							$opcoes['label'] = false;
+							$opcoes['type']  = 'hidden';
+							if ($tipo!='hidden') echo '<td '.$td.'>';
+							echo $this->Form->input('subForm.'.$id.'.'.$_campo,$opcoes);
+							if (isset($opcoes['options'][$opcoes['value']])) echo $opcoes['options'][$opcoes['value']];
+							if ($tipo!='hidden') echo '</td>'."\n";
+						}
 					}
 				}
-
 				// incluindo as ferramentas
 				foreach($subFormFerramentas as $_item => $parametros)
 				{
 					$onclick = isset($parametros['onclick']) ? str_replace('{id}',$id,$parametros['onclick']) : "delSubForm($l);";
-					echo "<td align='center' width='20'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$parametros['ico']."' border='0' onclick=$onclick /></td>\n";
+					echo "<td align='center' width='30'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$parametros['ico']."' border='0' onclick=$onclick /></td>\n";
 				}
 				echo "</tr>\n";
 			}

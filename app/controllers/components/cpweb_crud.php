@@ -405,7 +405,7 @@ class CpwebCrudComponent extends Object {
 		}
 
 		// só deleta quem não foi salvo
-		$delCondicao['NOT'][$this->controller->$modelo->primaryKey] = $arrIdSalvos;
+		$delCondicao['NOT'][$modelo.'.'.$this->controller->$modelo->primaryKey] = $arrIdSalvos;
 
 		// incluindo mais campos para condição de exclusão
 		if (count($salvarModeloPai))
@@ -413,7 +413,7 @@ class CpwebCrudComponent extends Object {
 			$l = 0;
 			foreach($salvarModeloPai as $_campo)
 			{
-				if (!$l) $delCondicao['AND'][$_campo] = $idPai; else $delCondicao['AND'][$_campo] = $modeloPai;
+				if (!$l) $delCondicao['AND'][$modelo.'.'.$_campo] = $idPai; else $delCondicao['AND'][$modelo.'.'.$_campo] = $modeloPai;
 				$l++;
 			}
 		}
@@ -427,8 +427,10 @@ class CpwebCrudComponent extends Object {
 		// atualizando o modelo filho
 		if (count($dataModelo))
 		{
+			$this->controller->$modelo->recursive = 2;
 			if (!$this->controller->$modelo->saveAll($dataModelo[$modelo]))
 			{
+				echo $modelo.'<br />';
 				echo '<pre>'.print_r($dataModelo,true).'</pre>';
 				echo '<pre>'.print_r($this->controller->$modelo->validationErrors,true).'</pre>';
 				exit('Não foi possível ATUALIZAR '.$modelo.' ...');

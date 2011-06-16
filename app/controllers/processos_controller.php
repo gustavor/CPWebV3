@@ -142,7 +142,8 @@ class ProcessosController extends AppController {
 		}
 
         // recuperando os contatos deste processo
-        $this->set('contatos',$this->Processo->ContatoProcesso->find( 'all', array( 'conditions' => array( 'processo_id' => $id ))));
+        $contatos = $this->Processo->ContatoProcesso->find( 'all', array('order'=>'Contato.nome','conditions' => array( 'processo_id' => $id )));
+        $this->set('contatos',$contatos);
 
         $this->set(compact('titulo'));
 		$this->CpwebCrud->editar($id);
