@@ -243,7 +243,7 @@
 		// jogando tudo na view
 		$this->set('subFormData',$subFormData);
 		$this->set('nomeSubForm',$nomeSubForm);
-		$this->set('campo_id','contato_id');
+		$this->set('campo_id','Contato.id');
 		$this->set('subFormTitulo',$subFormTitulo);
 		$this->set('subFormCampos',$subFormCampos);
 		$this->set('formSubForm',$formSubForm);

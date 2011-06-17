@@ -50,10 +50,12 @@
 			foreach($subFormData as $_linha => $_arrModelo)
 			{
 				$l++;
+				$arrId 	= explode('.',$campo_id);
+				$id		= $_arrModelo[$arrId[0]][$arrId[1]];
 				echo "<tr id='tr".($l)."'>\n";
 				foreach($_arrModelo as $_modelo => $_arrCampos)
 				{
-					$id = isset($_arrCampos[$campo_id]) ? $_arrCampos[$campo_id] : $_arrCampos['id'];
+					//$id = isset($_arrCampos[$campo_id]) ? $_arrCampos[$campo_id] : $_arrCampos['id'];
 					foreach($subFormCamposLista	as $_item => $_campo)
 					{
 						$opcoes		= isset($subFormCampos[$_campo]['options']) 		? $subFormCampos[$_campo]['options'] 			: array();
@@ -74,11 +76,18 @@
 						}
 					}
 				}
+
 				// incluindo as ferramentas
-				foreach($subFormFerramentas as $_item => $parametros)
+				foreach($subFormFerramentas as $_item => $_arrParam)
 				{
-					$onclick = isset($parametros['onclick']) ? str_replace('{id}',$id,$parametros['onclick']) : "delSubForm($l);";
-					echo "<td align='center' width='30'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$parametros['ico']."' border='0' onclick=$onclick /></td>\n";
+					foreach($_arrParam as $_param => $_valor)
+					{
+						if ($_param=='ico')
+						{
+							$onclick = isset($_arrParam['onclick']) ? str_replace('{id}',$id,$_arrParam['onclick']) : "delSubForm($id);";
+							echo "<td align='center' width='30'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$_arrParam['ico']."' border='0' onclick=$onclick /></td>\n";
+						}
+					}
 				}
 				echo "</tr>\n";
 			}
