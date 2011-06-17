@@ -26,10 +26,10 @@ class Evento extends AppModel {
 	public $displayField= 'evento';
 
 	public $validate = array(
-		'evento' => array(
+		'tipo_evento_id' => array(
 			'rule' => 'notEmpty',
 			'required' => true,
-			'message' => 'É necessário informar a descrição do evento!'
+			'message' => 'É necessário informar o tipo de evento !!!'
 		)
 	);
 

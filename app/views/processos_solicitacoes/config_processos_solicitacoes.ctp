@@ -127,6 +127,7 @@
 	if ($action=='editar' || $action=='novo')
 	{
 		$on_read_view .= "\n\t".'$("#'.$modelClass.'SolicitacaoId").focus();';
+		$on_read_view .= "\n\t".'$("#buscaRapidaRespostaProcessoSolicitacaoSolicitacaoId").click(function() { getTipoSolicitacao($("#ProcessoSolicitacaoSolicitacaoId").find("option[selected=true]").val()); });';
 	}
 
 	if ($action=='editar' || $action=='listar' || $action=='filtro')

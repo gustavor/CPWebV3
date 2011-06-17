@@ -344,7 +344,7 @@ class RelatoriosController extends AppController {
 				{
 					foreach($_arrModelos as $_modelo => $_arrCampos)
 					{
-						array_unshift($idsProcessos,$_arrCampos['processo_id']);
+						if (isset($_arrCampos['processo_id'])) array_unshift($idsProcessos,$_arrCampos['processo_id']);
 					}
 				}
 				$condicoes['Processo.id'] = $idsProcessos;

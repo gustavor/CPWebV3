@@ -7,12 +7,16 @@
 	
 	$campos['Evento']['evento']['options']['label']['text'] 	= 'Evento';
 	$campos['Evento']['evento']['options']['style'] 			= 'width: 600px; text-transform: uppercase; ';
-	
+
+	$campos['TipoEvento']['nome']['options']['label']['text'] 	= 'Tipo Evento';
+
 	$campos['Evento']['processo_id']['options']['type']      	= 'hidden';
 	if (isset($processos)) $campos['Evento']['processo_id']['options']['options']	= $processos;
 
 	$campos['Evento']['tipo_evento_id']['options']['label']['text']	= 'Tipo';
+	$campos['Evento']['tipo_evento_id']['options']['empty'] 	= '-- escolha uma opção --';
 	$campos['Evento']['tipo_evento_id']['options']['style']		= 'width: 500px;';
+	$campos['Evento']['tipo_evento_id']['busca_rapida_url'] 	= Router::url('/',true).'tipos_eventos/buscar/nome';
 	if (isset($tipoeventos)) $campos['Evento']['tipo_evento_id']['options']['options']	= $tipoeventos;
 
 	if ($action=='editar' || $action=='excluir')
@@ -28,13 +32,14 @@
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.evento','#','Evento.tipo_evento_id');
+		$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id','#','Evento.evento');
 		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 	
 	if ($action=='editar' || $action=='novo')
 	{
-		$on_read_view .= "\n".'$("#EventoEvento").focus();';
+		$on_read_view .= "\n".'$("#EventoTipoEventoId").focus();';
+		$on_read_view .= "\n".'$("#EventoTipoEventoId").change(function() {setShowEvento();} );';
 	}
 
 	if ($action=='editar' || $action=='listar')
@@ -53,12 +58,17 @@
 			//$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id');
 		}
 		$botoesEdicao['Novo']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$this->Form->data['Processo']['id'].'\'';
+		if ($tipoeventos[$this->data['TipoEvento']['id']]!='PUBLICAÇÃO')
+		{
+			$on_read_view .= "\n".'$("#divEventoEvento").fadeOut();';	
+		}
 	}
 
 	if ($action=='listar')	
 	{
-		$listaCampos 								= array('Evento.data','Evento.evento','Evento.modified','Evento.created');
-		$campos['Evento']['data']['estilo_th'] 		= 'width="150px"';
-		$campos['Evento']['evento']['estilo_th'] 	= 'width="400px"';
+		$listaCampos 								= array('Evento.data','TipoEvento.nome','Evento.modified','Evento.created');
+		$campos['Evento']['data']['estilo_th'] 		= 'width="100px"';
+		$campos['Evento']['data']['estilo_td'] 		= 'align="center"';
+		$campos['TipoEvento']['nome']['estilo_th'] 	= 'width="320px"';
 	}
 ?>

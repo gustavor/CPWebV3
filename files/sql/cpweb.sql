@@ -495,7 +495,7 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos` (
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `data` DATE NOT NULL ,
-  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+  `evento` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL ,
   `processo_id` INT(11) NOT NULL ,
   `tipo_evento_id` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
