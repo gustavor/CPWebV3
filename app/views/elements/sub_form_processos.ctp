@@ -1,7 +1,7 @@
 <?php $on_read_view_sub_form = "\n\t".'$("#inBuscaRapidasubNovoFormContatoId").keyup(function(e)'."\t\t\t".'{ getBuscaRapida("'.Router::url('/',true).'contatos/buscar/nome'.'", (e.keyCode ? e.keyCode : e.which),"subNovoFormContatoId"); });'; ?>
 <div id="sub_form">
 	<?php if (isset($subFormTitulo)) echo $subFormTitulo; ?>
-	<div id='busca_contato' style='float: left;'><label>buscar:</label><input type='text' name='inBuscaRapidasubNovoFormContatoId' id='inBuscaRapidasubNovoFormContatoId' style='width: 350px;' /></div>
+	<div id='busca_contato' style='float: left;'><label>Buscar:</label><input type='text' name='inBuscaRapidasubNovoFormContatoId' id='inBuscaRapidasubNovoFormContatoId' style='width: 350px;' /></div>
 	<div id='buscaRapidaRespostasubNovoFormContatoId' class='buscaRapidaResposta' style='display: none; margin: 24px 0px 0px 130px;'></div>
 	
 	<div id="sub_resposta"></div>

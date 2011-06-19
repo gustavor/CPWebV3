@@ -175,6 +175,21 @@
 	
 	if ($action=='editar')
 	{
+		//desativando campos que não podem ser editados
+        $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';
+        $campos[$modelClass]['usuario_id']['options']['disabled'] 							= 'disabled';
+        $campos[$modelClass]['numero_auxiliar']['options']['disabled'] 						= 'disabled';
+        $campos[$modelClass]['distribuicao']['options']['disabled'] 						= 'disabled';
+        $campos[$modelClass]['ordinal_orgao']['options']['disabled'] 						= 'disabled';
+        $campos[$modelClass]['orgao_id']['options']['disabled'] 							= 'disabled';
+        $campos[$modelClass]['equipe_id']['options']['disabled'] 							= 'disabled';
+        $campos[$modelClass]['natureza_id']['options']['disabled'] 							= 'disabled';
+        $campos[$modelClass]['gestao_id']['options']['disabled'] 							= 'disabled';
+        $campos[$modelClass]['segmento_id']['options']['disabled'] 							= 'disabled';
+        $campos[$modelClass]['comarca_id']['options']['disabled'] 							= 'disabled';
+        if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
+        $campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
+
 		// subformulário só para processos
 		$nomeSubForm = 'sub_form_processos';
 
