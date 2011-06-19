@@ -52,7 +52,7 @@
 				$l++;
 				$arrId 	= explode('.',$campo_id);
 				$id		= $_arrModelo[$arrId[0]][$arrId[1]];
-				echo "<tr id='tr".($l)."'>\n";
+				echo "<tr id='tr".($id)."'>\n";
 				foreach($_arrModelo as $_modelo => $_arrCampos)
 				{
 					//$id = isset($_arrCampos[$campo_id]) ? $_arrCampos[$campo_id] : $_arrCampos['id'];
