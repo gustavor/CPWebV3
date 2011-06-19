@@ -203,6 +203,12 @@ class Processo extends AppModel {
 	{
 		parent::beforeValidate();
 
+		// se o tipo da instância é igual 5 (Extrajudicial) o campo número não é obrigatório
+		if ($this->data[$this->name]['instancia_id']==5)
+		{
+			$this->validate['numero'] = null;
+		}
+
 		//echo '<pre>'.print_r($this->data,true).'</pre>';
 		// executando a inclusão dos comboBox, caso não se
 		// incluindo a cada belongsTo
