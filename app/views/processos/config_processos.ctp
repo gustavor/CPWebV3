@@ -7,6 +7,7 @@
 
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
+	$campos[$modelClass]['id_controle']['estilo_td'] 									= 'style="text-align: center; "';
 	
 	$campos[$modelClass]['tipo_processo_id']['options']['label']['text'] 				= 'Tipo de Processo';
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha uma opção --';
@@ -259,8 +260,13 @@
 		// botão salvar
 		$formSubForm['action'] = Router::url('/',true).'processos/contatos_processos/salvar/';
 		if (isset($this->data['Usuario']['id'])) $formSubForm['action'] .= $this->data['Usuario']['id'];
+		
+		// apenso
+		$subFormApenso 			= array();
+		$subFormApenso['ids'] 	= $apensos;
 
 		// jogando tudo na view
+		$this->set('subFormApenso',$subFormApenso);
 		$this->set('subFormData',$subFormData);
 		$this->set('nomeSubForm',$nomeSubForm);
 		$this->set('campo_id','Contato.id');

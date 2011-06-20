@@ -128,6 +128,15 @@ class ProcessosController extends AppController {
 		$this->loadModel('TipoParte');			$this->set('tipo_parte',$this->TipoParte->find('list'));
 		$this->loadModel('Envolvimento');		$this->set('envolvimento',$this->Envolvimento->find('list',array('fields'=>array('id','nome'))));
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        
+        // salvando os apensos
+        if ( isset($this->data['subFormApenso']['id']) && !empty($this->data['subFormApenso']['id']) )
+        {
+			$this->Processo->updateAll(
+				array('Processo.familia_id'	=>	$this->data['Processo']['id']),
+				array('Processo.id'			=>	$this->data['subFormApenso']['id'])
+			);
+		}
 
         $titulo[1]['label']	= 'Processos';
         $titulo[1]['link']	= Router::url('/',true).'processos';
@@ -147,6 +156,9 @@ class ProcessosController extends AppController {
 
         $this->set(compact('titulo'));
 		$this->CpwebCrud->editar($id);
+		$apensos = $this->Processo->find('list',array('conditions'=>array('Processo.familia_id'=>$this->data['Processo']['familia_id'])));
+		$this->set(compact('apensos'));
+		//pr($this->data);
 	}
 	
 	/**

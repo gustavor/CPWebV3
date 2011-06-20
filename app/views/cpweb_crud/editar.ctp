@@ -112,7 +112,12 @@
 	if (isset($subFormData))
 	{
 		if (!isset($nomeSubForm)) echo $this->element('sub_form'); else echo $this->element($nomeSubForm);
-	}	
+	}
+	
+	if (isset($subFormApenso))
+	{
+		echo $this->element('sub_form_apenso');
+	}
 ?>
 
 <?php echo $this->Form->end(); ?>
