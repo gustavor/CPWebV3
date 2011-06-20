@@ -1,6 +1,9 @@
 <?php
 
 	$campos[$modelClass]['id']['options']['label']['text']								= 'Processo';
+	
+	$campos[$modelClass]['familia_id']['options']['type'] 							    = 'text';
+	$campos[$modelClass]['familia_id']['options']['readonly'] 						    = 'readonly';
 
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
@@ -101,6 +104,7 @@
 	{
 		$edicaoCampos = array
 		(
+			//$modelClass.'.id_controle',$modelClass.'.familia_id','#',
 			$modelClass.'.id_controle','#',
 			$modelClass.'.tipo_processo_id',
 			$modelClass.'.usuario_id','#',
@@ -175,6 +179,7 @@
 	
 	if ($action=='editar')
 	{
+/*
 		//desativando campos que não podem ser editados
         $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';
         $campos[$modelClass]['usuario_id']['options']['disabled'] 							= 'disabled';
@@ -189,7 +194,7 @@
         $campos[$modelClass]['comarca_id']['options']['disabled'] 							= 'disabled';
         if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
         $campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
-
+*/
 		// subformulário só para processos
 		$nomeSubForm = 'sub_form_processos';
 

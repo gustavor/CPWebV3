@@ -241,5 +241,21 @@ class Processo extends AppModel {
 		}
 		return true;
 	}
+	
+	/**
+	 * Atualizando depois de salvar
+	 * 
+	 */
+	public function afterSave($created)
+	{
+		if ($created)
+		{
+			$idProcesso =  $this->getLastInsertID();
+			if ($idProcesso)
+			{
+				$this->saveField('familia_id',$idProcesso);
+			}
+		}
+	}
 }
 ?>

@@ -218,7 +218,7 @@ COLLATE = utf8_general_ci;
 DROP TABLE IF EXISTS `processos` ;
 
 CREATE  TABLE IF NOT EXISTS `processos` (
-  `id` INT(11) NOT NULL ,
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
   `distribuicao` DATE NOT NULL ,
@@ -238,7 +238,7 @@ CREATE  TABLE IF NOT EXISTS `processos` (
   `operacao_contrato` TEXT NULL ,
   `numero` VARCHAR(30) NOT NULL ,
   `numero_auxiliar` VARCHAR(30) NOT NULL ,
-  `familia_id` INT(11) NOT NULL DEFAULT 0 ,
+  `familia_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_comarcas1` (`comarca_id` ASC) ,
   INDEX `fk_processos_status1` (`status_id` ASC) ,
