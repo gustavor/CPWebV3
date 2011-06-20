@@ -179,7 +179,7 @@
 	
 	if ($action=='editar')
 	{
-/*
+
 		//desativando campos que não podem ser editados
         $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';
         $campos[$modelClass]['usuario_id']['options']['disabled'] 							= 'disabled';
@@ -194,7 +194,7 @@
         $campos[$modelClass]['comarca_id']['options']['disabled'] 							= 'disabled';
         if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
         $campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
-*/
+
 		// subformulário só para processos
 		$nomeSubForm = 'sub_form_processos';
 
@@ -287,7 +287,17 @@
 
 	if ($action=='listar' || $action == 'filtrar')	
 	{
-		$listaCampos = array($modelClass.'.distribuicao','TipoProcesso.nome',$modelClass.'.numero',$modelClass.'.numero_auxiliar');
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			foreach($_arrModel as $_model => $_arrCampos)
+			{
+				if ($_model==$modelClass)
+				{
+					$this->data[$_linha][$modelClass]['id_controle'] = 'VEBH-'.str_repeat('0',5-strlen($this->data[$_linha][$modelClass]['id'])).$this->data[$_linha][$modelClass]['id'];
+				}
+			}
+		}
+		$listaCampos = array($modelClass.'.id_controle',$modelClass.'.distribuicao','TipoProcesso.nome',$modelClass.'.numero',$modelClass.'.numero_auxiliar');
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
 	}
