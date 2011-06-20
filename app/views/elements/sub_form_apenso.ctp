@@ -5,10 +5,8 @@
 <input type='submit' class='btEdicao' name='btApensoSalvar' id='btApensoSalvar' value='Salvar' />
 <br /><br />
 <?php foreach($subFormApenso['ids'] as $_id => $_numero) { ?>
-	<?php if ($_id != $id ) { ?>
-		<label><?php echo 'VEBH-'.str_repeat('0',5-strlen($_id)).$_id.' - '.$_numero; ?></label>
-		<!-- <label><img src='<?php echo Router::url('/'); ?>/img/bt_excluir.png' border='0' /></label> -->
-		<br />
-	<?php } ?>
+	<label><?php echo 'VEBH-'.str_repeat('0',5-strlen($_id)).$_id.' - '.$_numero; ?></label>
+	<!-- <label><img src='<?php echo Router::url('/'); ?>/img/bt_excluir.png' border='0' /></label> -->
+	<br />
 <?php } ?>
 </div>
