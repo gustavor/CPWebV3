@@ -25,7 +25,7 @@ class AppController extends Controller {
 	 * 
 	 * @access public
 	 */
-	public $components = array('Auth','Session');
+	public $components = array('Auth','Session','DebugKit.Toolbar');
 
 	/**
 	 * Antes do Filtro
