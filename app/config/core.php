@@ -287,7 +287,7 @@ Configure::write('Cache.check', true);
  *
  * Memcache (http://www.danga.com/memcached/)
  */
-/*Cache::config('default', array(
+Cache::config('default', array(
 		'engine' => 'Memcache', //[required]
 		'duration'=> 3600, //[optional]
 		'probability'=> 100, //[optional]
@@ -297,5 +297,5 @@ Configure::write('Cache.check', true);
  		), //[optional]
  		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
  ));
-*/
-Cache::config('default', array('engine' => 'File'));
+
+//Cache::config('default', array('engine' => 'File'));

@@ -3,7 +3,7 @@
 	$campos[$modelClass]['id']['options']['label']['text']								= 'Processo';
 	
 	$campos[$modelClass]['familia_id']['options']['type'] 							    = 'text';
-	$campos[$modelClass]['familia_id']['options']['readonly'] 						    = 'readonly';
+	//$campos[$modelClass]['familia_id']['options']['readonly'] 						    = 'readonly';
 
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
@@ -105,8 +105,8 @@
 	{
 		$edicaoCampos = array
 		(
-			//$modelClass.'.id_controle',$modelClass.'.familia_id','#',
-			$modelClass.'.id_controle','#',
+			$modelClass.'.id_controle',$modelClass.'.familia_id','#',
+			//$modelClass.'.id_controle','#',
 			$modelClass.'.tipo_processo_id',
 			$modelClass.'.usuario_id','#',
 			$modelClass.'.status_id',

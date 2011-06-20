@@ -209,7 +209,7 @@ select
 #subFormApenso,
 #sub_form
 {
-	margin: 0px 0px 0px 135px;
+	margin: 50px 0px 0px 135px;
 	height: 150px;
 	width: 596px;
 	-moz-border-radius: 6px;
@@ -319,6 +319,7 @@ select
 	background: #cacaca url('../img/bt_novo.png') no-repeat 5px;
 }
 
+#btApensoSalvar,
 #btEdicaoSalvar
 {
 	background: #cacaca url('../img/bt_salvar.png') no-repeat 5px;
