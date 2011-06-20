@@ -258,6 +258,18 @@ class ProcessosController extends AppController {
 		$this->set('link',Router::url('/',true).mb_strtolower(str_replace(' ','_',$pluralHumanName)).'/'.$action);
 		$this->set('pesquisa',$pesquisa);
 	}
+
+    public function remove_apenso( $id = null ){
+        $this->render = null;
+        if ( isset($id) && !empty($id) )
+        {
+			$this->Processo->updateAll(
+				array('Processo.familia_id'	=>	$id),
+				array('Processo.id'			=>	$id)
+			);
+		}
+        $this->redirect($this->referer());
+    }
 }
 
 ?>
