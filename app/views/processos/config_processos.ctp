@@ -8,7 +8,11 @@
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
 	$campos[$modelClass]['id_controle']['estilo_td'] 									= 'style="text-align: center; "';
+
+	$campos[$modelClass]['cliente']['options']['label']['text']							= 'Cliente';
 	
+	$campos[$modelClass]['parte']['options']['label']['text']							= 'Parte Contrária';
+
 	$campos[$modelClass]['tipo_processo_id']['options']['label']['text'] 				= 'Tipo de Processo';
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha uma opção --';
 	$campos[$modelClass]['tipo_processo_id']['options']['style'] 						= 'width:300px';
@@ -301,10 +305,30 @@
 				{
 					$this->data[$_linha][$modelClass]['id_controle'] = 'VEBH-'.str_repeat('0',5-strlen($this->data[$_linha][$modelClass]['id'])).$this->data[$_linha][$modelClass]['id'];
 				}
+				if ($_model=='ContatoProcesso')
+				{
+					$cliente 	= '';
+					$parte		= '';
+					foreach($_arrCampos as $_linha => $_arrCmp)
+					{
+						if ($_arrCmp['tipo_parte_id']==1 && empty($cliente)) 			$cliente 	= $contato[$_arrCmp['contato_id']];
+						if ($_arrCmp['tipo_parte_id']==2 && empty($parte))	 			$parte		= $contato[$_arrCmp['contato_id']];
+						if ($_arrCmp['tipo_parte_id']==1 && $_arrCmp['principal']==1) 	$cliente 	= $contato[$_arrCmp['contato_id']];
+						if ($_arrCmp['tipo_parte_id']==2 && $_arrCmp['principal']==1) 	$parte		= $contato[$_arrCmp['contato_id']];
+					}
+					if ($cliente!='')	$this->data[$_linha][$modelClass]['cliente'] 	= $cliente;
+					if ($parte!='')		$this->data[$_linha][$modelClass]['parte']		= $parte;
+				}
 			}
 		}
-		$listaCampos = array($modelClass.'.id_controle',$modelClass.'.distribuicao','TipoProcesso.nome',$modelClass.'.numero',$modelClass.'.numero_auxiliar');
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			if (!isset($this->data[$_linha][$modelClass]['cliente'])) 	$this->data[$_linha][$modelClass]['cliente'] 	= '';
+			if (!isset($this->data[$_linha][$modelClass]['parte'])) 	$this->data[$_linha][$modelClass]['parte'] 		= '';
+		}
+		$listaCampos = array($modelClass.'.id_controle',$modelClass.'.distribuicao','TipoProcesso.nome','Processo.cliente','Processo.parte',$modelClass.'.numero',$modelClass.'.numero_auxiliar');
 		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
 	}
+	//pr($this->data);
 ?>

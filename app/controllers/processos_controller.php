@@ -95,6 +95,8 @@ class ProcessosController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
+		$this->loadModel('Contato');			$this->set('contato',$this->Contato->find('list'));
+		$this->loadModel('TipoParte');			$this->set('tipo_parte',$this->TipoParte->find('list'));
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
 
