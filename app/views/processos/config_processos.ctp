@@ -6,12 +6,15 @@
 	$campos[$modelClass]['familia_id']['options']['readonly'] 						    = 'readonly';
 
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
+	$campos[$modelClass]['id_controle']['thOff']											= true;
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
 	$campos[$modelClass]['id_controle']['estilo_td'] 									= 'style="text-align: center; "';
 
 	$campos[$modelClass]['cliente']['options']['label']['text']							= 'Cliente';
+	$campos[$modelClass]['cliente']['thOff']											= true;
 	
 	$campos[$modelClass]['parte']['options']['label']['text']							= 'Parte Contrária';
+	$campos[$modelClass]['parte']['thOff']												= true;
 
 	$campos[$modelClass]['tipo_processo_id']['options']['label']['text'] 				= 'Tipo de Processo';
 	$campos[$modelClass]['tipo_processo_id']['options']['empty'] 						= '-- escolha uma opção --';
@@ -49,7 +52,7 @@
 	$campos[$modelClass]['distribuicao']['options']['dateFormat'] 						= 'DMY';
 	$campos[$modelClass]['distribuicao']['options']['timeFormat'] 						= '24';
 	$campos[$modelClass]['distribuicao']['mascara'] 									= 'data';
-	$campos[$modelClass]['distribuicao']['estilo_th'] 									= 'width="200px"';
+	$campos[$modelClass]['distribuicao']['estilo_th'] 									= 'width="150px"';
 	$campos[$modelClass]['distribuicao']['estilo_td'] 									= 'style="text-align: center; "';
 
 	$campos[$modelClass]['comarca_id']['options']['label']['text'] 						= 'Comarca de Origem';
@@ -309,15 +312,15 @@
 				{
 					$cliente 	= '';
 					$parte		= '';
-					foreach($_arrCampos as $_linha => $_arrCmp)
+					foreach($_arrCampos as $_l => $_arrCmp)
 					{
 						if ($_arrCmp['tipo_parte_id']==1 && empty($cliente)) 			$cliente 	= $contato[$_arrCmp['contato_id']];
 						if ($_arrCmp['tipo_parte_id']==2 && empty($parte))	 			$parte		= $contato[$_arrCmp['contato_id']];
 						if ($_arrCmp['tipo_parte_id']==1 && $_arrCmp['principal']==1) 	$cliente 	= $contato[$_arrCmp['contato_id']];
 						if ($_arrCmp['tipo_parte_id']==2 && $_arrCmp['principal']==1) 	$parte		= $contato[$_arrCmp['contato_id']];
 					}
-					if ($cliente!='')	$this->data[$_linha][$modelClass]['cliente'] 	= $cliente;
-					if ($parte!='')		$this->data[$_linha][$modelClass]['parte']		= $parte;
+					$this->data[$_linha][$modelClass]['cliente'] 	= $cliente;
+					$this->data[$_linha][$modelClass]['parte']		= $parte;
 				}
 			}
 		}
@@ -327,7 +330,7 @@
 			if (!isset($this->data[$_linha][$modelClass]['parte'])) 	$this->data[$_linha][$modelClass]['parte'] 		= '';
 		}
 		$listaCampos = array($modelClass.'.id_controle',$modelClass.'.distribuicao','TipoProcesso.nome','Processo.cliente','Processo.parte',$modelClass.'.numero',$modelClass.'.numero_auxiliar');
-		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="200px"';
+		$campos[$modelClass]['numero']['estilo_th'] 	= 'width="180px"';
 		$campos[$modelClass]['numero']['estilo_td'] 	= 'class="numero_td"';
 	}
 	//pr($this->data);

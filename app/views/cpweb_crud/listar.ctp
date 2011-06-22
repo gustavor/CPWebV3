@@ -69,7 +69,10 @@
 			$_arrField = explode('.',$_field);
 			$titulo = isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_field;
 			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_th']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_th'] : '';
-			echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
+			if (isset($campos[$_arrField[0]][$_arrField[1]]['thOff']))
+				echo "<th $estilo>$titulo</th>\n";
+			else
+				echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
 		}
 		$totFerramentas = count($listaFerramentas);
 		echo "<th colspan='$totFerramentas'>Ferramentas</th>";
