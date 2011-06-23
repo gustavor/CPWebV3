@@ -158,8 +158,10 @@ class ProcessosController extends AppController {
 
         $this->set(compact('titulo'));
 		$this->CpwebCrud->editar($id);
-		$apensos = $this->Processo->find('list',array('conditions'=>array('Processo.familia_id'=>$this->data['Processo']['familia_id'])));
-		$this->set(compact('apensos'));
+		if( isset($this->data['Processo']['familia_id'])){
+            $apensos = $this->Processo->find('list',array('conditions'=>array('Processo.familia_id'=>$this->data['Processo']['familia_id'])));
+		    $this->set(compact('apensos'));
+        }
 		//pr($this->data);
 	}
 	

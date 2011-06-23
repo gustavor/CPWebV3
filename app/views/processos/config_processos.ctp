@@ -270,7 +270,7 @@
 		
 		// apenso
 		$subFormApenso 			= array();
-		$subFormApenso['ids'] 	= $apensos;
+		$subFormApenso['ids'] 	= isset($apensos) ? $apensos : null;
 
 		// jogando tudo na view
 		$this->set('subFormApenso',$subFormApenso);
