@@ -556,5 +556,138 @@ class RelatoriosController extends AppController {
 		$this->set('relatorio',$relatorio);
 		$this->render($render);
 	}
+
+	/**
+	 * Exibe a Lista de Audiências
+	 * 
+	 * @param	string	$relatorio			Nome do Relatório
+	 * @param	string	$layout				Nome do layout a ser usado no relatório
+	 * @param	array	$campoLista			Campos que vão compor a lista
+	 * @param	array	$viewLista			Outras visões que serão incorporadas
+	 * @param	array	$paramRelatorio		Configurações para o Relatório
+	 * @param	string	$modeloPrincipal	Modelo principal que irá ser paginado ou listado
+	 * @return void
+	 */
+	public function fil_audiencias($relatorio='', $layout='')
+	{
+		// dados da lista
+		$dataLista		= array();
+
+		// configs na view usados na lista
+		$viewLista 		= array('audiencias'=>'Audiencias','contatos'=>'Contato','tipoprocesso'=>'TipoProcesso');
+
+		// campos que vão compor a lista
+		$camposLista	= array('TipoProcesso.nome','Processo.id','Processo.numero','Processo.contatos','Audiencia.created');
+
+		// parametros do relatório
+		$paramRelatorio['orientacao_pagina'] 	= 'L';
+		$paramRelatorio['titulo'] 				= 'Relatório de Audiências';
+
+		// filtros
+		$dataFiltro = array();
+		$this->loadModel('Contato');
+		$dataFiltro['contato']['options']['options'] = $this->Contato->find('list',array('conditions'=>array('length(Contato.nome) <'=>100)));
+		$this->loadModel('TipoProcesso');
+		$dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list',array('conditions'=>array('length(TipoProcesso.nome) <'=>100)));
+
+		// carregando o modelo principal
+		$this->loadModel('Audiencia');
+
+		// se o filtro foi postado
+		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+		{
+/*
+			// debug
+			//pr($this->data);
+			$condicoes = array();
+			$this->loadModel('ContatoProcesso');
+			
+			// filtrando pelo tipo de processo
+			if (isset($this->data[$this->action]['tipoprocesso']) && !empty($this->data[$this->action]['tipoprocesso']))
+			{
+				$condicoes['TipoProcesso.id'] = $this->data[$this->action]['tipoprocesso'];
+			}
+
+			// filtrando os processos do contato solicitado
+			if (isset($this->data[$this->action]['contato']) && !empty($this->data[$this->action]['contato']))
+			{
+				$dataContatosProcessos = $this->ContatoProcesso->find('all',array('conditions'=>array('ContatoProcesso.contato_id'=>$this->data[$this->action]['contato'])));
+				$idsProcessos 	= array();
+				foreach($dataContatosProcessos as $linha => $_arrModelos)
+				{
+					foreach($_arrModelos as $_modelo => $_arrCampos)
+					{
+						if (isset($_arrCampos['processo_id'])) array_unshift($idsProcessos,$_arrCampos['processo_id']);
+					}
+				}
+				$condicoes['Processo.id'] = $idsProcessos;
+			}
+			
+			// filtrando pela data inicio e fim (filtra em create)
+
+			// recuperando as audiências solicitadas pelo filtro
+			$_dataLista = (!empty($layout)) ? $this->Audiencia->find('all',array('conditions'=>$condicoes),null,array('order'=>'Audiencia.id')) : $this->paginate('Audiencia',$condicoes);
+			//pr($_dataLista);
+
+			// separando todos os ids de processos
+			$arrIdsProcessos = array();
+			foreach($_dataLista as $_linha => $_arrModel) if (!in_array($_arrModel['Processo']['id'],$arrIdsProcessos)) array_push($arrIdsProcessos,$_arrModel['Processo']['id']);
+			//pr($arrIdsProcessos);
+
+			// recuperando todos os contato_processos do processos envolvidos
+			$dataContatosProcessos = $this->ContatoProcesso->find('all',array('conditions'=>array('ContatoProcesso.processo_id'=>$arrIdsProcessos)));
+			//pr($dataContatosProcessos);
+
+			// separando todos os ids de contatos
+			$arrIdsContatos	= array();
+			$arrProcesConta = array();
+			foreach($dataContatosProcessos as $_linha => $_arrModel)
+			{
+				$idContato 	= $_arrModel['ContatoProcesso']['contato_id'];
+				$idProcesso	= $_arrModel['ContatoProcesso']['processo_id'];
+				if (!in_array($idContato,$arrIdsContatos)) array_push($arrIdsContatos,$idContato);
+				if (!isset($arrProcesConta[$idProcesso])) $arrProcesConta[$idProcesso] = array();
+				if (!in_array($idContato,$arrProcesConta[$idProcesso])) array_push($arrProcesConta[$idProcesso],$idContato);
+			}
+			//pr($arrProcesConta);
+
+			// recuperando todos os contatos envolvidos
+			$this->loadModel('Contato');
+			$dataContatos = $this->Contato->find('list',array('conditions'=>array('Contato.id'=>$arrIdsContatos)));
+			//pr($dataContatos);
+
+			// re-escrevendo a data lista incrementando o nome de cada contato
+			foreach($_dataLista as $_linha => $_arrModel)
+			{
+				$dataLista[$_linha] = $_arrModel;
+				foreach($arrProcesConta as $_idProcesso => $_arrIdsContatos)
+				{
+					if ($_arrModel['Processo']['id'] == $_idProcesso)
+					{
+						$dataLista[$_linha]['Processo']['contatos'] = '';
+						foreach($_arrIdsContatos as $_idContato)
+						{
+							$dataLista[$_linha]['Processo']['contatos'] .= $dataContatos[$_idContato].', ';
+						}
+					}
+				}
+				$dataLista[$_linha]['Processo']['id'] = 'VEBH-'.str_repeat('0',5-strlen($dataLista[$_linha]['Processo']['id'])).$dataLista[$_linha]['Processo']['id'];
+			}
+			//pr($dataLista);
+*/
+			// definindo o que renderizar
+			$render = (!empty($layout)) ? $layout : 'listar';
+		} else
+		{
+			$render = $this->action;
+		}
+
+		// atualizando a view
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio'));
+		$this->set('modelo','Audiencia');
+		$this->set('relatorio','audiencia');
+
+		$this->render($render);
+	}
 }
 ?>
