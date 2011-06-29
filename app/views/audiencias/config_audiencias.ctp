@@ -33,6 +33,13 @@
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] = $advogados;
 
 
+	// para relatórios de audiências
+	$campos['Audiencia']['responsavel']['options']['label']['text']					= 'Responsável';
+	$campos['Audiencia']['ordinal_orgao']['options']['label']['text']				= 'Nr.Orgão';
+	$campos['Audiencia']['orgao']['options']['label']['text']						= 'Orgão';
+	$campos['Audiencia']['obs']['options']['label']['text']							= 'Obs';
+	$campos['Audiencia']['processo_id']['options']['label']['text']					= 'Processo';
+
 	if ($action=='editar' || $action=='excluir')
 	{
 		$edicaoCampos = array($modelClass.'.data','#',$modelClass.'.hora',$modelClass.'.iscancelada','#',$modelClass.'.tipo_audiencia_id',$modelClass.'.processo_id','#',$modelClass.'.usuario_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');

@@ -11,9 +11,11 @@
 	$dataFiltro['contato']['options']['empty'] 				= '-- escolha uma opção --';
 	$dataFiltro['contato']['options']['style'] 				= 'width: 320px;';
 
+	$dataFiltro['advogado']['options']['label']['text'] 	= 'Adv.Responsável';
 	$dataFiltro['advogado']['options']['default'] 			= 0;
 	$dataFiltro['advogado']['options']['empty'] 			= '-- escolha uma opção --';
 	$dataFiltro['advogado']['options']['style'] 			= 'width: 320px;';
+	$dataFiltro['advogado']['options']['options'] 			= $dataFiltro['usuario']['options']['options'];
 
 	$dataFiltro['ordem']['options']['label']['text'] 		= 'Ordenar por';
 	$dataFiltro['ordem']['options']['default'] 				= 0;
@@ -56,8 +58,9 @@
 	<div id="campos">
 		<ul>
 			<li><?php echo $this->Form->input('tipoprocesso',$dataFiltro['tipoprocesso']['options']); ?></li>
-			<li><?php echo $this->Form->input('advogado',$dataFiltro['contato']['options']); ?></li>
 			<li><?php echo $this->Form->input('contato',$dataFiltro['contato']['options']); ?></li>
+			<br />
+			<li><?php echo $this->Form->input('advogado',$dataFiltro['advogado']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_ini',$dataFiltro['data_ini']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_fim',$dataFiltro['data_fim']['options']); ?></li>
 		</ul>
