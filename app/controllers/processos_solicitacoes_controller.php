@@ -118,6 +118,16 @@ class ProcessosSolicitacoesController extends AppController {
 	public function filtrar()
 	{
 		$this->CpwebCrud->filtrar();
+        $idsAdvResp = array();
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			array_push($idsAdvResp,$_arrModel['Processo']['usuario_id']);
+		}
+		if (count($idsAdvResp))
+		{
+			$advResp = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsAdvResp)));
+			$this->set(compact('advResp'));
+		}
 	}
 
 	/**
