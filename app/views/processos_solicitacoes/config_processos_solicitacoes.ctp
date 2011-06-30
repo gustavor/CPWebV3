@@ -191,8 +191,8 @@
             $protocolar = 6;
             $nucleoJuridico = $this->Form->data['Processo']['tipo_processo_id'];
             $protocolo = 9;
-            $redirecionamentos['Aperfeiçoar']['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$processoId.'/'.$aperfeicoar.'/'.$nucleoJuridico.'/'.$solicitanteId.'/'.$atribuidoId.'\'';
-            $redirecionamentos['Protocolo']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$processoId.'/'.$protocolar.'/'.$protocolo.'/'.$solicitanteId.'/0'.'\'';
+            $redirecionamentos['Aperfeiçoar']['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$this->data['ProcessoSolicitacao']['id'].'/'.$processoId.'/'.$aperfeicoar.'/'.$nucleoJuridico.'/'.$solicitanteId.'/'.$atribuidoId.'\'';
+            $redirecionamentos['Protocolo']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$this->data['ProcessoSolicitacao']['id'].'/'.$processoId.'/'.$protocolar.'/'.$protocolo.'/'.$solicitanteId.'/0'.'\'';
         }
 	}
 

@@ -236,8 +236,11 @@ class ProcessosSolicitacoesController extends AppController {
    /**
      * Função para criar novas solicitações
      */
-    public function criaSolicitacao( $processoId = null, $solicitacaoId = null, $departamentoId = null, $solicitanteId = null, $atribuidoId = null )
+    public function criaSolicitacao( $anterior = null, $processoId = null, $solicitacaoId = null, $departamentoId = null, $solicitanteId = null, $atribuidoId = null )
     {
+        $solicitacao_anterior = isset( $anterior ) ? $anterior : null;
+        $this->ProcessoSolicitacao->id = $solicitacao_anterior;
+        $this->ProcessoSolicitacao->saveField( 'finalizada', 1 );
         $data['processo_id'] = isset( $processoId ) ? $processoId : null;
         $data['solicitacao_id'] = isset( $solicitacaoId ) ? $solicitacaoId : null;
         $data['usuario_solicitante'] = isset( $solicitanteId ) ? $solicitanteId : null;
@@ -245,12 +248,12 @@ class ProcessosSolicitacoesController extends AppController {
         $data['departamento_id'] = isset( $departamentoId ) ? $departamentoId : null;
         $data['tipo_solicitacao_id'] = 3;
         $data['finalizada'] = 0;
-        debug($data);
         $this->ProcessoSolicitacao->create();
         if( $this->ProcessoSolicitacao->save( $data ) )
         {
             $this->redirect( array( 'controller' => 'processos_solicitacoes', 'action' => 'editar' , $this->ProcessoSolicitacao->id ) );
         }
+
     }
 }
 ?>
