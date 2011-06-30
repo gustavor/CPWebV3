@@ -175,15 +175,15 @@
 			unset($redirecionamentos['Atribuir a Adv. Resp.']);
 		}
 
-        //somente o usuário atribuido pode finalizar sua solicitação
-        if( isset( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] ) && ( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] != $this->Session->read( 'Auth.Usuario.id' ) ) )
+        //no caso da solicitação ser de petição pronta para revisão, colocar botão "Solicitar Aperfeiçoamento" e "Protocoloar"
+        if( (isset( $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] ) &&
+            $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] == 2) &&
+            (isset( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido']) &&
+            !empty($this->Form->data['ProcessoSolicitacao']['usuario_atribuido'])) &&
+            $this->Form->data['ProcessoSolicitacao']['finalizada'] != 1
+        )
         {
             unset($redirecionamentos['Finalizar']);
-        }
-
-        //no caso da solicitação ser de petição pronta para revisão, colocar botão "Solicitar Aperfeiçoamento" e "Protocoloar"
-        if( isset( $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] ) && $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] == 2 )
-        {
             $processoId = $this->Form->data['Processo']['id'];
             $solicitanteId = $this->Session->read( 'Auth.Usuario.id' );
             $atribuidoId = $this->Form->data['ProcessoSolicitacao']['usuario_solicitante'];
