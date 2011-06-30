@@ -96,6 +96,8 @@
 
 	$campos['TipoPeticao']['nome']['options']['label']['text'] 								= 'Tipo de Petição';
 	$campos['TipoPeticao']['nome']['estilo_th'] 											= 'width="140px"';
+	
+	$campos['Processo']['adv']['options']['label']['text']									= 'Adv.Responsável';
 
 	// descobrindo o id do processo
 	$idProcesso	= isset($idProcesso) ? $idProcesso : '';	
@@ -198,14 +200,16 @@
 
 	if ($action=='listar' || $action=='filtrar')	
 	{
-		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','TipoParecer.nome','TipoPeticao.nome');
-		
+		//$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','TipoParecer.nome','TipoPeticao.nome');
+		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','Processo.adv','TipoParecer.nome','TipoPeticao.nome');
+
 		// criando o campo 
 		foreach($this->data as $_linha => $_modelos)
 		{
 			$_usuarioAtribuido = $_modelos['ProcessoSolicitacao']['usuario_atribuido'];
             $_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
 			$this->data[$_linha]['ProcessoSolicitacao']['idProcesso'] = 'VEBH - '.str_repeat('0',5-strlen($_idProcesso)).$_idProcesso;
+			$this->data[$_linha]['Processo']['adv'] = $advResp[$_modelos['Processo']['usuario_id']];
 			foreach($_modelos as $_modelo => $_campos)
 			{
 				foreach($_campos as $_campo => $_valor)
