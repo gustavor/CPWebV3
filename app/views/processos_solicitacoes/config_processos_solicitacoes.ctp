@@ -140,6 +140,20 @@
 
 	if ($action=='editar')
 	{
+		if (isset($fluxos) && count($fluxos))
+		{
+			foreach($fluxos as $_linha => $_arrModel)
+			{
+				if (isset($_arrModel['Fluxo']['nome_botao']) && !empty($_arrModel['Fluxo']['nome_botao']))
+				{
+					if (isset($this->data['ProcessoSolicitacao']['usuario_atribuido']) && !empty($this->data['ProcessoSolicitacao']['usuario_atribuido']) )
+					{
+						$redirecionamentos[ ucwords(mb_strtolower($_arrModel['Fluxo']['nome_botao'])) ]['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/processa_fluxo/'.$this->data['ProcessoSolicitacao']['id'].'/'.$_arrModel['Fluxo']['id'].'/'.$this->data['ProcessoSolicitacao']['solicitacao_id'].'\'';
+					}
+				}
+			}
+		}
+		
 		// se possui processo cria-se um botão de redirecionamento para o processo
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id']))
 		{

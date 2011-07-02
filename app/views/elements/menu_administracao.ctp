@@ -59,6 +59,8 @@
     $listaMenu['profissoes']['url']             = Router::url('/',true).'profissoes';
     $listaMenu['tipos_eventos']['text']         = 'Tipos Eventos';
     $listaMenu['tipos_eventos']['url']          = Router::url('/',true).'tipos_eventos';
+    $listaMenu['fluxos']['text']  		        = 'Fluxos';
+    $listaMenu['fluxos']['url']         		= Router::url('/',true).'fluxos';
 
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;

@@ -141,6 +141,33 @@ class ProcessosSolicitacoesController extends AppController {
 		$this->CpwebCrud->editar($id);
 		if (isset($this->data))
 		{
+			$idSolicitacao 	= $this->data['ProcessoSolicitacao']['solicitacao_id'];
+			$idComplexidade	= $this->data['ProcessoSolicitacao']['complexidade_id'];
+
+			// recupeando contatos
+			$this->loadModel('ContatoProcesso');
+			$this->ContatoProcesso->recursive = -1;
+			$idProcesso = $this->data['ProcessoSolicitacao']['processo_id'];
+			$contatos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.processo_id'=>$idProcesso)));
+
+			// recuperando fluxos. Se tem contato_id só vai se estiver em $contatos
+			$this->loadModel('Fluxo');
+			$this->Fluxo->recursive = -1;
+			$_fluxos = $this->Fluxo->find('all',array('conditions'=>array('Fluxo.solicitacao_id'=>$idSolicitacao,'Fluxo.complexidade_id'=>$idComplexidade)));
+			$fluxos = array();
+			foreach($_fluxos as $_linha => $_arrModel)
+			{
+				$idContato = $_arrModel['Fluxo']['contato_id'];
+				if ($idContato>0 && !empty($idContato))
+				{
+					if (in_array($idContato,$contatos)) $fluxos[$_linha] = $_arrModel;
+				} else
+				{
+					$fluxos[$_linha] = $_arrModel;
+				}
+			}
+
+			$this->set(compact('fluxos'));
 			// descobrindo o usuário atribuido por usuário atribuído ou usuário solicitante
 			if (
 					(
@@ -275,5 +302,96 @@ class ProcessosSolicitacoesController extends AppController {
         }
 
     }
+
+	/**
+	 * 
+	 * @param	integer		$id			Id do Processo solicitação
+	 * @param	integer		$idFluxo	Id do Fluxo
+	 * @param	integer		$idProcesso	Id do Processo
+	 */
+	public function processa_fluxo($id=null, $idFluxo=null, $idProcesso=null)
+	{
+		$alertas = array();
+
+		// recuperando o fluxo
+		$this->loadModel('Fluxo');
+		$this->Fluxo->recursive = -1;
+		$fluxo = $this->Fluxo->read(null, $idFluxo);
+
+		// recuperando o processo
+		$this->loadModel('Processo');
+		$this->Processo->recursive = -1;
+		$processo = $this->Processo->read(null,$idProcesso); 
+
+		// recuperando o processosolicitação
+		$this->loadModel('ProcessoSolicitacao');
+		$this->ProcessoSolicitacao->recursive = -1;
+		$processo_solicitacao = $this->ProcessoSolicitacao->read(null,$id);
+
+		// fechar processo solicitação anterior
+		if ($fluxo['Fluxo']['fechar_anterior'])
+		{
+			$this->ProcessoSolicitacao->id = $id;
+			$this->ProcessoSolicitacao->saveField('finalizada',1);
+			array_push($alertas,'A Solicitação foi finalizada !!!');
+		}
+		
+		// atualizar sistema (gera uma novo cadastro de processo solicitação)
+		if ($fluxo['Fluxo']['atualizar_sistema'])
+		{
+			$data['ProcessoSolicitacao'] = array();
+			$data['ProcessoSolicitacao']['processo_id'] 			= $idProcesso;
+			$data['ProcessoSolicitacao']['solicitacao_id'] 			= 5;
+			$data['ProcessoSolicitacao']['usuario_solicitante'] 	= $processo_solicitacao['ProcessoSolicitacao']['usuario_solicitante'];
+			$data['ProcessoSolicitacao']['departamento_id'] 		= (($processo['Processo']['tipo_processo_id'])+2);
+			$data['ProcessoSolicitacao']['tipo_solicitacao_id'] 	= 3;
+			$data['ProcessoSolicitacao']['finalizada'] 				= 0;
+			$data['ProcessoSolicitacao']['usuario_atribuido'] 		= 0;
+
+			$this->ProcessoSolicitacao->create();
+			if ($this->ProcessoSolicitacao->save($data))
+			{
+				array_push($alertas,'Um Atualização de Sistema foi solicitada !!!');
+			} else
+			{
+				die('Erro ao criar novo cadastro de processos e solicitações!!!');
+			}
+		}
+		
+		$this->ProcessoSolicitacao->create();
+		$data['ProcessoSolicitacao'] = array();
+		$data['ProcessoSolicitacao']['processo_id'] 			= $idProcesso;
+		$data['ProcessoSolicitacao']['solicitacao_id'] 			= $fluxo['Fluxo']['proxima_id'];
+		$data['ProcessoSolicitacao']['usuario_solicitante'] 	= $processo_solicitacao['ProcessoSolicitacao']['usuario_solicitante'];
+		switch($fluxo['Fluxo']['departamento_id'])
+		{
+			case 1:
+				$data['ProcessoSolicitacao']['departamento_id'] = $processo['Processo']['tipo_processo_id'];
+				break;
+			case 2:
+				$data['ProcessoSolicitacao']['departamento_id'] = (($processo['Processo']['tipo_processo_id'])+2);
+				break;
+			default:
+				$data['ProcessoSolicitacao']['departamento_id'] = $fluxo['Fluxo']['departamento_id'];
+				break;
+		}
+		$data['ProcessoSolicitacao']['tipo_solicitacao_id'] 	= 3;
+		$data['ProcessoSolicitacao']['finalizada'] 				= 0;
+		if ($fluxo['Fluxo']['atribuir_proxima_advogado'])
+		{
+			$data['ProcessoSolicitacao']['usuario_atribuido'] 	= $processo['Processo']['usuario_id'];
+		} else
+		{
+			$data['ProcessoSolicitacao']['usuario_atribuido'] 	= 0;
+		}
+		if ($this->ProcessoSolicitacao->save($data))
+		{
+			$this->Session->write('alertas',$alertas);
+			$this->redirect(array('controller'=>$this->name,'action'=>'editar',$this->ProcessoSolicitacao->getLastInsertID()));
+		} else
+		{
+			die('Erro ao criar novo cadastro de processos e solicitações!!!');
+		}
+	}
 }
 ?>
