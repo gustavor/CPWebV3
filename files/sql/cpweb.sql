@@ -995,6 +995,25 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 
+-- -----------------------------------------------------
+-- Table `fluxos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fluxos` ;
+
+CREATE  TABLE IF NOT EXISTS `fluxos` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'solicitação_id => id da solicitação atual\n\nproxima_id => id da proxima solicitação\n\ndepartamento_id => id do departamento da proxima solicitação\n\ncontato_id => condição para a regra ser aplicada, o contato do processo deve ser igual ao valor dessa celula, e deve haver um codigio para generalizar (por exemplo, 0) onde todos os processos, qualquer contato, a regra vai ser aplicada\n\natribuir_proxima_advogado => atribuir solicitação que vai ser criada para o advogado responsavel pelo processo\n\nfechar_anterior => não tem que explicar né ? hehe\n\natualizar_sistema => criar solicitação de atualizar sistema do cliente, direcionada ao pool' ,
+  `created` VARCHAR(45) NOT NULL ,
+  `solicitacao_id` INT(11) NOT NULL ,
+  `proxima_id` INT(11) NOT NULL ,
+  `departamento_id` INT(11) NOT NULL ,
+  `contato_id` INT(11) NOT NULL DEFAULT 0 ,
+  `atribuir_proxima_advogado` TINYINT(1)  NOT NULL DEFAULT 0 ,
+  `fechar_anterior` TINYINT(1)  NOT NULL DEFAULT 0 ,
+  `atualizar_sistema` TINYINT(1)  NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
