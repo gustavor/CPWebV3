@@ -148,7 +148,7 @@
 		}
 
 		// fluxos
-		if (isset($fluxos) && count($fluxos))
+		if (isset($fluxos) && count($fluxos) && $this->data['ProcessoSolicitacao']['finalizada'] =! 1)
 		{
 			foreach($fluxos as $_linha => $_arrModel)
 			{
