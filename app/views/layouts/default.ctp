@@ -27,21 +27,13 @@
 <?php echo $scripts_for_layout."\n"; ?>
 </head>
 <body>
-<div id='dialogo'>
+<div id='alerta'>
+	<div id='dialogo'></div>
 	<div id='texto'>
 		<div id='dialogo_fechar' style='float: right;'><a href='<?php $this->here; ?>' id='diagFechar'>Fechar</a></div>
-		<?php 
-			if (isset($alertas))
-			{
-				foreach($alertas as $_alerta)
-				{
-					echo ' - '.$_alerta."<br />\n";
-				}
-			}
-		?>
+		<?php if (isset($alertas)) foreach($alertas as $_alerta) echo ' - '.$_alerta."<br />\n"; ?>
 	</div>
 </div>
-
 <div id="container">
 
 <div id='cabecalho'>

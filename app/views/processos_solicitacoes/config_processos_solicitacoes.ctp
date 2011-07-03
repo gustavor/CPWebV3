@@ -143,8 +143,8 @@
 		// alertas
 		if (isset($alertas))
 		{
-			$on_read_view .= "\n\t".'$("#dialogo").css("display","table");';
-			$on_read_view .= "\n\t".'$("#diagFechar").click(function() { $("#dialogo").fadeOut(); return false; });';
+			$on_read_view .= "\n\t".'$("#alerta").css("display","block");';
+			$on_read_view .= "\n\t".'$("#diagFechar").click(function() { $("#alerta").fadeOut(); return false; });';
 		}
 
 		// fluxos
