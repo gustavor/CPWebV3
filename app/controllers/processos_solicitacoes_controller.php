@@ -136,20 +136,14 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
 	 */
-	public function editar($id=null, $idProcesso=null)
+	public function editar($id=null)
 	{
 		if ($this->Session->check('alertas'))
 		{
 			$this->set('alertas',$this->Session->read('alertas'));
 			$this->Session->delete('alertas');
 		}
-		
-		if (!empty($idProcesso))
-		{
-			echo 'vou lá ...';
-			$this->setIdProcesso($idProcesso);
-		}
-		
+
 		$this->CpwebCrud->editar($id);
 		if (isset($this->data))
 		{
@@ -402,10 +396,7 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->Session->write('alertas',$alertas);
 
 			// redirecionando para edição do processo solicitção criado
-			$novoId = $this->ProcessoSolicitacao->getLastInsertID();
-			/*$link	= Router::url('/',true).'processos_solicitacoes/editar/'.$novoId.'/'.$idProcesso;
-			$this->redirect($link);*/
-			$this->redirect(array('controller'=>$this->name,'action'=>'editar',$novoId));
+			$this->redirect(array('controller'=>$this->name,'action'=>'editar',$this->ProcessoSolicitacao->getLastInsertID()));
 		} else
 		{
 			die('Erro ao criar novo cadastro de processos e solicitações!!!');
