@@ -138,6 +138,11 @@ class ProcessosSolicitacoesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		if ($this->Session->check('alertas'))
+		{
+			$this->set('alertas',$this->Session->read('alertas'));
+			$this->Session->delete('alertas');
+		}
 		$this->CpwebCrud->editar($id);
 		if (isset($this->data))
 		{

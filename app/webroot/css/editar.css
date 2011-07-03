@@ -178,3 +178,35 @@
 {
 	width: 130px;
 }
+
+#dialogo
+{
+	background-color: #000;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 999;
+	display: none;
+	text-align: center;
+	opacity: .7;
+}
+
+#dialogo a
+{
+	text-decoration: none;
+	color: #000;
+}
+
+#dialogo #texto
+{
+	font-weight: bold;
+	padding: 5px;
+	margin: 180px auto;
+	min-height: 150px;
+	width: 50%;
+	border: 6px solid red;
+	-moz-border-radius: 16px;
+	-webkit-border-radius: 16px;
+	background-color: #fff;
+	text-align: left;
+}

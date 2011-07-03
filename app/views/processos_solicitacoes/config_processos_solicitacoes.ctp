@@ -140,6 +140,14 @@
 
 	if ($action=='editar')
 	{
+		// alertas
+		if (isset($alertas))
+		{
+			$on_read_view .= "\n\t".'$("#dialogo").css("display","table");';
+			$on_read_view .= "\n\t".'$("#diagFechar").click(function() { $("#dialogo").fadeOut(); return false; });';
+		}
+
+		// fluxos
 		if (isset($fluxos) && count($fluxos))
 		{
 			foreach($fluxos as $_linha => $_arrModel)
