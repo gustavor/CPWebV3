@@ -138,13 +138,12 @@ class ProcessosSolicitacoesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+		$this->CpwebCrud->editar($id);
 		if ($this->Session->check('alertas'))
 		{
 			$this->set('alertas',$this->Session->read('alertas'));
 			$this->Session->delete('alertas');
 		}
-
-		$this->CpwebCrud->editar($id);
 		if (isset($this->data))
 		{
 			$idSolicitacao 	= $this->data['ProcessoSolicitacao']['solicitacao_id'];
@@ -396,7 +395,7 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->Session->write('alertas',$alertas);
 
 			// redirecionando para edição do processo solicitção criado
-			$this->redirect(array('controller'=>$this->name,'action'=>'editar',$this->ProcessoSolicitacao->getLastInsertID()));
+			$this->redirect(array('controller'=>'processos_solicitacoes','action'=>'editar',$this->ProcessoSolicitacao->getLastInsertID()));
 		} else
 		{
 			die('Erro ao criar novo cadastro de processos e solicitações!!!');

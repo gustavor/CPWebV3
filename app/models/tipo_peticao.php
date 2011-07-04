@@ -24,6 +24,7 @@ class TipoPeticao extends AppModel {
 	public $name			= 'TipoPeticao';
 	public $useTable		= 'tipos_peticoes';
 	public $displayField 	= 'nome';
+	public $order			= 'nome';
 
 	public $validate 		= array
 	(

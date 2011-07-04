@@ -29,6 +29,7 @@
 	$campos[$modelClass]['solicitacao_id']['options']['label']['text'] 						= 'Solicitação';
 	$campos[$modelClass]['solicitacao_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['solicitacao_id']['options']['class']  							= 'edicaoSelect';
+	$campos[$modelClass]['solicitacao_id']['options']['style']  							= 'width: 400px;';
 	if (isset($solicitacoes)) $campos[$modelClass]['solicitacao_id']['options']['options'] 	= $solicitacoes;
 	$campos[$modelClass]['solicitacao_id']['busca_rapida_url'] 								= Router::url('/',true).'solicitacoes/buscar/solicitacao';
 
@@ -130,6 +131,7 @@
 	{
 		$on_read_view .= "\n\t".'$("#'.$modelClass.'SolicitacaoId").focus();';
 		$on_read_view .= "\n\t".'$("#buscaRapidaRespostaProcessoSolicitacaoSolicitacaoId").click(function() { getTipoSolicitacao($("#ProcessoSolicitacaoSolicitacaoId").find("option[selected=true]").val()); });';
+		$on_read_view .= "\n\t".'getTipoSolicitacao($("#ProcessoSolicitacaoSolicitacaoId").find("option[selected=true]").val());';
 	}
 
 	if ($action=='editar' || $action=='listar' || $action=='filtro')

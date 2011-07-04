@@ -32,6 +32,6 @@
 	if ($action=='listar')	
 	{
 		$listaCampos 									= array($modelClass.'.nome',$modelClass.'.created');
-		$campos[$modelClass]['nome']['estilo_th'] 		= 'width="250px"';
+		$campos[$modelClass]['nome']['estilo_th'] 		= 'width="450px"';
 	}
 ?>

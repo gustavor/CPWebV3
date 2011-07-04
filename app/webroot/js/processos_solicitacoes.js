@@ -11,23 +11,26 @@
 				$("#divProcessoSolicitacaoComplexidadeId").fadeOut();
 				$("#divProcessoSolicitacaoTipoParecerId").fadeOut();
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeOut();
-				setComboSelecao('divProcessoSolicitacaoTipoPeticaoId','');
+/*				setComboSelecao('divProcessoSolicitacaoTipoPeticaoId','');
 				setComboSelecao('divProcessoSolicitacaoTipoParecerId','');
 				setComboSelecao('divProcessoSolicitacaoComplexidadeId','');
+*/
 				break;
 			case '7': //parecer
 				$("#divProcessoSolicitacaoTipoParecerId").fadeIn().delay(100).focus();
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeOut();
 				$("#divProcessoSolicitacaoComplexidadeId").fadeIn();
-				setComboSelecao('divProcessoSolicitacaoTipoPeticaoId','');
+/*				setComboSelecao('divProcessoSolicitacaoTipoPeticaoId','');
 				setComboSelecao('divProcessoSolicitacaoComplexidadeId','');
+*/
 				break;
 			case '1': //peticao
 				$("#divProcessoSolicitacaoTipoParecerId").fadeOut();
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeIn().delay(100).focus();
 				$("#divProcessoSolicitacaoComplexidadeId").fadeIn();
-				setComboSelecao('divProcessoSolicitacaoTipoParecerId','');
+/*				setComboSelecao('divProcessoSolicitacaoTipoParecerId','');
 				setComboSelecao('divProcessoSolicitacaoComplexidadeId','');
+*/
 				break;
 		}
 	}
