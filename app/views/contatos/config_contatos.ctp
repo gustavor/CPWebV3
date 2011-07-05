@@ -6,7 +6,7 @@
 	$campos['Contato']['endereco']['options']['label']['text'] 		= 'Endereço';
 	$campos['Contato']['endereco']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
 	
-	$campos['Contato']['email']['options']['label']['text'] 		= 'e-mail';
+	$campos['Contato']['email']['options']['label']['text'] 		= 'E-mail';
 	$campos['Contato']['email']['options']['style'] 				= 'width: 408px; text-transform: lowercase; ';
 
    	$campos['Contato']['tipo_contato']['options']['label']['text']  = 'Tipo do Contato';
