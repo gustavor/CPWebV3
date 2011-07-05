@@ -1005,7 +1005,7 @@ CREATE  TABLE IF NOT EXISTS `fluxos` (
   `created` VARCHAR(45) NOT NULL ,
   `solicitacao_id` INT(11) NOT NULL ,
   `proxima_id` INT(11) NOT NULL ,
-  `complexidade_id` INT(11) NOT NULL ,
+  `complexidade_id` INT(11) NULL ,
   `departamento_id` INT(11) NOT NULL ,
   `contato_id` INT(11) NULL DEFAULT 0 ,
   `atribuir_proxima_advogado` TINYINT(1)  NOT NULL DEFAULT 0 ,

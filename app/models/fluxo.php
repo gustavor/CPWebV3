@@ -26,11 +26,6 @@ class Fluxo extends AppModel {
 	public $displayField= 'solicitacao_id';
 
 	public $validate = array(
-		'solicitacao_id' => array(
-			'rule' => 'notEmpty',
-			'required' => true,
-			'message' => 'É necessário informar a solicitação !'
-		),
 		'proxima_id' => array(
 			'rule' => 'notEmpty',
 			'required' => true,
