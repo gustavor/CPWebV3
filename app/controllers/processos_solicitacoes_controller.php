@@ -338,7 +338,7 @@ class ProcessosSolicitacoesController extends AppController {
 		{
 			$this->ProcessoSolicitacao->id = $id;
 			$this->ProcessoSolicitacao->saveField('finalizada',1);
-			array_push($alertas,'A Solicitação foi finalizada !!!');
+			array_push($alertas,'A Solicitação anterior foi finalizada !!!');
 		}
 		
 		// atualizar sistema (gera uma novo cadastro de processo solicitação)
@@ -356,7 +356,7 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->ProcessoSolicitacao->create();
 			if ($this->ProcessoSolicitacao->save($data))
 			{
-				array_push($alertas,'Um Atualização de Sistema foi solicitada !!!');
+				array_push($alertas,'Um Atualização de Sistema do Cliente foi solicitada !!!');
 			} else
 			{
 				die('Erro ao criar novo cadastro de processos e solicitações!!!');
@@ -367,7 +367,7 @@ class ProcessosSolicitacoesController extends AppController {
 		$data['ProcessoSolicitacao'] = array();
 		$data['ProcessoSolicitacao']['processo_id'] 			= $idProcesso;
 		$data['ProcessoSolicitacao']['solicitacao_id'] 			= $fluxo['Fluxo']['proxima_id'];
-		$data['ProcessoSolicitacao']['usuario_solicitante'] 	= $processo_solicitacao['ProcessoSolicitacao']['usuario_solicitante'];
+		$data['ProcessoSolicitacao']['usuario_solicitante'] 	= $this->Session->read('Auth.Usuario.id');
 		switch($fluxo['Fluxo']['departamento_id'])
 		{
 			case 1:
@@ -382,18 +382,25 @@ class ProcessosSolicitacoesController extends AppController {
 		}
 		$data['ProcessoSolicitacao']['tipo_solicitacao_id'] 	= 3;
 		$data['ProcessoSolicitacao']['finalizada'] 				= 0;
-		if ($fluxo['Fluxo']['atribuir_proxima_advogado'])
+
+        if ($fluxo['Fluxo']['atribuir_proxima_advogado'])
 		{
 			$data['ProcessoSolicitacao']['usuario_atribuido'] 	= $processo['Processo']['usuario_id'];
-		} else
+            array_push($alertas, 'A Solicitação foi atribuída ao Advogado Responsável pelo processo!');
+		} elseif($fluxo['Fluxo']['atribuir_proxima_anterior'])
 		{
-			$data['ProcessoSolicitacao']['usuario_atribuido'] 	= 0;
-		}
+            $data['ProcessoSolicitacao']['usuario_atribuido'] 	= $processo_solicitacao['ProcessoSolicitacao']['usuario_solicitante'];
+            array_push($alertas, 'A Solicitação foi atribuida ao solicitante anterior!');
+		} else
+        {
+            $data['ProcessoSolicitacao']['usuario_atribuido'] = 0;
+        }
+
 		if ($this->ProcessoSolicitacao->save($data))
 		{
 			// jogando os alertas na sessão
 			$this->Session->write('alertas',$alertas);
-
+            pr($fluxo);
 			// redirecionando para edição do processo solicitção criado
 			$this->redirect(array('controller'=>'processos_solicitacoes','action'=>'editar',$this->ProcessoSolicitacao->getLastInsertID()));
 		} else

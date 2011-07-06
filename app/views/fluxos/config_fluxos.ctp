@@ -22,8 +22,11 @@
 
 	$campos['Fluxo']['contato']['options']['label']['text'] 			= 'Nome do Botão';
 	
-	$campos['Fluxo']['atribuir_proxima_advogado']['options']['label']['text'] = 'Atribuir Próximo Advogado';
+	$campos['Fluxo']['atribuir_proxima_advogado']['options']['label']['text'] = 'Atribuir ao Advogado';
 	$campos['Fluxo']['atribuir_proxima_advogado']['options']['options']		= array(1=>'SIM', 0=>'NÃO');
+
+    $campos['Fluxo']['atribuir_proxima_anterior']['options']['label']['text'] = 'Atribuir ao Solicitante Atual';
+	$campos['Fluxo']['atribuir_proxima_anterior']['options']['options']		= array(1=>'SIM', 0=>'NÃO');
 
 	$campos['Fluxo']['fechar_anterior']['options']['label']['text'] 	= 'Fechar Anterior';
 	$campos['Fluxo']['fechar_anterior']['options']['options']			= array(1=>'SIM', 0=>'NÃO');
@@ -31,7 +34,7 @@
 	$campos['Fluxo']['atualizar_sistema']['options']['label']['text'] 	= 'Atualizar Sistema';
 	$campos['Fluxo']['atualizar_sistema']['options']['options']			= array(1=>'SIM', 0=>'NÃO');
 
-	$edicaoCampos = array('Fluxo.solicitacao_id','#','Fluxo.complexidade_id','#','Fluxo.proxima_id','#','Fluxo.departamento_id','#','Fluxo.contato_id','#','Fluxo.nome_botao','#','#','Fluxo.atribuir_proxima_advogado','#','Fluxo.fechar_anterior','#','Fluxo.atualizar_sistema');
+	$edicaoCampos = array('Fluxo.solicitacao_id','#','Fluxo.complexidade_id','#','Fluxo.proxima_id','#','Fluxo.departamento_id','#','Fluxo.contato_id','#','Fluxo.nome_botao','#','#','Fluxo.atribuir_proxima_advogado','#','Fluxo.atribuir_proxima_anterior','#','Fluxo.fechar_anterior','#','Fluxo.atualizar_sistema');
 
 	if ($action=='editar' || $action=='excluir')
 	{
