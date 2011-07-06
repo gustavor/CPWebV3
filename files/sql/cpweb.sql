@@ -1009,11 +1009,13 @@ CREATE  TABLE IF NOT EXISTS `fluxos` (
   `departamento_id` INT(11) NOT NULL ,
   `contato_id` INT(11) NULL DEFAULT 0 ,
   `atribuir_proxima_advogado` TINYINT(1)  NOT NULL DEFAULT 0 ,
+  `atribuir_proxima_anterior` TINYINT(1)  NOT NULL ,
   `fechar_anterior` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `atualizar_sistema` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `nome_botao` VARCHAR(20) NOT NULL COMMENT 'nome do botao' ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = big5;
 
 
 
