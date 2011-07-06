@@ -1002,7 +1002,7 @@ DROP TABLE IF EXISTS `fluxos` ;
 
 CREATE  TABLE IF NOT EXISTS `fluxos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `created` VARCHAR(45) NOT NULL ,
+  `created` DATETIME NOT NULL ,
   `solicitacao_id` INT(11) NOT NULL ,
   `proxima_id` INT(11) NOT NULL ,
   `complexidade_id` INT(11) NULL ,
