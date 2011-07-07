@@ -202,26 +202,7 @@
 			unset($redirecionamentos['Atribuir a Adv. Resp.']);
 		}
 
-        //no caso da solicitação ser de petição pronta para revisão, colocar botão "Solicitar Aperfeiçoamento" e "Protocoloar"
-        if( (isset( $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] ) &&
-            $this->Form->data['ProcessoSolicitacao']['solicitacao_id'] == 2) &&
-            (isset( $this->Form->data['ProcessoSolicitacao']['usuario_atribuido']) &&
-            !empty($this->Form->data['ProcessoSolicitacao']['usuario_atribuido'])) &&
-            $this->Form->data['ProcessoSolicitacao']['finalizada'] != 1
-        )
-        {
-            unset($redirecionamentos['Finalizar']);
-            $processoId = $this->Form->data['Processo']['id'];
-            $solicitanteId = $this->Session->read( 'Auth.Usuario.id' );
-            $atribuidoId = $this->Form->data['ProcessoSolicitacao']['usuario_solicitante'];
-            $aperfeicoar = 4;
-            $protocolar = 6;
-            $nucleoJuridico = $this->Form->data['Processo']['tipo_processo_id'];
-            $protocolo = 9;
-            $redirecionamentos['Aperfeiçoar']['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$this->data['ProcessoSolicitacao']['id'].'/'.$processoId.'/'.$aperfeicoar.'/'.$nucleoJuridico.'/'.$solicitanteId.'/'.$atribuidoId.'\'';
-            $redirecionamentos['Protocolo']['onclick'] 	= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/criaSolicitacao/'.$this->data['ProcessoSolicitacao']['id'].'/'.$processoId.'/'.$protocolar.'/'.$protocolo.'/'.$solicitanteId.'/0'.'\'';
-        }
-	}
+   	}
 
 	if ($action=='listar' || $action=='filtrar')	
 	{
