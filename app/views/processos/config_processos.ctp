@@ -188,7 +188,7 @@
 	if ($action=='editar')
 	{
 
-		if ($this->Session->read('Auth.Usuario.id')!=$id && in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
+		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
         {
 		//desativando campos que não podem ser editados - o administrador pode edita-los
         $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';

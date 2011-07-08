@@ -44,7 +44,7 @@
 	$campos[$modelClass]['departamento_id']['options']['label']['text'] 					= 'Departamento';
 	$campos[$modelClass]['departamento_id']['options']['empty'] 							= '-- escolha uma opção --';
 	$campos[$modelClass]['departamento_id']['options']['class']  							= 'edicaoSelect';
-	if (isset($departamento)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamento;
+	if (isset($departamentos)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamentos;
 
 	$campos[$modelClass]['tipo_peticao_id']['options']['label']['text'] 					= 'Tipo da Petição';
 	$campos[$modelClass]['tipo_peticao_id']['options']['empty'] 							= '-- escolha uma opção --';
@@ -124,6 +124,12 @@
 
 	if ($action=='novo')
 	{
+        $campos[$modelClass]['departamento_id']['options']['options'] = array(1 => 'NÚCLEO JURÍDICO',
+                                                                          2 => 'CONTROLE DE PROCESSOS',
+                                                                          5 => 'ACORDO',
+                                                                          6 => 'FINANCEIRO',
+                                                                          7 => 'PROTOCOLO'
+                                                                          );
 		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs');	
 	}
 
@@ -192,15 +198,21 @@
 
 		// se possui usuário atribuido e a solicitação não foi fechada, cria-se um botão para finalizá-la
 		if (isset($this->Form->data['ProcessoSolicitacao']['usuario_atribuido']) && 
-			!empty($this->Form->data['ProcessoSolicitacao']['usuario_atribuido']) &&
-			empty($this->Form->data['ProcessoSolicitacao']['finalizada'])
+			!empty($this->Form->data['ProcessoSolicitacao']['usuario_atribuido'])
 			)
 		{
-			$redirecionamentos['Finalizar']['onclick'] 	= '';
-			$on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
 			unset($redirecionamentos['Atribuir a Mim']);
 			unset($redirecionamentos['Atribuir a Adv. Resp.']);
 		}
+
+        //o botão finalizar aparece somente para usuários do grupo administrador
+        if ( !$this->Form->data['ProcessoSolicitacao']['finalizada'] &&
+             $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] &&
+             in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
+        {
+            $redirecionamentos['Finalizar']['onclick'] 	= '';
+			$on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
+        }
 
    	}
 

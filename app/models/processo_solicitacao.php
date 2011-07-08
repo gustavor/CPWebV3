@@ -77,6 +77,22 @@ class ProcessoSolicitacao extends AppModel {
 		{
 			$this->data[$this->name]['data_fechamento'] = date('Y-m-d h:i:s');
 		}
+        if(isset($this->data[$this->name]['processo_id']) && !empty($this->data[$this->name]['processo_id']))
+        {
+            $this->bindModel('Processo');
+            $processo = $this->Processo->read(null, $this->data[$this->name]['processo_id']);
+            switch($this->data[$this->name]['departamento_id'])
+            {
+                case 1:
+                    $this->data[$this->name]['departamento_id'] = $processo['Processo']['tipo_processo_id'];
+                    break;
+                case 2:
+                    $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 2);
+                    break;
+                default:
+                    break;
+            }
+        }
 		return true;
 	}
 

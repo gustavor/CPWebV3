@@ -333,12 +333,21 @@ class ProcessosSolicitacoesController extends AppController {
 		$this->ProcessoSolicitacao->recursive = -1;
 		$processo_solicitacao = $this->ProcessoSolicitacao->read(null,$id);
 
+		//antes de tudo, ver se a solicitacação anterior é "Aguardando Providência do Advogado"
+        if ($processo_solicitacao['ProcessoSolicitacao']['solicitacao_id'] == 67)
+        {
+            //finaliza a solicitação anterior
+            $this->ProcessoSolicitacao->id = $id;
+            $this->ProcessoSolicitacao->saveField('finalizada',1);
+            $this->redirect(array('controller' => 'processos_solicitacoes', 'action'=>'novo', $idProcesso));
+        }
+
 		// fechar processo solicitação anterior
 		if ($fluxo['Fluxo']['fechar_anterior'])
 		{
 			$this->ProcessoSolicitacao->id = $id;
 			$this->ProcessoSolicitacao->saveField('finalizada',1);
-			array_push($alertas,'A Solicitação anterior foi finalizada !!!');
+			array_push($alertas,'A Solicitação anterior foi finalizada!');
 		}
 		
 		// atualizar sistema (gera uma novo cadastro de processo solicitação)
@@ -356,10 +365,10 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->ProcessoSolicitacao->create();
 			if ($this->ProcessoSolicitacao->save($data))
 			{
-				array_push($alertas,'Um Atualização de Sistema do Cliente foi solicitada !!!');
+				array_push($alertas,'Um Atualização de Sistema do Cliente foi solicitada!');
 			} else
 			{
-				die('Erro ao criar novo cadastro de processos e solicitações!!!');
+				die('Erro ao criar novo cadastro de processos e solicitações!');
 			}
 		}
 		
@@ -400,7 +409,6 @@ class ProcessosSolicitacoesController extends AppController {
 		{
 			// jogando os alertas na sessão
 			$this->Session->write('alertas',$alertas);
-            pr($fluxo);
 			// redirecionando para edição do processo solicitção criado
 			$this->redirect(array('controller'=>'processos_solicitacoes','action'=>'editar',$this->ProcessoSolicitacao->getLastInsertID()));
 		} else
