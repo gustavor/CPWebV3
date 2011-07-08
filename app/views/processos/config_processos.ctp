@@ -188,7 +188,9 @@
 	if ($action=='editar')
 	{
 
-		//desativando campos que não podem ser editados
+		if ($this->Session->read('Auth.Usuario.id')!=$id && in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
+        {
+		//desativando campos que não podem ser editados - o administrador pode edita-los
         $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';
         $campos[$modelClass]['usuario_id']['options']['disabled'] 							= 'disabled';
         $campos[$modelClass]['numero_auxiliar']['options']['disabled'] 						= 'disabled';
@@ -202,6 +204,7 @@
         $campos[$modelClass]['comarca_id']['options']['disabled'] 							= 'disabled';
         if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
         $campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
+        }
 
 		// subformulário só para processos
 		$nomeSubForm = 'sub_form_processos';
