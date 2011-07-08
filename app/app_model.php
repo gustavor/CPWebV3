@@ -44,8 +44,10 @@ class AppModel extends Model {
 	public function beforeValidate()
 	{
 		// criando a regra para cardinalidades vazias
+		$l = 0;
 		foreach($this->_schema as $_campo => $_arrOpcoes)
 		{
+			$l++;
 			if 	(
 					empty($_arrOpcoes['null']) 		&&
 					!isset($this->validate[$_campo]['rule']['notEmpty']) &&
@@ -54,15 +56,13 @@ class AppModel extends Model {
 					$_campo != 'modified'
 				)
 			{
-				$this->validate[$_campo]['rule']		= 'notEmpty';
-				$this->validate[$_campo]['required'] 	= true;
-				$this->validate[$_campo]['message']		= 'É necessário informar um valor para o campo <strong>'.$this->getNomeCampo($_campo).'</strong>';
+				$i = true;
+				while($i) if (isset($this->validate[$_campo][$l])) $l++; else $i=false;
+				$this->validate[$_campo][$l]['rule']		= 'notEmpty';
+				$this->validate[$_campo][$l]['required'] 	= true;
+				$this->validate[$_campo][$l]['message']		= 'É necessário informar um valor para o campo <strong>'.$this->getNomeCampo($_campo).'</strong>';
 			}
 		}
-
-        // se não postou cpf ou cnpj, remove a validação unique dos mesmos
-		if (!isset($this->data[$this->name]['cpf']))	$this->validate['cpf'][1] = array();
-		if (!isset($this->data[$this->name]['cnpj']))	$this->validate['cnpj'][1] = array();
 
 		// atualizando cpf e cnpj
 		$this->setCpf();
@@ -129,10 +129,10 @@ class AppModel extends Model {
 	{
 		// recuperando o cpf da matriz
 		foreach($data as $_item => $_valor) $cpf = $_valor;
-		
+
 		// não testamos vazio
-		if (strlen($cpf)==0) return true;
-		
+		if (empty($cpf)) return true;
+
 		// Verifiva se o número digitado contém todos os digitos
 		$cpf = str_pad(ereg_replace('[^0-9]', '', $cpf), 11, '0', STR_PAD_LEFT);
 		
@@ -171,7 +171,7 @@ class AppModel extends Model {
 		foreach($data as $_item => $_valor) $cnpj = $_valor;
 		
 		// não testamos vazio
-		if (strlen($cnpj)==0) return true;
+		if (empty($cnpj)) return true;
 		
 		$cnpj = preg_replace ("@[./-]@", "", $cnpj);
 

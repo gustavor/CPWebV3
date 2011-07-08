@@ -101,6 +101,10 @@
 
 	if ($action=='editar')
 	{
+		// limpando cpf e cnpj
+		$this->Form->data['Contato']['cpf']  = ($this->Form->data['Contato']['cpf']=='0')  ? '' : $this->Form->data['Contato']['cpf'];
+		$this->Form->data['Contato']['cnpj'] = ($this->Form->data['Contato']['cnpj']=='0') ? '' : $this->Form->data['Contato']['cnpj'];
+
 		if ($this->Form->data['Contato']['tipo_contato']==1) 
 			$on_read_view .= "\n".'$("#divContatoCpf").fadeOut(); $("#divContatoCnpj").delay(500).fadeIn();'; 
 		else

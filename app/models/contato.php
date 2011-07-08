@@ -113,8 +113,16 @@ class Contato extends AppModel {
 		// atualizando cpf e cnpj
 		$this->setCpf();
 		//echo '<pre>'.print_r($this->data,true).'</pre>';
-		if (empty($this->data['Contato']['cnpj']))	$this->data['Contato']['cnpj'] = 0;
-		if (empty($this->data['Contato']['cpf']))	$this->data['Contato']['cpf'] = 0;
+		if (empty($this->data['Contato']['cnpj']))
+		{
+			$this->data['Contato']['cnpj'] = '0';
+			$this->validate['cnpj'] = array();
+		}
+		if (empty($this->data['Contato']['cpf']))
+		{
+			$this->data['Contato']['cpf'] = '0';
+			$this->validate['cpf'] = array();
+		}
 		parent::beforeValidate();
 	}
  }
