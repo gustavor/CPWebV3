@@ -1018,6 +1018,75 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = big5;
 
 
+-- -----------------------------------------------------
+-- Table `lotes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `lotes` ;
+
+CREATE  TABLE IF NOT EXISTS `lotes` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `finalizado` TINYINT(1)  NOT NULL DEFAULT 0 ,
+  `usuario_id` INT NOT NULL ,
+  `codigo` VARCHAR(12) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_created` (`created` ASC) ,
+  INDEX `i_usuario_id` (`usuario_id` ASC) ,
+  INDEX `i_codigo` (`codigo` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci, 
+COMMENT = 'tabela de lotes' ;
+
+
+-- -----------------------------------------------------
+-- Table `tipos_protocolos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tipos_protocolos` ;
+
+CREATE  TABLE IF NOT EXISTS `tipos_protocolos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `nome` VARCHAR(30) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `lotes_processos_solicitacoes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `lotes_processos_solicitacoes` ;
+
+CREATE  TABLE IF NOT EXISTS `lotes_processos_solicitacoes` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `lote_id` INT NOT NULL ,
+  `processo_solicitacao_id` INT(11) NOT NULL ,
+  `tipo_protocolo_id` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_lotes_processos_solicitacoes_lotes1` (`lote_id` ASC) ,
+  INDEX `fk_lotes_processos_solicitacoes_processos_solicitacoes1` (`processo_solicitacao_id` ASC) ,
+  INDEX `fk_lotes_processos_solicitacoes_tipo_protocolo1` (`tipo_protocolo_id` ASC) ,
+  CONSTRAINT `fk_lotes_processos_solicitacoes_lotes1`
+    FOREIGN KEY (`lote_id` )
+    REFERENCES `lotes` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lotes_processos_solicitacoes_processos_solicitacoes1`
+    FOREIGN KEY (`processo_solicitacao_id` )
+    REFERENCES `processos_solicitacoes` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lotes_processos_solicitacoes_tipo_protocolo1`
+    FOREIGN KEY (`tipo_protocolo_id` )
+    REFERENCES `tipos_protocolos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
