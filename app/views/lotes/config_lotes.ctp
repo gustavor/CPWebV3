@@ -26,7 +26,8 @@
 
 	if ($action=='excluir')
 	{
-		$edicaoCampos = array('Lote.tamanho','Lote.codigo');
+		$campos['Lote']['codigo']['options']['type'] = 'text';
+		$edicaoCampos = array('Lote.tamanho','Lote.codigo','#','Lote.created');
 	}
 
 	if ($action=='novo' || $action=='excluir')

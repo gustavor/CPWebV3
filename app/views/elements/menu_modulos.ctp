@@ -9,18 +9,18 @@
 		$listaMenu['contatos']['url'] 	= Router::url('/',true).'contatos';
 	}
 
+	// módulo lotes
+	if (!in_array('lotes',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['lotes']['text'] 	= 'Cadastro de Lotes';
+		$listaMenu['lotes']['url'] 		= Router::url('/',true).'lotes';
+	}
+
 	// módulo processos
 	if (!in_array('processos',$this->Session->read('urlsNao')))
 	{
 		$listaMenu['processos']['text'] = 'Controle de Processos';
 		$listaMenu['processos']['url'] 	= Router::url('/',true).'processos';
-	}
-
-	// módulo contatos
-	if (!in_array('lotes',$this->Session->read('urlsNao')))
-	{
-		$listaMenu['lotes']['text'] 	= 'Cadastro de Lotes';
-		$listaMenu['lotes']['url'] 		= Router::url('/',true).'lotes';
 	}
 
 	// destacando a opção ativa

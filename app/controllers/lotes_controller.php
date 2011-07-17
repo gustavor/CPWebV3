@@ -52,7 +52,7 @@ class LotesController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-	
+
 	/**
 	 * Método chamado antes de qualquer outro método
 	 * 
@@ -113,39 +113,6 @@ class LotesController extends AppController {
 		$this->set(compact('solicitacoes'));
 		$this->loadModel('ProcessoSolicitacao');
 		$this->CpwebCrud->novo();
-		if (isset($this->data))
-		{
-			// recupeando processos e solicitações
-			$this->loadModel('ProcessoSolicitacao');
-			$this->ProcessoSolicitacao->recursive = -1;
-			$condicoes['ProcessoSolicitacao.finalizada'] 		= 0;
-			$condicoes['ProcessoSolicitacao.usuario_atribuido'] = 0;
-			$condicoes['ProcessoSolicitacao.solicitacao_id'] 	= $this->data['Lote']['solicitacao_id'];
-			$idsPS = array();
-			$PS = $this->ProcessoSolicitacao->find('all',array('conditions'=>$condicoes));
-			foreach($PS as $_linha => $_arrModel)
-			{
-				array_push($idsPS, $_arrModel['ProcessoSolicitacao']['id']);
-			}
-
-			// atribuindo processo e solicitações
-			$dataPS['usuario_atribuido'] 		= $this->data['Lote']['usuario_id'];
-			$condPS['ProcessoSolicitacao.id']	= $idsPS;
-			$this->ProcessoSolicitacao->updateAll($dataPS,$condPS);
-
-			// incluindo novos lotes-processos-solicitacoes
-			$this->loadModel('LoteProcessoSolicitacao');
-			$idLote 	= $this->Lote->getLastInsertID();
-			$dataLPS 	= array();
-			$l			= 0;
-			foreach($idsPS as $_id)
-			{
-				$dataLPS[$l]['lote_id'] = $idLote;
-				$dataLPS[$l]['processo_solicitacao_id'] = $_id;
-				$l++;
-			}
-			$this->LoteProcessoSolicitacao->saveAll($dataLPS);
-		}
 	}
 
 	/**

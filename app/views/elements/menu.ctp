@@ -27,13 +27,13 @@
 			<?php if (!in_array('contatos',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'contatos'; ?>">Cadastro de Contatos</a></li>
 			<?php endif; ?>
-            
-			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
-			<?php endif; ?>
 
 			<?php if (!in_array('lotes',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'lotes'; ?>">Cadastro de Lotes</a></li>
+			<?php endif; ?>
+
+			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>
 
 		</ul>

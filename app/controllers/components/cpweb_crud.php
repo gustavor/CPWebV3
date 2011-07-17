@@ -200,7 +200,7 @@ class CpwebCrudComponent extends Object {
 			{
 				$this->controller->Session->setFlash('<span style="font-size: 20px;">Registro incluído com sucesso !!!</span>');
 				$this->controller->viewVars['on_read_view'] .= '$("#flashMessage").css("color","green")'."\n";
-				//$this->controller->redirect(Router::url('/',true).$this->name.'/editar/'.$this->controller->$modelClass->$primaryKey);
+				if (!isset($this->controller->NaoRedirecionarNovo)) $this->controller->redirect(Router::url('/',true).$this->name.'/editar/'.$this->controller->$modelClass->$primaryKey);
 			} else
 			{
 				$this->controller->Session->setFlash('O Formulário ainda contém erros !!!');
