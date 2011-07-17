@@ -32,6 +32,10 @@
 			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>
 
+			<?php if (!in_array('lotes',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'lotes'; ?>">Cadastro de Lotes</a></li>
+			<?php endif; ?>
+
 		</ul>
 	</li>
 

@@ -16,6 +16,13 @@
 		$listaMenu['processos']['url'] 	= Router::url('/',true).'processos';
 	}
 
+	// módulo contatos
+	if (!in_array('lotes',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['lotes']['text'] 	= 'Cadastro de Lotes';
+		$listaMenu['lotes']['url'] 		= Router::url('/',true).'lotes';
+	}
+
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
 	$listaMenu[$name]['url'] = '#';

@@ -1026,6 +1026,7 @@ DROP TABLE IF EXISTS `lotes` ;
 CREATE  TABLE IF NOT EXISTS `lotes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
+  `tamanho` INT NOT NULL DEFAULT 0 ,
   `finalizado` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `usuario_id` INT NOT NULL ,
   `codigo` VARCHAR(12) NULL ,

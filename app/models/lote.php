@@ -27,7 +27,22 @@ class Lote extends AppModel {
 	 * @access	public
 	 */
     public $name 			= 'Lote';
-    
+
+	/**
+	 * Campo principal
+	 * @var		string
+	 * @access	public
+	 */
+	public $displayField 	= 'codigo';
+
+	/**
+	 * Ordem padrão
+	 * 
+	 * @var		string
+	 * @access	public
+	 */
+	public $order 			= 'created';
+
     /**
      * Tabela do banco de dados
      * 
@@ -35,7 +50,13 @@ class Lote extends AppModel {
      * @access	public
      */
 	public $useTable		= 'lotes';
-	
+
+	/**
+	 * Validação de campos
+	 * 
+	 * @var		array
+	 * @access	public
+	 */
 	public $validate = array(
 		'usuario_id' => array(
 			'rule' => 'notEmpty',
@@ -48,7 +69,7 @@ class Lote extends AppModel {
 			'message' => 'É necessário informar o código!'
 		)
 	);
-	
+
 	/**
 	 * Executar antes de salvar
 	 * 
@@ -59,26 +80,24 @@ class Lote extends AppModel {
 	 */
 	function beforeSave($options = array())
 	{
+		$this->data['Lote']['codigo'] = date('d/m/Y').'-'.($this->getTotalDia(date('d/m/Y'))+1);
 		return true;
 	}
 
 	/**
-	 * Executa código após salvar
+	 * Retorna o total de registro pela data especificada
 	 * 
-	 * - para criar um lote será necessário informar: o tamanho do lote, usuario_id, solicitacao_id.
-	 * ao salvar ir em ProcessoSolicitacao e pegar a quantidade de registros com limitando pelo tamanho do lote.
-	 * e ainda filtrar por ProcessoSolictaco.finaliada = 0 AND ProcessoSolictaco.usuario_atribuido =0 AND ProcessoSolictaco.solicitacao = solicitacao_id que veio do formulário (lote/novo)
-	 * e ainda em ProcessoSolicitação, atualizar ProcessoSolicitacao.usuario_atribuido = usuario_id que veio formulário (lote/novo).
-	 * Agora ir até LoteProcessoSolicitacao e criar 1 registro para cada Processo que foi encontrada no evento anterior.
-	 * - regras para Lote.codigo = Lote.created+count(Lote.created=hoje)+1 (created sem horas)
-	 * - Lote.usuario_id pegar na sessão (hidden)
-	 * - Lote.solicitaco_id igual a Solicitacao=protocolar (selectBox com disabled) 
+	 * @param	string	$data	Data a ser contada
+	 * @return	integer	$total	Resultado do total
 	 */
-	function afterSave($created) 
+	private function getTotalDia($data)
 	{
-		// recuperar ProcessosSolicitações
-		
-		// Atualizar LoteProcessoSolicitacao
+		$arrData = explode('/',$data);
+		$condicoes['year(Lote.created)']	= $arrData[2];
+		$condicoes['month(Lote.created)']	= $arrData[1];
+		$condicoes['day(Lote.created)']		= $arrData[0];
+		$total = $this->find('count',array('conditions'=>$condicoes));
+		return $total;
 	}
 }
 ?>

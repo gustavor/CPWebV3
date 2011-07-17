@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/lotes_controller.php
+ * app/controllers/tipos_protocolos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,7 +19,7 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class LotesController extends AppController {
+class TiposProtocolosController extends AppController {
 
 	/**
 	 * Nome
@@ -27,7 +27,7 @@ class LotesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Lotes';
+	public $name = 'TiposProtocolos';
 	
 	/**
 	 * Modelo
@@ -35,7 +35,7 @@ class LotesController extends AppController {
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Lote';
+	public $uses = 'TipoProtocolo';
 
 	/**
 	 * Ajudantes 
@@ -54,14 +54,11 @@ class LotesController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 	
 	/**
-	 * Método chamado antes de qualquer outro método
 	 * 
-	 * @access 	public
-	 * @return 	void
 	 */
 	public function beforeFilter()
 	{
-		$this->set('arqListaMenu','menu_modulos');
+		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Protocolos';
 		parent::beforeFilter();
 	}
  
@@ -76,7 +73,7 @@ class LotesController extends AppController {
 	}
 
 	/**
-	 * Lista os dados em paginação
+	 * Lista dbgrid
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -89,67 +86,28 @@ class LotesController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de edição para o model
+	 * Exibe formulário de edição
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
 	 */
 	public function editar($id=null)
 	{
-		$this->redirect('listar');
+		$this->CpwebCrud->editar($id);
 	}
-
+	
 	/**
-	 * Exibe formulário de inclusão para o model
+	 * Exibe formulário de inclusão
 	 * 
 	 * @return 		void
 	 */
 	public function novo()
 	{
-		$this->set('usuario_id',$this->Session->read('Auth.Usuario.id'));
-		$this->set('solicitacao_id',6);
-		$this->loadModel('Solicitacao');
-		$solicitacoes = $this->Solicitacao->find('list');
-		$this->set(compact('solicitacoes'));
-		$this->loadModel('ProcessoSolicitacao');
 		$this->CpwebCrud->novo();
-		if (isset($this->data))
-		{
-			// recupeando processos e solicitações
-			$this->loadModel('ProcessoSolicitacao');
-			$this->ProcessoSolicitacao->recursive = -1;
-			$condicoes['ProcessoSolicitacao.finalizada'] 		= 0;
-			$condicoes['ProcessoSolicitacao.usuario_atribuido'] = 0;
-			$condicoes['ProcessoSolicitacao.solicitacao_id'] 	= $this->data['Lote']['solicitacao_id'];
-			$idsPS = array();
-			$PS = $this->ProcessoSolicitacao->find('all',array('conditions'=>$condicoes));
-			foreach($PS as $_linha => $_arrModel)
-			{
-				array_push($idsPS, $_arrModel['ProcessoSolicitacao']['id']);
-			}
-
-			// atribuindo processo e solicitações
-			$dataPS['usuario_atribuido'] 		= $this->data['Lote']['usuario_id'];
-			$condPS['ProcessoSolicitacao.id']	= $idsPS;
-			$this->ProcessoSolicitacao->updateAll($dataPS,$condPS);
-
-			// incluindo novos lotes-processos-solicitacoes
-			$this->loadModel('LoteProcessoSolicitacao');
-			$idLote 	= $this->Lote->getLastInsertID();
-			$dataLPS 	= array();
-			$l			= 0;
-			foreach($idsPS as $_id)
-			{
-				$dataLPS[$l]['lote_id'] = $idLote;
-				$dataLPS[$l]['processo_solicitacao_id'] = $_id;
-				$l++;
-			}
-			$this->LoteProcessoSolicitacao->saveAll($dataLPS);
-		}
 	}
-
+	
 	/**
-	 * Exibe formulário de exclusão para o model
+	 * Exibe formulário de exclusão
 	 * 
 	 * @return 		void
 	 */
@@ -159,7 +117,7 @@ class LotesController extends AppController {
 	}
 
 	/**
-	 * Exclui a cidade do banco de dados
+	 * Executa a exclusão no banco de dados
 	 * 
 	 * @return 		void
 	 */
@@ -167,4 +125,14 @@ class LotesController extends AppController {
 	{
 		$this->CpwebCrud->delete($id);
 	}
+
+	/**
+	 * Imprime em pdf o registro 
+	 * 
+	 * @return 		void
+	 */
+	public function imprimir($id=null)
+	{
+		$this->CpwebCrud->imprimir($id);
+	}	
 }
