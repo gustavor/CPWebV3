@@ -88,7 +88,7 @@
 		$_estilo_tr	= 'estilo_tr_'.$id;
 		$estilo_tr	= isset($lista[$_estilo_tr]) ? $lista[$_estilo_tr] : '';
 		
-		echo "<tr id='tr_$id' title='clique aqui para editar ...' $estilo_tr onclick='javascript:document.location.href=\"".Router::url('/',true).$name.'/editar/'.$id."\";' class='lista_linha_fora' onmouseover='javascript:this.className=\"lista_linha_ativa\"' onmouseout='javascript:this.className=\"lista_linha_fora\"'>\n";
+		echo "<tr id='tr_$id' title='clique aqui para editar ...' $estilo_tr class='lista_linha_fora' onmouseover='javascript:this.className=\"lista_linha_ativa\"' onmouseout='javascript:this.className=\"lista_linha_fora\"'>\n";
 
 		// campo a campo
 		if (isset($listaCampos))
@@ -112,7 +112,7 @@
 					$valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
 				}
 
-				echo "\t<td id='$idTd' $estilo>$valor</td>\n";
+				echo "\t<td onclick='javascript:document.location.href=\"".Router::url('/',true).$name.'/editar/'.$id."\";' id='$idTd' $estilo>$valor</td>\n";
 			}
 		}
 
@@ -121,12 +121,26 @@
 		{
 			if (count($_ferramenta))
 			{
+				$_ferramenta['type']  = isset($_ferramenta['type'])  ? $_ferramenta['type']  : '';
+				$_ferramenta['link']  = isset($_ferramenta['link'])  ? $_ferramenta['link']  : '';
+				$_ferramenta['icone'] = isset($_ferramenta['icone']) ? $_ferramenta['icone'] : '';
+				
 				$link = (isset($listaFerramentasId[$_item]['link'][$id]))  ? $listaFerramentasId[$_item]['link'][$id]  : str_replace('{id}',$id,$_ferramenta['link']);
 				$icon = (isset($listaFerramentasId[$_item]['icone'][$id])) ? $listaFerramentasId[$_item]['icone'][$id] : $_ferramenta['icone'];
+				$tipo = (isset($listaFerramentasId[$_item]['type'][$id]))  ? $listaFerramentasId[$_item]['type'][$id]  : $_ferramenta['type'];
+				
 				echo "\t<td width='35px' align='center'>";
-				if ($link) echo "<a href='".$link."' title='".$_ferramenta['title']."'>";
-				if ($icon) echo "<img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/>";
-				if ($link) echo "</a>";
+				if ($tipo != 'checkbox')
+				{
+					if ($link) echo "<a href='".$link."' title='".$_ferramenta['title']."'>";
+					if ($icon) echo "<img src='".Router::url('/',true)."img/".$_ferramenta['icone']."' border='0'/>";
+					if ($link) echo "</a>";
+				} else
+				{
+					$arrCmp = explode('.',($_ferramenta['value']));
+					$fValue = $_dataModel[$arrCmp[0]][$arrCmp[1]];
+					echo "<input value='$fValue' name='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' id='data[".$arrCmp[0]."][".$id."]' title='clique aqui para marcar a finalização do Processo Solitação' type='checkbox' />";
+				}
 				echo "</td>\n";
 			}
 		}

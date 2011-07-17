@@ -53,11 +53,33 @@ class LotesProcessosSolicitacoesController extends AppController {
 	public $components	= array('CpwebCrud','Session');
 
 	/**
+	 * Método chamado antes de qualquer outro método
+	 * 
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function beforeFilter()
+	{
+		$this->set('arqListaMenu','menu_modulos');
+		parent::beforeFilter();
+	}
+
+	/**
 	 * método start
 	 * 
 	 * @return void
 	 */
 	public function index()
+	{
+		$this->redirect('listar');
+	}
+	
+	/**
+	 * método start
+	 * 
+	 * @return void
+	 */
+	public function editar($id=null)
 	{
 		$this->redirect('listar');
 	}
@@ -74,8 +96,16 @@ class LotesProcessosSolicitacoesController extends AppController {
 	{
 		if ($this->data)
 		{
-			// atualizar cadastro de ProcessoSolicitação
+			// recuperando todos os ids de ProcessosSolicitacoes e finalizando
+			$idsPS = array();
+			foreach($this->data as $_id => $_arrModel)
+			{
+				array_push($idsPS,$_arrModel['ProcessoSolicitacao']['id']);
+			}
+			if (!$this->LoteProcessoSolicitacao->setPS($idsPS)) exit('Erro ao tentar finalizar Processos e Solicitações');
 		}
+		$peticoes = $this->LoteProcessoSolicitacao->ProcessoSolicitacao->TipoPeticao->find('list');
+		$this->set(compact('peticoes'));
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
 }

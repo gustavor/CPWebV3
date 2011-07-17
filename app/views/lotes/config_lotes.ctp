@@ -1,9 +1,12 @@
 <?php
 	$campos['Lote']['codigo']['options']['label']['text']				= 'Código';
+	$campos['Lote']['finalizado']['options']['label']['text']			= 'Finalizado';
 	$campos['Lote']['solicitacao_id']['options']['label']['text']		= 'Solicitacao';
 	$campos['Solicitacao']['solicitacao']['options']['label']['text']	= 'Solicitacao';
 	$campos['Lote']['tamanho']['options']['label']['text'] 				= 'Tamanho';
 	$campos['Lote']['tamanho']['options']['style']						= 'text-align: center; width: 60px;';
+
+	$campos['Lote']['finalizado']['options']['options']					= array(0=>'Não', 1=>'Sim');
 
 	if ($action=='novo' || $action=='excluir')
 	{
@@ -39,10 +42,12 @@
 	{
 		$listaFerramentas[0] = array();
 		$listaFerramentas[1] = array();
-		$listaCampos 								= array('Lote.codigo','Lote.tamanho','Lote.created');
-		$campos['Lote']['codigo']['estilo_th'] 		= 'width="450px"';
+		$listaCampos 								= array('Lote.codigo','Lote.tamanho','Lote.finalizado','Lote.created');
+		$campos['Lote']['codigo']['estilo_th'] 		= 'width="250px"';
 		$campos['Lote']['tamanho']['estilo_th'] 	= 'width="200px"';
+		$campos['Lote']['finalizado']['estilo_th'] 	= 'width="160px"';
 		$campos['Lote']['tamanho']['estilo_td'] 	= 'style="text-align: center; "';
 		$campos['Lote']['codigo']['estilo_td'] 		= 'style="text-align: center; "';
+		$campos['Lote']['finalizado']['estilo_td'] 	= 'style="text-align: center; "';
 	}
 ?>

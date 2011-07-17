@@ -32,6 +32,10 @@
 			<li><a href="<?php echo Router::url('/').'lotes'; ?>">Cadastro de Lotes</a></li>
 			<?php endif; ?>
 
+			<?php if (!in_array('lotes_processos_solicitacoes',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'lotes_processos_solicitacoes'; ?>">Cadastro de Lotes e ProcessosSolicitações</a></li>
+			<?php endif; ?>
+
 			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
 			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>

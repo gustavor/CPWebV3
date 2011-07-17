@@ -36,3 +36,5 @@ class TipoProtocolo extends AppModel {
 		)
 	);
 }
+
+?>

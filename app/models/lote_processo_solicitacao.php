@@ -38,6 +38,70 @@ class LoteProcessoSolicitacao extends AppModel {
 		'ProcessoSolicitacao'  		=> array(
 			'className'		=> 'ProcessoSolicitacao',
 			'foreignKey'	=> 'processo_solicitacao_id',
-		)
+		),
+		'TipoProtocolo'  		=> array(
+			'className'		=> 'TipoProtocolo',
+			'foreignKey'	=> 'tipo_protocolo_id',
+		),
 	);
+
+	/**
+	 * Finaliza todos os processos e solicitações passados no parametro.
+	 * Se completou o tamanho do lote, o correspondente será finalizado também.
+	 * 
+	 * @param	array	$data	Matriz contendo os IDs de cada PS a fechar
+	 * @return 	true
+	 */
+	public function setPS($idsPS=array())
+	{
+		// finalizando ProcessoSolicitacao
+		if (!$this->ProcessoSolicitacao->updateAll(array('finalizada'=>1), array('ProcessoSolicitacao.id'=>$idsPS))) return false;
+
+		/**
+		 * checando se o lote chegou no seu tamanho
+		 */
+		// descobrindo todos os lotes dos quais os PS passados pertencem
+		$dataLPS = $this->find('list',array('fields'=>array('lote_id','processo_solicitacao_id'), 'conditions'=>array('LoteProcessoSolicitacao.processo_solicitacao_id'=>$idsPS)));
+		$lotes 	= array();
+		foreach($dataLPS as $_idLote => $_idPS)
+		{
+			if (!in_array($_idLote,$lotes)) array_push($lotes, $_idLote);
+		}
+		
+		// descobrindo quantas PS finalizadads de cada lote
+		$this->belongsTo['Lote']['fields'] = 'id, tamanho';
+		$loteTPS		= array();		
+		foreach($lotes as $_idLote)
+		{
+			$dataLPS 		= $this->find('all',array('conditions'=>array('LoteProcessoSolicitacao.lote_id'=>$_idLote)));
+			$finalizadas 	= 0;
+
+			// contando quantas PS estão finalizadas
+			foreach($dataLPS as $_linha => $_arrModel)
+			{
+				if ($_arrModel['ProcessoSolicitacao']['finalizada']) $finalizadas++;
+				$loteTPS[$_idLote]['tam'][$_arrModel['Lote']['tamanho']] = $finalizadas;
+			}
+		}
+		
+		// verificando se o tamanho bateu, caso verdadeiro atualiza lote como finalizado
+		foreach($loteTPS as $_idLote => $_arrProp)
+		{
+			foreach($_arrProp as $_campo => $_arrVlrs)
+			{
+				foreach($_arrVlrs as $_tamLote => $_tamFinalizada)
+				{
+					if ($_tamLote==$_tamFinalizada)
+					{
+						if (!$this->Lote->updateAll(array('finalizado'=>1), array('Lote.id'=>$_idLote))) return false;
+					}
+				}
+			}
+		}
+		$this->belongsTo['Lote']['fields'] = 'id, codigo';
+
+		return true;
+	}
 }
+
+?>

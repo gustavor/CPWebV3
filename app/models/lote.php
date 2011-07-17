@@ -125,10 +125,6 @@ class Lote extends AppModel {
 			$l++;
 		}
 		$this->LoteProcessoSolicitacao->saveAll($dataLPS);
-		
-		// debug
-		//pr($this->data);
-		//exit();
 	}
 
 	/**
@@ -202,6 +198,7 @@ class Lote extends AppModel {
 
 		// atribuindo o usuário a todas as solicitações recuperadas
 		$dataPS['usuario_atribuido'] 		= 0;
+		$dataPS['finalizada'] 				= 0;
 		$condPS['ProcessoSolicitacao.id']	= $idsPS;
 		if ($this->LoteProcessoSolicitacao->ProcessoSolicitacao->updateAll($dataPS,$condPS)) return true; else return false;
 	}
