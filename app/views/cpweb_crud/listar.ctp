@@ -102,6 +102,8 @@
 				$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd]) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_'.$idTd] : $estilo;
 				$masc	= isset($campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['dateFormat'] : '';
 				$valor 	= $_dataModel[$_arrField[0]][$_arrField[1]];
+				$onclick= "onclick='javascript:document.location.href=\"".Router::url('/',true).$name.'/editar/'.$id."\";'";
+				if (isset($campos[$_arrField[0]][$_arrField[1]]['link_off'])) $onclick='';
 
 				// se possui máscara 
 				if (isset($campos[$_arrField[0]][$_arrField[1]]['mascara']))			$valor = $this->Formatacao->getMascara($campos[$_arrField[0]][$_arrField[1]]['mascara'],$valor);
@@ -112,7 +114,7 @@
 					$valor = $campos[$_arrField[0]][$_arrField[1]]['options']['options'][$valor];
 				}
 
-				echo "\t<td onclick='javascript:document.location.href=\"".Router::url('/',true).$name.'/editar/'.$id."\";' id='$idTd' $estilo>$valor</td>\n";
+				echo "\t<td $onclick id='$idTd' $estilo>$valor</td>\n";
 			}
 		}
 
@@ -139,7 +141,7 @@
 				{
 					$arrCmp = explode('.',($_ferramenta['value']));
 					$fValue = $_dataModel[$arrCmp[0]][$arrCmp[1]];
-					echo "<input value='$fValue' name='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' id='data[".$arrCmp[0]."][".$id."]' title='clique aqui para marcar a finalização do Processo Solitação' type='checkbox' />";
+					echo "<input value='$fValue' name='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' id='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' title='clique aqui para marcar a finalização do Processo Solitação' type='checkbox' />";
 				}
 				echo "</td>\n";
 			}

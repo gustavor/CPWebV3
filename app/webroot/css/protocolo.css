@@ -1,0 +1,15 @@
+#protocolo
+{
+	border: 1px solid #ddd;
+	min-height: 300px;
+	width: 90%;
+	margin: 10px auto;
+	padding: 5px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#protocolo .btProtocolo
+{
+	width: 200px;
+}

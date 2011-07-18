@@ -3,7 +3,7 @@
  * CPWeb - Controle Virtual de Processos
  * Versão 3.0 - Novembro de 2010
  *
- * app/controllers/lotes_controller.php
+ * app/controllers/protocolos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,23 +19,23 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class LotesController extends AppController {
+class ProtocolosController extends AppController {
 
 	/**
-	 * Nome
+	 * Nome do controlador
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $name = 'Lotes';
-	
+	public $name = 'Protocolos';
+
 	/**
-	 * Modelo
+	 * Modelo para o controlador
 	 * 
 	 * @var string
 	 * @access public
 	 */
-	public $uses = 'Lote';
+	public $uses = array();
 
 	/**
 	 * Ajudantes 
@@ -52,7 +52,7 @@ class LotesController extends AppController {
 	 * @access public
 	 */
 	public $components	= array('CpwebCrud','Session');
-
+	
 	/**
 	 * Método chamado antes de qualquer outro método
 	 * 
@@ -61,10 +61,11 @@ class LotesController extends AppController {
 	 */
 	public function beforeFilter()
 	{
+		$this->layout = 'protocolo';
 		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
 	}
- 
+
 	/**
 	 * método start
 	 * 
@@ -72,7 +73,6 @@ class LotesController extends AppController {
 	 */
 	public function index()
 	{
-		$this->redirect('listar');
 	}
 
 	/**
@@ -85,7 +85,6 @@ class LotesController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
-		$this->CpwebCrud->listar($pag,$ordem,$direcao);
 	}
 
 	/**
@@ -96,7 +95,6 @@ class LotesController extends AppController {
 	 */
 	public function editar($id=null)
 	{
-		$this->redirect(Router::url('/',true).'lotes_processos_solicitacoes/listar/lote:'.$id);
 	}
 
 	/**
@@ -106,13 +104,6 @@ class LotesController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->set('usuario_id',$this->Session->read('Auth.Usuario.id'));
-		$this->set('solicitacao_id',6);
-		$this->loadModel('Solicitacao');
-		$solicitacoes = $this->Solicitacao->find('list');
-		$this->set(compact('solicitacoes'));
-		$this->loadModel('ProcessoSolicitacao');
-		$this->CpwebCrud->novo();
 	}
 
 	/**
@@ -122,7 +113,6 @@ class LotesController extends AppController {
 	 */
 	public function excluir($id=null)
 	{
-		$this->CpwebCrud->excluir($id);
 	}
 
 	/**
@@ -132,6 +122,15 @@ class LotesController extends AppController {
 	 */
 	public function delete($id=null)
 	{
-		$this->CpwebCrud->delete($id);
+	}
+
+	/**
+	 * Imprime em pdf o registro 
+	 * 
+	 * @return 		void
+	 */
+	public function imprimir($id=null)
+	{
 	}
 }
+?>

@@ -110,9 +110,6 @@ class ProcessosSolicitacoesController extends AppController {
     /**
 	 * Filtra os dados em dbgrid utilizando named parameters
 	 *
-	 * @parameter integer 	$pag 		Número da página
-	 * @parameter string 	$ordem 		Campo usado no order by da sql
-	 * @parameter string 	$direcao 	Direção ASC ou DESC
 	 * @return void
 	 */
 	public function filtrar()

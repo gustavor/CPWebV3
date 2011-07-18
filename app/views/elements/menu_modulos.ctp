@@ -16,11 +16,18 @@
 		$listaMenu['lotes']['url'] 		= Router::url('/',true).'lotes';
 	}
 
-	// módulo lotes
+	// módulo lotes_processos_solicitacoes
 	if (!in_array('lotes_processos_solicitacoes',$this->Session->read('urlsNao')))
 	{
 		$listaMenu['lotes_processos_solicitacoes']['text'] 	= 'Cadastro de Lotes e ProcessosSolicitações';
 		$listaMenu['lotes_processos_solicitacoes']['url'] 	= Router::url('/',true).'lotes_processos_solicitacoes';
+	}
+
+	// módulo lotes_processos_solicitacoes
+	if (!in_array('protocolos',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['protocolos']['text'] 	= 'Cadastro de Protocolos';
+		$listaMenu['protocolos']['url'] 	= Router::url('/',true).'protocolos';
 	}
 
 	// módulo processos
