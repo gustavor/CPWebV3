@@ -94,47 +94,50 @@ class LotesProcessosSolicitacoesController extends AppController {
 	 */
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
-		$idLote = isset($this->params['named']['lote']) ? $this->params['named']['lote'] : 0;
+		$idLote 	= isset($this->params['named']['lote']) ? $this->params['named']['lote'] : 0;
+		$peticoes 	= $this->LoteProcessoSolicitacao->ProcessoSolicitacao->TipoPeticao->find('list');
+		$protocolos	= $this->LoteProcessoSolicitacao->TipoProtocolo->find('list');
+
 		if ($this->data)
 		{
-			$erros 		= '';
-			$totErr		= 0;
-			$protocolos = isset($this->data['ProcessoSolicitacao']['prot']) ? $this->data['ProcessoSolicitacao']['prot'] : array();
-			if (count($protocolos))
+			$idLote 	= $this->data['ProcessoSolicitacao']['lote'];
+			$arrProt 	= isset($this->data['ProcessoSolicitacao']['Sel']) ? $this->data['ProcessoSolicitacao']['Sel'] : array();
+			$arrIdLPS	= array();
+			$arrIdPS 	= array();
+
+			// atualizando LPS com seu tipo de protocolo
+			if (count($arrProt) && empty($erros))
 			{
-				foreach($protocolos as $_idLPS => $_idProt)
+				foreach($arrProt as $_idLPS => $_idProt)
 				{
-					$_idProt = is_numeric($_idProt) ? $_idProt : null;
 					$dataLPS['tipo_protocolo_id'] 			= $_idProt;
 					$condLPS['LoteProcessoSolicitacao.id'] 	= $_idLPS;
-					if (!$this->LoteProcessoSolicitacao->updateAll($dataLPS, $condLPS)) exit('Não foi possível salvar tipo de protocolos');
-					if (is_numeric($_idProt) && !isset($this->data[$_idLPS]))
+					if ($_idProt>0)
 					{
-						$totErr++;
+						if (!$this->LoteProcessoSolicitacao->updateAll($dataLPS, $condLPS))
+						{
+							exit('Não foi possível salvar tipo de protocolos');
+						} else
+						{
+							array_push($arrIdLPS,$_idLPS);
+						}
 					}
 				}
 			}
-			if ($totErr) $erros .= 'Antes de escolher o protocolo, é preciso checar a caixa de ferramentas. <br />';
-			// recuperando e removendo o id do lote em data
-			$idLote = $this->data['ProcessoSolicitacao']['lote'];
-			unset($this->data['ProcessoSolicitacao']);
 
-			// recuperando todos os ids de ProcessosSolicitacoes e finalizando
-			if (empty($erros))
+			// localizando todas as LPS para descobrir a PS e finalizá-la
+			$dataLPS = $this->LoteProcessoSolicitacao->find('list',array('fields'=> array('id', 'processo_solicitacao_id'), 'conditions'=> array('LoteProcessoSolicitacao.id'=>$arrIdLPS)));
+			foreach($dataLPS as $_id => $_idPS) array_push($arrIdPS,$_idPS);
+
+			// finalizando todas as PS envolvidas
+			if (count($arrIdPS))
 			{
-				$idsPS = array();
-				foreach($this->data as $_id => $_arrModel) array_push($idsPS,$_arrModel['ProcessoSolicitacao']['id']);
-				if (!$this->LoteProcessoSolicitacao->setPS($idsPS)) exit('Erro ao tentar finalizar Processos e Solicitações');
-			} else
-			{
-				$this->set('erros',$erros);
+				if (!$this->LoteProcessoSolicitacao->setPS($arrIdPS)) exit('Erro ao tentar finalizar Processos e Solicitações'); 
 			}
 		}
-		$peticoes 	= $this->LoteProcessoSolicitacao->ProcessoSolicitacao->TipoPeticao->find('list');
-		$protocolos	= $peticoes = $this->LoteProcessoSolicitacao->TipoProtocolo->find('list');
 		$this->set(compact('peticoes','protocolos'));
 		$this->set('idLote',$idLote);
-		$this->data = $this->paginate( array('LoteProcessoSolicitacao.lote_id'=>$idLote) );
+		$this->data = $this->paginate( array('LoteProcessoSolicitacao.lote_id'=>$idLote, 'ProcessoSolicitacao.finalizada'=>0) );
 	}
 }
 ?>

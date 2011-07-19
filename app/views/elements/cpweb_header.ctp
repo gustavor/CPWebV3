@@ -6,7 +6,7 @@
 
 <?php echo $this->Html->css(mb_strtolower(SISTEMA))."\n"; ?>
 
-<?php echo $this->Html->script('jquery-1.4.2.js')."\n"; ?>
+<?php echo $this->Html->script('jquery-1.6.2.js')."\n"; ?>
 <?php if ($this->Session->check('Auth.Usuario.login')) 
 {
 	echo $this->Html->script('countdown/jquery.countdown.js')."\n";

@@ -74,8 +74,11 @@
 			else
 				echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
 		}
-		$totFerramentas = count($listaFerramentas);
-		echo "<th colspan='$totFerramentas'>Ferramentas</th>";
+		
+		// verificando se tem ferramenta
+		$totFerramentas = 0;
+		foreach($listaFerramentas as $_item => $_ferramenta) if (count($_ferramenta)) $totFerramentas++;
+		if ($totFerramentas>0) echo "<th colspan='$totFerramentas'>Ferramentas</th>";
 	}
 ?>
 </tr>
@@ -141,7 +144,10 @@
 				{
 					$arrCmp = explode('.',($_ferramenta['value']));
 					$fValue = $_dataModel[$arrCmp[0]][$arrCmp[1]];
-					echo "<input value='$fValue' name='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' id='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' title='clique aqui para marcar a finalização do Processo Solitação' type='checkbox' />";
+					echo "<input value='$fValue' name='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' ";
+					//echo "id='data[".$id."][".$arrCmp[0]."][".$arrCmp[1]."]' ";
+					echo "id='".$this->Form->domId($id)."' ";
+					echo "title='clique aqui para marcar a finalização do Processo Solitação' type='checkbox' />";
 				}
 				echo "</td>\n";
 			}

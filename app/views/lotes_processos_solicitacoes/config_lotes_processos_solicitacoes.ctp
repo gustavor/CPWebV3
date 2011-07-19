@@ -1,20 +1,28 @@
 <?php
 	$campos['ProcessoSolicitacao']['processo_id']['options']['label']['text'] 	= 'ID de Controle Interno';
-	$campos['ProcessoSolicitacao']['finalizada']['options']['label']['text'] 	= 'Finalizada';
-	$campos['TipoPeticao']['nome']['options']['label']['text'] 					= 'Petição';
-	$campos['TipoProtocolo']['nome']['options']['label']['text'] 				= 'Protocolo';
-	$campos['Lote']['codigo']['options']['label']['text'] 						= 'Código';
-	$campos['LoteProcessoSolicitacao']['tipo_protocolo_id']['options']['label']['text']	= 'Protocolo';
-
-	$campos['ProcessoSolicitacao']['processo_id']['estilo_th']					= 'style="width: 190px;"';
-	$campos['TipoPeticao']['nome']['estilo_th']									= 'style="width: 120px;"';
-	$campos['LoteProcessoSolicitacao']['tipo_protocolo_id']['estilo_th']		= 'style="width: 240px;"';
-	$campos['Lote']['codigo']['estilo_th']										= 'style="width: 90px;"';
-
-	$campos['Lote']['codigo']['estilo_td']										= 'style="text-align: center;"';
 	$campos['ProcessoSolicitacao']['processo_id']['estilo_td']					= 'style="text-align: center;"';
-	$campos['ProcessoSolicitacao']['finalizada']['estilo_td']					= 'style="text-align: center;"';
+	$campos['ProcessoSolicitacao']['processo_id']['estilo_th']					= 'style="width: 190px;"';
+	$campos['ProcessoSolicitacao']['processo_id']['link_off']					= true;
 
+	$campos['ProcessoSolicitacao']['finalizada']['options']['label']['text'] 	= 'Finalizada';
+	$campos['ProcessoSolicitacao']['finalizada']['estilo_th']					= 'style="width: 190px;"';
+	$campos['ProcessoSolicitacao']['finalizada']['estilo_td']					= 'style="text-align: center;"';
+	$campos['ProcessoSolicitacao']['finalizada']['link_off']					= true;
+
+	$campos['TipoPeticao']['nome']['options']['label']['text'] 					= 'Petição';
+	$campos['TipoPeticao']['nome']['estilo_th']									= 'style="width: 190px;"';
+	$campos['TipoPeticao']['nome']['link_off']									= true;
+
+	$campos['TipoProtocolo']['nome']['options']['label']['text'] 				= 'Protocolo';
+
+	$campos['Lote']['codigo']['options']['label']['text'] 						= 'Código';
+	$campos['Lote']['codigo']['estilo_th']										= 'style="width: 90px;"';
+	$campos['Lote']['codigo']['estilo_td']										= 'style="text-align: center;"';
+	$campos['Lote']['codigo']['link_off']										= true;
+
+	$campos['LoteProcessoSolicitacao']['tipo_protocolo_id']['options']['label']['text']	= 'Protocolo';
+	$campos['LoteProcessoSolicitacao']['tipo_protocolo_id']['estilo_th']		= 'style="width: 240px;"';
+	$campos['LoteProcessoSolicitacao']['tipo_protocolo_id']['estilo_td']		= 'style="text-align: center;"';
 	$campos['LoteProcessoSolicitacao']['tipo_protocolo_id']['link_off']			= true;
 
 	$simNao[0] = 'Não';
@@ -22,22 +30,21 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos = array('ProcessoSolicitacao.processo_id', 'ProcessoSolicitacao.finalizada', 'Lote.codigo', 'TipoPeticao.nome', 'LoteProcessoSolicitacao.tipo_protocolo_id');
+		$listaCampos = array('ProcessoSolicitacao.processo_id', 'ProcessoSolicitacao.finalizada', 'TipoPeticao.nome', 'LoteProcessoSolicitacao.tipo_protocolo_id');
 		$listaFerramentas[0] = array();
 		$listaFerramentas[1] = array();
 		$listaFerramentas[2] = array();
-		$listaFerramentas[3]['type'] 	= 'checkbox';
-		$listaFerramentas[3]['value'] 	= 'ProcessoSolicitacao.id';
 		$botoesLista['Novo'] = array();
 		$botoesLista['Salvar']['type']	= 'submit';
 		$botoesLista['Salvar']['class']	= 'btEdicao';
 		$botoesLista['Salvar']['id']	= 'btEdicaoSalvar';
-		$botoesLista['Salvar']['title']	= 'Clique aqui para FINALIZAR as Solicitações marcadas.';
+		$botoesLista['Salvar']['title']	= 'Clique aqui para FINALIZAR as Solicitações protocoladas.';
 		foreach($this->data as $_linha => $_arrModel)
 		{
 			// montando o select do protocolo
-			$selectPro = '<select name="data[ProcessoSolicitacao][prot]['.$_arrModel['LoteProcessoSolicitacao']['id'].']" id="data[ProcessoSolicitacao][prot]['.$_arrModel['LoteProcessoSolicitacao']['id'].']" style="width: 200px; font-size: 10px;">';
-			$selectPro .= '<option value="-">--</option>';
+			$sId = $this->Form->domId('sel'.$_arrModel['LoteProcessoSolicitacao']['id']);
+			$selectPro = '<select name="data[ProcessoSolicitacao][Sel]['.$_arrModel['LoteProcessoSolicitacao']['id'].']" id="'.$sId.'" style="width: 200px; font-size: 10px; ">';
+			$selectPro .= '<option value="0">--</option>';
 			foreach($protocolos as $_id => $_nome)
 			{
 				$checado = ($_id==$_arrModel['LoteProcessoSolicitacao']['tipo_protocolo_id']) ? 'selected="selected"' : '';
@@ -56,5 +63,4 @@
 			$this->data[$_linha]['ProcessoSolicitacao']['finalizada'] = $finalizada;
 		}
 	}
-	//pr($this->data);
 ?>

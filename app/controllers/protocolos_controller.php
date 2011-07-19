@@ -73,64 +73,24 @@ class ProtocolosController extends AppController {
 	 */
 	public function index()
 	{
-	}
-
-	/**
-	 * Lista os dados em paginação
-	 * 
-	 * @parameter integer 	$pag 		Número da página
-	 * @parameter string 	$ordem 		Campo usado no order by da sql
-	 * @parameter string 	$direcao 	Direção ASC ou DESC
-	 * @return void
-	 */
-	public function listar($pag=1,$ordem=null,$direcao='DESC')
-	{
-	}
-
-	/**
-	 * Exibe formulário de edição para o model
-	 * 
-	 * @parameter	integer 	$id 	Chave única do registro da model
-	 * @return 		void
-	 */
-	public function editar($id=null)
-	{
-	}
-
-	/**
-	 * Exibe formulário de inclusão para o model
-	 * 
-	 * @return 		void
-	 */
-	public function novo()
-	{
-	}
-
-	/**
-	 * Exibe formulário de exclusão para o model
-	 * 
-	 * @return 		void
-	 */
-	public function excluir($id=null)
-	{
-	}
-
-	/**
-	 * Exclui a cidade do banco de dados
-	 * 
-	 * @return 		void
-	 */
-	public function delete($id=null)
-	{
-	}
-
-	/**
-	 * Imprime em pdf o registro 
-	 * 
-	 * @return 		void
-	 */
-	public function imprimir($id=null)
-	{
+		if (isset($this->data))
+		{
+			$msg = 'Não foi possível localizar nenhum lote com este número !!!';
+			$idLote = $this->data['protocolo']['lote'];
+			if ($idLote>0)
+			{
+				$this->loadModel('Lote');
+				$dataLote = $this->Lote->find('list',array('conditions'=>array('Lote.id'=>$idLote)));
+				if (count($dataLote))
+				{
+					foreach($dataLote as $_idLote => $_codigo)
+					{
+						$this->redirect(Router::url('/',true).'lotes_processos_solicitacoes/listar/lote:'.$_idLote);
+					}
+				}
+			}
+			$this->set('msg',$msg);
+		}
 	}
 }
 ?>
