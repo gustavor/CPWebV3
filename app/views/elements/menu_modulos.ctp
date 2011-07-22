@@ -1,6 +1,7 @@
 <?php
 	// menu da lista cidades
-	$listaMenu = array();
+	$listaMenu 	= array();
+	if ($name=='lotes_processos_solicitacoes') $name = 'Protocolos';
 
 	// módulo contatos
 	if (!in_array('contatos',$this->Session->read('urlsNao')))
@@ -9,32 +10,18 @@
 		$listaMenu['contatos']['url'] 	= Router::url('/',true).'contatos';
 	}
 
-	// módulo lotes
-	if (!in_array('lotes',$this->Session->read('urlsNao')))
-	{
-		$listaMenu['lotes']['text'] 	= 'Cadastro de Lotes';
-		$listaMenu['lotes']['url'] 		= Router::url('/',true).'lotes';
-	}
-
-	// módulo lotes_processos_solicitacoes
-	if (!in_array('lotes_processos_solicitacoes',$this->Session->read('urlsNao')))
-	{
-		$listaMenu['lotes_processos_solicitacoes']['text'] 	= 'Cadastro de Lotes e ProcessosSolicitações';
-		$listaMenu['lotes_processos_solicitacoes']['url'] 	= Router::url('/',true).'lotes_processos_solicitacoes';
-	}
-
-	// módulo lotes_processos_solicitacoes
-	if (!in_array('protocolos',$this->Session->read('urlsNao')))
-	{
-		$listaMenu['protocolos']['text'] 	= 'Cadastro de Protocolos';
-		$listaMenu['protocolos']['url'] 	= Router::url('/',true).'protocolos';
-	}
-
 	// módulo processos
 	if (!in_array('processos',$this->Session->read('urlsNao')))
 	{
 		$listaMenu['processos']['text'] = 'Controle de Processos';
 		$listaMenu['processos']['url'] 	= Router::url('/',true).'processos';
+	}
+
+	// módulo lotes_processos_solicitacoes
+	if (!in_array('protocolos',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['protocolos']['text'] 	= 'Protocolos';
+		$listaMenu['protocolos']['url'] 	= Router::url('/',true).'protocolos';
 	}
 
 	// destacando a opção ativa

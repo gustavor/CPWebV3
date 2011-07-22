@@ -60,6 +60,7 @@ class LotesProcessosSolicitacoesController extends AppController {
 	 */
 	public function beforeFilter()
 	{
+		$this->layout = 'protocolo';
 		$this->set('arqListaMenu','menu_modulos');
 		parent::beforeFilter();
 	}

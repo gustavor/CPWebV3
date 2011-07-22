@@ -28,20 +28,12 @@
 			<li><a href="<?php echo Router::url('/').'contatos'; ?>">Cadastro de Contatos</a></li>
 			<?php endif; ?>
 
-			<?php if (!in_array('lotes',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'lotes'; ?>">Cadastro de Lotes</a></li>
-			<?php endif; ?>
-
-			<?php if (!in_array('lotes_processos_solicitacoes',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'lotes_processos_solicitacoes'; ?>">Cadastro de Lotes e ProcessosSolicitações</a></li>
+			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
 			<?php endif; ?>
 
 			<?php if (!in_array('protocolos',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'protocolos'; ?>">Cadastro de Protocolos</a></li>
-			<?php endif; ?>
-
-			<?php if (!in_array('processos',$this->Session->read('urlsNao'))) : ?>
-			<li><a href="<?php echo Router::url('/').'processos'; ?>">Controle de Processos</a></li>
+			<li><a href="<?php echo Router::url('/').'protocolos'; ?>">Protocolos</a></li>
 			<?php endif; ?>
 
 		</ul>

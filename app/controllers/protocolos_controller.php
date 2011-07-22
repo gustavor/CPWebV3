@@ -73,24 +73,30 @@ class ProtocolosController extends AppController {
 	 */
 	public function index()
 	{
+		$msg = 'Entre com um código válido para pesquisa, exemplo: '.date('d/m/Y').'-1';
 		if (isset($this->data))
 		{
-			$msg = 'Não foi possível localizar nenhum lote com este número !!!';
-			$idLote = $this->data['protocolo']['lote'];
-			if ($idLote>0)
+			//pr($this->data);
+			$arrCodLote = explode('-',$this->data['protocolo']['lote']);
+			if ($arrCodLote[0]>0)
 			{
+				$arrCodLote[1] = str_replace('0','',$arrCodLote[1]);
+				$codLote = $arrCodLote[0].'-'.$arrCodLote[1];
 				$this->loadModel('Lote');
-				$dataLote = $this->Lote->find('list',array('conditions'=>array('Lote.id'=>$idLote)));
+				$dataLote = $this->Lote->find('list',array('conditions'=>array('Lote.codigo'=>$codLote)));
 				if (count($dataLote))
 				{
 					foreach($dataLote as $_idLote => $_codigo)
 					{
 						$this->redirect(Router::url('/',true).'lotes_processos_solicitacoes/listar/lote:'.$_idLote);
 					}
+				} else
+				{
+					$msg = 'A pesquisa retornou vazio !!!';
 				}
 			}
-			$this->set('msg',$msg);
 		}
+		$this->set('msg',$msg);
 	}
 }
 ?>
