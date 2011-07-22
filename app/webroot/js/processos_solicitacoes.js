@@ -4,6 +4,7 @@
 	 */
 	function getTipoSolicitacao(tipo)
 	{
+
 		switch(tipo)
 		{
 			case '':
@@ -11,26 +12,21 @@
 				$("#divProcessoSolicitacaoComplexidadeId").fadeOut();
 				$("#divProcessoSolicitacaoTipoParecerId").fadeOut();
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeOut();
-/*				setComboSelecao('divProcessoSolicitacaoTipoPeticaoId','');
-				setComboSelecao('divProcessoSolicitacaoTipoParecerId','');
-				setComboSelecao('divProcessoSolicitacaoComplexidadeId','');
-*/
 				break;
 			case '7': //parecer
 				$("#divProcessoSolicitacaoTipoParecerId").fadeIn().delay(100).focus();
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeOut();
 				$("#divProcessoSolicitacaoComplexidadeId").fadeIn();
-/*				setComboSelecao('divProcessoSolicitacaoTipoPeticaoId','');
-				setComboSelecao('divProcessoSolicitacaoComplexidadeId','');
-*/
 				break;
 			case '1': //peticao
 				$("#divProcessoSolicitacaoTipoParecerId").fadeOut();
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeIn().delay(100).focus();
 				$("#divProcessoSolicitacaoComplexidadeId").fadeIn();
-/*				setComboSelecao('divProcessoSolicitacaoTipoParecerId','');
-				setComboSelecao('divProcessoSolicitacaoComplexidadeId','');
-*/
 				break;
 		}
+
+
+		if ($("#ProcessoSolicitacaoComplexidadeId").val()>0) $("#divProcessoSolicitacaoComplexidadeId").fadeIn();
+		if ($("#ProcessoSolicitacaoTipoParecerId").val()>0) $("#divProcessoSolicitacaoTipoParecerId").fadeIn();
+		if ($("#ProcessoSolicitacaoTipoPeticaoId").val()>0) $("#divProcessoSolicitacaoTipoPeticaoId").fadeIn();
 	}
