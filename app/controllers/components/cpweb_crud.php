@@ -60,7 +60,6 @@ class CpwebCrudComponent extends Object {
 		if ($arqListaMenu=='menu_administracao')	$this->controller->Session->write('admin_ativo',$name);
 		if ($arqListaMenu=='menu_modulos')			$this->controller->Session->write('modul_ativo',$name);
 		if ($arqListaMenu=='menu_sistema')			$this->controller->Session->write('siste_ativo',$name);
-//		if ($arqListaMenu=='menu_relatorios')		$this->controller->Session->write('relat_ativo',$name);
 
 		$campos[$modelClass]['nome']['estilo_th'] 						= 'width="450px"';
 

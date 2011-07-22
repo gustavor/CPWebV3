@@ -184,7 +184,7 @@ class Lote extends AppModel {
 	}
 
 	/**
-	 * Reseta os processos e solicitações envolvidos peloe lote
+	 * Reseta os processos e solicitações envolvidos pelo lote
 	 * 
 	 * @param	integer	$idLote	Id do lote para pesquisar
 	 * @return	boolean

@@ -42,7 +42,7 @@
 
 	</div>
 	<div id='menu'>
-		<?php if ($this->Session->check('Auth.Usuario.login')) echo $this->element('menu'); ?>
+		<?php if ($this->Session->check('Auth.Usuario.login')) echo $this->element('menu_protocolo'); ?>
 
 	</div>
 
