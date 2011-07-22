@@ -126,6 +126,7 @@
 	{
         $campos[$modelClass]['departamento_id']['options']['options'] = array(1 => 'NÚCLEO JURÍDICO',
                                                                           2 => 'CONTROLE DE PROCESSOS',
+                                                                          3 => 'ATUALIZAÇÃO DE SISTEMAS',
                                                                           5 => 'ACORDO',
                                                                           6 => 'FINANCEIRO',
                                                                           7 => 'PROTOCOLO'
@@ -180,9 +181,15 @@
 		// se não foi finalizada, deixa-se atribuir
 		if (empty($this->Form->data['ProcessoSolicitacao']['finalizada']))
 		{
-			$redirecionamentos['Atribuir a Mim']['onclick'] 			= '';
+            //a solicitação só pode ser atribuida a alguem se o alguem for do departamento da solicitação ou administrador
+            if( ( $this->Session->read('Auth.Usuario.departamento_id') == $this->data['ProcessoSolicitacao']['departamento_id'] ) ||
+                in_array('ADMINISTRADOR',$this->Session->read('perfis'))
+            )
+            {
+                $redirecionamentos['Atribuir a Mim']['onclick'] 			= '';
+                $on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); this.form.submit(); });';
+            }
 			$redirecionamentos['Atribuir a Adv. Resp.']['onclick'] 		= '';
-			$on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); this.form.submit(); });';
 			if (isset($this->data['Processo']['usuario_id']) && !empty($this->data['Processo']['usuario_id']))
 			{
 				$on_read_view .= "\n\t".'$("#re_atribuir_a_adv_resp").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->data['Processo']['usuario_id'].'"); this.form.submit(); });';

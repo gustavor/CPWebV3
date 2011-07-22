@@ -89,6 +89,9 @@ class ProcessoSolicitacao extends AppModel {
                 case 2:
                     $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 2);
                     break;
+                case 3:
+                    $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 7);
+                    break;
                 default:
                     break;
             }
