@@ -124,9 +124,9 @@
 
 	if ($action=='novo')
 	{
-        $campos[$modelClass]['departamento_id']['options']['options'] = array(1 => 'NÚCLEO JURÍDICO',
-                                                                          2 => 'CONTROLE DE PROCESSOS',
-                                                                          3 => 'ATUALIZAÇÃO DE SISTEMAS',
+        $campos[$modelClass]['departamento_id']['options']['options'] = array(10 => 'NÚCLEO JURÍDICO',
+                                                                          20 => 'CONTROLE DE PROCESSOS',
+                                                                          30 => 'ATUALIZAÇÃO DE SISTEMAS',
                                                                           5 => 'ACORDO',
                                                                           6 => 'FINANCEIRO',
                                                                           7 => 'PROTOCOLO'

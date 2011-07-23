@@ -83,13 +83,13 @@ class ProcessoSolicitacao extends AppModel {
             $processo = $this->Processo->read(null, $this->data[$this->name]['processo_id']);
             switch($this->data[$this->name]['departamento_id'])
             {
-                case 1:
+                case 10:
                     $this->data[$this->name]['departamento_id'] = $processo['Processo']['tipo_processo_id'];
                     break;
-                case 2:
+                case 20:
                     $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 2);
                     break;
-                case 3:
+                case 30:
                     $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 7);
                     break;
                 default:

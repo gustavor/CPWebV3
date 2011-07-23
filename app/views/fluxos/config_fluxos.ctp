@@ -12,7 +12,7 @@
 	$campos['Fluxo']['complexidade_id']['options']['empty'] 		    = '-- escolha uma opção --';
 
 	$campos['Fluxo']['departamento_id']['options']['label']['text'] 	= 'Departamento';
-	$campos['Fluxo']['departamento_id']['options']['options']			= array(1=>'NÚCLEO JURÍDICO', 2=>'POOL', 5=>'ACORDO', 6=>'FINANCEIRO', 7=>'PROTOCOLO');
+	$campos['Fluxo']['departamento_id']['options']['options']			= array(1=>'NÚCLEO JURÍDICO', 2=>'POOL', 3=>'ATUALIZAÇÃO SIST', 5=>'ACORDO', 6=>'FINANCEIRO', 7=>'PROTOCOLO');
 
 	$campos['Fluxo']['contato']['options']['label']['text'] 			= 'Contato';
 	$campos['Fluxo']['contato_id']['options']['label']['text'] 			= 'Contato';
