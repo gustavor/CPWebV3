@@ -354,7 +354,7 @@ class ProcessosSolicitacoesController extends AppController {
 			$data['ProcessoSolicitacao']['processo_id'] 			= $idProcesso;
 			$data['ProcessoSolicitacao']['solicitacao_id'] 			= 5;
 			$data['ProcessoSolicitacao']['usuario_solicitante'] 	= $processo_solicitacao['ProcessoSolicitacao']['usuario_solicitante'];
-			$data['ProcessoSolicitacao']['departamento_id'] 		= (($processo['Processo']['tipo_processo_id'])+2);
+			$data['ProcessoSolicitacao']['departamento_id'] 		= (($processo['Processo']['tipo_processo_id'])+7);
 			$data['ProcessoSolicitacao']['tipo_solicitacao_id'] 	= 3;
 			$data['ProcessoSolicitacao']['finalizada'] 				= 0;
 			$data['ProcessoSolicitacao']['usuario_atribuido'] 		= 0;
@@ -374,6 +374,9 @@ class ProcessosSolicitacoesController extends AppController {
 		$data['ProcessoSolicitacao']['processo_id'] 			= $idProcesso;
 		$data['ProcessoSolicitacao']['solicitacao_id'] 			= $fluxo['Fluxo']['proxima_id'];
 		$data['ProcessoSolicitacao']['usuario_solicitante'] 	= $this->Session->read('Auth.Usuario.id');
+        $data['ProcessoSolicitacao']['tipo_peticao_id']         = $processo_solicitacao['ProcessoSolicitacao']['tipo_peticao_id'];
+        $data['ProcessoSolicitacao']['tipo_parecer_id']         = $processo_solicitacao['ProcessoSolicitacao']['tipo_parecer_id'];
+        $data['ProcessoSolicitacao']['complexidade_id']         = $processo_solicitacao['ProcessoSolicitacao']['complexidade_id'];
 		switch($fluxo['Fluxo']['departamento_id'])
 		{
 			case 1:
@@ -382,6 +385,9 @@ class ProcessosSolicitacoesController extends AppController {
 			case 2:
 				$data['ProcessoSolicitacao']['departamento_id'] = (($processo['Processo']['tipo_processo_id'])+2);
 				break;
+            case 3:
+                $data['ProcessoSolicitacao']['departamento_id'] = (($processo['Processo']['tipo_processo_id'])+7);
+                break;
 			default:
 				$data['ProcessoSolicitacao']['departamento_id'] = $fluxo['Fluxo']['departamento_id'];
 				break;
