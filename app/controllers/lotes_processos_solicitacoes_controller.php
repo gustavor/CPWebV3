@@ -96,8 +96,10 @@ class LotesProcessosSolicitacoesController extends AppController {
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
 		$idLote 	= isset($this->params['named']['lote']) ? $this->params['named']['lote'] : 0;
+		$processos	= $this->LoteProcessoSolicitacao->ProcessoSolicitacao->Processo->find('list');
 		$peticoes 	= $this->LoteProcessoSolicitacao->ProcessoSolicitacao->TipoPeticao->find('list');
 		$protocolos	= $this->LoteProcessoSolicitacao->TipoProtocolo->find('list');
+		$tipo		= isset($this->data['Lote']['tipo']) ? $this->data['Lote']['tipo'] : 'edicao';
 
 		if ($this->data)
 		{
@@ -131,14 +133,43 @@ class LotesProcessosSolicitacoesController extends AppController {
 			foreach($dataLPS as $_id => $_idPS) array_push($arrIdPS,$_idPS);
 
 			// finalizando todas as PS envolvidas
-			if (count($arrIdPS))
+			if (count($arrIdPS) && $tipo != 'imprimir')
 			{
 				if (!$this->LoteProcessoSolicitacao->setPS($arrIdPS)) exit('Erro ao tentar finalizar Processos e Solicitações'); 
 			}
 		}
-		$this->set(compact('peticoes','protocolos'));
+
+		// atualizando view
+		$this->set(compact('peticoes','protocolos','tipo','processos'));
 		$this->set('idLote',$idLote);
-		$this->data = $this->paginate( array('LoteProcessoSolicitacao.lote_id'=>$idLote, 'ProcessoSolicitacao.finalizada'=>0) );
+		$condicoes 	= ($tipo=='edicao') ? array('ProcessoSolicitacao.finalizada'=>0) : array();
+		$this->data = $this->paginate( array('LoteProcessoSolicitacao.lote_id'=>$idLote, $condicoes) );
+		
+		// recuperando todos os Ids de PS para recuperar somente os processos envolvidos
+		$arrIdProcessos = array();
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			array_push($arrIdProcessos,$this->data[$_linha]['ProcessoSolicitacao']['processo_id']);
+		}
+
+		// recuperando uma lista de todos os processos envolvidos
+		$processos = $this->LoteProcessoSolicitacao->ProcessoSolicitacao->Processo->find('list', array('conditions'=>array('Processo.id'=>$arrIdProcessos)));
+
+		// dando outro loop para atualizar o número do processo na lista
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			$idProcesso = $_arrModel['ProcessoSolicitacao']['processo_id'];
+			$this->data[$_linha]['Processo']['numero'] = $processos[$idProcesso];
+		}
+		
+
+		// se foi pedido para imprimir, muda o layout
+		if ($tipo=='imprimir')
+		{
+			$this->layout = 'pdf';
+			
+			$this->render('imprimir');
+		}
 	}
 }
 ?>
