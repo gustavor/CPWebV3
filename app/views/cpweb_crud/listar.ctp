@@ -8,6 +8,7 @@
 <div class="lista" id="lista<?php echo str_replace(' ','',$pluralHumanName);?>" >
 
 <div id="topo">
+	<div id="msgLista"><?php if (isset($msgLista)) echo $msgLista; ?></div>
 	<div id="botoes_lista">
 	<?php foreach($botoesLista as $_label => $_arrOpcoes) if (count($_arrOpcoes)) echo "\t".$form->button($_label,$_arrOpcoes)."\n"; ?>
 	</div>

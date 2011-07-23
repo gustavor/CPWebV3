@@ -1088,6 +1088,59 @@ CREATE  TABLE IF NOT EXISTS `lotes_processos_solicitacoes` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `tipos_historicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tipos_historicos` ;
+
+CREATE  TABLE IF NOT EXISTS `tipos_historicos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NULL ,
+  `nome` VARCHAR(100) NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `i_nome` (`nome` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `historicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `historicos` ;
+
+CREATE  TABLE IF NOT EXISTS `historicos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `processo_id` INT(11) NOT NULL ,
+  `usuario_id` INT NOT NULL ,
+  `tipo_historico_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_created` (`created` ASC) ,
+  INDEX `fk_historicos_processos1` (`processo_id` ASC) ,
+  INDEX `fk_historicos_usuarios1` (`usuario_id` ASC) ,
+  INDEX `fk_historicos_tipos_historicos1` (`tipo_historico_id` ASC) ,
+  CONSTRAINT `fk_historicos_processos1`
+    FOREIGN KEY (`processo_id` )
+    REFERENCES `processos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_historicos_usuarios1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `usuarios` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_historicos_tipos_historicos1`
+    FOREIGN KEY (`tipo_historico_id` )
+    REFERENCES `tipos_historicos` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci, 
+COMMENT = 'tabela de históricos das pastas' ;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

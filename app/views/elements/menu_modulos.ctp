@@ -24,6 +24,13 @@
 		$listaMenu['protocolos']['url'] 	= Router::url('/',true).'protocolos';
 	}
 
+	// módulo lotes_processos_solicitacoes
+	if (!in_array('historicos',$this->Session->read('urlsNao')))
+	{
+		$listaMenu['historicos']['text'] 	= 'Historicos';
+		$listaMenu['historicos']['url'] 	= Router::url('/',true).'historicos';
+	}
+
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;
 	$listaMenu[$name]['url'] = '#';

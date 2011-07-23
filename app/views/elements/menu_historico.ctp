@@ -31,8 +31,13 @@
 	</li>
 
 	<li>
-		<a href="<?php echo Router::url('/').'lotes/filtrar/usuario_id:'.$this->Session->read('Auth.Usuario.id'); ?>">Meus Lotes</a>
+		<a href="<?php echo Router::url('/').'historicos/emprestimo'; ?>">Emprestimo</a>
 	</li>
-
+	<li>
+		<a href="<?php echo Router::url('/').'historicos/devolucao'; ?>">Devolução</a>
+	</li>
+	<li>
+		<a href="<?php echo Router::url('/').'historicos/remessa'; ?>">Remessa para o Morto</a>
+	</li>
 
 </ul>

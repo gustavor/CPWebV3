@@ -216,6 +216,7 @@
 		if (isset($processo_solicitacao))	$redirecionamentos['Solicitações']['onclick']			= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($processo_solicitacao))	$redirecionamentos['Contatos Telefônicos']['onclick']	= 'document.location.href=\''.Router::url('/',true).'contatos_telefonicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($testemunha))				$redirecionamentos['Testemunhas']['onclick']			= 'document.location.href=\''.Router::url('/',true).'testemunhas/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+        if (isset($historico))				$redirecionamentos['Arquivo']['onclick']				= 'document.location.href=\''.Router::url('/',true).'historicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 
         // dados do formulário
 		$subFormData = isset($contatos) ? $contatos : array();

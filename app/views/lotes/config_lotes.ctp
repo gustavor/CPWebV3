@@ -38,8 +38,20 @@
 		$on_read_view .= "\n".'$("#LoteTamanho").focus();';
 	}
 
-	if ($action=='listar')	
+	if ($action=='listar' || $action=='filtrar')	
 	{
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			if ($_arrModel['Lote']['finalizado'])
+			{
+				if (!isset($lista['estilo_tr_'.$this->data[$_linha]['Lote']['id']])) $destaque = 'style="background-color: #9fed9f;"';
+			} else
+			{
+				if (!isset($lista['estilo_tr_'.$this->data[$_linha]['Lote']['id']])) $destaque = 'style="background-color: #f1ccb5;"';
+			}
+			if ($destaque) $lista['estilo_tr_'.$this->data[$_linha]['Lote']['id']] = $destaque;
+		}
+		
 		$listaFerramentas[0] = array();
 		$listaFerramentas[1] = array();
 		$listaCampos 								= array('Lote.codigo','Lote.tamanho','Lote.finalizado','Lote.created');

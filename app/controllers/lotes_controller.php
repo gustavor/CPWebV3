@@ -134,4 +134,35 @@ class LotesController extends AppController {
 	{
 		$this->CpwebCrud->delete($id);
 	}
+
+	/**
+	 * Filtra os dados em dbgrid utilizando named parameters
+	 *
+	 * @return void
+	 */
+	public function filtrar()
+	{
+		$this->CpwebCrud->filtrar();
+		
+		// recuperando todos os ids de PS envolvidos
+		$idsPS = array();
+		foreach($this->data as $_linha => $_arrModel)
+		{
+			foreach($_arrModel['LoteProcessoSolicitacao'] as $_linha2 => $_arrCampos)
+			{
+				array_push($idsPS,$_arrCampos['processo_solicitacao_id']);
+			}
+		}
+		
+		// recuperando data de PS,
+		$tot = 0;
+		foreach($idsPS as $_idPS)
+		{
+			$res = $this->Lote->LoteProcessoSolicitacao->ProcessoSolicitacao->read('finalizada',$_idPS);
+			if ($res['ProcessoSolicitacao']['finalizada']) $tot++;
+		}
+
+		//
+		
+	}
 }

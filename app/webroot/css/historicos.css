@@ -1,0 +1,25 @@
+#cabecalho
+{
+	background: #5483dd url('../img/fundo4.png') repeat left;
+	height: 60px;
+	line-height: 40px;
+	border-bottom: 2px solid #3f4757;
+	color: #fff;
+	margin: 0px;
+	padding: 0px;
+}
+
+#cabecalho a
+{
+	color: #333;
+}
+
+#cabecalho a:hover
+{
+	color: blue;
+}
+
+#cabecalho #userOn a
+{
+	color: #333;
+}

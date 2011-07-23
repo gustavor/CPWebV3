@@ -80,7 +80,7 @@ class Lote extends AppModel {
 		'LoteProcessoSolicitacao' => array(
 			'className' 	=> 'LoteProcessoSolicitacao',
 			'foreignKey' 	=> 'lote_id',
-			'fields' 		=> 'id, lote_id',
+			'fields' 		=> 'id, lote_id, processo_solicitacao_id',
 			'dependent'		=> true
 		)
 	);

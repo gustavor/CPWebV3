@@ -129,6 +129,8 @@ class ProcessosController extends AppController {
 		$this->loadModel('Contato');			$this->set('contato',$this->Contato->find('list'));
 		$this->loadModel('TipoParte');			$this->set('tipo_parte',$this->TipoParte->find('list'));
 		$this->loadModel('Envolvimento');		$this->set('envolvimento',$this->Envolvimento->find('list',array('fields'=>array('id','nome'))));
+		$this->loadModel('Historico');			$this->set('historico',$this->Historico->find(array('processo_id'=>$id)));
+		
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
         
         // salvando os apensos
