@@ -149,6 +149,15 @@
 
 	if ($action=='editar')
 	{
+		if(!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+        {
+            $campos[$modelClass]['solicitacao_id']['options']['disabled'] = 'disabled';
+            $campos[$modelClass]['complexidade_id']['options']['disabled'] = 'disabled';
+            $campos[$modelClass]['tipo_peticao_id']['options']['disabled'] = 'disabled';
+            $campos[$modelClass]['tipo_parecer_id']['options']['disabled'] = 'disabled';
+            $campos[$modelClass]['departamento_id']['options']['disabled'] = 'disabled';
+        }
+
 		// alertas
 		if (isset($alertas))
 		{
