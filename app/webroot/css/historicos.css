@@ -9,17 +9,14 @@
 	padding: 0px;
 }
 
-#cabecalho a
+/*
+ * #cabecalho a
 {
 	color: #333;
 }
-
+*/
+#cabecalho #userOn a:hover,
 #cabecalho a:hover
 {
-	color: blue;
-}
-
-#cabecalho #userOn a
-{
-	color: #333;
+	color: #B4E5AC;
 }

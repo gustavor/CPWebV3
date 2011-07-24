@@ -27,6 +27,10 @@
 			<li><a href="<?php echo Router::url('/').'protocolos'; ?>">Protocolos</a></li>
 			<?php endif; ?>
 
+			<?php if (!in_array('historicos',$this->Session->read('urlsNao'))) : ?>
+			<li><a href="<?php echo Router::url('/').'historicos'; ?>">Arquivo</a></li>
+			<?php endif; ?>
+
 		</ul>
 	</li>
 
