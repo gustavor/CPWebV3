@@ -95,15 +95,15 @@ class ProcessosSolicitacoesController extends AppController {
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
-		$idsAdvResp = array();
+		$idsUsuarioAtribuido = array();
 		foreach($this->data as $_linha => $_arrModel)
 		{
-			array_push($idsAdvResp,$_arrModel['Processo']['usuario_id']);
+			array_push($idsUsuarioAtribuido,$_arrModel['ProcessoSolicitacao']['usuario_atribuido']);
 		}
-		if (count($idsAdvResp))
+		if (count($idsUsuarioAtribuido))
 		{
-			$advResp = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsAdvResp)));
-			$this->set(compact('advResp'));
+			$usuarioAtribuido = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsUsuarioAtribuido)));
+			$this->set(compact('usuarioAtribuido'));
 		}
 	}
 

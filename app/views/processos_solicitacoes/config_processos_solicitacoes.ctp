@@ -98,7 +98,7 @@
 	$campos['TipoPeticao']['nome']['options']['label']['text'] 								= 'Tipo de Petição';
 	$campos['TipoPeticao']['nome']['estilo_th'] 											= 'width="140px"';
 	
-	$campos['Processo']['adv']['options']['label']['text']									= 'Adv.Responsável';
+	$campos['ProcessoSolicitacao']['atribuido']['options']['label']['text']					= 'Responsável';
 
 	// descobrindo o id do processo
 	$idProcesso	= isset($idProcesso) ? $idProcesso : '';	
@@ -149,7 +149,8 @@
 
 	if ($action=='editar')
 	{
-		if(!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+		//desativar campos para edição, ativar somente para administrador
+        if(!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
         {
             $campos[$modelClass]['solicitacao_id']['options']['disabled'] = 'disabled';
             $campos[$modelClass]['complexidade_id']['options']['disabled'] = 'disabled';
@@ -169,7 +170,9 @@
 		if (isset($fluxos) && count($fluxos) && !$this->data['ProcessoSolicitacao']['finalizada'] == 1)
 		//if (isset($fluxos) && count($fluxos))
 		{
-			foreach($fluxos as $_linha => $_arrModel)
+			//somente mostrar os botões de fluxo se o usuário logado for o usuário atribuido
+            if( $this->data['ProcessoSolicitacao']['usuario_atribuido'] == $this->Session->read('Auth.Usuario.id') )
+            foreach($fluxos as $_linha => $_arrModel)
 			{
 				if (isset($_arrModel['Fluxo']['nome_botao']) && !empty($_arrModel['Fluxo']['nome_botao']))
 				{
@@ -192,8 +195,7 @@
 		{
             //a solicitação só pode ser atribuida a alguem se o alguem for do departamento da solicitação ou administrador
             if( ( $this->Session->read('Auth.Usuario.departamento_id') == $this->data['ProcessoSolicitacao']['departamento_id'] ) ||
-                in_array('ADMINISTRADOR',$this->Session->read('perfis'))
-            )
+                in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
             {
                 $redirecionamentos['Atribuir a Mim']['onclick'] 			= '';
                 $on_read_view .= "\n\t".'$("#re_atribuir_a_mim").click(function() { $("#ProcessoSolicitacaoUsuarioAtribuido").val("'.$this->Session->read('Auth.Usuario.id').'"); this.form.submit(); });';
@@ -230,7 +232,7 @@
 			$on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
         }
 
-        //se a solicitação é enviada para o pool, sumir com o botão atribuir ao advogado responsavel
+        //se a solicitação não for enviada para o Nucleo Juridico, sumir com o botão atribuir ao advogado responsavel
         if ( $this->Form->data['ProcessoSolicitacao']['departamento_id'] != ($this->Form->data['Processo']['tipo_processo_id']))
             unset($redirecionamentos['Atribuir a Adv. Resp.']);
 
@@ -239,7 +241,7 @@
 	if ($action=='listar' || $action=='filtrar')	
 	{
 		//$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','TipoParecer.nome','TipoPeticao.nome');
-		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','Processo.adv','TipoParecer.nome','TipoPeticao.nome');
+		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','ProcessoSolicitacao.atribuido','TipoParecer.nome','TipoPeticao.nome');
 
 		// criando o campo 
 		foreach($this->data as $_linha => $_modelos)
@@ -247,7 +249,7 @@
 			$_usuarioAtribuido = $_modelos['ProcessoSolicitacao']['usuario_atribuido'];
             $_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
 			$this->data[$_linha]['ProcessoSolicitacao']['idProcesso'] = 'VEBH - '.str_repeat('0',5-strlen($_idProcesso)).$_idProcesso;
-			$this->data[$_linha]['Processo']['adv'] = $advResp[$_modelos['Processo']['usuario_id']];
+			$this->data[$_linha]['ProcessoSolicitacao']['atribuido'] = $usuarioAtribuido[$_modelos['ProcessoSolicitacao']['usuario_atribuido']];
 			foreach($_modelos as $_modelo => $_campos)
 			{
 				foreach($_campos as $_campo => $_valor)
