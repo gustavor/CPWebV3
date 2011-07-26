@@ -2,13 +2,15 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
+CREATE SCHEMA IF NOT EXISTS `cpwebv3` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `cpwebv3` ;
 
 -- -----------------------------------------------------
--- Table `comarcas`
+-- Table `cpwebv3`.`comarcas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `comarcas` ;
+DROP TABLE IF EXISTS `cpwebv3`.`comarcas` ;
 
-CREATE  TABLE IF NOT EXISTS `comarcas` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`comarcas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -20,11 +22,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `status`
+-- Table `cpwebv3`.`status`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `status` ;
+DROP TABLE IF EXISTS `cpwebv3`.`status` ;
 
-CREATE  TABLE IF NOT EXISTS `status` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`status` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -36,11 +38,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `tipos_processos`
+-- Table `cpwebv3`.`tipos_processos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_processos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_processos` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_processos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_processos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -52,11 +54,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `fases`
+-- Table `cpwebv3`.`fases`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fases` ;
+DROP TABLE IF EXISTS `cpwebv3`.`fases` ;
 
-CREATE  TABLE IF NOT EXISTS `fases` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`fases` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -68,11 +70,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `instancias`
+-- Table `cpwebv3`.`instancias`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `instancias` ;
+DROP TABLE IF EXISTS `cpwebv3`.`instancias` ;
 
-CREATE  TABLE IF NOT EXISTS `instancias` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`instancias` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -85,11 +87,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `naturezas`
+-- Table `cpwebv3`.`naturezas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `naturezas` ;
+DROP TABLE IF EXISTS `cpwebv3`.`naturezas` ;
 
-CREATE  TABLE IF NOT EXISTS `naturezas` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`naturezas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -101,11 +103,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `orgaos`
+-- Table `cpwebv3`.`orgaos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `orgaos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`orgaos` ;
 
-CREATE  TABLE IF NOT EXISTS `orgaos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`orgaos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -117,11 +119,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `segmentos`
+-- Table `cpwebv3`.`segmentos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `segmentos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`segmentos` ;
 
-CREATE  TABLE IF NOT EXISTS `segmentos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`segmentos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -133,11 +135,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `equipes`
+-- Table `cpwebv3`.`equipes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `equipes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`equipes` ;
 
-CREATE  TABLE IF NOT EXISTS `equipes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`equipes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -149,11 +151,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `gestoes`
+-- Table `cpwebv3`.`gestoes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `gestoes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`gestoes` ;
 
-CREATE  TABLE IF NOT EXISTS `gestoes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`gestoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -165,11 +167,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `departamentos`
+-- Table `cpwebv3`.`departamentos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `departamentos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`departamentos` ;
 
-CREATE  TABLE IF NOT EXISTS `departamentos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`departamentos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
@@ -180,11 +182,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `usuarios`
+-- Table `cpwebv3`.`usuarios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `usuarios` ;
+DROP TABLE IF EXISTS `cpwebv3`.`usuarios` ;
 
-CREATE  TABLE IF NOT EXISTS `usuarios` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -204,7 +206,7 @@ CREATE  TABLE IF NOT EXISTS `usuarios` (
   INDEX `fk_usuarios_departamentos1` (`departamento_id` ASC) ,
   CONSTRAINT `fk_usuarios_departamentos1`
     FOREIGN KEY (`departamento_id` )
-    REFERENCES `departamentos` (`id` )
+    REFERENCES `cpwebv3`.`departamentos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -213,11 +215,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `processos`
+-- Table `cpwebv3`.`processos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `processos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`processos` ;
 
-CREATE  TABLE IF NOT EXISTS `processos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -256,57 +258,57 @@ CREATE  TABLE IF NOT EXISTS `processos` (
   INDEX `i_familia_id` (`familia_id` ASC) ,
   CONSTRAINT `fk_processos_comarcas1`
     FOREIGN KEY (`comarca_id` )
-    REFERENCES `comarcas` (`id` )
+    REFERENCES `cpwebv3`.`comarcas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_status1`
     FOREIGN KEY (`status_id` )
-    REFERENCES `status` (`id` )
+    REFERENCES `cpwebv3`.`status` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_tipos_processos1`
     FOREIGN KEY (`tipo_processo_id` )
-    REFERENCES `tipos_processos` (`id` )
+    REFERENCES `cpwebv3`.`tipos_processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_fases1`
     FOREIGN KEY (`fase_id` )
-    REFERENCES `fases` (`id` )
+    REFERENCES `cpwebv3`.`fases` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_instancias1`
     FOREIGN KEY (`instancia_id` )
-    REFERENCES `instancias` (`id` )
+    REFERENCES `cpwebv3`.`instancias` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_naturezas1`
     FOREIGN KEY (`natureza_id` )
-    REFERENCES `naturezas` (`id` )
+    REFERENCES `cpwebv3`.`naturezas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_orgaos1`
     FOREIGN KEY (`orgao_id` )
-    REFERENCES `orgaos` (`id` )
+    REFERENCES `cpwebv3`.`orgaos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_segmentos1`
     FOREIGN KEY (`segmento_id` )
-    REFERENCES `segmentos` (`id` )
+    REFERENCES `cpwebv3`.`segmentos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_equipes1`
     FOREIGN KEY (`equipe_id` )
-    REFERENCES `equipes` (`id` )
+    REFERENCES `cpwebv3`.`equipes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_gestoes1`
     FOREIGN KEY (`gestao_id` )
-    REFERENCES `gestoes` (`id` )
+    REFERENCES `cpwebv3`.`gestoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_usuarios1`
     FOREIGN KEY (`usuario_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -316,11 +318,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `tipos_audiencias`
+-- Table `cpwebv3`.`tipos_audiencias`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_audiencias` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_audiencias` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_audiencias` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_audiencias` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL DEFAULT NULL ,
@@ -332,11 +334,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `audiencias`
+-- Table `cpwebv3`.`audiencias`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `audiencias` ;
+DROP TABLE IF EXISTS `cpwebv3`.`audiencias` ;
 
-CREATE  TABLE IF NOT EXISTS `audiencias` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`audiencias` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -353,17 +355,17 @@ CREATE  TABLE IF NOT EXISTS `audiencias` (
   INDEX `fk_audiencias_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_audiencias_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_audiencias_tipos_audiencias1`
     FOREIGN KEY (`tipo_audiencia_id` )
-    REFERENCES `tipos_audiencias` (`id` )
+    REFERENCES `cpwebv3`.`tipos_audiencias` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_audiencias_usuarios1`
     FOREIGN KEY (`usuario_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -373,11 +375,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `estados`
+-- Table `cpwebv3`.`estados`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `estados` ;
+DROP TABLE IF EXISTS `cpwebv3`.`estados` ;
 
-CREATE  TABLE IF NOT EXISTS `estados` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`estados` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -392,11 +394,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `cidades`
+-- Table `cpwebv3`.`cidades`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `cidades` ;
+DROP TABLE IF EXISTS `cpwebv3`.`cidades` ;
 
-CREATE  TABLE IF NOT EXISTS `cidades` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`cidades` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -406,7 +408,7 @@ CREATE  TABLE IF NOT EXISTS `cidades` (
   INDEX `fk_cidades_estados1` (`estado_id` ASC) ,
   CONSTRAINT `fk_cidades_estados1`
     FOREIGN KEY (`estado_id` )
-    REFERENCES `estados` (`id` )
+    REFERENCES `cpwebv3`.`estados` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -416,11 +418,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `profissoes`
+-- Table `cpwebv3`.`profissoes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `profissoes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`profissoes` ;
 
-CREATE  TABLE IF NOT EXISTS `profissoes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`profissoes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(65) NOT NULL ,
   `created` DATETIME NOT NULL ,
@@ -431,11 +433,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `contatos`
+-- Table `cpwebv3`.`contatos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `contatos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`contatos` ;
 
-CREATE  TABLE IF NOT EXISTS `contatos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`contatos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -457,12 +459,12 @@ CREATE  TABLE IF NOT EXISTS `contatos` (
   INDEX `i_oab` (`oab` ASC) ,
   CONSTRAINT `fk_clientes_cidades1`
     FOREIGN KEY (`cidade_id` )
-    REFERENCES `cidades` (`id` )
+    REFERENCES `cpwebv3`.`cidades` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contatos_profissoes1`
     FOREIGN KEY (`profissao_id` )
-    REFERENCES `profissoes` (`id` )
+    REFERENCES `cpwebv3`.`profissoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -472,11 +474,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `tipos_eventos`
+-- Table `cpwebv3`.`tipos_eventos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_eventos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_eventos` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_eventos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_eventos` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
   `nome` VARCHAR(200) NULL ,
@@ -486,11 +488,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `eventos`
+-- Table `cpwebv3`.`eventos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eventos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`eventos` ;
 
-CREATE  TABLE IF NOT EXISTS `eventos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -503,12 +505,12 @@ CREATE  TABLE IF NOT EXISTS `eventos` (
   INDEX `fk_eventos_tipos_eventos1` (`tipo_evento_id` ASC) ,
   CONSTRAINT `fk_movimentos_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_eventos_tipos_eventos1`
     FOREIGN KEY (`tipo_evento_id` )
-    REFERENCES `tipos_eventos` (`id` )
+    REFERENCES `cpwebv3`.`tipos_eventos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -517,11 +519,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `numeros`
+-- Table `cpwebv3`.`numeros`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `numeros` ;
+DROP TABLE IF EXISTS `cpwebv3`.`numeros` ;
 
-CREATE  TABLE IF NOT EXISTS `numeros` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`numeros` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `tipo_numero_id` INT(11) NOT NULL ,
@@ -532,7 +534,7 @@ CREATE  TABLE IF NOT EXISTS `numeros` (
   INDEX `fk_numeros_processos1` (`processo_id` ASC) ,
   CONSTRAINT `fk_numeros_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -542,11 +544,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `telefones`
+-- Table `cpwebv3`.`telefones`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `telefones` ;
+DROP TABLE IF EXISTS `cpwebv3`.`telefones` ;
 
-CREATE  TABLE IF NOT EXISTS `telefones` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`telefones` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `ddd` VARCHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -566,11 +568,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `tipos_partes`
+-- Table `cpwebv3`.`tipos_partes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_partes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_partes` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_partes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_partes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
@@ -582,11 +584,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `solicitacoes`
+-- Table `cpwebv3`.`solicitacoes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `solicitacoes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`solicitacoes` ;
 
-CREATE  TABLE IF NOT EXISTS `solicitacoes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`solicitacoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -598,11 +600,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `tipos_peticoes`
+-- Table `cpwebv3`.`tipos_peticoes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_peticoes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_peticoes` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_peticoes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_peticoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
@@ -613,11 +615,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `tipos_pareceres`
+-- Table `cpwebv3`.`tipos_pareceres`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_pareceres` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_pareceres` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_pareceres` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_pareceres` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
@@ -628,11 +630,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `complexidades`
+-- Table `cpwebv3`.`complexidades`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `complexidades` ;
+DROP TABLE IF EXISTS `cpwebv3`.`complexidades` ;
 
-CREATE  TABLE IF NOT EXISTS `complexidades` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`complexidades` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
@@ -643,11 +645,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `processos_solicitacoes`
+-- Table `cpwebv3`.`processos_solicitacoes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `processos_solicitacoes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`processos_solicitacoes` ;
 
-CREATE  TABLE IF NOT EXISTS `processos_solicitacoes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -672,32 +674,32 @@ CREATE  TABLE IF NOT EXISTS `processos_solicitacoes` (
   INDEX `fk_processos_solicitacoes_complexidades1` (`complexidade_id` ASC) ,
   CONSTRAINT `fk_processos_solicitacoes_solicitacoes1`
     FOREIGN KEY (`solicitacao_id` )
-    REFERENCES `solicitacoes` (`id` )
+    REFERENCES `cpwebv3`.`solicitacoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_solicitacoes_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_solicitacoes_departamento1`
     FOREIGN KEY (`departamento_id` )
-    REFERENCES `departamentos` (`id` )
+    REFERENCES `cpwebv3`.`departamentos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_solicitacoes_tipos_peticoes1`
     FOREIGN KEY (`tipo_peticao_id` )
-    REFERENCES `tipos_peticoes` (`id` )
+    REFERENCES `cpwebv3`.`tipos_peticoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_solicitacoes_tipos_pareceres1`
     FOREIGN KEY (`tipo_parecer_id` )
-    REFERENCES `tipos_pareceres` (`id` )
+    REFERENCES `cpwebv3`.`tipos_pareceres` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_processos_solicitacoes_complexidades1`
     FOREIGN KEY (`complexidade_id` )
-    REFERENCES `complexidades` (`id` )
+    REFERENCES `cpwebv3`.`complexidades` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -706,11 +708,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `eventos_acordos`
+-- Table `cpwebv3`.`eventos_acordos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eventos_acordos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`eventos_acordos` ;
 
-CREATE  TABLE IF NOT EXISTS `eventos_acordos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`eventos_acordos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -723,12 +725,12 @@ CREATE  TABLE IF NOT EXISTS `eventos_acordos` (
   INDEX `fk_eventos_acordo_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_movimentos_processos10`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_eventos_acordo_usuarios1`
     FOREIGN KEY (`usuario_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -737,11 +739,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `perfis`
+-- Table `cpwebv3`.`perfis`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `perfis` ;
+DROP TABLE IF EXISTS `cpwebv3`.`perfis` ;
 
-CREATE  TABLE IF NOT EXISTS `perfis` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`perfis` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(45) NOT NULL ,
   `created` DATETIME NOT NULL ,
@@ -754,23 +756,23 @@ COMMENT = 'tabela de perfis' ;
 
 
 -- -----------------------------------------------------
--- Table `usuarios_perfil`
+-- Table `cpwebv3`.`usuarios_perfil`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `usuarios_perfil` ;
+DROP TABLE IF EXISTS `cpwebv3`.`usuarios_perfil` ;
 
-CREATE  TABLE IF NOT EXISTS `usuarios_perfil` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`usuarios_perfil` (
   `usuarios_id` INT NOT NULL ,
   `perfis_id` INT NOT NULL ,
   PRIMARY KEY (`usuarios_id`, `perfis_id`) ,
   INDEX `fk_usuarios_has_perfis_perfis1` (`perfis_id` ASC) ,
   CONSTRAINT `fk_usuarios_has_perfis_usuarios1`
     FOREIGN KEY (`usuarios_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_has_perfis_perfis1`
     FOREIGN KEY (`perfis_id` )
-    REFERENCES `perfis` (`id` )
+    REFERENCES `cpwebv3`.`perfis` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -779,11 +781,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `urls`
+-- Table `cpwebv3`.`urls`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `urls` ;
+DROP TABLE IF EXISTS `cpwebv3`.`urls` ;
 
-CREATE  TABLE IF NOT EXISTS `urls` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `url` VARCHAR(200) NOT NULL ,
   `created` DATETIME NOT NULL ,
@@ -797,23 +799,23 @@ COMMENT = 'url aonde o usuário não terá permissão de acesso' ;
 
 
 -- -----------------------------------------------------
--- Table `urls_perfil`
+-- Table `cpwebv3`.`urls_perfil`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `urls_perfil` ;
+DROP TABLE IF EXISTS `cpwebv3`.`urls_perfil` ;
 
-CREATE  TABLE IF NOT EXISTS `urls_perfil` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls_perfil` (
   `urls_id` INT NOT NULL ,
   `perfis_id` INT NOT NULL ,
   PRIMARY KEY (`urls_id`, `perfis_id`) ,
   INDEX `fk_urls_has_perfis_perfis1` (`perfis_id` ASC) ,
   CONSTRAINT `fk_urls_has_perfis_urls1`
     FOREIGN KEY (`urls_id` )
-    REFERENCES `urls` (`id` )
+    REFERENCES `cpwebv3`.`urls` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_urls_has_perfis_perfis1`
     FOREIGN KEY (`perfis_id` )
-    REFERENCES `perfis` (`id` )
+    REFERENCES `cpwebv3`.`perfis` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -822,23 +824,23 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `urls_usuario`
+-- Table `cpwebv3`.`urls_usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `urls_usuario` ;
+DROP TABLE IF EXISTS `cpwebv3`.`urls_usuario` ;
 
-CREATE  TABLE IF NOT EXISTS `urls_usuario` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`urls_usuario` (
   `urls_id` INT NOT NULL ,
   `usuarios_id` INT NOT NULL ,
   PRIMARY KEY (`urls_id`, `usuarios_id`) ,
   INDEX `fk_urls_has_usuarios_usuarios1` (`usuarios_id` ASC) ,
   CONSTRAINT `fk_urls_has_usuarios_urls1`
     FOREIGN KEY (`urls_id` )
-    REFERENCES `urls` (`id` )
+    REFERENCES `cpwebv3`.`urls` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_urls_has_usuarios_usuarios1`
     FOREIGN KEY (`usuarios_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -847,11 +849,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `efetividades`
+-- Table `cpwebv3`.`efetividades`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `efetividades` ;
+DROP TABLE IF EXISTS `cpwebv3`.`efetividades` ;
 
-CREATE  TABLE IF NOT EXISTS `efetividades` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`efetividades` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
@@ -863,11 +865,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `contatos_telefonicos`
+-- Table `cpwebv3`.`contatos_telefonicos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `contatos_telefonicos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`contatos_telefonicos` ;
 
-CREATE  TABLE IF NOT EXISTS `contatos_telefonicos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`contatos_telefonicos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -885,17 +887,17 @@ CREATE  TABLE IF NOT EXISTS `contatos_telefonicos` (
   INDEX `fk_contatos_telefonicos_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_contatos_telefonicos_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contatos_telefonicos_efetividades1`
     FOREIGN KEY (`efetividade_id` )
-    REFERENCES `efetividades` (`id` )
+    REFERENCES `cpwebv3`.`efetividades` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contatos_telefonicos_usuarios1`
     FOREIGN KEY (`usuario_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -905,11 +907,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `testemunhas`
+-- Table `cpwebv3`.`testemunhas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testemunhas` ;
+DROP TABLE IF EXISTS `cpwebv3`.`testemunhas` ;
 
-CREATE  TABLE IF NOT EXISTS `testemunhas` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`testemunhas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `processo_id` INT(11) NOT NULL ,
   `created` DATETIME NOT NULL ,
@@ -925,23 +927,23 @@ CREATE  TABLE IF NOT EXISTS `testemunhas` (
   INDEX `fk_testemunhas_usuarios1` (`usuario_id` ASC) ,
   CONSTRAINT `fk_testemunhas_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_testemunhas_usuarios1`
     FOREIGN KEY (`usuario_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `envolvimentos`
+-- Table `cpwebv3`.`envolvimentos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `envolvimentos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`envolvimentos` ;
 
-CREATE  TABLE IF NOT EXISTS `envolvimentos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`envolvimentos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(99) NOT NULL ,
@@ -951,11 +953,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `contatos_processos`
+-- Table `cpwebv3`.`contatos_processos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `contatos_processos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`contatos_processos` ;
 
-CREATE  TABLE IF NOT EXISTS `contatos_processos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`contatos_processos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `modified` DATETIME NOT NULL ,
@@ -972,22 +974,22 @@ CREATE  TABLE IF NOT EXISTS `contatos_processos` (
   INDEX `fk_contatos_processos_envolvimentos1` (`envolvimento_id` ASC) ,
   CONSTRAINT `fk_clientes_processos_clientes1`
     FOREIGN KEY (`contato_id` )
-    REFERENCES `contatos` (`id` )
+    REFERENCES `cpwebv3`.`contatos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_clientes_processos_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contatos_processos_tipos_partes1`
     FOREIGN KEY (`tipo_parte_id` )
-    REFERENCES `tipos_partes` (`id` )
+    REFERENCES `cpwebv3`.`tipos_partes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contatos_processos_envolvimentos1`
     FOREIGN KEY (`envolvimento_id` )
-    REFERENCES `envolvimentos` (`id` )
+    REFERENCES `cpwebv3`.`envolvimentos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -996,11 +998,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `fluxos`
+-- Table `cpwebv3`.`fluxos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fluxos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`fluxos` ;
 
-CREATE  TABLE IF NOT EXISTS `fluxos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`fluxos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `solicitacao_id` INT(11) NOT NULL ,
@@ -1010,6 +1012,7 @@ CREATE  TABLE IF NOT EXISTS `fluxos` (
   `contato_id` INT(11) NULL DEFAULT 0 ,
   `atribuir_proxima_advogado` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `atribuir_proxima_anterior` TINYINT(1)  NOT NULL ,
+  `render_botao_finalizar` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `fechar_anterior` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `atualizar_sistema` TINYINT(1)  NOT NULL DEFAULT 0 ,
   `nome_botao` VARCHAR(20) NOT NULL COMMENT 'nome do botao' ,
@@ -1019,11 +1022,11 @@ DEFAULT CHARACTER SET = big5;
 
 
 -- -----------------------------------------------------
--- Table `lotes`
+-- Table `cpwebv3`.`lotes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lotes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`lotes` ;
 
-CREATE  TABLE IF NOT EXISTS `lotes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`lotes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `tamanho` INT NOT NULL DEFAULT 0 ,
@@ -1041,11 +1044,11 @@ COMMENT = 'tabela de lotes' ;
 
 
 -- -----------------------------------------------------
--- Table `tipos_protocolos`
+-- Table `cpwebv3`.`tipos_protocolos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_protocolos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_protocolos` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_protocolos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_protocolos` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `nome` VARCHAR(30) NULL ,
@@ -1057,11 +1060,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `lotes_processos_solicitacoes`
+-- Table `cpwebv3`.`lotes_processos_solicitacoes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lotes_processos_solicitacoes` ;
+DROP TABLE IF EXISTS `cpwebv3`.`lotes_processos_solicitacoes` ;
 
-CREATE  TABLE IF NOT EXISTS `lotes_processos_solicitacoes` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`lotes_processos_solicitacoes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `lote_id` INT NOT NULL ,
   `processo_solicitacao_id` INT(11) NOT NULL ,
@@ -1072,28 +1075,28 @@ CREATE  TABLE IF NOT EXISTS `lotes_processos_solicitacoes` (
   INDEX `fk_lotes_processos_solicitacoes_tipo_protocolo1` (`tipo_protocolo_id` ASC) ,
   CONSTRAINT `fk_lotes_processos_solicitacoes_lotes1`
     FOREIGN KEY (`lote_id` )
-    REFERENCES `lotes` (`id` )
+    REFERENCES `cpwebv3`.`lotes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_lotes_processos_solicitacoes_processos_solicitacoes1`
     FOREIGN KEY (`processo_solicitacao_id` )
-    REFERENCES `processos_solicitacoes` (`id` )
+    REFERENCES `cpwebv3`.`processos_solicitacoes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_lotes_processos_solicitacoes_tipo_protocolo1`
     FOREIGN KEY (`tipo_protocolo_id` )
-    REFERENCES `tipos_protocolos` (`id` )
+    REFERENCES `cpwebv3`.`tipos_protocolos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `tipos_historicos`
+-- Table `cpwebv3`.`tipos_historicos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipos_historicos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`tipos_historicos` ;
 
-CREATE  TABLE IF NOT EXISTS `tipos_historicos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`tipos_historicos` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NULL ,
   `nome` VARCHAR(100) NULL ,
@@ -1105,11 +1108,11 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
--- Table `historicos`
+-- Table `cpwebv3`.`historicos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `historicos` ;
+DROP TABLE IF EXISTS `cpwebv3`.`historicos` ;
 
-CREATE  TABLE IF NOT EXISTS `historicos` (
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`historicos` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `created` DATETIME NOT NULL ,
   `processo_id` INT(11) NOT NULL ,
@@ -1122,17 +1125,17 @@ CREATE  TABLE IF NOT EXISTS `historicos` (
   INDEX `fk_historicos_tipos_historicos1` (`tipo_historico_id` ASC) ,
   CONSTRAINT `fk_historicos_processos1`
     FOREIGN KEY (`processo_id` )
-    REFERENCES `processos` (`id` )
+    REFERENCES `cpwebv3`.`processos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_historicos_usuarios1`
     FOREIGN KEY (`usuario_id` )
-    REFERENCES `usuarios` (`id` )
+    REFERENCES `cpwebv3`.`usuarios` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_historicos_tipos_historicos1`
     FOREIGN KEY (`tipo_historico_id` )
-    REFERENCES `tipos_historicos` (`id` )
+    REFERENCES `cpwebv3`.`tipos_historicos` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

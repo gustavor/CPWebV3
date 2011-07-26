@@ -24,6 +24,7 @@ class ProcessoSolicitacao extends AppModel {
 	public $name			= 'ProcessoSolicitacao';
 	public $useTable		= 'processos_solicitacoes';
 	public $displayField 	= 'data_atendimento';
+    public $order           = array('ProcessoSolicitacao.created' => 'desc', 'ProcessoSolicitacao.finalizada' => 'asc');
 
 	/**
 	 * Relacionamento belongsTo 

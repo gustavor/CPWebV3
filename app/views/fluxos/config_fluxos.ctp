@@ -34,7 +34,10 @@
 	$campos['Fluxo']['atualizar_sistema']['options']['label']['text'] 	= 'Atualizar Sistema';
 	$campos['Fluxo']['atualizar_sistema']['options']['options']			= array(1=>'SIM', 0=>'NÃO');
 
-	$edicaoCampos = array('Fluxo.solicitacao_id','#','Fluxo.complexidade_id','#','Fluxo.proxima_id','#','Fluxo.departamento_id','#','Fluxo.contato_id','#','Fluxo.nome_botao','#','#','Fluxo.atribuir_proxima_advogado','#','Fluxo.atribuir_proxima_anterior','#','Fluxo.fechar_anterior','#','Fluxo.atualizar_sistema');
+    $campos['Fluxo']['render_botao_finalizar']['options']['label']['text'] 	= 'Renderizar Finalizar';
+	$campos['Fluxo']['render_botao_finalizar']['options']['options']	    = array(1=>'SIM', 0=>'NÃO');
+
+	$edicaoCampos = array('Fluxo.solicitacao_id','#','Fluxo.complexidade_id','#','Fluxo.proxima_id','#','Fluxo.departamento_id','#','Fluxo.contato_id','#','Fluxo.nome_botao','#','#','Fluxo.atribuir_proxima_advogado','#','Fluxo.atribuir_proxima_anterior','#','Fluxo.fechar_anterior','#','Fluxo.atualizar_sistema','#','Fluxo.render_botao_finalizar');
 
 	if ($action=='editar' || $action=='excluir')
 	{

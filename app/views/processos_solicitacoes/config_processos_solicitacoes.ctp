@@ -165,24 +165,6 @@
 			$on_read_view .= "\n\t".'$("#alerta").css("display","block");';
 			$on_read_view .= "\n\t".'$("#diagFechar").click(function() { $("#alerta").fadeOut(); return false; });';
 		}
-
-		// fluxos
-		if (isset($fluxos) && count($fluxos) && !$this->data['ProcessoSolicitacao']['finalizada'] == 1)
-		//if (isset($fluxos) && count($fluxos))
-		{
-			//somente mostrar os botões de fluxo se o usuário logado for o usuário atribuido
-            if( $this->data['ProcessoSolicitacao']['usuario_atribuido'] == $this->Session->read('Auth.Usuario.id') )
-            foreach($fluxos as $_linha => $_arrModel)
-			{
-				if (isset($_arrModel['Fluxo']['nome_botao']) && !empty($_arrModel['Fluxo']['nome_botao']))
-				{
-					if (isset($this->data['ProcessoSolicitacao']['usuario_atribuido']) && !empty($this->data['ProcessoSolicitacao']['usuario_atribuido']) )
-					{
-						$redirecionamentos[ ucwords(mb_strtolower($_arrModel['Fluxo']['nome_botao'])) ]['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/processa_fluxo/'.$this->data['ProcessoSolicitacao']['id'].'/'.$_arrModel['Fluxo']['id'].'/'.$this->data['Processo']['id'].'\'';
-					}
-				}
-			}
-		}
 		
 		// se possui processo cria-se um botão de redirecionamento para o processo
 		if (isset($this->Form->data['Processo']['id']) && !empty($this->Form->data['Processo']['id']))
@@ -236,6 +218,31 @@
         if ( $this->Form->data['ProcessoSolicitacao']['departamento_id'] != ($this->Form->data['Processo']['tipo_processo_id']))
             unset($redirecionamentos['Atribuir a Adv. Resp.']);
 
+
+        // fluxos
+		if (isset($fluxos) && count($fluxos) && !$this->data['ProcessoSolicitacao']['finalizada'] == 1)
+		//if (isset($fluxos) && count($fluxos))
+		{
+			//somente mostrar os botões de fluxo se o usuário logado for o usuário atribuido
+            if( $this->data['ProcessoSolicitacao']['usuario_atribuido'] == $this->Session->read('Auth.Usuario.id') )
+            foreach($fluxos as $_linha => $_arrModel)
+			{
+				if (isset($_arrModel['Fluxo']['nome_botao']) && !empty($_arrModel['Fluxo']['nome_botao']))
+				{
+					if (isset($this->data['ProcessoSolicitacao']['usuario_atribuido']) && !empty($this->data['ProcessoSolicitacao']['usuario_atribuido']) )
+					{
+						$redirecionamentos[ ucwords(mb_strtolower($_arrModel['Fluxo']['nome_botao'])) ]['onclick'] = 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/processa_fluxo/'.$this->data['ProcessoSolicitacao']['id'].'/'.$_arrModel['Fluxo']['id'].'/'.$this->data['Processo']['id'].'\'';
+					}
+				}
+                if($_arrModel['Fluxo']['render_botao_finalizar'])
+                {
+                    $redirecionamentos['Finalizar']['onclick'] 	= '';
+                    $on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
+                }
+			}
+		}
+
+
    	}
 
 	if ($action=='listar' || $action=='filtrar')	
@@ -249,7 +256,9 @@
 			$_usuarioAtribuido = $_modelos['ProcessoSolicitacao']['usuario_atribuido'];
             $_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
 			$this->data[$_linha]['ProcessoSolicitacao']['idProcesso'] = 'VEBH - '.str_repeat('0',5-strlen($_idProcesso)).$_idProcesso;
-			$this->data[$_linha]['ProcessoSolicitacao']['atribuido'] = $usuarioAtribuido[$_modelos['ProcessoSolicitacao']['usuario_atribuido']];
+			$this->data[$_linha]['ProcessoSolicitacao']['atribuido'] = isset($usuarioAtribuido[$_modelos['ProcessoSolicitacao']['usuario_atribuido']]) ?
+                                                                             $usuarioAtribuido[$_modelos['ProcessoSolicitacao']['usuario_atribuido']]  :
+                                                                             '';
 			foreach($_modelos as $_modelo => $_campos)
 			{
 				foreach($_campos as $_campo => $_valor)

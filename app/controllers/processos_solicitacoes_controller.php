@@ -115,15 +115,15 @@ class ProcessosSolicitacoesController extends AppController {
 	public function filtrar()
 	{
 		$this->CpwebCrud->filtrar();
-        $idsAdvResp = array();
+        $idsUsuarioAtribuido = array();
 		foreach($this->data as $_linha => $_arrModel)
 		{
-			array_push($idsAdvResp,$_arrModel['Processo']['usuario_id']);
+			array_push($idsUsuarioAtribuido,$_arrModel['ProcessoSolicitacao']['usuario_atribuido']);
 		}
-		if (count($idsAdvResp))
+		if (count($idsUsuarioAtribuido))
 		{
-			$advResp = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsAdvResp)));
-			$this->set(compact('advResp'));
+			$usuarioAtribuido = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsUsuarioAtribuido)));
+			$this->set(compact('usuarioAtribuido'));
 		}
 	}
 
@@ -141,6 +141,11 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->set('alertas',$this->Session->read('alertas'));
 			$this->Session->delete('alertas');
 		}
+        if ($this->Session->check('renderBotoes'))
+        {
+            $this->set('renderBotoes', $this->Session->read('renderBotoes'));
+            $this->Session->delete('renderBotoes');
+        }
 		if (isset($this->data))
 		{
 			$idSolicitacao 	= $this->data['ProcessoSolicitacao']['solicitacao_id'];
@@ -314,6 +319,7 @@ class ProcessosSolicitacoesController extends AppController {
 	public function processa_fluxo($id=null, $idFluxo=null, $idProcesso=null)
 	{
 		$alertas = array();
+        $renderBotoes = array();
 
 		// recuperando o fluxo
 		$this->loadModel('Fluxo');
@@ -407,6 +413,13 @@ class ProcessosSolicitacoesController extends AppController {
         {
             $data['ProcessoSolicitacao']['usuario_atribuido'] = 0;
         }
+
+        //renderizar botão de finalizar solicitação
+        if ($fluxo['Fluxo']['render_botao_finalizar'])
+        {
+            $renderBotoes['Finalizar'] = true;
+        }
+
 
 		if ($this->ProcessoSolicitacao->save($data))
 		{
