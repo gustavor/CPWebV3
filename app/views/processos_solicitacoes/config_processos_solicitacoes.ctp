@@ -230,6 +230,10 @@
 			$on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
         }
 
+        //se a solicitação é enviada para o pool, sumir com o botão atribuir ao advogado responsavel
+        if ( $this->Form->data['ProcessoSolicitacao']['departamento_id'] != ($this->Form->data['Processo']['tipo_processo_id']))
+            unset($redirecionamentos['Atribuir a Adv. Resp.']);
+
    	}
 
 	if ($action=='listar' || $action=='filtrar')	
