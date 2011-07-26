@@ -98,6 +98,29 @@ class LoteProcessoSolicitacao extends AppModel {
 				}
 			}
 		}
+
+        //disparando atualização de sistemas do cliente quando a solicitação de protocolo é fechada
+        foreach($idsPS as $_idPS)
+        {
+            //carregando processo relacionado com a PS
+            $processo_solicitacao = $this->ProcessoSolicitacao->read(null,$_idPS);
+            $tipo_processo = $this->ProcessoSolicitacao->Processo->read('tipo_processo_id',$processo_solicitacao['ProcessoSolicitacao']['processo_id']);
+
+            //criando dados da solicitacao
+            $solicitacaoData['ProcessoSolicitacao'] = array();
+            $solicitacaoData['ProcessoSolicitacao']['processo_id'] = $processo_solicitacao['ProcessoSolicitacao']['processo_id'];
+            $solicitacaoData['ProcessoSolicitacao']['departamento_id'] = ($tipo_processo['Processo']['tipo_processo_id']+7);
+            $solicitacaoData['ProcessoSolicitacao']['usuario_solicitante'] = 1;
+            $solicitacaoData['ProcessoSolicitacao']['usuario_atribuido'] = 0;
+            $solicitacaoData['ProcessoSolicitacao']['solicitacao_id'] = 5;
+            $solicitacaoData['ProcessoSolicitacao']['tipo_peticao_id'] = $processo_solicitacao['ProcessoSolicitacao']['tipo_peticao_id'];
+            $solicitacaoData['ProcessoSolicitacao']['complexidade_id'] = $processo_solicitacao['ProcessoSolicitacao']['complexidade_id'];
+            $solicitacaoData['ProcessoSolicitacao']['finalizada'] = 0;
+            
+            $this->ProcessoSolicitacao->create();
+
+            if(!$this->ProcessoSolicitacao->save($solicitacaoData)) exit('Erro ao pedir atualização de sistema do cliente');
+        }
 		$this->belongsTo['Lote']['fields'] = 'id, codigo';
 
 		return true;
