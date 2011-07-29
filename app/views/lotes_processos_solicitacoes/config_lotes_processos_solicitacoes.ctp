@@ -35,23 +35,33 @@
 	{
 
 		$listaCampos = array('ProcessoSolicitacao.processo_id', 'Processo.numero', 'ProcessoSolicitacao.finalizada', 'TipoPeticao.nome', 'LoteProcessoSolicitacao.tipo_protocolo_id');
+
 		$listaFerramentas[0] = array();
 		$listaFerramentas[1] = array();
 		$listaFerramentas[2] = array();
+
 		$botoesLista['Novo'] = array();
+
 		$botoesLista['Salvar']['type']		= 'submit';
 		$botoesLista['Salvar']['class']		= 'btEdicao';
 		$botoesLista['Salvar']['id']		= 'btEdicaoSalvar';
 		$botoesLista['Salvar']['title']		= 'Clique aqui para FINALIZAR as Solicitações protocoladas.';
+
 		$botoesLista['Imprimir']['type']	= 'submit';
 		$botoesLista['Imprimir']['class']	= 'btEdicao';
 		$botoesLista['Imprimir']['id']		= 'btEdicaoImprimir';
 		$botoesLista['Imprimir']['title']	= 'Clique aqui para IMPRIMIR as Solicitações protocoladas.';
+
+		$botoesLista['Pendencias']['type']	= 'submit';
+		$botoesLista['Pendencias']['class']	= 'btEdicao';
+		$botoesLista['Pendencias']['id']	= 'btEdicaoImprimir2';
+		$botoesLista['Pendencias']['title']	= 'Clique aqui para IMPRIMIR as Solicitações pendentes.';
+
 		foreach($this->data as $_linha => $_arrModel)
 		{
 			// montando o select do protocolo
 			$sId = $this->Form->domId('sel'.$_arrModel['LoteProcessoSolicitacao']['id']);
-			if ($tipo!='imprimir')
+			if ($tipo!='imprimir' && $tipo!='imprimir2')
 			{
 				$selectPro = '<select name="data[ProcessoSolicitacao][Sel]['.$_arrModel['LoteProcessoSolicitacao']['id'].']" id="'.$sId.'" style="width: 200px; font-size: 10px; ">';
 				$selectPro .= '<option value="0">--</option>';

@@ -133,7 +133,7 @@ class LotesProcessosSolicitacoesController extends AppController {
 			foreach($dataLPS as $_id => $_idPS) array_push($arrIdPS,$_idPS);
 
 			// finalizando todas as PS envolvidas
-			if (count($arrIdPS) && $tipo != 'imprimir')
+			if (count($arrIdPS) && $tipo != 'imprimir' && $tipo != 'imprimir2')
 			{
 				if (!$this->LoteProcessoSolicitacao->setPS($arrIdPS)) exit('Erro ao tentar finalizar Processos e Solicitações'); 
 			}
@@ -142,15 +142,28 @@ class LotesProcessosSolicitacoesController extends AppController {
 		// atualizando view
 		$this->set(compact('peticoes','protocolos','tipo','processos'));
 		$this->set('idLote',$idLote);
-		$condicoes 	= ($tipo=='edicao') ? array('ProcessoSolicitacao.finalizada'=>0) : array();
-		$this->data = $this->paginate( array('LoteProcessoSolicitacao.lote_id'=>$idLote, $condicoes) );
 		
+		// configurando as condições para a busca
+		$condicoes 	= ($tipo=='edicao') ? array('ProcessoSolicitacao.finalizada'=>0) : array();
+
+		// implementando mais um filtro para o caso de relatório de pendências
+		if ($tipo=='imprimir2') $condicoes['LoteProcessoSolicitacao.tipo_protocolo_id'] = null;
+		
+		// recuperando os dados solicitados
+		$this->data = $this->paginate( array('LoteProcessoSolicitacao.lote_id'=>$idLote, $condicoes) );
+
 		// recuperando todos os Ids de PS para recuperar somente os processos envolvidos
 		$arrIdProcessos = array();
 		foreach($this->data as $_linha => $_arrModel)
 		{
 			array_push($arrIdProcessos,$this->data[$_linha]['ProcessoSolicitacao']['processo_id']);
 		}
+
+		// recuperando o nome do responsável pelo lote
+		$dataLote 		= $this->LoteProcessoSolicitacao->Lote->read(null,$idLote);
+		$idResponsavel 	= $dataLote['Lote']['usuario_id'];
+		$dataUsuario = $this->Usuario->find('list',array('fields'=>array('id','nome'), 'conditions'=>array('Usuario.id'=>$idResponsavel)));
+		foreach($dataUsuario as $_id => $_nome) $nomeResponsavel = $_nome;
 
 		// recuperando uma lista de todos os processos envolvidos
 		$processos = $this->LoteProcessoSolicitacao->ProcessoSolicitacao->Processo->find('list', array('conditions'=>array('Processo.id'=>$arrIdProcessos)));
@@ -160,12 +173,14 @@ class LotesProcessosSolicitacoesController extends AppController {
 		{
 			$idProcesso = $_arrModel['ProcessoSolicitacao']['processo_id'];
 			$this->data[$_linha]['Processo']['numero'] = $processos[$idProcesso];
+			$this->data[$_linha]['Lote']['responsavel'] = $_nome;
+			
 		}
-		
 
 		// se foi pedido para imprimir, muda o layout
-		if ($tipo=='imprimir')
+		if ($tipo=='imprimir' || $tipo=='imprimir2')
 		{
+			if ($tipo=='imprimir2') $this->set('subtitulo','Pendências');
 			$this->layout = 'pdf';
 			$this->render('imprimir');
 		}
