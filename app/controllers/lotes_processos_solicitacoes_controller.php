@@ -167,7 +167,6 @@ class LotesProcessosSolicitacoesController extends AppController {
 		if ($tipo=='imprimir')
 		{
 			$this->layout = 'pdf';
-			
 			$this->render('imprimir');
 		}
 	}
