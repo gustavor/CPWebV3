@@ -80,16 +80,18 @@ class ProcessoSolicitacao extends AppModel {
 		}
         if(isset($this->data[$this->name]['processo_id']) && !empty($this->data[$this->name]['processo_id']))
         {
+            $this->bindModel('Processo');
+            $processo = $this->Processo->read(null, $this->data[$this->name]['processo_id']);
             switch($this->data[$this->name]['departamento_id'])
             {
                 case 10:
-                    $this->data[$this->name]['departamento_id'] = $this->data['Processo']['tipo_processo_id'];
+                    $this->data[$this->name]['departamento_id'] = $processo['Processo']['tipo_processo_id'];
                     break;
                 case 20:
-                    $this->data[$this->name]['departamento_id'] = ($this->data['Processo']['tipo_processo_id'] + 2);
+                    $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 2);
                     break;
                 case 30:
-                    $this->data[$this->name]['departamento_id'] = ($this->data['Processo']['tipo_processo_id'] + 7);
+                    $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 7);
                     break;
                 default:
                     break;
