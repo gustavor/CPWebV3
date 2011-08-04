@@ -61,7 +61,35 @@ class ProcessoSolicitacao extends AppModel {
 			'fields'		=> 'id, nome'
 		)
 	);
-	
+
+	/**
+	 * Relacionamento hasMany
+	 * 
+	 * @var		array
+	 * @access	public
+	 */
+	public $hasMany = array(
+		'LoteProcessoSolicitacao' => array(
+			'className' 	=> 'LoteProcessoSolicitacao',
+			'foreignKey' 	=> 'lote_id',
+			'fields' 		=> 'id, lote_id, processo_solicitacao_id',
+			'dependent'		=> true
+		)
+	);
+
+	/**
+	 * Executa código antes de deletar
+	 * 
+	 * Deleta todos os LPS do PS relacionado
+	 * 
+	 * @return boolean	true
+	 */
+	public function beforeDelete($cascade = true)
+	{
+		$this->LoteProcessoSolicitacao->deleteAll(array('LoteProcessoSolicitacao.processo_solicitacao_id'=>$this->id));
+		return true;
+	}
+
 	/**
 	 * Antes de Salvar
 	 * 
@@ -69,6 +97,7 @@ class ProcessoSolicitacao extends AppModel {
 	 */
 	public function beforeSave()
 	{
+		//pr($this->data);
 		// se a solicitação foi fechada, então salva sua data de fechamento
 		if (isset($this->data[$this->name]['usuario_atribuido']) && !empty($this->data[$this->name]['usuario_atribuido']) )
 		{
@@ -80,7 +109,6 @@ class ProcessoSolicitacao extends AppModel {
 		}
         if(isset($this->data[$this->name]['processo_id']) && !empty($this->data[$this->name]['processo_id']))
         {
-            $this->bindModel('Processo');
             $processo = $this->Processo->read(null, $this->data[$this->name]['processo_id']);
             switch($this->data[$this->name]['departamento_id'])
             {

@@ -122,6 +122,12 @@
 			}
 		}
 
+		// removendo botão excluir se o usuário não é admin
+		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+		{
+			$listaFerramentas[2] = array();
+		}
+
 		// ferramentas
 		foreach($listaFerramentas as $_item => $_ferramenta)
 		{

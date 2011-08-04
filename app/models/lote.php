@@ -71,7 +71,7 @@ class Lote extends AppModel {
 	);
 
 	/**
-	 * Relacionamento belongsTO
+	 * Relacionamento hasMany
 	 * 
 	 * @var		array
 	 * @access	public

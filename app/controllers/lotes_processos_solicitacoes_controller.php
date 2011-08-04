@@ -137,6 +137,9 @@ class LotesProcessosSolicitacoesController extends AppController {
 			{
 				if (!$this->LoteProcessoSolicitacao->setPS($arrIdPS)) exit('Erro ao tentar finalizar Processos e Solicitações'); 
 			}
+
+			// redirecionando para ele mesmo
+			$this->redirect(Router::url('/',true).'lotes_processos_solicitacoes/listar/lote:'.$idLote);
 		}
 
 		// atualizando view

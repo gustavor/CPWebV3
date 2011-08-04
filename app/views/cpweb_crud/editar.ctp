@@ -3,6 +3,13 @@
 <?php $this->Html->script('jquery.meio.mask.1.1.3.js', array('inline' => false)); ?>
 <?php if (file_exists(WWW_ROOT.'css/'.$this->params['controller'].'.css')) 	echo $this->Html->css($this->params['controller'], null, array('inline'=>false))."\n"; ?>
 <?php $arq = '../views/'.$name.'/config_'.$name.'.ctp'; if (file_exists($arq)) include_once($arq); ?>
+<?php
+	// removendo botão excluir se o usuário não é admin
+	if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+	{
+		$botoesEdicao['Excluir'] = array();
+	}
+?>
 
 <div id='edicao'>
 <?php
