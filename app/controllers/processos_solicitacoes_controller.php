@@ -201,10 +201,6 @@ class ProcessosSolicitacoesController extends AppController {
 	 */
 	public function novo($id=null)
 	{
-		if (isset($this->data))
-		{
-			//$this->data['ProcessoSolicitacao']['usuario_solicitante'] = $this->Session->read('Auth.Usuario.id');
-		}
 		if ($id)
 		{
 			$campos['ProcessoSolicitacao']['processo_id']['options']['default'] = $id;
@@ -214,6 +210,21 @@ class ProcessosSolicitacoesController extends AppController {
 			$titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
 			$this->set(compact('campos','titulo'));
 		}
+
+		// recuperando as solicitações do Departamento do usuário logado
+		$idsSolicitacoes = array();
+		$dataRSD = $this->ProcessoSolicitacao->RegraSolicitacaoDepartamento->find
+			('list',array
+				(
+				'fields'	=> 	array('id', 'solicitacao_id'),
+				'conditions'=>	array
+					('RegraSolicitacaoDepartamento.departamento_origem'=>$this->Session->read('Auth.Usuario.departamento_id'))));
+		foreach($dataRSD as $_id => $_idSolicitacao) array_push($idsSolicitacoes,$_idSolicitacao);
+
+		// aplicando filtro no belongsTo de Solicitações
+		$this->ProcessoSolicitacao->belongsTo['Solicitacao']['conditions']['Solicitacao.id'] = $idsSolicitacoes;
+
+		// exibindo a página de inclusão
 		$this->CpwebCrud->novo();
 	}
 
@@ -430,6 +441,38 @@ class ProcessosSolicitacoesController extends AppController {
 		} else
 		{
 			die('Erro ao criar novo cadastro de processos e solicitações!!!');
+		}
+	}
+
+	/**
+	 * Retorna uma lista do banco de dados para comboBox
+	 * 
+	 * @parameter	integer	$isSolicitacao	Id da solicitação
+	 * @access		public
+	 * @return 		string
+	 */
+	public function combode($idSolicitacao=null)
+	{
+		if ($idSolicitacao)
+		{
+			// recuperando todos os departamentos destinos da solicitacação informada
+			$parametros['conditions']['RegraSolicitacaoDepartamento.solicitacao_id'] = $idSolicitacao;
+			$parametros['fields'] = array('id','departamento_destino');
+			$dataRSD = $this->ProcessoSolicitacao->RegraSolicitacaoDepartamento->find('list',$parametros);
+			$idsDepDestinos = array();
+			foreach($dataRSD as $_id => $_idDepDestino) array_push($idsDepDestinos,$_idDepDestino);
+
+			// recuperando todos os departamentos filtrados
+			$parametros = array();
+			$parametros['conditions']['Departamento.id'] = $idsDepDestinos;
+			$lista = $this->ProcessoSolicitacao->Departamento->find('list',$parametros);
+
+			// atualizando a view para combo
+			$this->set('lista',$lista);
+			$this->render('../cpweb_crud/combo');		
+		} else
+		{
+			$this->render('../errors/erroCombo');
 		}
 	}
 }

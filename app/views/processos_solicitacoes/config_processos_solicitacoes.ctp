@@ -1,30 +1,30 @@
 <?php
-	$campos[$modelClass]['data_atendimento']['options']['label']['text'] 		= 'dtAtendimento';
-	$campos[$modelClass]['data_atendimento']['options']['dateFormat'] 			= 'DMY';
-	$campos[$modelClass]['data_atendimento']['options']['timeFormat'] 			= '24';
-	$campos[$modelClass]['data_atendimento']['options']['type'] 				= 'hidden';
-	$campos[$modelClass]['data_atendimento']['mascara'] 						= 'datahora';
-	$campos[$modelClass]['data_atendimento']['estilo_th'] 						= 'width="200px"';
-	$campos[$modelClass]['data_atendimento']['estilo_td'] 						= 'style="text-align: center; "';
+	$campos[$modelClass]['data_atendimento']['options']['label']['text'] 					= 'dtAtendimento';
+	$campos[$modelClass]['data_atendimento']['options']['dateFormat'] 						= 'DMY';
+	$campos[$modelClass]['data_atendimento']['options']['timeFormat'] 						= '24';
+	$campos[$modelClass]['data_atendimento']['options']['type'] 							= 'hidden';
+	$campos[$modelClass]['data_atendimento']['mascara'] 									= 'datahora';
+	$campos[$modelClass]['data_atendimento']['estilo_th'] 									= 'width="200px"';
+	$campos[$modelClass]['data_atendimento']['estilo_td'] 									= 'style="text-align: center; "';
 
-	$campos[$modelClass]['data_fechamento']['options']['label']['text'] 		= 'dtFechamento';
-	$campos[$modelClass]['data_fechamento']['options']['label']['style'] 		= 'width: 99px;';
-	$campos[$modelClass]['data_fechamento']['options']['dateFormat'] 			= 'DMY';
-	$campos[$modelClass]['data_fechamento']['options']['timeFormat'] 			= '24';
-	$campos[$modelClass]['data_fechamento']['options']['type'] 					= 'hidden';
-	$campos[$modelClass]['data_fechamento']['mascara'] 							= 'datahora';
-	$campos[$modelClass]['data_fechamento']['estilo_th'] 						= 'width="200px"';
-	$campos[$modelClass]['data_fechamento']['estilo_td'] 						= 'style="text-align: center; "';
+	$campos[$modelClass]['data_fechamento']['options']['label']['text'] 					= 'dtFechamento';
+	$campos[$modelClass]['data_fechamento']['options']['label']['style'] 					= 'width: 99px;';
+	$campos[$modelClass]['data_fechamento']['options']['dateFormat'] 						= 'DMY';
+	$campos[$modelClass]['data_fechamento']['options']['timeFormat'] 						= '24';
+	$campos[$modelClass]['data_fechamento']['options']['type'] 								= 'hidden';
+	$campos[$modelClass]['data_fechamento']['mascara'] 										= 'datahora';
+	$campos[$modelClass]['data_fechamento']['estilo_th'] 									= 'width="200px"';
+	$campos[$modelClass]['data_fechamento']['estilo_td'] 									= 'style="text-align: center; "';
 
-	$campos[$modelClass]['finalizada']['options']['label']['text'] 				= 'Finalizada';
-	$campos[$modelClass]['finalizada']['options']['type'] 						= 'hidden';
-	//$campos[$modelClass]['finalizada']['options']['label']['style'] 			= 'width: 60px;';
-	//$campos[$modelClass]['finalizada']['options']['empty'] 						= '--';
-	//$campos[$modelClass]['finalizada']['options']['default'] 					= 0;
-	$campos[$modelClass]['finalizada']['options']['options'] 					= array(1=>'Sim', 0=>'Não');
+	$campos[$modelClass]['finalizada']['options']['label']['text'] 							= 'Finalizada';
+	$campos[$modelClass]['finalizada']['options']['type'] 									= 'hidden';
+	//$campos[$modelClass]['finalizada']['options']['label']['style'] 						= 'width: 60px;';
+	//$campos[$modelClass]['finalizada']['options']['empty'] 								= '--';
+	//$campos[$modelClass]['finalizada']['options']['default'] 								= 0;
+	$campos[$modelClass]['finalizada']['options']['options'] 								= array(1=>'Sim', 0=>'Não');
 
-	$campos[$modelClass]['obs']['options']['label']['text'] 					= 'Observações';
-	$campos[$modelClass]['obs']['options']['style'] 							= 'width: 600px; text-transform:uppercase;';
+	$campos[$modelClass]['obs']['options']['label']['text'] 								= 'Observações';
+	$campos[$modelClass]['obs']['options']['style'] 										= 'width: 600px; text-transform:uppercase;';
 
 	$campos[$modelClass]['solicitacao_id']['options']['label']['text'] 						= 'Solicitação';
 	$campos[$modelClass]['solicitacao_id']['options']['empty'] 								= '-- escolha uma opção --';
@@ -124,14 +124,18 @@
 
 	if ($action=='novo')
 	{
-        $campos[$modelClass]['departamento_id']['options']['options'] = array(10 => 'NÚCLEO JURÍDICO',
+        /*$campos[$modelClass]['departamento_id']['options']['options'] = array(10 => 'NÚCLEO JURÍDICO',
                                                                           20 => 'CONTROLE DE PROCESSOS',
                                                                           30 => 'ATUALIZAÇÃO DE SISTEMAS',
                                                                           5 => 'ACORDO',
                                                                           6 => 'FINANCEIRO',
                                                                           7 => 'PROTOCOLO'
                                                                           );
+                                                                          * */
+		$campos[$modelClass]['departamento_id']['options']['options'] = array();
 		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs');	
+		$urlCombo = Router::url('/',true).'processos_solicitacoes/combode/';
+		$on_read_view .= "\n".'$("#ProcessoSolicitacaoSolicitacaoId").change(function() { setComboDepartamento("ProcessoSolicitacaoDepartamentoId","'.$urlCombo.'", $(this).val());  });';
 	}
 
 	if ($action=='editar' || $action=='novo')

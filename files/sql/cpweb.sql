@@ -1144,6 +1144,26 @@ COLLATE = utf8_general_ci,
 COMMENT = 'tabela de históricos das pastas' ;
 
 
+-- -----------------------------------------------------
+-- Table `cpwebv3`.`regras_solicitacoes_departamentos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cpwebv3`.`regras_solicitacoes_departamentos` ;
+
+CREATE  TABLE IF NOT EXISTS `cpwebv3`.`regras_solicitacoes_departamentos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `solicitacao_id` INT NOT NULL ,
+  `departamento_origem` INT NOT NULL ,
+  `departamento_destino` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `i_solicitacao_id` (`solicitacao_id` ASC) ,
+  INDEX `i_departamento_origem` (`departamento_origem` ASC) ,
+  INDEX `i_departamento_destino` (`departamento_destino` ASC) ,
+  INDEX `i_created` (`created` ASC) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

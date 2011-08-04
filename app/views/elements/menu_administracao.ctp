@@ -63,6 +63,8 @@
     $listaMenu['fluxos']['url']         		= Router::url('/',true).'fluxos';
     $listaMenu['tipos_protocolos']['text']      = 'Tipos Protocolos';
     $listaMenu['tipos_protocolos']['url']       = Router::url('/',true).'tipos_protocolos';
+	$listaMenu['regras_solicitacoes_departamentos']['text']      = 'Regras Solicitações e Departamentos';
+    $listaMenu['regras_solicitacoes_departamentos']['url']       = Router::url('/',true).'regras_solicitacoes_departamentos';
 
 	// destacando a opção ativa
 	if (!isset($listaMenu[$name]['text'])) $listaMenu[$name]['text'] = $name;

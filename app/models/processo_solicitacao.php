@@ -59,6 +59,11 @@ class ProcessoSolicitacao extends AppModel {
 			'className'		=> 'Complexidade',
 			'foreignKey'	=> 'complexidade_id',
 			'fields'		=> 'id, nome'
+		),
+		'RegraSolicitacaoDepartamento' => array(
+			'className'		=> 'RegraSolicitacaoDepartamento',
+			'foreignKey'	=> 'solicitacao_id',
+			'fields'		=> 'id, solicitacao_id'
 		)
 	);
 
@@ -107,7 +112,7 @@ class ProcessoSolicitacao extends AppModel {
 		{
 			$this->data[$this->name]['data_fechamento'] = date('Y-m-d h:i:s');
 		}
-        if(isset($this->data[$this->name]['processo_id']) && !empty($this->data[$this->name]['processo_id']))
+        /*if(isset($this->data[$this->name]['processo_id']) && !empty($this->data[$this->name]['processo_id']))
         {
             $processo = $this->Processo->read(null, $this->data[$this->name]['processo_id']);
             switch($this->data[$this->name]['departamento_id'])
@@ -124,7 +129,7 @@ class ProcessoSolicitacao extends AppModel {
                 default:
                     break;
             }
-        }
+        }*/
 		return true;
 	}
 
