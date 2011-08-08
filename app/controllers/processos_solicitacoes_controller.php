@@ -457,6 +457,7 @@ class ProcessosSolicitacoesController extends AppController {
 		{
 			// recuperando todos os departamentos destinos da solicitacação informada
 			$parametros['conditions']['RegraSolicitacaoDepartamento.solicitacao_id'] = $idSolicitacao;
+            $parametros['conditions']['RegraSolicitacaoDepartamento.departamento_origem'] = $this->Session->read('Auth.Usuario.departamento_id');
 			$parametros['fields'] = array('id','departamento_destino');
 			$dataRSD = $this->ProcessoSolicitacao->RegraSolicitacaoDepartamento->find('list',$parametros);
 			$idsDepDestinos = array();
