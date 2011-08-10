@@ -107,7 +107,7 @@ class LotesController extends AppController {
 	public function novo()
 	{
 		$this->set('usuario_id',$this->Session->read('Auth.Usuario.id'));
-		$this->set('solicitacao_id',6);
+		$this->set('solicitacao_id',4);
 		$this->loadModel('Solicitacao');
 		$solicitacoes = $this->Solicitacao->find('list');
 		$this->set(compact('solicitacoes'));
