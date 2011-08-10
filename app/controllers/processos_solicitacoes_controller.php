@@ -348,7 +348,7 @@ class ProcessosSolicitacoesController extends AppController {
 		$processo_solicitacao = $this->ProcessoSolicitacao->read(null,$id);
 
 		//antes de tudo, ver se a solicitacação anterior é "Aguardando Providência do Advogado"
-        if ($processo_solicitacao['ProcessoSolicitacao']['solicitacao_id'] == 67)
+        if ($processo_solicitacao['ProcessoSolicitacao']['solicitacao_id'] == 6)
         {
             //finaliza a solicitação anterior
             $this->ProcessoSolicitacao->id = $id;
