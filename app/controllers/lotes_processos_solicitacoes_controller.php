@@ -101,7 +101,7 @@ class LotesProcessosSolicitacoesController extends AppController {
 		$protocolos	= $this->LoteProcessoSolicitacao->TipoProtocolo->find('list');
 		$tipo		= isset($this->data['Lote']['tipo']) ? $this->data['Lote']['tipo'] : 'edicao';
 
-		if ($this->data)
+		if ($this->data && ($this->data['Lote']['tipo'] == 'edicao' || $this->data['Lote']['tipo'] == null ))
 		{
 			$idLote 	= $this->data['ProcessoSolicitacao']['lote'];
 			$arrProt 	= isset($this->data['ProcessoSolicitacao']['Sel']) ? $this->data['ProcessoSolicitacao']['Sel'] : array();
