@@ -246,6 +246,18 @@
 			}
 		}
 
+        //colocação manual do botão de finalizar solicitação
+        $arrSolicitacoes = array(23,25,8);
+        if((isset($arrSolicitacoes) && count($arrSolicitacoes)) && in_array($this->Form->data['ProcessoSolicitacao']['solicitacao_id'],$arrSolicitacoes))
+        {
+            if(($this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] == $this->Session->read('Auth.Usuario.id')) &&
+                $this->Form->data['ProcessoSolicitacao']['finalizada'] == 0)
+            {
+                $redirecionamentos['Finalizar']['onclick'] 	= '';
+			    $on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
+            }
+        }
+
 
    	}
 
