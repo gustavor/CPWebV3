@@ -350,4 +350,7 @@
 		$on_read_view .= "\n\t".'$("#divProcessoSolicitacaoComplexidadeId").fadeIn();';
 		if ($action=='filtrar') $botoesLista = array();
 	}
+	
+	// implementando solução para botão salvar
+	$on_read_view .= "\n\t".'$("#btEdicaoSalvar").click(function() { return getValidaPS(); });';
 ?>

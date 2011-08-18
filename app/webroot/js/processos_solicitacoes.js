@@ -34,3 +34,35 @@
 		if ($("#ProcessoSolicitacaoTipoParecerId").val()>0) $("#divProcessoSolicitacaoTipoParecerId").fadeIn();
 		if ($("#ProcessoSolicitacaoTipoPeticaoId").val()>0) $("#divProcessoSolicitacaoTipoPeticaoId").fadeIn();
 	}
+
+	function getValidaPS()
+	{
+		var tipoSolicit = $("#ProcessoSolicitacaoSolicitacaoId").val();
+		var tipoParecer = $("#ProcessoSolicitacaoTipoParecerId").val();
+		var tipoPeticao = $("#ProcessoSolicitacaoTipoPeticaoId").val();
+		var tipoComplex = $("#ProcessoSolicitacaoComplexidadeId").val();
+		var msg			= '';
+
+		if (tipoSolicit=='') msg = 'É necessário informar a solicitaçao !!!';
+
+		if (tipoSolicit==1)
+		{
+			if (tipoComplex==0) msg = 'É necessário informar o tipo da complexidade !!!';
+			if (tipoPeticao==0) msg = 'É necessário informar o tipo de Petição !!!';
+		}
+		if (tipoSolicit==7)
+		{
+			if (tipoComplex==0) msg = 'É necessário informar o tipo da complexidade !!!';
+			if (tipoParecer==0) msg = 'É necessário informar o tipo de Parecer !!!';
+		}
+		if (tipoSolicit==28)
+		{
+			if (tipoComplex==0) msg = 'É necessário informar o tipo da complexidade !!!';
+		}
+		if (msg)
+		{
+			alert(msg);
+			return false;
+		}
+		return true;
+	}

@@ -26,6 +26,16 @@ class ProcessoSolicitacao extends AppModel {
 	public $displayField 	= 'data_atendimento';
     public $order           = array('ProcessoSolicitacao.created' => 'desc', 'ProcessoSolicitacao.finalizada' => 'asc');
 
+	public $validate		= array
+	(
+		'solicitacao_id' => array
+			(
+				'rule'		=> 'notEmpty',
+				'required' 	=> true,
+				'message'	=> 'É necessário informar o tipo a solicitação !!!'
+			)
+	);
+
 	/**
 	 * Relacionamento belongsTo 
 	 */
@@ -82,6 +92,62 @@ class ProcessoSolicitacao extends AppModel {
 		)
 	);
 
+	/**
+	 * Executa código antes da validação
+	 * 
+	 * se a solicitação é do tipo 'elaborar petição', os campos tipo_peticao_id e complexidade_id são obrigatórios
+	 * se a solicitação é do tipo 'elaborar parecer', os campos tipo_parecer_id e complexidade_id são obrigatórios
+	 * se a solicitação é do tipo 'entrevistar testemunhas' os campos complexidade_id é obrigatório
+	 * 
+	 * @param	array	$options	Opções do método save
+	 * @return	boolean	
+	 */
+	public function beforeValidate($options = array())
+	{
+		if (isset($this->data))
+		{
+			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==1)
+			{
+				$this->validate['tipo_peticao_id'] = array
+				(
+					'rule'		=> 'notEmpty',
+					'required' 	=> true,
+					'message'	=> 'É necessário informar o tipo de Petição !!!'
+				);
+				$this->validate['complexidade_id'] = array
+				(
+					'rule'		=> 'notEmpty',
+					'required' 	=> true,
+					'message'	=> 'É necessário informar o tipo de Complexidade !!!'
+				);
+			}
+			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==7)
+			{
+				$this->validate['tipo_parecer_id'] = array
+				(
+					'rule'		=> 'notEmpty',
+					'required' 	=> true,
+					'message'	=> 'É necessário informar o tipo de Parecer !!!'
+				);
+				$this->validate['complexidade_id'] = array
+				(
+					'rule'		=> 'notEmpty',
+					'required' 	=> true,
+					'message'	=> 'É necessário informar o tipo de Complexidade !!!'
+				);
+			}
+			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==28)
+			{
+				$this->validate['complexidade_id'] = array
+				(
+					'rule'		=> 'notEmpty',
+					'required' 	=> true,
+					'message'	=> 'É necessário informar o tipo de Complexidade !!!'
+				);
+			}
+		}
+		return true;
+	}
 	/**
 	 * Executa código antes de deletar
 	 * 
