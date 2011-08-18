@@ -95,6 +95,9 @@ class FluxosController extends AppController {
 	 */
 	public function editar($id=null)
 	{
+        $this->loadModel('TipoProcesso');
+        $tiposProcessos = $this->TipoProcesso->find('list');
+        $this->set(compact('tiposProcessos'));
 		$this->CpwebCrud->editar($id);
 	}
 	
@@ -105,7 +108,10 @@ class FluxosController extends AppController {
 	 */
 	public function novo()
 	{
-		$this->CpwebCrud->novo();
+		$this->loadModel('TipoProcesso');
+        $tiposProcessos = $this->TipoProcesso->find('list');
+        $this->set(compact('tiposProcessos'));
+        $this->CpwebCrud->novo();
 	}
 	
 	/**

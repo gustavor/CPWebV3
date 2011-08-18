@@ -508,7 +508,7 @@ class CpwebCrudComponent extends Object {
 			if ($id) $botoes['Atualizar']['title']		= 'Atualize o registro ...';		
 		}
 
-		if (!in_array($this->name.'/listar',$this->urlsNao))
+		if (!in_array($this->name.'/listar',$this->urlsNao) && $this->controller->action != 'novo' )
 		{
 			$botoes['Listar']['onClick']	= 'javascript:document.location.href=\''.Router::url('/',true).$this->name.'/listar'.$urlLista.'\'';
 			$botoes['Listar']['title']		= 'Volta para a Lista ...';

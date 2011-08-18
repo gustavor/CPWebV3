@@ -19,6 +19,10 @@
 	$campos['Fluxo']['contato_id']['options']['empty'] 				    = '-- escolha uma opção --';
 	//if (isset($contatos)) $campos['Fluxo']['contato_id']['options']['options'] = $contatos;
 
+    $campos['Fluxo']['tipo_processo_id']['options']['label']['text'] 			= 'Tipo do Processo';
+	$campos['Fluxo']['tipo_processo_id']['options']['label']['text'] 			= 'Tipo do Processo';
+	$campos['Fluxo']['tipo_processo_id']['options']['empty'] 				    = '-- escolha uma opção --';
+	if (isset($tiposProcessos)) $campos['Fluxo']['tipo_processo_id']['options']['options'] = $tiposProcessos;
 
 	$campos['Fluxo']['contato']['options']['label']['text'] 			= 'Nome do Botão';
 	
@@ -37,7 +41,7 @@
     $campos['Fluxo']['render_botao_finalizar']['options']['label']['text'] 	= 'Renderizar Finalizar';
 	$campos['Fluxo']['render_botao_finalizar']['options']['options']	    = array(1=>'SIM', 0=>'NÃO');
 
-	$edicaoCampos = array('Fluxo.solicitacao_id','#','Fluxo.complexidade_id','#','Fluxo.proxima_id','#','Fluxo.departamento_id','#','Fluxo.contato_id','#','Fluxo.nome_botao','#','#','Fluxo.atribuir_proxima_advogado','#','Fluxo.atribuir_proxima_anterior','#','Fluxo.fechar_anterior','#','Fluxo.atualizar_sistema','#','Fluxo.render_botao_finalizar');
+	$edicaoCampos = array('Fluxo.solicitacao_id','#','Fluxo.complexidade_id','#','Fluxo.proxima_id','#','Fluxo.departamento_id','#','Fluxo.contato_id','#','Fluxo.tipo_processo_id','#','Fluxo.nome_botao','#','#','Fluxo.atribuir_proxima_advogado','#','Fluxo.atribuir_proxima_anterior','#','Fluxo.fechar_anterior','#','Fluxo.atualizar_sistema','#','Fluxo.render_botao_finalizar');
 
 	if ($action=='editar' || $action=='excluir')
 	{

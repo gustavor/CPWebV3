@@ -23,6 +23,10 @@
 				$("#divProcessoSolicitacaoTipoPeticaoId").fadeIn().delay(100).focus();
 				$("#divProcessoSolicitacaoComplexidadeId").fadeIn();
 				break;
+            case '28': //solicitar entrevista de testemunha
+                $("#divProcessoSolicitacaoTipoParecerId").fadeOut();
+				$("#divProcessoSolicitacaoTipoPeticaoId").fadeOut();
+				$("#divProcessoSolicitacaoComplexidadeId").fadeIn().focus();
 		}
 
 

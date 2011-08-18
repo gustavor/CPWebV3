@@ -156,22 +156,36 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->ContatoProcesso->recursive = -1;
 			$idProcesso = $this->data['ProcessoSolicitacao']['processo_id'];
 			$contatos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.processo_id'=>$idProcesso)));
+            $_tipoProcesso = $this->ProcessoSolicitacao->Processo->find('list',array('conditions'=>array('Processo.id' => $idProcesso),
+                                                                                   'fields'=>array('Processo.tipo_processo_id'),
+                                                                                   'recursive'=>0));
+            $tipoProcesso = $_tipoProcesso[$idProcesso];
 
 			// recuperando fluxos. Se tem contato_id só vai se estiver em $contatos
 			$this->loadModel('Fluxo');
 			$this->Fluxo->recursive = -1;
-			$_fluxos = $this->Fluxo->find('all',array('conditions'=>array('Fluxo.solicitacao_id'=>$idSolicitacao,'Fluxo.complexidade_id'=>$idComplexidade)));
+
+            $condicoes = array();
+            $condicoes['Fluxo.solicitacao_id'] = $idSolicitacao;
+            $condicoes['Fluxo.complexidade_id'] = $idComplexidade;
+            //die(debug($condicoes));
+			$_fluxos = $this->Fluxo->find('all',array('conditions'=>array($condicoes)));
+
 			$fluxos = array();
 			foreach($_fluxos as $_linha => $_arrModel)
 			{
 				$idContato = $_arrModel['Fluxo']['contato_id'];
+                $idTipoProcesso = $_arrModel['Fluxo']['tipo_processo_id'];
 				if ($idContato>0 && !empty($idContato))
 				{
 					if (in_array($idContato,$contatos)) $fluxos[$_linha] = $_arrModel;
-				} else
+				} elseif($idTipoProcesso>0 && !empty($idTipoProcesso))
 				{
-					$fluxos[$_linha] = $_arrModel;
-				}
+					if ($tipoProcesso == $idTipoProcesso) $fluxos[$_linha] = $_arrModel;
+				} else
+                {
+                    $fluxos[$_linha] = $_arrModel;
+                }
 			}
 
 			$this->set(compact('fluxos'));
