@@ -104,7 +104,7 @@ class ProcessoSolicitacao extends AppModel {
 	 */
 	public function beforeValidate($options = array())
 	{
-		if (isset($this->data))
+       /* if (isset($this->data) && !empty($this->data))
 		{
 			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==1)
 			{
@@ -146,7 +146,7 @@ class ProcessoSolicitacao extends AppModel {
 				);
 			}
 		}
-		return true;
+		return true;*/
 	}
 	/**
 	 * Executa código antes de deletar

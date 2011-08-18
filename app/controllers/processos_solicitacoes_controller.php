@@ -155,7 +155,9 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->loadModel('ContatoProcesso');
 			$this->ContatoProcesso->recursive = -1;
 			$idProcesso = $this->data['ProcessoSolicitacao']['processo_id'];
-			$contatos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.processo_id'=>$idProcesso)));
+			$_contatos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.processo_id'=>$idProcesso)));
+            foreach( $_contatos as $id => $valor)
+                $contatos[] = $id;
             $_tipoProcesso = $this->ProcessoSolicitacao->Processo->find('list',array('conditions'=>array('Processo.id' => $idProcesso),
                                                                                    'fields'=>array('Processo.tipo_processo_id'),
                                                                                    'recursive'=>0));
@@ -168,25 +170,42 @@ class ProcessosSolicitacoesController extends AppController {
             $condicoes = array();
             $condicoes['Fluxo.solicitacao_id'] = $idSolicitacao;
             $condicoes['Fluxo.complexidade_id'] = $idComplexidade;
-            //die(debug($condicoes));
-			$_fluxos = $this->Fluxo->find('all',array('conditions'=>array($condicoes)));
+            $_fluxoscontatos = $this->Fluxo->find('all', array('conditions' => array($condicoes, 'Fluxo.contato_id' => $contatos)));
 
-			$fluxos = array();
-			foreach($_fluxos as $_linha => $_arrModel)
-			{
-				$idContato = $_arrModel['Fluxo']['contato_id'];
-                $idTipoProcesso = $_arrModel['Fluxo']['tipo_processo_id'];
-				if ($idContato>0 && !empty($idContato))
-				{
-					if (in_array($idContato,$contatos)) $fluxos[$_linha] = $_arrModel;
-				} elseif($idTipoProcesso>0 && !empty($idTipoProcesso))
-				{
-					if ($tipoProcesso == $idTipoProcesso) $fluxos[$_linha] = $_arrModel;
-				} else
+            $fluxos = array();
+            if(is_array($_fluxoscontatos) && !empty($_fluxoscontatos))
+            {
+                foreach ($_fluxoscontatos as $_linhacontato => $_arrModelcontato)
                 {
-                    $fluxos[$_linha] = $_arrModel;
+                    $fluxos[$_linhacontato] = $_arrModelcontato;
                 }
-			}
+            }
+            else
+            {
+                $_fluxos = $this->Fluxo->find('all',array('conditions'=>array($condicoes)));
+
+                foreach($_fluxos as $_linha => $_arrModel)
+                {
+                    $idContato = $_arrModel['Fluxo']['contato_id'];
+                    $idTipoProcesso = $_arrModel['Fluxo']['tipo_processo_id'];
+                    if ($idContato>0 && !empty($idContato))
+                    {
+                        if (in_array($idContato,$contatos)){
+                            $fluxos[$_linha] = $_arrModel;
+                        }
+                    }
+                    elseif($idTipoProcesso>0 && !empty($idTipoProcesso))
+                    {
+                        if ($tipoProcesso == $idTipoProcesso) $fluxos[$_linha] = $_arrModel;
+                    }
+                    else
+                    {
+                        //die();
+                        $fluxos[$_linha] = $_arrModel;
+                    }
+                }
+            }
+
 
 			$this->set(compact('fluxos'));
 			// descobrindo o usuário atribuido por usuário atribuído ou usuário solicitante
