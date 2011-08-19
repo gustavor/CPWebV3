@@ -665,6 +665,8 @@ CREATE  TABLE IF NOT EXISTS `cpwebv3`.`processos_solicitacoes` (
   `tipo_parecer_id` INT(11) NULL ,
   `tipo_peticao_id` INT(11) NULL ,
   `complexidade_id` INT(11) NULL ,
+  `prazo_cliente` DATE NOT NULL ,
+  `prazo_interno` DATE NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_processos_solicitacoes_solicitacoes1` (`solicitacao_id` ASC) ,
   INDEX `fk_processos_solicitacoes_processos1` (`processo_id` ASC) ,

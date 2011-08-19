@@ -12,6 +12,8 @@
 	echo $this->Html->script('countdown/jquery.countdown.js')."\n";
 	echo $this->Html->script('countdown/jquery.countdown-pt-BR.js')."\n";
 	echo $this->Html->script('superfish-1.4.8/superfish.js')."\n";
+	echo $this->Html->script('jquery-ui-1.8.12.custom.min.js')."\n";
+	echo $this->Html->script('jquery.ui.datepicker-pt-BR.js')."\n";
 }
 ?>
 
@@ -40,5 +42,6 @@ if ($this->Session->check('Auth.Usuario.login'))
 {
 	echo $this->Html->css('superfish-1.4.8/superfish')."\n";
 	echo $this->Html->css('countdown')."\n";
+	echo $this->Html->css('jquery-ui')."\n";
 }
 ?>

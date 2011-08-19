@@ -1,0 +1,5 @@
+"id";"nome";"tipo_contato";"cnpj";"cpf";"endereco";"cep";"bairro";"email";"oab";"obs";"cidade_id";"profissao_id"
+"1";"GUSTAVO DIAS DUARTE RAMOS";"0";"0";"09350517671";"RUA ALVARENGA PEIXOTO 1160 APT 201";"NULL";"NULL";"gustavo.ramos@veadvogados.com.br";;;"2302";"1"
+"2";"VALEWSKA RAMOS ESTEVES DUARTE";"0";"0";"54475597668";"RUA ALVARENGA PEIXOTO 1160 APT 201";"NULL";"NULL";"valewska@veadvogados.com.br";"78993";;"2302";"1"
+"3";"EDILSON DIAS DUARTE";"0";"0";"54680700653";"RUA COPENHAGUE, 57";"NULL";"NULL";;;;"2302";"1"
+"4";"VALÉRIA ESTEVES ADVOGADOS ASSOCIADOS";"1";"02866950000129";"0";"RUA RODRIGUES CALDAS, 726 SEGUNDO ANDAR";"NULL";"NULL";"veadvogados@veadvogados.com.br";;;"2302";"1"

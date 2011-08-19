@@ -99,9 +99,28 @@
 	$campos['TipoPeticao']['nome']['estilo_th'] 											= 'width="140px"';
 	
 	$campos['ProcessoSolicitacao']['atribuido']['options']['label']['text']					= 'Responsável';
+	
+	$campos['ProcessoSolicitacao']['prazo_cliente']['options']['type']						= 'text';
+	$campos['ProcessoSolicitacao']['prazo_cliente']['options']['style']						= 'width: 100px; text-align: center;';
+	//$campos['ProcessoSolicitacao']['prazo_cliente']['mascara'] 								= '99/99/9999';
+	$campos['ProcessoSolicitacao']['prazo_interno']['options']['type']						= 'text';
+	$campos['ProcessoSolicitacao']['prazo_interno']['options']['style']						= 'width: 100px; text-align: center;';
+	//$campos['ProcessoSolicitacao']['prazo_interno']['mascara'] 								= '99/99/9999';
 
 	// descobrindo o id do processo
 	$idProcesso	= isset($idProcesso) ? $idProcesso : '';	
+
+
+	if (isset($this->data['ProcessoSolicitacao']['prazo_interno']))
+	{
+		$_data = explode('-',$this->data['ProcessoSolicitacao']['prazo_interno']);
+		$this->Form->data['ProcessoSolicitacao']['prazo_interno'] = $_data[2].'/'.$_data[1].'/'.$_data[0];
+	}
+	if (isset($this->data['ProcessoSolicitacao']['prazo_cliente']))
+	{
+		$_data = explode('-',$this->data['ProcessoSolicitacao']['prazo_cliente']);
+		$this->Form->data['ProcessoSolicitacao']['prazo_cliente'] = $_data[2].'/'.$_data[1].'/'.$_data[0];
+	}
 
 	if (!empty($atribuido))
 	{
@@ -114,7 +133,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.finalizada',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.finalizada',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','ProcessoSolicitacao.prazo_cliente','#','ProcessoSolicitacao.prazo_interno','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
 	}
 
 	if ($action=='imprimir')
@@ -133,7 +152,7 @@
                                                                           );
                                                                           * */
 		$campos[$modelClass]['departamento_id']['options']['options'] = array();
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs');	
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','ProcessoSolicitacao.prazo_cliente','ProcessoSolicitacao.prazo_interno');	
 		$urlCombo = Router::url('/',true).'processos_solicitacoes/combode/';
 		$on_read_view .= "\n".'$("#ProcessoSolicitacaoSolicitacaoId").change(function() { setComboDepartamento("ProcessoSolicitacaoDepartamentoId","'.$urlCombo.'", $(this).val());  });';
 	}
@@ -143,6 +162,8 @@
 		$on_read_view .= "\n\t".'$("#'.$modelClass.'SolicitacaoId").focus();';
 		$on_read_view .= "\n\t".'$("#buscaRapidaRespostaProcessoSolicitacaoSolicitacaoId").click(function() { getTipoSolicitacao($("#ProcessoSolicitacaoSolicitacaoId").find("option[selected=true]").val()); });';
 		$on_read_view .= "\n\t".'getTipoSolicitacao($("#ProcessoSolicitacaoSolicitacaoId").find("option[selected=true]").val());';
+		$on_read_view .= "\n\t".'$("#ProcessoSolicitacaoPrazoCliente").datepicker();';
+		$on_read_view .= "\n\t".'$("#ProcessoSolicitacaoPrazoInterno").datepicker();';
 	}
 
 	if ($action=='editar' || $action=='listar' || $action=='filtro')
@@ -314,7 +335,10 @@
 				$modelClass.'.complexidade_id','#',
 				$modelClass.'.departamento_id','#',
                 $modelClass.'.usuario_solicitante',
-				$modelClass.'.obs');
+				$modelClass.'.obs',
+				'ProcessoSolicitacao.prazo_cliente','#',
+				'ProcessoSolicitacao.prazo_interno'
+				);
 		}
 		if (isset($botoesEdicao['Listar']) 	&& count($botoesEdicao['Listar'])) 		$botoesEdicao['Listar']['onClick'] 	= 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 		if (isset($botoesEdicao['Novo'])   	&& count($botoesEdicao['Novo']))		$botoesEdicao['Novo']['onClick'] 	= 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$idProcesso.'\'';

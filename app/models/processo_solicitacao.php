@@ -33,6 +33,18 @@ class ProcessoSolicitacao extends AppModel {
 				'rule'		=> 'notEmpty',
 				'required' 	=> true,
 				'message'	=> 'É necessário informar o tipo a solicitação !!!'
+			),
+		'prazo_cliente' => array
+			(
+				'rule'		=> 'notEmpty',
+				'required' 	=> true,
+				'message'	=> 'É necessário informar a data de prazo do cliente !!!'
+			),
+		'prazo_interno' => array
+			(
+				'rule'		=> 'notEmpty',
+				'required' 	=> true,
+				'message'	=> 'É necessário informar a data de prazo interno !!!'
 			)
 	);
 
@@ -106,6 +118,18 @@ class ProcessoSolicitacao extends AppModel {
 	{
        if (isset($this->data) && !empty($this->data))
 		{
+			// reconfigurando os campos prazo[cliente|interno]
+			if (isset($this->data['ProcessoSolicitacao']['prazo_cliente']))
+			{
+				$_data = explode('/',$this->data['ProcessoSolicitacao']['prazo_cliente']);
+				$this->data['ProcessoSolicitacao']['prazo_cliente'] = $_data[2].'-'.$_data[1].'-'.$_data[0];
+			}
+			if (isset($this->data['ProcessoSolicitacao']['prazo_interno']))
+			{
+				$_data = explode('/',$this->data['ProcessoSolicitacao']['prazo_interno']);
+				$this->data['ProcessoSolicitacao']['prazo_interno'] = $_data[2].'-'.$_data[1].'-'.$_data[0];
+			}
+			
 			if (isset($this->data['ProcessoSolicitacao']['solicitacao_id']) && $this->data['ProcessoSolicitacao']['solicitacao_id']==1)
 			{
 				$this->validate['tipo_peticao_id'] = array

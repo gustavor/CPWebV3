@@ -312,6 +312,7 @@ class FormatacaoHelper extends AppHelper {
 				if (!empty($valor)) $formatado = $this->dataHora($valor,true);
 				break;
 			case 'data':
+			case '99/99/9999':
 				if (!empty($valor)) $formatado = $this->data($valor);
 				break;
 		}

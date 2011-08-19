@@ -156,8 +156,11 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->ContatoProcesso->recursive = -1;
 			$idProcesso = $this->data['ProcessoSolicitacao']['processo_id'];
 			$_contatos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.processo_id'=>$idProcesso)));
+			$contatos = array();
             foreach( $_contatos as $id => $valor)
+            {
                 $contatos[] = $id;
+			}
             $_tipoProcesso = $this->ProcessoSolicitacao->Processo->find('list',array('conditions'=>array('Processo.id' => $idProcesso),
                                                                                    'fields'=>array('Processo.tipo_processo_id'),
                                                                                    'recursive'=>0));
