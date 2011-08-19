@@ -104,9 +104,9 @@ class ProcessoSolicitacao extends AppModel {
 	 */
 	public function beforeValidate($options = array())
 	{
-       /* if (isset($this->data) && !empty($this->data))
+       if (isset($this->data) && !empty($this->data))
 		{
-			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==1)
+			if (isset($this->data['ProcessoSolicitacao']['solicitacao_id']) && $this->data['ProcessoSolicitacao']['solicitacao_id']==1)
 			{
 				$this->validate['tipo_peticao_id'] = array
 				(
@@ -121,7 +121,7 @@ class ProcessoSolicitacao extends AppModel {
 					'message'	=> 'É necessário informar o tipo de Complexidade !!!'
 				);
 			}
-			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==7)
+			if (isset($this->data['ProcessoSolicitacao']['solicitacao_id']) && $this->data['ProcessoSolicitacao']['solicitacao_id']==7)
 			{
 				$this->validate['tipo_parecer_id'] = array
 				(
@@ -136,7 +136,7 @@ class ProcessoSolicitacao extends AppModel {
 					'message'	=> 'É necessário informar o tipo de Complexidade !!!'
 				);
 			}
-			if ($this->data['ProcessoSolicitacao']['solicitacao_id']==28)
+			if (isset($this->data['ProcessoSolicitacao']['solicitacao_id']) && $this->data['ProcessoSolicitacao']['solicitacao_id']==28)
 			{
 				$this->validate['complexidade_id'] = array
 				(
@@ -146,7 +146,7 @@ class ProcessoSolicitacao extends AppModel {
 				);
 			}
 		}
-		return true;*/
+		return true;
 	}
 	/**
 	 * Executa código antes de deletar
