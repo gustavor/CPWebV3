@@ -8,6 +8,10 @@
 	
 	$campos['Contato']['email']['options']['label']['text'] 		= 'E-mail';
 	$campos['Contato']['email']['options']['style'] 				= 'width: 408px; text-transform: lowercase; ';
+	
+	$campos['Contato']['cep']['options']['label']['text'] 			= 'Cep';
+	$campos['Contato']['cep']['mascara'] 							= '99.999-999';
+	$campos['Contato']['cep']['options']['style'] 					= 'width: 90px; text-align: center;';
 
    	$campos['Contato']['tipo_contato']['options']['label']['text']  = 'Tipo do Contato';
    	$campos['Contato']['tipo_contato']['options']['type']           = 'radio';
@@ -61,7 +65,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array('Contato.tipo_contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
+		$edicaoCampos = array('Contato.tipo_contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.numero','Contato.complemento','#','Contato.bairro','Contato.cep','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.obs');
 	}
 
 	if ($action=='editar' || $action=='novo' || $action=='excluir')
@@ -83,7 +87,7 @@
 
 	if ($action=='novo')
 	{
-		$edicaoCampos = array('Contato.tipo_contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.profissao_id','#','Contato.obs');
+		$edicaoCampos = array('Contato.tipo_contato','Contato.cnpj','Contato.cpf','#','Contato.nome','#','Contato.endereco','#','Contato.numero','Contato.complemento','#','Contato.bairro','Contato.cep','#','Contato.email','Contato.oab','#','Cidade.estado_id','Contato.cidade_id','#','Contato.profissao_id','#','Contato.obs');
 		$on_read_view .= "\n".'$("#divContatoCnpj").show(); $("#divContatoCpf").fadeOut();';
 	}
 
@@ -104,6 +108,8 @@
 		// limpando cpf e cnpj
 		$this->Form->data['Contato']['cpf']  = ($this->Form->data['Contato']['cpf']=='0')  ? '' : $this->Form->data['Contato']['cpf'];
 		$this->Form->data['Contato']['cnpj'] = ($this->Form->data['Contato']['cnpj']=='0') ? '' : $this->Form->data['Contato']['cnpj'];
+		$this->Form->data['Contato']['numero'] = ($this->Form->data['Contato']['numero']=='0') ? '' : $this->Form->data['Contato']['numero'];
+		$this->Form->data['Contato']['bairro'] = ($this->Form->data['Contato']['bairro']=='NULL') ? '' : $this->Form->data['Contato']['bairro'];
 
 		if ($this->Form->data['Contato']['tipo_contato']==1) 
 			$on_read_view .= "\n".'$("#divContatoCpf").fadeOut(); $("#divContatoCnpj").delay(500).fadeIn();'; 

@@ -74,6 +74,24 @@ class Contato extends AppModel {
                 'message' => 'É necessário informar o endereço do Contato!'
             ),
 
+            'numero' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'É necessário informar o número do endereço!'
+            ),
+
+            'bairro' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'É necessário informar o bairro do Contato!'
+            ),
+
+            'cep' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'message' => 'É necessário informar o cep do Contato!'
+            ),
+
             'cidade_id' => array(
                 'rule' => 'notEmpty',
                 'required' => true,
@@ -122,6 +140,10 @@ class Contato extends AppModel {
 		{
 			$this->data['Contato']['cpf'] = '0';
 			$this->validate['cpf'] = array();
+		}
+		if (empty($this->data['Contato']['cep']))
+		{
+			$this->data['Contato']['cep'] = ereg_replace('[.-]','',$this->data['Contato']['cep']);
 		}
 		parent::beforeValidate();
 	}

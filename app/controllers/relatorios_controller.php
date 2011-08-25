@@ -716,5 +716,134 @@ class RelatoriosController extends AppController {
 
 		$this->render($render);
 	}
+
+	/**
+	 * Exibe a lista e/ou o relatório de prazos
+	 * 
+	 * @param	string	$relatorio	Nome do relatório
+	 * @param	string	$layout		Nome do layout
+	 * @return	void
+	 */
+	public function fil_prazos($relatorio = '', $layout = '')
+	{
+		// nome do relatório, pode ser passado via formulário
+		$relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
+
+		// parametros do relatório
+		$paramRelatorio['orientacao_pagina'] 	= 'L';
+		$paramRelatorio['titulo'] 				= 'Relatório de Prazos - '.ucfirst($relatorio);
+
+		// filtros
+		$dataFiltro = array();
+		$this->loadModel('Usuario');
+		$dataFiltro['usuario']['options']['options'] = $this->Usuario->find('list');
+		$this->loadModel('Departamento');
+		$dataFiltro['departamento']['options']['options'] = $this->Departamento->find('list');
+		$this->loadModel('Solicitacao');
+		$dataFiltro['solicitacao']['options']['options'] = $this->Solicitacao->find('list');
+
+		// dados da lista
+		$dataLista		= array();
+
+		// campos que vão compor a lista
+		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','Solicitacao.nome','ProcessoSolicitacao.created');
+		if ($relatorio == 'cliente') array_push($camposLista,'ProcessoSolicitacao.prazo_cliente'); else array_push($camposLista,'ProcessoSolicitacao.prazo_interno');
+
+		// config view usados na lista
+		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','processos'=>'Processo');
+
+		// se o formulário foi postado ou o pedido de impressão para o layout
+		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+		{
+			// debug
+			//pr($this->data);
+
+			// carregando o modelo de processos e solicitações
+			$this->loadModel('ProcessoSolicitacao');
+
+			// filtro
+			$condicoes = array();
+
+			// filtrando o usuário
+			if (isset($this->data[$this->action]['usuario']) && !(empty($this->data[$this->action]['usuario'])))
+			{
+				$condicoes['ProcessoSolicitacao.usuario_atribuido'] = $this->data[$this->action]['usuario'];
+			}
+			
+			// filtrando a solicitação
+			if (isset($this->data[$this->action]['solicitacao']) && !(empty($this->data[$this->action]['solicitacao'])))
+			{
+				$condicoes['ProcessoSolicitacao.solicitacao_id'] = $this->data[$this->action]['solicitacao'];
+			}
+
+			// filtrando data início e fim do prazo[cliente|interno]
+			if (	isset($this->data[$this->action]['data_ini']) && !(empty($this->data[$this->action]['data_ini'])) &&
+					isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
+				)
+			{
+				$dtIni = $this->data[$this->action]['data_ini']['year'].'/'.$this->data[$this->action]['data_ini']['month'].'/'.$this->data[$this->action]['data_ini']['day'];
+				$dtFim = $this->data[$this->action]['data_fim']['year'].'/'.$this->data[$this->action]['data_fim']['month'].'/'.$this->data[$this->action]['data_fim']['day'];
+				if ($relatorio == 'cliente') $condicoes['ProcessoSolicitacao.prazo_cliente BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+				if ($relatorio == 'interno') $condicoes['ProcessoSolicitacao.prazo_interno BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+			}
+
+			// ordenando
+			if 	(	isset($this->data[$this->action]['ordem']) )
+			{
+				$this->paginate = array('order'=>array('ProcessoSolicitacao.'.$this->data[$this->action]['ordem']=>'ASC'));
+				$this->Session->write('ordemRelatorio','ProcessoSolicitacao.'.$this->data[$this->action]['ordem']);
+			}
+
+			// Buscando processos com o filtro para Lista
+			if (!empty($layout))
+			{
+				$pagina 	= $this->ProcessoSolicitacao->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+			} else
+			{
+				$pagina 	= $this->paginate('ProcessoSolicitacao',$condicoes);
+				$this->Session->write('filtroRelatorio',$condicoes);
+			}
+
+			// atualizando o conteúdo do relatório somente por causa deste filtro específico
+			$dataLista	= array();
+			$link		= array();
+			foreach($pagina as $_linha => $_arrModelos)
+			{
+				foreach($_arrModelos as $_modelo => $_arrCampos)
+				{
+					foreach($_arrCampos as $_campo => $_valor)
+					{
+						$valor = $_valor;
+						if ($_campo=='processo_id')
+						{
+							$valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
+							$link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
+						}
+						$dataLista[$_linha][$_modelo][$_campo] = $valor;
+						$dataLista[$_linha]['Usuario']['nome'] = $dataFiltro['usuario']['options']['options'][$this->Session->read('usuario_atribuido')];
+					}
+				}
+			}
+
+			// se filtrou pelo contato mas não achou nenhum processo do contato zera a lista
+			if (isset($dataProcesso))
+			{
+				if (!count($dataProcesso)) $dataLista = array();
+			}
+
+			// definindo o que renderizar
+			$render = (!empty($layout)) ? $layout : 'listar';
+		} else
+		{
+			$render = $this->action;
+		}
+
+		// atualizando a view
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link'));
+		$this->set('modelo','ProcessoSolicitacao');
+		$this->set('relatorio',$relatorio);
+		$this->render($render);
+	}
+	
 }
 ?>

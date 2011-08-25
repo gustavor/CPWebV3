@@ -31,6 +31,12 @@
             }
 	}
 
+	$listaRelatorio[5]['titulo']					= 'Prazos';
+	$listaRelatorio[5]['cliente']['text'] 			= 'Controle de Prazos do Cliente';
+	$listaRelatorio[5]['cliente']['url'] 			= Router::url('/',true).'relatorios/fil_prazos/cliente/';
+	$listaRelatorio[5]['interno']['text'] 			= 'Controle de Prazos Interno';
+	$listaRelatorio[5]['interno']['url'] 			= Router::url('/',true).'relatorios/fil_prazos/interno/';
+
 	foreach($listaRelatorio as $_item => $_arrRel)
 	{
 		foreach($_arrRel as $_rel => $_arrOpc)
