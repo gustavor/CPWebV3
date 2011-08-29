@@ -141,7 +141,7 @@ class Contato extends AppModel {
 			$this->data['Contato']['cpf'] = '0';
 			$this->validate['cpf'] = array();
 		}
-		if (empty($this->data['Contato']['cep']))
+		if (!empty($this->data['Contato']['cep']))
 		{
 			$this->data['Contato']['cep'] = ereg_replace('[.-]','',$this->data['Contato']['cep']);
 		}
