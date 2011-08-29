@@ -9,7 +9,7 @@
 	$campos['Contato']['email']['options']['label']['text'] 		= 'E-mail';
 	$campos['Contato']['email']['options']['style'] 				= 'width: 408px; text-transform: lowercase; ';
 	
-	$campos['Contato']['cep']['options']['label']['text'] 			= 'Cep';
+	$campos['Contato']['cep']['options']['label']['text'] 			= 'CEP';
 	$campos['Contato']['cep']['mascara'] 							= '99.999-999';
 	$campos['Contato']['cep']['options']['style'] 					= 'width: 90px; text-align: center;';
 
@@ -62,6 +62,12 @@
 
 	$campos['Telefone']['options']['label']['text']					= 'Telefones';
 	$campos['Telefone']['options']['multiple']						= 'checkbox';
+
+    $campos['Contato']['bairro']['options']['label']['text']		= 'Bairro';
+    $campos['Contato']['bairro']['options']['style']				= 'text-transform: uppercase; ';
+
+    $campos['Contato']['complemento']['options']['label']['text']	= 'Complemento';
+    $campos['Contato']['complemento']['options']['style']			= 'text-transform: uppercase; ';
 
 	if ($action=='editar' || $action=='excluir')
 	{
