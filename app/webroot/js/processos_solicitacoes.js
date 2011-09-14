@@ -4,7 +4,6 @@
 	 */
 	function getTipoSolicitacao(tipo)
 	{
-
 		switch(tipo)
 		{
 			case '':

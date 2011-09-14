@@ -16,7 +16,6 @@
 	$campos['Evento']['tipo_evento_id']['options']['label']['text']	= 'Tipo';
 	$campos['Evento']['tipo_evento_id']['options']['empty'] 	= '-- escolha uma opção --';
 	$campos['Evento']['tipo_evento_id']['options']['style']		= 'width: 500px;';
-	$campos['Evento']['tipo_evento_id']['busca_rapida_url'] 	= Router::url('/',true).'tipos_eventos/buscar/nome';
 	if (isset($tipoeventos)) $campos['Evento']['tipo_evento_id']['options']['options']	= $tipoeventos;
 
 	if ($action=='editar' || $action=='excluir')
@@ -39,7 +38,9 @@
 	if ($action=='editar' || $action=='novo')
 	{
 		$on_read_view .= "\n".'$("#EventoTipoEventoId").focus();';
-		$on_read_view .= "\n".'$("#EventoTipoEventoId").change(function() {setShowEvento();} );';
+		$campos[$modelClass]['tipo_evento_id']['options']['onchange'] = 'getEvento(this.value);';
+        $on_read_view .= "\n".'$("#divEventoEvento").fadeOut();';
+        $on_read_view .= "\n".'if($("#EventoTipoEventoId").val() == "65") $("#divEventoEvento").fadeIn();';
 	}
 
 	if ($action=='editar' || $action=='listar')
@@ -58,10 +59,6 @@
 			//$edicaoCampos = array('Evento.data','Evento.processo_id','#','Evento.tipo_evento_id');
 		}
 		$botoesEdicao['Novo']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/novo/'.$this->Form->data['Processo']['id'].'\'';
-		if ($tipoeventos[$this->data['TipoEvento']['id']]!='PUBLICAÇÃO')
-		{
-			$on_read_view .= "\n".'$("#divEventoEvento").fadeOut();';	
-		}
 	}
 
 	if ($action=='listar')	

@@ -1,14 +1,13 @@
-
-	// exibe ou oculta o campo evento conforme o tipo de evento
-	function setShowEvento()
-	{
-		var vlrEvento = $('#EventoTipoEventoId').find('option[selected=true]').text(); 
-		if (vlrEvento=='PUBLICAÇÃO')
-		{
-			$("#divEventoEvento").fadeIn();
-			$("#EventoEvento").focus();
-		} else
-		{
-			$("#divEventoEvento").fadeOut();
-		}
-	}
+function getEvento(tipo)
+{
+    switch(tipo)
+    {
+        case '':
+        default:
+            $("#divEventoEvento").fadeOut();
+            break;
+        case '65': //publicação
+            $("#divEventoEvento").fadeIn();
+            break;
+    }
+}
