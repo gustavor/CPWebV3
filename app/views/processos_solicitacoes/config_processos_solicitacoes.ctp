@@ -182,6 +182,8 @@
             $campos[$modelClass]['tipo_peticao_id']['options']['disabled'] = 'disabled';
             $campos[$modelClass]['tipo_parecer_id']['options']['disabled'] = 'disabled';
             $campos[$modelClass]['departamento_id']['options']['disabled'] = 'disabled';
+            $campos[$modelClass]['prazo_interno']['options']['disabled'] = 'disabled';
+            $campos[$modelClass]['prazo_cliente']['options']['disabled'] = 'disabled';
         }
 
 		// alertas
