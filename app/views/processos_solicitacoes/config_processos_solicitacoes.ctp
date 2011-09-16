@@ -152,7 +152,7 @@
                                                                           );
                                                                           * */
 		$campos[$modelClass]['departamento_id']['options']['options'] = array();
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','ProcessoSolicitacao.prazo_cliente','ProcessoSolicitacao.prazo_interno');	
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','#','ProcessoSolicitacao.prazo_cliente','ProcessoSolicitacao.prazo_interno');
 		$urlCombo = Router::url('/',true).'processos_solicitacoes/combode/';
 		$on_read_view .= "\n".'$("#ProcessoSolicitacaoSolicitacaoId").change(function() { setComboDepartamento("ProcessoSolicitacaoDepartamentoId","'.$urlCombo.'", $(this).val());  });';
 	}
@@ -335,7 +335,7 @@
 				$modelClass.'.complexidade_id','#',
 				$modelClass.'.departamento_id','#',
                 $modelClass.'.usuario_solicitante',
-				$modelClass.'.obs',
+				$modelClass.'.obs','#',
 				'ProcessoSolicitacao.prazo_cliente','#',
 				'ProcessoSolicitacao.prazo_interno'
 				);
