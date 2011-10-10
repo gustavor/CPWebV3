@@ -118,7 +118,7 @@ class ProcessoSolicitacao extends AppModel {
 	{
        if (isset($this->data) && !empty($this->data))
 		{
-			// reconfigurando os campos prazo[cliente|interno]
+			/*// reconfigurando os campos prazo[cliente|interno]
 			if (isset($this->data['ProcessoSolicitacao']['prazo_cliente']))
 			{
 				$_data = explode('/',$this->data['ProcessoSolicitacao']['prazo_cliente']);
@@ -128,7 +128,7 @@ class ProcessoSolicitacao extends AppModel {
 			{
 				$_data = explode('/',$this->data['ProcessoSolicitacao']['prazo_interno']);
 				$this->data['ProcessoSolicitacao']['prazo_interno'] = $_data[2].'-'.$_data[1].'-'.$_data[0];
-			}
+			}*/
 			
 			if (isset($this->data['ProcessoSolicitacao']['solicitacao_id']) && $this->data['ProcessoSolicitacao']['solicitacao_id']==1)
 			{

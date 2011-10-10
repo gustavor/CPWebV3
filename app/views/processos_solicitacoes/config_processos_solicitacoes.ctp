@@ -151,6 +151,9 @@
                                                                           7 => 'PROTOCOLO'
                                                                           );
                                                                           * */
+        //definindo prazos
+        $this->Form->data['ProcessoSolicitacao']['prazo_cliente'] = date("Y-m-d",strtotime("+1 week"));
+        $this->Form->data['ProcessoSolicitacao']['prazo_interno'] = date("Y-m-d",strtotime("+1 week"));
 		$campos[$modelClass]['departamento_id']['options']['options'] = array();
 		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.processo_id','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id','#',$modelClass.'.tipo_parecer_id','#',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','#','ProcessoSolicitacao.prazo_cliente','ProcessoSolicitacao.prazo_interno');
 		$urlCombo = Router::url('/',true).'processos_solicitacoes/combode/';

@@ -411,6 +411,8 @@ class ProcessosSolicitacoesController extends AppController {
 			$data['ProcessoSolicitacao']['tipo_solicitacao_id'] 	= 3;
 			$data['ProcessoSolicitacao']['finalizada'] 				= 0;
 			$data['ProcessoSolicitacao']['usuario_atribuido'] 		= 0;
+            $data['ProcessoSolicitacao']['prazo_cliente'] 		    = $processo_solicitacao['ProcessoSolicitacao']['prazo_cliente'];
+            $data['ProcessoSolicitacao']['prazo_interno'] 		    = $processo_solicitacao['ProcessoSolicitacao']['prazo_interno'];
 
 			$this->ProcessoSolicitacao->create();
 			if ($this->ProcessoSolicitacao->save($data))
@@ -430,6 +432,8 @@ class ProcessosSolicitacoesController extends AppController {
         $data['ProcessoSolicitacao']['tipo_peticao_id']         = $processo_solicitacao['ProcessoSolicitacao']['tipo_peticao_id'];
         $data['ProcessoSolicitacao']['tipo_parecer_id']         = $processo_solicitacao['ProcessoSolicitacao']['tipo_parecer_id'];
         $data['ProcessoSolicitacao']['complexidade_id']         = $processo_solicitacao['ProcessoSolicitacao']['complexidade_id'];
+        $data['ProcessoSolicitacao']['prazo_cliente'] 		    = $processo_solicitacao['ProcessoSolicitacao']['prazo_cliente'];
+        $data['ProcessoSolicitacao']['prazo_interno'] 		    = $processo_solicitacao['ProcessoSolicitacao']['prazo_interno'];
 		switch($fluxo['Fluxo']['departamento_id'])
 		{
 			case 1:
