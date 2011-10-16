@@ -65,6 +65,7 @@
 			if(isset($tituloCab[1]) && !empty($tituloCab[1]['link'])) echo ' : <a class="tituloCab1" href="'.$tituloCab[1]['link'].'">'.$tituloCab[1]['label'].'</a>'; 
 			if(isset($tituloCab[2]) && !empty($tituloCab[2]['link'])) echo ' : <a class="tituloCab2" href="'.$tituloCab[2]['link'].'">'.$tituloCab[2]['label'].'</a>'; 
 			if(isset($tituloCab[3]) && !empty($tituloCab[3]['link'])) echo ' : <a class="tituloCab3" href="'.$tituloCab[3]['link'].'">'.$tituloCab[3]['label'].'</a>';
+            if(isset($tituloCab[4])) echo " : <a class='tituloCab1'>$tituloCab[4]</a>";
 		?>
 
 	</div>

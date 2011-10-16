@@ -141,11 +141,6 @@ class ProcessosController extends AppController {
 				array('Processo.id'			=>	$this->data['subFormApenso']['id'])
 			);
 		}
-
-        $titulo[1]['label']	= 'Processos';
-        $titulo[1]['link']	= Router::url('/',true).'processos';
-        $titulo[2]['label'] = 'Editar : VEBH-'.str_repeat('0',5-strlen($id)).$id;
-        $titulo[2]['link']	= Router::url('/',true).'processos/editar/'.$id;
         
         if (isset($this->data['subNovoForm']['contato_id']) || count($this->data['subForm']))
 		{
@@ -158,7 +153,11 @@ class ProcessosController extends AppController {
         $contatos = $this->Processo->ContatoProcesso->find( 'all', array('order'=>'Contato.nome','conditions' => array( 'processo_id' => $id )));
         $this->set('contatos',$contatos);
 
-        $this->set(compact('titulo'));
+        $parte_contraria_principal = $this->Processo->ContatoProcesso->find('first', array('conditions' => array('tipo_parte_id' => 2, 'processo_id' => $id, 'principal' => 1)));
+        $nome_parte_contraria_principal = sizeof($parte_contraria_principal) ? $parte_contraria_principal['Contato']['nome'] : '';
+        $this->set('parte_contraria_principal',$nome_parte_contraria_principal);
+
+        //$this->set(compact('titulo'));
 		$this->CpwebCrud->editar($id);
 		if( isset($this->data['Processo']['familia_id'])){
             $apensos = $this->Processo->find('list',array('conditions'=>array('Processo.familia_id'=>$this->data['Processo']['familia_id'])));

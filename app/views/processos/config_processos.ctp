@@ -188,7 +188,10 @@
 	if ($action=='editar')
 	{
 
-		if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+		//coloca nome do contrário principal (se setado) no cabeçalho da página
+        if($parte_contraria_principal != '') $tituloCab[4] = $parte_contraria_principal;
+
+        if (!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
         {
 		//desativando campos que não podem ser editados - o administrador pode edita-los
         $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';
