@@ -62,7 +62,8 @@
 	<li>
 		<a href="#">Ferramentas</a>
 		<ul>
-			<?php foreach($ferramentas as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?>
+			<li><?php foreach($ferramentas as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?></li>
+            <li><?php echo $this->Html->link('Relatórios Gerenciais - Processos',array('controller'=>'processos','action'=>'relatorio_gerencial')) ?></li>
 		</ul>
 	</li>
 	<?php endif ?>

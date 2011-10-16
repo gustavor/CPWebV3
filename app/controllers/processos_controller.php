@@ -275,6 +275,27 @@ class ProcessosController extends AppController {
 		}
         $this->redirect($this->referer());
     }
+
+    public function relatorio_gerencial(){
+        //primeiro relatorio: processos por tipo (gráfico de pizza)
+        $tipos_processos = $this->Processo->TipoProcesso->find('list');
+        $countProcessoByTipo = array();
+        foreach($tipos_processos as $tipo_processo => $nome)
+        {
+            $countProcessoByTipo[$nome] = $this->Processo->find('count', array('conditions' => array('tipo_processo_id' => $tipo_processo)));
+        }
+
+
+        //numero de processos por Advogado
+        $this->loadModel('Usuario');
+        $advogados = $this->Usuario->find('list',array('conditions' => array('Usuario.isadvogado' => 1)));
+        $numeroProcessos = array();
+        foreach($advogados as $id => $advogado)
+        {
+            $numeroProcessos[$advogado] = $this->Processo->find('count',array('conditions' => array('Processo.usuario_id' => $id)));
+        }
+        $this->set(compact('countProcessoByTipo','numeroProcessos'));
+    }
 }
 
 ?>
