@@ -198,28 +198,10 @@ class ProcessoSolicitacao extends AppModel {
 		{
             $this->data[$this->name]['data_atendimento'] = date('Y-m-d h:i:s');
 		}
-        if (isset($this->data[$this->name]['finalizada']) && !empty($this->data[$this->name]['finalizada']) )
+        if (isset($this->data[$this->name]['finalizada']) && !($this->data[$this->name]['finalizada']) )
 		{
 			$this->data[$this->name]['data_fechamento'] = date('Y-m-d h:i:s');
 		}
-        /*if(isset($this->data[$this->name]['processo_id']) && !empty($this->data[$this->name]['processo_id']))
-        {
-            $processo = $this->Processo->read(null, $this->data[$this->name]['processo_id']);
-            switch($this->data[$this->name]['departamento_id'])
-            {
-                case 10:
-                    $this->data[$this->name]['departamento_id'] = $processo['Processo']['tipo_processo_id'];
-                    break;
-                case 20:
-                    $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 2);
-                    break;
-                case 30:
-                    $this->data[$this->name]['departamento_id'] = ($processo['Processo']['tipo_processo_id'] + 7);
-                    break;
-                default:
-                    break;
-            }
-        }*/
 		return true;
 	}
 
