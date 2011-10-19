@@ -77,7 +77,7 @@
 					}
 				}
 
-				// incluindo as ferramentas
+/*				// incluindo as ferramentas
 				foreach($subFormFerramentas as $_item => $_arrParam)
 				{
 					foreach($_arrParam as $_param => $_valor)
@@ -88,7 +88,7 @@
 							echo "<td align='center' width='30'><img id='icoSubFormFer".$id."' src='".Router::url('/',true).'img/'.$_arrParam['ico']."' border='0' onclick=$onclick /></td>\n";
 						}
 					}
-				}
+				}*/
 				echo "</tr>\n";
 			}
 		?>
