@@ -21,6 +21,13 @@
  */
 
 /**
+ * Exibir página de manutenção ou não
+ * 1 => Manutenção
+ * 0 => Livre
+ */
+    Configure::write('Sistema.Manutencao',0);
+
+/**
  * CakePHP Debug Level:
  *
  * Production Mode:

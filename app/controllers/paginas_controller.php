@@ -50,4 +50,9 @@ class PaginasController extends AppController {
 	public function sobre()
 	{
 	}
+
+    public function manutencao()
+    {
+        $this->layout = 'ajax';
+    }
 }

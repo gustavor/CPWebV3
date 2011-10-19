@@ -1,7 +1,16 @@
 <?php
 
-	// página principal (controller painel)
-	Router::connect('/', array('controller' => 'principal', 'action' => 'index'));
+
+    if(Configure::read('Sistema.Manutencao'))
+    {
+        //página sobre manutenção
+        Router::connect('/', array('controller' => 'paginas', 'action' => 'manutencao'));
+    }
+    else
+    {
+        // página principal (controller painel)
+	    Router::connect('/', array('controller' => 'principal', 'action' => 'index'));
+    }
 	
 	// pagina de instalação
 	Router::connect('/install', array('controller'=>'instala','action'=>'index') );
@@ -17,5 +26,4 @@
 	
 	// páginas
 	Router::connect('/p/*', array('controller' => 'paginas'));
-
 ?>
