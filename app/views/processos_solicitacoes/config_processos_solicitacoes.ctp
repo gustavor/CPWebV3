@@ -78,9 +78,11 @@
 	if (isset($tipossolicitacoes)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] = $tipossolicitacoes;
 
 	$campos[$modelClass]['usuario_atribuido']['options']['label']['text']	 				= 'Usuário Atribuído';
-	$campos[$modelClass]['usuario_atribuido']['options']['type']			 				= 'hidden';
+	if(!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+        $campos[$modelClass]['usuario_atribuido']['options']['type']			 			= 'hidden';
 	$campos[$modelClass]['usuario_atribuido']['estilo_td'] 									= 'style="text-align: center; "';
 	$campos[$modelClass]['usuario_atribuido']['estilo_th'] 									= 'width="210px"';
+    if (isset($usuarios)) $campos[$modelClass]['usuario_atribuido']['options']['options']   = $usuarios;
 
     $campos[$modelClass]['usuario_solicitante']['options']['type']                          = 'hidden';
     $campos[$modelClass]['usuario_solicitante']['options']['value']                         = $this->Session->read( 'Auth.Usuario.id' );

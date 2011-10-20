@@ -131,6 +131,8 @@ class ProcessosSolicitacoesController extends AppController {
 	public function editar($id=null)
 	{
 		$this->CpwebCrud->editar($id);
+        $usuarios = $this->Usuario->find('list');
+        $this->set('usuarios',$usuarios);
 		if ($this->Session->check('alertas'))
 		{
 			$this->set('alertas',$this->Session->read('alertas'));
