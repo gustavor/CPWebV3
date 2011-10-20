@@ -95,15 +95,12 @@ class ProcessosSolicitacoesController extends AppController {
 	public function listar($pag=1,$ordem=null,$direcao='DESC')
 	{
 		$this->CpwebCrud->listar($pag,$ordem,$direcao);
-		$idsUsuarioAtribuido = array();
 		foreach($this->data as $_linha => $_arrModel)
 		{
-			array_push($idsUsuarioAtribuido,$_arrModel['ProcessoSolicitacao']['usuario_atribuido']);
-		}
-		if (count($idsUsuarioAtribuido))
-		{
-			$usuarioAtribuido = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsUsuarioAtribuido)));
-			$this->set(compact('usuarioAtribuido'));
+		    $idUsuarioAtribuido = $this->data[$_linha]['Processo']['usuario_id'];
+            $nomeUsuarioAtribuido = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idUsuarioAtribuido)));
+            $usuarioAtribuido[$_linha] = $nomeUsuarioAtribuido[$idUsuarioAtribuido];
+            $this->data[$_linha]['ProcessoSolicitacao']['advogado_responsavel'] = $usuarioAtribuido[$_linha];
 		}
 	}
 
@@ -118,12 +115,10 @@ class ProcessosSolicitacoesController extends AppController {
         $idsUsuarioAtribuido = array();
 		foreach($this->data as $_linha => $_arrModel)
 		{
-			array_push($idsUsuarioAtribuido,$_arrModel['ProcessoSolicitacao']['usuario_atribuido']);
-		}
-		if (count($idsUsuarioAtribuido))
-		{
-			$usuarioAtribuido = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idsUsuarioAtribuido)));
-			$this->set(compact('usuarioAtribuido'));
+		    $idUsuarioAtribuido = $this->data[$_linha]['Processo']['usuario_id'];
+            $nomeUsuarioAtribuido = $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$idUsuarioAtribuido)));
+            $usuarioAtribuido[$_linha] = $nomeUsuarioAtribuido[$idUsuarioAtribuido];
+            $this->data[$_linha]['ProcessoSolicitacao']['advogado_responsavel'] = $usuarioAtribuido[$_linha];
 		}
 	}
 

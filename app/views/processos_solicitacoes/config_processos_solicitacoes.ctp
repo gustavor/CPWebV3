@@ -98,7 +98,7 @@
 	$campos['TipoPeticao']['nome']['options']['label']['text'] 								= 'Tipo de Petição';
 	$campos['TipoPeticao']['nome']['estilo_th'] 											= 'width="140px"';
 	
-	$campos['ProcessoSolicitacao']['atribuido']['options']['label']['text']					= 'Responsável';
+	$campos['ProcessoSolicitacao']['advogado_responsavel']['options']['label']['text']		= 'Adv. Responsável';
 	
 	$campos['ProcessoSolicitacao']['prazo_cliente']['options']['type']						= 'text';
 	$campos['ProcessoSolicitacao']['prazo_cliente']['options']['style']						= 'width: 100px; text-align: center;';
@@ -171,7 +171,7 @@
 
 	if ($action=='editar' || $action=='listar' || $action=='filtro')
 	{
-		$camposPesquisa['obs'] 	= 'Obs';
+        $camposPesquisa['obs'] 	= 'Obs';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
@@ -290,7 +290,7 @@
 	if ($action=='listar' || $action=='filtrar')	
 	{
 		//$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','TipoParecer.nome','TipoPeticao.nome');
-		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','ProcessoSolicitacao.atribuido','TipoParecer.nome','TipoPeticao.nome');
+		$listaCampos = array($modelClass.'.idProcesso',$modelClass.'.created','Solicitacao.solicitacao','Complexidade.nome','ProcessoSolicitacao.advogado_responsavel','TipoParecer.nome','TipoPeticao.nome');
 
 		// criando o campo 
 		foreach($this->data as $_linha => $_modelos)
@@ -298,8 +298,8 @@
 			$_usuarioAtribuido = $_modelos['ProcessoSolicitacao']['usuario_atribuido'];
             $_idProcesso = $_modelos['ProcessoSolicitacao']['processo_id'];
 			$this->data[$_linha]['ProcessoSolicitacao']['idProcesso'] = 'VEBH - '.str_repeat('0',5-strlen($_idProcesso)).$_idProcesso;
-			$this->data[$_linha]['ProcessoSolicitacao']['atribuido'] = isset($usuarioAtribuido[$_modelos['ProcessoSolicitacao']['usuario_atribuido']]) ?
-                                                                             $usuarioAtribuido[$_modelos['ProcessoSolicitacao']['usuario_atribuido']]  :
+			$this->data[$_linha]['ProcessoSolicitacao']['atribuido'] = isset($usuarioAtribuido[$_linha]) ?
+                                                                             $usuarioAtribuido[$_linha]  :
                                                                              '';
 			foreach($_modelos as $_modelo => $_campos)
 			{
