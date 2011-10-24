@@ -23,7 +23,7 @@ class Processo extends AppModel {
 
 	public $name 			= 'Processo';
 	public $useTable		= 'processos';
-	public $order		 	= 'numero';
+	public $order		 	= 'Processo.id ASC';
 	public $displayField 	= 'numero';
 
 	/**
