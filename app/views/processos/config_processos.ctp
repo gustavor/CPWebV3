@@ -51,6 +51,7 @@
 	$campos[$modelClass]['distribuicao']['options']['label']['text'] 					= 'Data de Distribuição';
 	$campos[$modelClass]['distribuicao']['options']['dateFormat'] 						= 'DMY';
 	$campos[$modelClass]['distribuicao']['options']['timeFormat'] 						= '24';
+    $campos[$modelClass]['distribuicao']['options']['empty']     						= true;
 	$campos[$modelClass]['distribuicao']['mascara'] 									= 'data';
 	$campos[$modelClass]['distribuicao']['estilo_th'] 									= 'width="150px"';
 	$campos[$modelClass]['distribuicao']['estilo_td'] 									= 'style="text-align: center; "';

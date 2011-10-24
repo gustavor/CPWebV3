@@ -206,6 +206,7 @@ class Processo extends AppModel {
 		// se o tipo da instância é igual 5 (Extrajudicial) o campo número não é obrigatório
 		if ($this->data[$this->name]['instancia_id']==5)
 		{
+            $this->validate['distribuicao'] = null;
 			$this->validate['numero'] = null;
 		}
 
