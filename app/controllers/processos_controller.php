@@ -146,7 +146,8 @@ class ProcessosController extends AppController {
 		{
 			$this->loadModel('ContatoProcesso');
 			if (isset($this->data['subNovoForm']['contato_id']) && empty($this->data['subNovoForm']['contato_id'])) $this->data['subNovoForm'] = array();
-			if (!$this->CpwebCrud->setSubForm('processo',$id,'ContatoProcesso',array('processo_id'))) return false;
+			//if (!$this->CpwebCrud->setSubForm('processo',$id,'ContatoProcesso',array('processo_id'))) return false;
+			if (!$this->setSubForm()) return false;
 		}
 
         // recuperando os contatos deste processo
@@ -165,7 +166,70 @@ class ProcessosController extends AppController {
         }
 		//pr($this->data);
 	}
-	
+
+	/**
+	 * Atualiza os contatos do processo corrente.
+	 * 
+	 * @return 	boolean
+	 */
+	public function setSubForm()
+	{
+		// deletando todos os processos_contatos do processo, salvo os que foram postados.
+		$delCondicao['ContatoProcesso.processo_id'] = $this->data['Processo']['id'];
+		if (!$this->Processo->ContatoProcesso->deleteAll($delCondicao)) return false;
+
+		// Incluindo o novos contatos
+		$dataModelo	= array();
+
+		// recuperando os já cadastrados para incluir novamente, pois foram deletados na linha de cima.
+		$idContatosJaSalvos = array();
+		if (isset($this->data['subForm']))
+		{
+			foreach($this->data['subForm'] as $_idCP => $_arrCampos)
+			{
+				if ($_idCP)
+				{
+					$dataModelo	= array();
+					$dataModelo['ContatoProcesso']['id'] = null;
+					array_push($idContatosJaSalvos,$_arrCampos['contato_id']);
+					foreach($_arrCampos as $_campo => $_valor) $dataModelo['ContatoProcesso'][$_campo] = $_valor;
+					$this->Processo->ContatoProcesso->create();
+					if (!$this->Processo->ContatoProcesso->save($dataModelo))
+					{
+						echo '<pre>'.print_r($dataModelo,true).'</pre>';
+						echo '<pre>'.print_r($this->Processo->ContatoProcesso->validationErrors,true).'</pre>';
+						exit('Erro ao salvar Contatos de Processos');
+						return false;
+					}
+				}
+			}
+		}
+
+		// incluindo o novo contato processo
+		$dataModelo	= array();
+		if (isset($this->data['subNovoForm']['contato_id']) && !in_array($this->data['subNovoForm']['contato_id'],$idContatosJaSalvos))
+		{
+			foreach($this->data['subNovoForm'] as $_campo => $_valor) if ($_valor) $dataModelo['ContatoProcesso'][$_campo] = $_valor;
+		}
+		if (count($dataModelo))
+		{
+			$dataModelo['ContatoProcesso']['id'] = null; // forçando insert
+			$this->Processo->ContatoProcesso->create();
+			if (!$this->Processo->ContatoProcesso->save($dataModelo))
+			{
+				echo '<pre>'.print_r($dataModelo,true).'</pre>';
+				echo '<pre>'.print_r($this->Processo->ContatoProcesso->validationErrors,true).'</pre>';
+				exit('Não foi possível INCLUIR em ProcessoContato, pelo subFormulário !!!');
+				return false;
+			}
+		}
+		// debug
+		//if (isset($dataModelo)) pr($dataModelo);
+		//if (isset($this->data['subNovoForm'])) pr($this->data['subNovoForm']);
+		//if (isset($this->data['subForm'])) pr($this->data['subForm']);
+		return true;
+	}
+
 	/**
 	 * Exibe formulário de inclusão
 	 * 
