@@ -170,15 +170,17 @@ class ProcessosController extends AppController {
 	/**
 	 * Atualiza os contatos do processo corrente.
 	 * 
+	 * Os parâmetros são do subFormulário postado, nele está o novo contato e/ou os contatos já existentes do processo corrente.
+	 * 
 	 * @return 	boolean
 	 */
 	public function setSubForm()
 	{
-		// deletando todos os processos_contatos do processo, salvo os que foram postados.
+		// deletando todos os contatos do processo.
 		$delCondicao['ContatoProcesso.processo_id'] = $this->data['Processo']['id'];
 		if (!$this->Processo->ContatoProcesso->deleteAll($delCondicao)) return false;
 
-		// Incluindo o novos contatos
+		// iniciando novo array para inclusão de contatos.
 		$dataModelo	= array();
 
 		// recuperando os já cadastrados para incluir novamente, pois foram deletados na linha de cima.
@@ -205,7 +207,7 @@ class ProcessosController extends AppController {
 			}
 		}
 
-		// incluindo o novo contato processo
+		// incluindo o novo contato processo, caso o mesmo já não esteja incluído, necessário para evitar duplicidades de contato.
 		$dataModelo	= array();
 		if (isset($this->data['subNovoForm']['contato_id']) && !in_array($this->data['subNovoForm']['contato_id'],$idContatosJaSalvos))
 		{
