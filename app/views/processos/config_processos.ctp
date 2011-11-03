@@ -6,7 +6,7 @@
 	$campos[$modelClass]['familia_id']['options']['readonly'] 						    = 'readonly';
 
 	$campos[$modelClass]['id_controle']['options']['label']['text']						= 'ID de Controle Interno';
-	$campos[$modelClass]['id_controle']['thOff']											= true;
+	//$campos[$modelClass]['id_controle']['thOff']										= false;
 	$campos[$modelClass]['id_controle']['options']['disabled'] 							= 'disabled';
 	$campos[$modelClass]['id_controle']['estilo_td'] 									= 'style="text-align: center; "';
 

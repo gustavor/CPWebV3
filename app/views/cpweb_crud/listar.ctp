@@ -70,7 +70,14 @@
 			$_arrField = explode('.',$_field);
 			$titulo = isset($campos[$_arrField[0]][$_arrField[1]]['options']['label']['text']) ? $campos[$_arrField[0]][$_arrField[1]]['options']['label']['text'] : $_field;
 			$estilo = isset($campos[$_arrField[0]][$_arrField[1]]['estilo_th']) ? $campos[$_arrField[0]][$_arrField[1]]['estilo_th'] : '';
-			if (isset($campos[$_arrField[0]][$_arrField[1]]['thOff']))
+
+			if ($_field=='Processo.id_controle') 	$_field = 'Processo.id';
+
+			//if ($_field=='Processo.cliente')		$_field = 'Contato.nome';
+			
+			//if ($_field=='Processo.parte')			$_field = 'Contato.nome';
+			
+			if (isset($campos[$_arrField[0]][$_arrField[1]]['thOff']) && $campos[$_arrField[0]][$_arrField[1]]['thOff']==true)
 				echo "<th $estilo>$titulo</th>\n";
 			else
 				echo "<th $estilo>".$this->Paginator->sort($titulo,$_field)."</th>\n";
