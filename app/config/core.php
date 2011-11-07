@@ -177,7 +177,7 @@ Configure::write('Cache.check', true);
  * Session time out time (in minutes).
  * Actual value depends on 'Security.level' setting.
  */
-	Configure::write('Session.timeout', '9');
+	Configure::write('Session.timeout', '72');
 
 /**
  * If set to false, sessions are not automatically started.
