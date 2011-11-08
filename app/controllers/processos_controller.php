@@ -28,6 +28,14 @@ class ProcessosController extends AppController {
 	 * @access public
 	 */
 	public $name = 'Processos';
+
+    /**
+     * Parâmetros de Paginação
+     * 
+     * @var array
+     * @access public
+     */
+    public $paginate = array('limit' => 40);
 	
 	/**
 	 * Modelo para a camada
