@@ -5,13 +5,18 @@
 	$campos[$modelClass]['data']['mascara'] 						= 'data';
 	$campos[$modelClass]['data']['options']['dateFormat'] 			= 'DMY';
 
-	$campos[$modelClass]['evento']['options']['label']['text'] 		= 'Evento';
-	$campos[$modelClass]['evento']['options']['style'] 				= 'width: 600px; text-transform: uppercase; ';
+    $campos[$modelClass]['obs']['options']['label']['text'] 		= 'Observações';
+    $campos[$modelClass]['obs']['options']['style'] 				= 'width: 700px; text-transform: uppercase;';
+
+	$campos[$modelClass]['tipo_evento_acordo_id']['options']['label']['text'] 		= 'Tipo de Evento';
+	$campos[$modelClass]['tipo_evento_acordo_id']['options']['type']                = 'select';
 
 	$campos[$modelClass]['processo_id']['options']['type']      	= 'hidden';
 	if (isset($processos)) $campos[$modelClass]['processo_id']['options']['options']		= $processos;
 
-	$campos[$modelClass]['usuario_id']['options']['type']  	    	= 'hidden';
+	$campos[$modelClass]['usuario_id']['options']['type']  	    	        = 'hidden';
+    $campos['Usuario']['nome']['options']['label']['text'] 		            = 'Usuário Responsável';
+    $campos['TipoEventoAcordo']['nome']['options']['label']['text'] 		= 'Tipo de Evento';
 
 	// descobrindo o id do processo e criando action2 para o formulário novo
 	$idProcesso	= isset($idProcesso) ? $idProcesso : '';
@@ -27,26 +32,23 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.usuario_id',$modelClass.'.processo_id','#',$modelClass.'.evento','#',$modelClass.'.modified','#',$modelClass.'.created');
-		$on_read_view .= "\n".'$("#'.$modelClass.'Evento").focus();';
+		$edicaoCampos = array($modelClass.'.data',$modelClass.'.usuario_id',$modelClass.'.processo_id','#',$modelClass.'.tipo_evento_acordo_id','#',$modelClass.'.obs','#',$modelClass.'.modified','#',$modelClass.'.created');
 		$botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='imprimir')
 	{
-		$edicaoCampos = array($modelClass.'.data',$modelClass.'.usuario_id',$modelClass.'.evento','#',$modelClass.'.modified',$modelClass.'.created');
+		$edicaoCampos = array($modelClass.'.data',$modelClass.'.usuario_id',$modelClass.'.tipo_evento_acordo_id','#',$modelClass.'.modified',$modelClass.'.created');
 	}
 
 	if ($action=='novo')
 	{
-        $edicaoCampos = array($modelClass.'.data',$modelClass.'.usuario_id',$modelClass.'.processo_id','#',$modelClass.'.evento');
+        $edicaoCampos = array($modelClass.'.data',$modelClass.'.usuario_id',$modelClass.'.processo_id','#',$modelClass.'.tipo_evento_acordo_id','#',$modelClass.'.obs');
         $botoesEdicao['Listar']['onClick'] = 'javascript:document.location.href=\''.Router::url('/',true).$name.'/listar/processo/'.$idProcesso.'\'';
 	}
 
 	if ($action=='editar' || $action=='listar')
 	{
-		$camposPesquisa['evento'] 	= 'Evento';
-		$this->set('camposPesquisa',$camposPesquisa);
 		$idProcesso = isset($this->params['pass'][1]) ? $this->params['pass'][1] : 0;
 	}
 
@@ -59,7 +61,7 @@
 
 	if ($action=='listar')	
 	{
-		$listaCampos 									= array($modelClass.'.evento',$modelClass.'.modified',$modelClass.'.created');
-		$campos[$modelClass]['evento']['estilo_th'] 	= 'width="400px"';
+		$listaCampos 									= array('Usuario.nome','TipoEventoAcordo.nome','EventoAcordo.data');
+		$campos[$modelClass]['tipo_evento_acordo']['estilo_th'] 	= 'width="400px"';
 	}
 ?>

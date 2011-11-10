@@ -1,9 +1,9 @@
 <?php
 /**
  * CPWeb - Controle Virtual de Processos
- * Versão 3.0 - Novembro de 2010
+ * Versão 3.0 - Junho de 2011
  *
- * app/controllers/eventos_acordos_controller.php
+ * app/controllers/tipos_eventos_controller.php
  *
  * A reprodução de qualquer parte desse arquivo sem a prévia autorização
  * do detentor dos direitos autorais constitui crime de acordo com
@@ -19,32 +19,31 @@
  * @subpackage cpweb.v3
  * @since CPWeb V3
  */
-class EventosAcordosController extends AppController {
+class TiposEventosAcordosController extends AppController {
+	/**
+	 * Nome do controlador
+	 * 
+	 * @var		string
+	 * @access	public
+	 */
+	public $name 	= 'TiposEventosAcordos';
 
 	/**
-	 * Nome
+	 * Modelo usado pelo controlador
 	 * 
-	 * @var string
-	 * @access public
+	 * @var		string
+	 * @access	public
 	 */
-	public $name = 'EventosAcordos';
-	
-	/**
-	 * Modelo
-	 * 
-	 * @var string
-	 * @access public
-	 */
-	public $uses = 'EventoAcordo';
+	public $uses	= 'TipoEventoAcordo';
 
-	/**
+		/**
 	 * Ajudantes 
 	 * 
 	 * @var array
 	 * @access public
 	 */
 	public $helpers = array('CakePtbr.Formatacao');
-	
+
 	/**
 	 * Componentes
 	 * 
@@ -53,27 +52,16 @@ class EventosAcordosController extends AppController {
 	 */
 	public $components	= array('CpwebCrud','Session');
 
-	/**
-	 * Antes de tudo
-	 * 
-	 * @return void
-	 */
-	public function beforeFilter()
-	{
-		parent::beforeFilter();
-	}
 
 	/**
-	 * Antes de exibir a tela no browser
+	 * Antes da renderização da view
 	 * 
 	 * @return void
 	 */
 	public function beforeRender()
 	{
-		$this->setIdProcesso();
-		parent::beforeRender();
+		$this->viewVars['tituloCab'][1]['label'] = 'Tipos de Eventos';
 	}
-
 	/**
 	 * método start
 	 * 
@@ -85,7 +73,7 @@ class EventosAcordosController extends AppController {
 	}
 
 	/**
-	 * Lista dbgrid
+	 * Lista os dados em paginação
 	 * 
 	 * @parameter integer 	$pag 		Número da página
 	 * @parameter string 	$ordem 		Campo usado no order by da sql
@@ -98,37 +86,28 @@ class EventosAcordosController extends AppController {
 	}
 
 	/**
-	 * Exibe formulário de edição
+	 * Exibe formulário de edição para o model
 	 * 
 	 * @parameter	integer 	$id 	Chave única do registro da model
 	 * @return 		void
 	 */
 	public function editar($id=null)
 	{
-        $campos['EventoAcordo']['tipo_evento_acordo_id']['options']['options'] = $this->EventoAcordo->TipoEventoAcordo->find('list');
-        $this->set(compact('campos'));
 		$this->CpwebCrud->editar($id);
 	}
-	
+
 	/**
-	 * Exibe formulário de inclusão
+	 * Exibe formulário de inclusão para o model
 	 * 
 	 * @return 		void
 	 */
-	public function novo($id=null)
+	public function novo()
 	{
-		if ($id)
-		{
-			$campos['EventoAcordo']['processo_id']['options']['default'] = $id;
-			$campos['EventoAcordo']['usuario_id']['options']['default'] = $this->Session->read('Auth.Usuario.id');
-            $campos['EventoAcordo']['tipo_evento_acordo_id']['options']['options'] = $this->EventoAcordo->TipoEventoAcordo->find('list');
-            $this->set(compact('campos'));
-		}
 		$this->CpwebCrud->novo();
 	}
-	
+
 	/**
-	 * Exibe formulário de exclusão
+	 * Exibe formulário de exclusão para o model
 	 * 
 	 * @return 		void
 	 */
@@ -138,7 +117,7 @@ class EventosAcordosController extends AppController {
 	}
 
 	/**
-	 * Executa a exclução no banco de dados
+	 * Executa a exclusão no banco de dados
 	 * 
 	 * @return 		void
 	 */
@@ -155,5 +134,6 @@ class EventosAcordosController extends AppController {
 	public function imprimir($id=null)
 	{
 		$this->CpwebCrud->imprimir($id);
-	}	
+	}
 }
+?>
