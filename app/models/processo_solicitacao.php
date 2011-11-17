@@ -192,13 +192,14 @@ class ProcessoSolicitacao extends AppModel {
 	 */
 	public function beforeSave()
 	{
+		//debug($this->data);
 		// reconfigurando as datas
-		if (isset($this->data[$this->name]['prazo_cliente']) && !empty($this->data[$this->name]['prazo_cliente']) )
+		if (isset($this->data[$this->name]['prazo_cliente']) && !empty($this->data[$this->name]['prazo_cliente']) && strpos($this->data[$this->name]['prazo_cliente'],'/') )
 		{
 			$arrDt = explode('/',$this->data[$this->name]['prazo_cliente']);
 			$this->data[$this->name]['prazo_cliente'] = $arrDt[2].'/'.$arrDt[1].'/'.$arrDt[0];
 		}
-		if (isset($this->data[$this->name]['prazo_interno']) && !empty($this->data[$this->name]['prazo_interno']) )
+		if (isset($this->data[$this->name]['prazo_interno']) && !empty($this->data[$this->name]['prazo_interno']) && strpos($this->data[$this->name]['prazo_interno'],'/'))
 		{
 			$arrDt = explode('/',$this->data[$this->name]['prazo_interno']);
 			$this->data[$this->name]['prazo_interno'] = $arrDt[2].'/'.$arrDt[1].'/'.$arrDt[0];
