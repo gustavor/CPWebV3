@@ -192,7 +192,18 @@ class ProcessoSolicitacao extends AppModel {
 	 */
 	public function beforeSave()
 	{
-		//pr($this->data);
+		// reconfigurando as datas
+		if (isset($this->data[$this->name]['prazo_cliente']) && !empty($this->data[$this->name]['prazo_cliente']) )
+		{
+			$arrDt = explode('/',$this->data[$this->name]['prazo_cliente']);
+			$this->data[$this->name]['prazo_cliente'] = $arrDt[2].'/'.$arrDt[1].'/'.$arrDt[0];
+		}
+		if (isset($this->data[$this->name]['prazo_interno']) && !empty($this->data[$this->name]['prazo_interno']) )
+		{
+			$arrDt = explode('/',$this->data[$this->name]['prazo_interno']);
+			$this->data[$this->name]['prazo_interno'] = $arrDt[2].'/'.$arrDt[1].'/'.$arrDt[0];
+		}
+		
 		// se a solicitação foi fechada, então salva sua data de fechamento
 		if (isset($this->data[$this->name]['usuario_atribuido']) && !empty($this->data[$this->name]['usuario_atribuido']) )
 		{
