@@ -575,7 +575,7 @@ class RelatoriosController extends AppController {
 		$viewLista 		= array('audiencias'=>'Audiencias','contatos'=>'Contato','tipoprocesso'=>'TipoProcesso','processo'=>'Processo','orgao'=>'Orgao');
 
 		// campos que vão compor a lista
-		$camposLista	= array('Audiencia.processo_id','Audiencia.data','Audiencia.hora','Audiencia.responsavel','Audiencia.orgao','Audiencia.obs');
+		$camposLista	= array('Audiencia.processo_id','Processo.numero','Processo.comarca','Audiencia.data','Audiencia.hora','Audiencia.responsavel','Audiencia.orgao','Audiencia.obs',);
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
@@ -585,22 +585,21 @@ class RelatoriosController extends AppController {
 		$dataFiltro = array();
 		$this->loadModel('Contato');
 		$this->Contato->recursive = true;
-		$dataFiltro['contato']['options']['options'] = $this->Contato->find('list',array('conditions'=>array('length(Contato.nome) <'=>100)));
+		$dataFiltro['contato']['options']['options'] = $this->Contato->find('list');
 		$this->loadModel('TipoProcesso');
 		$this->TipoProcesso->recursive = true;
-		$dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list',array('conditions'=>array('length(TipoProcesso.nome) <'=>100)));
+		$dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list');
 		$this->loadModel('Usuario');
 		$this->Usuario->recursive = true;
-		$dataFiltro['usuario']['options']['options'] = $this->Usuario->find('list',array('conditions'=>array('Usuario.id !='=>1,'length(Usuario.login) <'=>100)));
+		$dataFiltro['usuario']['options']['options'] = $this->Usuario->find('list',array('conditions'=>array('Usuario.id !='=>1,'Usuario.isadvogado'=>1)));
 
 		// carregando o modelo principal
 		$this->loadModel('Audiencia');
 		$this->Audiencia->recursive = true;
 
 		// se o filtro foi postado
-		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+		if 	(   (isset($this->data[$this->action])) || (!empty($layout)) )
 		{
-
 			// debug
 			//pr($this->data);
 			$condicoes 		= array();
@@ -610,6 +609,28 @@ class RelatoriosController extends AppController {
 			$this->Usuario->recursive 	= true;
 			$this->loadModel('Processo');
 			$this->Processo->recursive 	= true;
+
+            //definindo nomes dos campos
+            $campos['Processo']['comarca']['options']['label']['text']  = 'Comarca';
+            $campos['Processo']['comarca']['estilo_th'] 		        = 'width=150px';
+
+            $campos['Processo']['numero']['options']['label']['text']   = 'Numero do Processo';
+            $campos['Processo']['numero']['estilo_th'] 		            = 'width=180px';
+            $campos['Processo']['numero']['mascara']                    = '9999999-99.9999.9.99.9999';
+
+            $campos['Audiencia']['data']['options']['label']['text']    = 'Data';
+            $campos['Audiencia']['data']['estilo_th'] 		            = 'width=80px';
+            $campos['Audiencia']['data']['mascara']                     = 'data';
+
+            $campos['Audiencia']['hora']['options']['label']['text']    = 'Hora';
+
+            $campos['Audiencia']['obs']['options']['label']['text']     = 'Observações';
+
+            $campos['Audiencia']['processo_id']['estilo_th'] 	        = 'width=80px';
+            $campos['Audiencia']['responsavel']['estilo_th'] 		    = 'width=120px';
+
+			//queremos na pauta somente as audiências que não estão canceladas
+            $condicoes['Audiencia.iscancelada'] = 0;
 
 			// filtrando pelo advogado responsável
 			if (!empty($this->data['fil_audiencias']['advogado']))
@@ -646,15 +667,15 @@ class RelatoriosController extends AppController {
 					isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
 				)
 			{
-				$dtIni = $this->data[$this->action]['data_ini']['year'].'/'.$this->data[$this->action]['data_ini']['month'].'/'.$this->data[$this->action]['data_ini']['day'];
-				$dtFim = $this->data[$this->action]['data_fim']['year'].'/'.$this->data[$this->action]['data_fim']['month'].'/'.$this->data[$this->action]['data_fim']['day'];
-				$condicoes['Audiencia.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+				$dtIni = $this->data[$this->action]['data_ini']['year'].'-'.$this->data[$this->action]['data_ini']['month'].'-'.$this->data[$this->action]['data_ini']['day'];
+				$dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
+				$condicoes['Audiencia.data BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 			}
 
 			// ordenando
 			if 	(	isset($this->data[$this->action]['ordem']) )
 			{
-				$this->paginate = array('order'=>array('Audiencia.'.$this->data[$this->action]['ordem']=>'ASC'));
+				$this->paginate = array('limit'=>1000,'order'=>array('Audiencia.data' => 'ASC', 'Audiencia.hora' => 'ASC'));
 				$this->Session->write('ordemRelatorio','Audiencia.'.$this->data[$this->action]['ordem']);
 			}
 
@@ -682,7 +703,7 @@ class RelatoriosController extends AppController {
 			$usuarios	= $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$arrIdAdvRespon)));
 			$this->Processo->recursive = false;
 			$processos	= $this->Processo->find('all',array('conditions'=>array('Processo.id'=>$arrIdProcessos)));
-
+            //debug($processos);
 			// atualizando o conteúdo do relatório somente por causa deste filtro específico
 			$dataLista = array();
 			foreach($pagina as $_linha => $_arrModelos)
@@ -700,6 +721,8 @@ class RelatoriosController extends AppController {
 				}
 				$dataLista[$_linha]['Audiencia']['orgao'] 			= $nome;
 				$dataLista[$_linha]['Audiencia']['processo_id'] 	= 'VEBH-'.str_repeat('0',5-strlen($_arrModelos['Audiencia']['processo_id'])).$_arrModelos['Audiencia']['processo_id'];
+                $dataLista[$_linha]['Processo']['comarca']          = $_arrModel['Comarca']['nome'];
+                $dataLista[$_linha]['Processo']['numero']           = $_arrModel['Processo']['numero'];
 			}
 
 			// definindo o que renderizar
@@ -710,10 +733,9 @@ class RelatoriosController extends AppController {
 		}
 
 		// atualizando a view
-		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio'));
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','campos'));
 		$this->set('modelo','Audiencia');
 		$this->set('relatorio','audiencia');
-
 		$this->render($render);
 	}
 

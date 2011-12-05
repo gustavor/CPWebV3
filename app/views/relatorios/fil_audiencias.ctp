@@ -23,20 +23,20 @@
 	$dataFiltro['ordem']['options']['empty'] 				= '-- escolha uma opção --';
 	$dataFiltro['ordem']['options']['default'] 				= 'created';
 	$dataFiltro['ordem']['options']['options'] 				= array('created'=>'Criado','modified'=>'Modificado');
-	$dataFiltro['data_ini']['options']['label']['text']		= 'data Inicio';
+	$dataFiltro['data_ini']['options']['label']['text']		= 'Início';
 	$dataFiltro['data_ini']['options']['div'] 				= null;
 	$dataFiltro['data_ini']['options']['dateFormat'] 		= 'DMY';
 	$dataFiltro['data_ini']['options']['monthNames'] 		= false;
 	$dataFiltro['data_ini']['options']['interval']			= 3;
 	$dataFiltro['data_ini']['options']['type'] 				= 'date';
 	$dataFiltro['data_ini']['options']['value'] 			= strtotime('today');
-	$dataFiltro['data_fim']['options']['label']['text']		= 'data Fim';
+	$dataFiltro['data_fim']['options']['label']['text']		= 'Fim';
 	$dataFiltro['data_fim']['options']['div'] 				= null;
 	$dataFiltro['data_fim']['options']['dateFormat'] 		= 'DMY';
 	$dataFiltro['data_fim']['options']['monthNames'] 		= false;
 	$dataFiltro['data_fim']['options']['year'] 				= 2012;
 	$dataFiltro['data_fim']['options']['type'] 				= 'date';
-	$dataFiltro['data_fim']['options']['value'] 			= strtotime('+30 days');
+	$dataFiltro['data_fim']['options']['value'] 			= strtotime('+1 week');
 ?>
 
 <div class="lista" id="listaRelatorios">
@@ -59,7 +59,6 @@
 		<ul>
 			<li><?php echo $this->Form->input('tipoprocesso',$dataFiltro['tipoprocesso']['options']); ?></li>
 			<li><?php echo $this->Form->input('contato',$dataFiltro['contato']['options']); ?></li>
-			<br />
 			<li><?php echo $this->Form->input('advogado',$dataFiltro['advogado']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_ini',$dataFiltro['data_ini']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_fim',$dataFiltro['data_fim']['options']); ?></li>

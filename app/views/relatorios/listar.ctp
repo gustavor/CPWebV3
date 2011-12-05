@@ -10,7 +10,7 @@
 		$arq = '../views/'.$_view.'/config_'.$_view.'.ctp'; 
 		if (file_exists($arq))
 		{
-			$modelClass = $_modelo;
+            $modelClass = $_modelo;
 			include_once($arq);
 		}
 	}
@@ -43,7 +43,6 @@
 	<div id="combo"><?php if (count($dataLista)) echo $this->Form->input($combo['label']['text'],$combo['options']); else echo '<span class="relAlerta">Sua pesquisa não retornou nenhum dado !!!</span>'; ?>
 	</div>
 </div>
-<?php echo $this->element('menu_relatorios'); ?>
 <div id="direita">
 <table class="linhas" cellpadding="0" cellspacing="0" border="0" >
 <?php //cabeçalho
