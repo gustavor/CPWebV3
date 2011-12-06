@@ -856,13 +856,13 @@ class RelatoriosController extends AppController {
 
             if ($relatorio == 'cliente')
             {
-                $this->paginate = array('order'=>array('ProcessoSolicitacao.prazo_cliente' => 'DESC'));
-                $this->Session->write('ordemRelatorio','ProcessoSolicitacao.prazo_cliente DESC');
+                $this->paginate = array('order'=>array('ProcessoSolicitacao.prazo_cliente' => 'ASC'));
+                $this->Session->write('ordemRelatorio','ProcessoSolicitacao.prazo_cliente ASC');
             }
             else
             {
-                $this->paginate = array('order'=>array('ProcessoSolicitacao.prazo_interno' => 'DESC'));
-                $this->Session->write('ordemRelatorio','ProcessoSolicitacao.prazo_interno DESC');
+                $this->paginate = array('order'=>array('ProcessoSolicitacao.prazo_interno' => 'ASC'));
+                $this->Session->write('ordemRelatorio','ProcessoSolicitacao.prazo_interno ASC');
             }
 
 			// Buscando processos com o filtro para Lista
