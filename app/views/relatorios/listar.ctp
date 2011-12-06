@@ -58,6 +58,8 @@
 ?>
 
 <?php // linha a linha
+    //debugando
+    //debug($dataLista);
 	foreach($dataLista as $_linha => $_arrModelos)
 	{
 		$cor = isset($dataLista[$_linha]['cor']) ? " style='background-color: ".$dataLista[$_linha]['cor']."'" : "";

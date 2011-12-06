@@ -763,16 +763,32 @@ class RelatoriosController extends AppController {
 		$dataFiltro['departamento']['options']['options'] = $this->Departamento->find('list');
 		$this->loadModel('Solicitacao');
 		$dataFiltro['solicitacao']['options']['options'] = $this->Solicitacao->find('list');
+        $this->loadModel('Contato');
+        $dataFiltro['cliente']['options']['options'] = $this->Contato->find('list');
+        $this->loadModel('TipoProcesso');
+        $dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list');
+        $this->loadModel('Processo');
 
 		// dados da lista
 		$dataLista		= array();
 
 		// campos que vão compor a lista
-		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','Solicitacao.nome','ProcessoSolicitacao.created');
+		$camposLista	= array('ProcessoSolicitacao.processo_id','Processo.numero','Processo.usuario_id','Solicitacao.solicitacao','ProcessoSolicitacao.usuario_atribuido');
 		if ($relatorio == 'cliente') array_push($camposLista,'ProcessoSolicitacao.prazo_cliente'); else array_push($camposLista,'ProcessoSolicitacao.prazo_interno');
 
 		// config view usados na lista
 		$viewLista 		= array('processos_solicitacoes'=>'ProcessoSolicitacao','usuarios'=>'Usuario','contatos'=>'Contato','processos'=>'Processo');
+
+        //configurando campos
+        $campos['Processo']['numero']['estilo_th'] 		                                    = 'width=180px';
+
+        $campos['ProcessoSolicitacao']['prazo_interno']['options']['label']['text']         = 'Prazo Interno';
+        $campos['ProcessoSolicitacao']['prazo_interno']['estilo_th'] 		                = 'width=80px';
+        $campos['ProcessoSolicitacao']['prazo_interno']['mascara']                          = 'data';
+
+        $campos['ProcessoSolicitacao']['prazo_cliente']['options']['label']['text']         = 'Prazo Cliente';
+        $campos['ProcessoSolicitacao']['prazo_cliente']['estilo_th'] 		                = 'width=80px';
+        $campos['ProcessoSolicitacao']['prazo_cliente']['mascara']                          = 'data';
 
 		// se o formulário foi postado ou o pedido de impressão para o layout
 		if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
@@ -785,6 +801,35 @@ class RelatoriosController extends AppController {
 
 			// filtro
 			$condicoes = array();
+
+            //queremos somente solicitações abertas
+            $condicoes['ProcessoSolicitacao.finalizada'] = 0;
+
+            $processos_tipo = array();
+            $processos_cliente = array();
+            // filtrando pelo tipo de processo, serão localizados todos os processos com este tipo de processo
+            if (!empty($this->data['fil_prazos']['tipoprocesso']))
+            {
+                $processos = $this->Processo->find('list',array('conditions'=>array('Processo.tipo_processo_id'=>$this->data['fil_prazos']['tipoprocesso'])));
+                foreach($processos as $processo_id => $processo_numero) $processos_tipo[] = $processo_id; //populando o array com todos os processos desse tipo
+            }
+
+            // filtrando pelo contato, serão localizados todos os processos com este contato
+            if (!empty($this->data['fil_prazos']['cliente']))
+            {
+                $this->loadModel('ContatoProcesso');
+                $contatosprocessos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.contato_id' => $this->data['fil_prazos']['cliente']),'fields'=>array('processo_id')));
+                foreach($contatosprocessos as $id_contatoprocesso => $processo_id) $processos_cliente[] = $processo_id;
+            }
+
+            //a intercessão dos dois arrays é a lista de processos que iremos procurar
+            sort($processos_cliente);
+            sort($processos_tipo);
+            if( !count($processos_cliente) )
+                $listaProcessos = $processos_tipo;
+            else
+                $listaProcessos = array_intersect($processos_tipo,$processos_cliente);
+            $condicoes['ProcessoSolicitacao.processo_id'] = $listaProcessos;
 
 			// filtrando o usuário
 			if (isset($this->data[$this->action]['usuario']) && !(empty($this->data[$this->action]['usuario'])))
@@ -803,26 +848,31 @@ class RelatoriosController extends AppController {
 					isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
 				)
 			{
-				$dtIni = $this->data[$this->action]['data_ini']['year'].'/'.$this->data[$this->action]['data_ini']['month'].'/'.$this->data[$this->action]['data_ini']['day'];
-				$dtFim = $this->data[$this->action]['data_fim']['year'].'/'.$this->data[$this->action]['data_fim']['month'].'/'.$this->data[$this->action]['data_fim']['day'];
+				$dtIni = $this->data[$this->action]['data_ini']['year'].'-'.$this->data[$this->action]['data_ini']['month'].'-'.$this->data[$this->action]['data_ini']['day'];
+				$dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
 				if ($relatorio == 'cliente') $condicoes['ProcessoSolicitacao.prazo_cliente BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 				if ($relatorio == 'interno') $condicoes['ProcessoSolicitacao.prazo_interno BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 			}
 
-			// ordenando
-			if 	(	isset($this->data[$this->action]['ordem']) )
-			{
-				$this->paginate = array('order'=>array('ProcessoSolicitacao.'.$this->data[$this->action]['ordem']=>'ASC'));
-				$this->Session->write('ordemRelatorio','ProcessoSolicitacao.'.$this->data[$this->action]['ordem']);
-			}
+            if ($relatorio == 'cliente')
+            {
+                $this->paginate = array('order'=>array('ProcessoSolicitacao.prazo_cliente' => 'DESC'));
+                $this->Session->write('ordemRelatorio','ProcessoSolicitacao.prazo_cliente DESC');
+            }
+            else
+            {
+                $this->paginate = array('order'=>array('ProcessoSolicitacao.prazo_interno' => 'DESC'));
+                $this->Session->write('ordemRelatorio','ProcessoSolicitacao.prazo_interno DESC');
+            }
 
 			// Buscando processos com o filtro para Lista
 			if (!empty($layout))
 			{
-				$pagina 	= $this->ProcessoSolicitacao->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+				$pagina 	= $this->ProcessoSolicitacao->find('all',array('limit' => 1000,'conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
 			} else
 			{
-				$pagina 	= $this->paginate('ProcessoSolicitacao',$condicoes);
+				$this->paginate['limit'] = 1000;
+                $pagina 	= $this->paginate('ProcessoSolicitacao',$condicoes);
 				$this->Session->write('filtroRelatorio',$condicoes);
 			}
 
@@ -842,9 +892,13 @@ class RelatoriosController extends AppController {
 							$link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
 						}
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
-						$dataLista[$_linha]['Usuario']['nome'] = $dataFiltro['usuario']['options']['options'][$this->Session->read('usuario_atribuido')];
 					}
 				}
+                if (!$_arrModelos['ProcessoSolicitacao']['usuario_atribuido'])
+                    $dataLista[$_linha]['ProcessoSolicitacao']['usuario_atribuido'] = 'NÃO ATRIBUIDA';
+                else
+                    $dataLista[$_linha]['ProcessoSolicitacao']['usuario_atribuido'] = $dataFiltro['usuario']['options']['options'][$dataLista[$_linha]['ProcessoSolicitacao']['usuario_atribuido']];
+                $dataLista[$_linha]['Processo']['usuario_id'] = $dataFiltro['usuario']['options']['options'][$_arrModelos['Processo']['usuario_id']];
 			}
 
 			// se filtrou pelo contato mas não achou nenhum processo do contato zera a lista
@@ -861,7 +915,7 @@ class RelatoriosController extends AppController {
 		}
 
 		// atualizando a view
-		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link'));
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link','campos'));
 		$this->set('modelo','ProcessoSolicitacao');
 		$this->set('relatorio',$relatorio);
 		$this->render($render);
