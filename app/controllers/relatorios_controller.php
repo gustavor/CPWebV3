@@ -886,10 +886,10 @@ class RelatoriosController extends AppController {
 					foreach($_arrCampos as $_campo => $_valor)
 					{
 						$valor = $_valor;
-						if ($_campo=='processo_id')
+						if ($_modelo == 'ProcessoSolicitacao' && $_campo == 'id') $link[$_linha] = Router::url('/',true).'processos_solicitacoes/editar/'.$_valor;
+                        if ($_campo=='processo_id')
 						{
 							$valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
-							$link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
 						}
 						$dataLista[$_linha][$_modelo][$_campo] = $valor;
 					}
