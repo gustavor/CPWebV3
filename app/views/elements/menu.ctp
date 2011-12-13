@@ -1,11 +1,14 @@
 <?php // menu principal 
 
 	// menu ferramentas
-	if ($this->Session->check( 'Auth.Usuario.id') && $this->Session->read('Auth.Usuario.id')==1)
+	if (in_array('ADMINISTRADOR',$this->Session->read('perfis')))
 	{
-		$ferramentas[0]['url'] = Router::url('/',true).'popular';
-		$ferramentas[0]['tit'] = 'Popular as tabelas';
-	}
+        $ferramentas[0]['url'] = Router::url('/',true).'processos/relatorio_gerencial';;
+		$ferramentas[0]['tit'] = 'Relatorio Gerencial';
+        if ($this->Session->read('Auth.Usuario.id')==1){
+            $ferramentas[1]['url'] = Router::url('/',true).'popular';
+            $ferramentas[1]['tit'] = 'Popular as tabelas'; }
+    }
 ?>
 <ul class="sf-menu">
 	<li>
@@ -63,7 +66,6 @@
 		<a href="#">Ferramentas</a>
 		<ul>
 			<li><?php foreach($ferramentas as $_item => $_arrOpcoes) echo "\t".'<li><a href="'.$_arrOpcoes['url'].'">'.$_arrOpcoes['tit'].'</a></li>'."\n"; ?></li>
-            <li><?php echo $this->Html->link('Relatórios Gerenciais - Processos',array('controller'=>'processos','action'=>'relatorio_gerencial')) ?></li>
 		</ul>
 	</li>
 	<?php endif ?>
