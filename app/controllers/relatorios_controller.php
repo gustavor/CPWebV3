@@ -717,12 +717,15 @@ class RelatoriosController extends AppController {
 					if ($_arrModel['Processo']['id']==$_arrModelos['Audiencia']['processo_id'])
 					{
 						$nome	= $_arrModel['Processo']['ordinal_orgao'].' '.$_arrModel['Orgao']['nome'];
+                        $comarca = $_arrModel['Comarca']['nome'];
+                        $numeroproc = $_arrModel['Processo']['numero'];
 					}
 				}
 				$dataLista[$_linha]['Audiencia']['orgao'] 			= $nome;
 				$dataLista[$_linha]['Audiencia']['processo_id'] 	= 'VEBH-'.str_repeat('0',5-strlen($_arrModelos['Audiencia']['processo_id'])).$_arrModelos['Audiencia']['processo_id'];
-                $dataLista[$_linha]['Processo']['comarca']          = $_arrModel['Comarca']['nome'];
-                $dataLista[$_linha]['Processo']['numero']           = $_arrModel['Processo']['numero'];
+                $dataLista[$_linha]['Processo']['comarca']          = $comarca;
+                $dataLista[$_linha]['Processo']['numero']           = $numeroproc;
+                $link[$_linha] = Router::url('/',true).'audiencias/editar/'.$_arrModelos['Audiencia']['id'];
 			}
 
 			// definindo o que renderizar
@@ -733,7 +736,7 @@ class RelatoriosController extends AppController {
 		}
 
 		// atualizando a view
-		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','campos'));
+		$this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','campos','link'));
 		$this->set('modelo','Audiencia');
 		$this->set('relatorio','audiencia');
 		$this->render($render);
