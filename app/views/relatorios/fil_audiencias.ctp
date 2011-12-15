@@ -65,12 +65,6 @@
 		</ul>
 	</div>
 	<br />
-	<div id="ordem">
-		<ul>
-			<li><?php echo $this->Form->input('ordem',$dataFiltro['ordem']['options']); ?></li>
-		</ul>
-	</div>
-	<br />
 	<div id="botoes">
 		<?php echo $this->Form->button('Enviar'); ?>
 	</div>

@@ -575,7 +575,7 @@ class RelatoriosController extends AppController {
 		$viewLista 		= array('audiencias'=>'Audiencias','contatos'=>'Contato','tipoprocesso'=>'TipoProcesso','processo'=>'Processo','orgao'=>'Orgao');
 
 		// campos que vão compor a lista
-		$camposLista	= array('Audiencia.processo_id','Processo.numero','Processo.comarca','Audiencia.data','Audiencia.hora','Audiencia.responsavel','Audiencia.orgao','Audiencia.obs',);
+		$camposLista	= array('Processo.numero','Processo.cliente','Processo.contrario','Processo.comarca','Audiencia.data','Audiencia.hora','Audiencia.orgao','Audiencia.responsavel');
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
@@ -613,6 +613,12 @@ class RelatoriosController extends AppController {
             //definindo nomes dos campos
             $campos['Processo']['comarca']['options']['label']['text']  = 'Comarca';
             $campos['Processo']['comarca']['estilo_th'] 		        = 'width=150px';
+
+            $campos['Processo']['cliente']['options']['label']['text']  = 'Cliente';
+            $campos['Processo']['cliente']['estilo_th'] 		        = 'width=150px';
+
+            $campos['Processo']['contrario']['options']['label']['text'] = 'Parte Cont.';
+            $campos['Processo']['contrario']['estilo_th'] 		        = 'width=150px';
 
             $campos['Processo']['numero']['options']['label']['text']   = 'Numero do Processo';
             $campos['Processo']['numero']['estilo_th'] 		            = 'width=180px';
@@ -672,12 +678,9 @@ class RelatoriosController extends AppController {
 				$condicoes['Audiencia.data BETWEEN ? AND ?'] = array($dtIni,$dtFim);
 			}
 
-			// ordenando
-			if 	(	isset($this->data[$this->action]['ordem']) )
-			{
-				$this->paginate = array('limit'=>1000,'order'=>array('Audiencia.data' => 'ASC', 'Audiencia.hora' => 'ASC'));
-				$this->Session->write('ordemRelatorio','Audiencia.'.$this->data[$this->action]['ordem']);
-			}
+
+            $this->paginate = array('limit'=>1000,'order'=>array('Audiencia.data' => 'ASC', 'Audiencia.hora' => 'ASC'));
+            $this->Session->write('ordemRelatorio','Audiencia.data ASC');
 
 			// carregando as solicitações
 			if (!empty($layout))
@@ -703,7 +706,8 @@ class RelatoriosController extends AppController {
 			$usuarios	= $this->Usuario->find('list',array('conditions'=>array('Usuario.id'=>$arrIdAdvRespon)));
 			$this->Processo->recursive = false;
 			$processos	= $this->Processo->find('all',array('conditions'=>array('Processo.id'=>$arrIdProcessos)));
-            //debug($processos);
+            $this->loadModel('ContatoProcesso');
+            //debug($contatos_processos);
 			// atualizando o conteúdo do relatório somente por causa deste filtro específico
 			$dataLista = array();
 			foreach($pagina as $_linha => $_arrModelos)
@@ -719,10 +723,27 @@ class RelatoriosController extends AppController {
 						$nome	= $_arrModel['Processo']['ordinal_orgao'].' '.$_arrModel['Orgao']['nome'];
                         $comarca = $_arrModel['Comarca']['nome'];
                         $numeroproc = $_arrModel['Processo']['numero'];
+                        $arrContatosProcesso = $this->ContatoProcesso->find('all',array(
+                            'fields'=>array('ContatoProcesso.contato_id','ContatoProcesso.tipo_parte_id'),
+                            'conditions'=>array('ContatoProcesso.processo_id'=>$_arrModel['Processo']['id'])));
+                        foreach($arrContatosProcesso as $i => $arrContato)
+                        {
+                            switch($arrContato['ContatoProcesso']['tipo_parte_id'])
+                            {
+                                case 1: //cliente
+                                    $cliente = $this->ContatoProcesso->Contato->read('nome',$arrContato['ContatoProcesso']['contato_id']);
+                                    break;
+                                case 2: //parte contraria
+                                    $contrario = $this->ContatoProcesso->Contato->read('nome',$arrContato['ContatoProcesso']['contato_id']);
+                            }
+                        }
 					}
 				}
 				$dataLista[$_linha]['Audiencia']['orgao'] 			= $nome;
 				$dataLista[$_linha]['Audiencia']['processo_id'] 	= 'VEBH-'.str_repeat('0',5-strlen($_arrModelos['Audiencia']['processo_id'])).$_arrModelos['Audiencia']['processo_id'];
+                $dataLista[$_linha]['Processo']['comarca']          = $comarca;
+                $dataLista[$_linha]['Processo']['cliente']          = $cliente['Contato']['nome'];
+                $dataLista[$_linha]['Processo']['contrario']        = $contrario['Contato']['nome'];
                 $dataLista[$_linha]['Processo']['comarca']          = $comarca;
                 $dataLista[$_linha]['Processo']['numero']           = $numeroproc;
                 $link[$_linha] = Router::url('/',true).'audiencias/editar/'.$_arrModelos['Audiencia']['id'];
