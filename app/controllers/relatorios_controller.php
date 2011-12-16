@@ -575,7 +575,7 @@ class RelatoriosController extends AppController {
 		$viewLista 		= array('audiencias'=>'Audiencias','contatos'=>'Contato','tipoprocesso'=>'TipoProcesso','processo'=>'Processo','orgao'=>'Orgao');
 
 		// campos que vão compor a lista
-		$camposLista	= array('Processo.numero','Processo.cliente','Processo.contrario','Processo.comarca','Audiencia.data','Audiencia.hora','Audiencia.orgao','Audiencia.responsavel');
+		$camposLista	= array('Processo.numero','Processo.cliente','Processo.contrario','Processo.comarca','Audiencia.data','Audiencia.hora','TipoAudiencia.nome','Audiencia.orgao','Audiencia.responsavel');
 
 		// parametros do relatório
 		$paramRelatorio['orientacao_pagina'] 	= 'L';
@@ -611,29 +611,42 @@ class RelatoriosController extends AppController {
 			$this->Processo->recursive 	= true;
 
             //definindo nomes dos campos
-            $campos['Processo']['comarca']['options']['label']['text']  = 'Comarca';
-            $campos['Processo']['comarca']['estilo_th'] 		        = 'width=150px';
+            $campos['Processo']['comarca']['options']['label']['text']      = 'Comarca';
+            $campos['Processo']['comarca']['estilo_th'] 		            = 'width=150px';
+            $campos['Processo']['comarca']['estilo_td']                     = 'align="center"';
 
-            $campos['Processo']['cliente']['options']['label']['text']  = 'Cliente';
-            $campos['Processo']['cliente']['estilo_th'] 		        = 'width=150px';
+            $campos['Processo']['cliente']['options']['label']['text']      = 'Cliente';
+            $campos['Processo']['cliente']['estilo_th'] 		            = 'width=150px';
+            $campos['Processo']['cliente']['estilo_td']                     = 'align="center"';
 
-            $campos['Processo']['contrario']['options']['label']['text'] = 'Parte Cont.';
-            $campos['Processo']['contrario']['estilo_th'] 		        = 'width=150px';
+            $campos['Processo']['contrario']['options']['label']['text']    = 'Parte Cont.';
+            $campos['Processo']['contrario']['estilo_th'] 		            = 'width=150px';
+            $campos['Processo']['contrario']['estilo_td']                   = 'align="center"';
 
-            $campos['Processo']['numero']['options']['label']['text']   = 'Numero do Processo';
-            $campos['Processo']['numero']['estilo_th'] 		            = 'width=180px';
-            $campos['Processo']['numero']['mascara']                    = '9999999-99.9999.9.99.9999';
+            $campos['Processo']['numero']['options']['label']['text']       = 'Numero do Processo';
+            $campos['Processo']['numero']['estilo_th'] 		                = 'width=180px';
+            $campos['Processo']['numero']['mascara']                        = '9999999-99.9999.9.99.9999';
+            $campos['Processo']['numero']['estilo_td']                      = 'align="center"';
 
-            $campos['Audiencia']['data']['options']['label']['text']    = 'Data';
-            $campos['Audiencia']['data']['estilo_th'] 		            = 'width=80px';
-            $campos['Audiencia']['data']['mascara']                     = 'data';
+            $campos['Audiencia']['data']['options']['label']['text']        = 'Data';
+            $campos['Audiencia']['data']['estilo_th'] 		                = 'width=80px';
+            $campos['Audiencia']['data']['mascara']                         = 'data';
+            $campos['Audiencia']['data']['estilo_td']                       = 'align="center"';
 
-            $campos['Audiencia']['hora']['options']['label']['text']    = 'Hora';
+            $campos['TipoAudiencia']['nome']['options']['label']['text']    = 'Tipo Aud.';
+            $campos['TipoAudiencia']['nome']['estilo_th'] 		            = 'width=140px';
+            $campos['TipoAudiencia']['nome']['estilo_td']                   = 'align="center"';
 
-            $campos['Audiencia']['obs']['options']['label']['text']     = 'Observações';
+            $campos['Audiencia']['hora']['options']['label']['text']        = 'Hora';
+            $campos['Audiencia']['hora']['estilo_td']                       = 'align="center"';
 
-            $campos['Audiencia']['processo_id']['estilo_th'] 	        = 'width=80px';
-            $campos['Audiencia']['responsavel']['estilo_th'] 		    = 'width=120px';
+            $campos['Audiencia']['obs']['options']['label']['text']         = 'Observações';
+            $campos['Audiencia']['obs']['estilo_td']                        = 'align="center"';
+
+            $campos['Audiencia']['processo_id']['estilo_td']                = 'align="center"';
+            $campos['Audiencia']['responsavel']['estilo_th'] 		        = 'width=120px';
+            $campos['Audiencia']['responsavel']['estilo_td']                = 'align="center"';
+            $campos['Audiencia']['orgao']['estilo_td']                      = 'align="center"';
 
 			//queremos na pauta somente as audiências que não estão canceladas
             $condicoes['Audiencia.iscancelada'] = 0;
@@ -685,7 +698,7 @@ class RelatoriosController extends AppController {
 			// carregando as solicitações
 			if (!empty($layout))
 			{
-				$pagina 	= $this->Audiencia->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+				$pagina 	= $this->Audiencia->find('all',array('conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>array('Audiencia.data' => 'ASC', 'Audiencia.hora' => 'ASC')));
 				$condicoes 	= $this->Session->read('filtroRelatorio');
 			} else
 			{
@@ -722,6 +735,7 @@ class RelatoriosController extends AppController {
 					{
 						$nome	= $_arrModel['Processo']['ordinal_orgao'].' '.$_arrModel['Orgao']['nome'];
                         $comarca = $_arrModel['Comarca']['nome'];
+                        $tipoaudiencia = $this->Audiencia->TipoAudiencia->read('nome',$_arrModelos['Audiencia']['tipo_audiencia_id']);
                         $numeroproc = $_arrModel['Processo']['numero'];
                         $arrContatosProcesso = $this->ContatoProcesso->find('all',array(
                             'fields'=>array('ContatoProcesso.contato_id','ContatoProcesso.tipo_parte_id'),
@@ -746,6 +760,7 @@ class RelatoriosController extends AppController {
                 $dataLista[$_linha]['Processo']['contrario']        = $contrario['Contato']['nome'];
                 $dataLista[$_linha]['Processo']['comarca']          = $comarca;
                 $dataLista[$_linha]['Processo']['numero']           = $numeroproc;
+                $dataLista[$_linha]['TipoAudiencia']['nome']        = $tipoaudiencia['TipoAudiencia']['nome'];
                 $link[$_linha] = Router::url('/',true).'audiencias/editar/'.$_arrModelos['Audiencia']['id'];
 			}
 
