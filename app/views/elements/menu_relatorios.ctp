@@ -1,11 +1,10 @@
 <?php
 
-/*	$listaRelatorio[0]['titulo'] 					= 'Contatos';
-	$listaRelatorio[0]['sintetico']['text'] 		= 'Sintético';
-	$listaRelatorio[0]['sintetico']['url'] 			= Router::url('/',true).'relatorios/fil_contatos/sintetico';
-*/
+    $listaRelatorio[0]['titulo'] 					= 'Processos';
+    $listaRelatorio[0]['criados']['text'] 		    = 'Processos por Tipo e Data de Cadastro';
+    $listaRelatorio[0]['criados']['url'] 			= Router::url('/',true).'relatorios/fil_processos_criados';
 
-	$listaRelatorio[1]['titulo'] 					= 'Audiências';
+    $listaRelatorio[1]['titulo'] 					= 'Audiências';
 	$listaRelatorio[1]['audiencia']['text'] 		= 'Audiências por Tipo, Advogado, Contato e Data';
 	$listaRelatorio[1]['audiencia']['url'] 			= Router::url('/',true).'relatorios/fil_audiencias/audiencias/';
 

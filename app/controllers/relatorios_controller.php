@@ -875,7 +875,7 @@ class RelatoriosController extends AppController {
 			{
 				$condicoes['ProcessoSolicitacao.usuario_atribuido'] = $this->data[$this->action]['usuario'];
 			}
-			
+
 			// filtrando a solicitação
 			if (isset($this->data[$this->action]['solicitacao']) && !(empty($this->data[$this->action]['solicitacao'])))
 			{
@@ -959,6 +959,124 @@ class RelatoriosController extends AppController {
 		$this->set('relatorio',$relatorio);
 		$this->render($render);
 	}
+
+    public function fil_processos_criados($relatorio = '',$layout = '')
+    {
+        // nome do relatório, pode ser passado via formulário
+        $relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
+
+        // parametros do relatório
+        $paramRelatorio['orientacao_pagina'] 	= 'L';
+        $paramRelatorio['titulo'] 				= 'Filtro de Processos por Data e Tipo';
+
+        // filtros
+        $dataFiltro = array();
+        $this->loadModel('TipoProcesso');
+        $dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list');
+        $this->loadModel('Processo');
+
+        // dados da lista
+        $dataLista		= array();
+
+        // campos que vão compor a lista
+        $camposLista	= array('Processo.id','Processo.created','Processo.numero','Usuario.nome','TipoProcesso.nome');
+
+        // config view usados na lista
+        $viewLista 		= array('processos'=>'Processo');
+
+        //configurando campos
+        $campos['Processo']['numero']['estilo_th'] 		                                    = 'width=180px';
+
+        $campos['Usuario']['nome']['options']['label']['text']                              = 'Adv. Responsável';
+        $campos['Usuario']['nome']['estilo_td'] 		                                    = 'align="center"';
+        $campos['Usuario']['nome']['estilo_th']                                             = 'width=300px';
+
+        $campos['TipoProcesso']['nome']['options']['label']['text']                         = 'Tipo do Processo';
+        $campos['TipoProcesso']['nome']['estilo_td'] 		                                = 'align="center"';
+        $campos['TipoProcesso']['nome']['estilo_th']                                        = 'width=150px';
+
+        $campos['Processo']['numero']['estilo_td'] 		                                    = 'align="center"';
+
+        // se o formulário foi postado ou o pedido de impressão para o layout
+        if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+        {
+            // debug
+            //pr($this->data);
+
+            // carregando o modelo de processos
+            $this->loadModel('Processo');
+
+            // filtro
+            $condicoes = array();
+
+            $processos_tipo = array();
+
+            //queremos somente processos com numero, ou seja, que ja foram ajuizados
+            $condicoes['Processo.numero >'] = 0;
+
+            // filtrando pelo tipo de processo, serão localizados todos os processos com este tipo de processo
+            if (!empty($this->data['fil_processos_criados']['tipoprocesso']))
+            {
+                $condicoes['Processo.tipo_processo_id'] = $this->data['fil_processos_criados']['tipoprocesso'];
+            }
+
+            // filtrando data de criação
+            if (isset($this->data[$this->action]['data_ini']) && !(empty($this->data[$this->action]['data_ini'])) &&
+                isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
+            )
+            {
+                $dtIni = $this->data[$this->action]['data_ini']['year'].'-'.$this->data[$this->action]['data_ini']['month'].'-'.$this->data[$this->action]['data_ini']['day'];
+                $dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
+                $condicoes['Processo.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+            }
+
+            $this->paginate = array('order'=>array('Processo.id' => 'ASC'));
+            $this->Session->write('ordemRelatorio','Processo.id ASC');
+
+            // Buscando processos com o filtro para Lista
+            if (!empty($layout))
+            {
+                $pagina 	= $this->Processo->find('all',array('limit' => 1000,'conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+            } else
+            {
+                $this->paginate['limit'] = 1000;
+                $pagina 	= $this->paginate('Processo',$condicoes);
+                $this->Session->write('filtroRelatorio',$condicoes);
+            }
+
+            // atualizando o conteúdo do relatório somente por causa deste filtro específico
+            $dataLista	= array();
+            $link		= array();
+            foreach($pagina as $_linha => $_arrModelos)
+            {
+                foreach($_arrModelos as $_modelo => $_arrCampos)
+                {
+                    foreach($_arrCampos as $_campo => $_valor)
+                    {
+                        $valor = $_valor;
+                        if ($_modelo == 'Processo' && $_campo == 'id')
+                        {
+                            $link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
+                            $valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
+                        }
+                        $dataLista[$_linha][$_modelo][$_campo] = $valor;
+                    }
+                }
+            }
+
+            // definindo o que renderizar
+            $render = (!empty($layout)) ? $layout : 'listar';
+        } else
+        {
+            $render = $this->action;
+        }
+
+        // atualizando a view
+        $this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link','campos'));
+        $this->set('modelo','Processo');
+        $this->set('relatorio',$relatorio);
+        $this->render($render);
+    }
 	
 }
 ?>
