@@ -1074,7 +1074,7 @@ class RelatoriosController extends AppController {
         // atualizando a view
         $this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link','campos'));
         $this->set('modelo','Processo');
-        $this->set('relatorio',$relatorio);
+        $this->set('relatorio','processo');
         $this->render($render);
     }
 	
