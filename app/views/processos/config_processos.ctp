@@ -44,13 +44,9 @@
 	$campos[$modelClass]['numero']['options']['label']['text'] 							= 'Número do Processo';
 	$campos[$modelClass]['numero']['options']['style'] 									= 'width: 294px; letter-spacing: 4px;';
 	$campos[$modelClass]['numero']['mascara'] 											= '9999999-99.9999.9.99.9999';
-    $campos[$modelClass]['numero']['options']['readOnly']                               = 'true';
-    $campos[$modelClass]['numero']['options']['onclick']                                = 'copiar(this.value)';
 
 	$campos[$modelClass]['numero_auxiliar']['options']['label']['text'] 				= 'Número Auxiliar';
 	$campos[$modelClass]['numero_auxiliar']['options']['style'] 						= 'width: 294px; letter-spacing: 4px;';
-    $campos[$modelClass]['numero_auxiliar']['options']['readOnly']                      = 'true';
-    $campos[$modelClass]['numero_auxiliar']['options']['onclick']                       = 'copiar(this.value)';
 
 	$campos[$modelClass]['distribuicao']['options']['label']['text'] 					= 'Data de Distribuição';
 	$campos[$modelClass]['distribuicao']['options']['dateFormat'] 						= 'DMY';
@@ -212,6 +208,10 @@
         $campos[$modelClass]['comarca_id']['options']['disabled'] 							= 'disabled';
         //if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
         //$campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
+        $campos[$modelClass]['numero_auxiliar']['options']['readOnly']                      = 'true';
+        $campos[$modelClass]['numero_auxiliar']['options']['onclick']                       = 'copiar(this.value)';
+        $campos[$modelClass]['numero']['options']['readOnly']                               = 'true';
+        $campos[$modelClass]['numero']['options']['onclick']                                = 'copiar(this.value)';
         }
 
 		// subformulário só para processos
