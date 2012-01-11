@@ -197,7 +197,7 @@
 		//desativando campos que não podem ser editados - o administrador pode edita-los
         $campos[$modelClass]['tipo_processo_id']['options']['disabled'] 					= 'disabled';
         $campos[$modelClass]['usuario_id']['options']['disabled'] 							= 'disabled';
-        $campos[$modelClass]['numero_auxiliar']['options']['disabled'] 						= 'disabled';
+        //$campos[$modelClass]['numero_auxiliar']['options']['disabled'] 						= 'disabled';
         $campos[$modelClass]['distribuicao']['options']['disabled'] 						= 'disabled';
         $campos[$modelClass]['ordinal_orgao']['options']['disabled'] 						= 'disabled';
         $campos[$modelClass]['orgao_id']['options']['disabled'] 							= 'disabled';
@@ -206,8 +206,12 @@
         $campos[$modelClass]['gestao_id']['options']['disabled'] 							= 'disabled';
         $campos[$modelClass]['segmento_id']['options']['disabled'] 							= 'disabled';
         $campos[$modelClass]['comarca_id']['options']['disabled'] 							= 'disabled';
-        if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
-        $campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
+        //if( isset( $this->data['Instancia']['id'] ) && ($this->data['Instancia']['id'] != 5) )
+        //$campos[$modelClass]['numero']['options']['disabled'] 							    = 'disabled';
+        $campos[$modelClass]['numero_auxiliar']['options']['readOnly']                      = 'true';
+        $campos[$modelClass]['numero_auxiliar']['options']['onclick']                       = 'copiar(this.value)';
+        $campos[$modelClass]['numero']['options']['readOnly']                               = 'true';
+        $campos[$modelClass]['numero']['options']['onclick']                                = 'copiar(this.value)';
         }
 
 		// subformulário só para processos

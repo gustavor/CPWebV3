@@ -35,7 +35,11 @@
 	$combo['options']['options']['lay_tabela']					= 'Tabela em Pdf';
 	$combo['options']['empty'] 									= '-- escolha um layout de saída --';
 	$combo['options']['id'] 									= 'imprimirPara';
-	$combo['options']['onchange']								= 'if (this.value) window.location.href=\''.Router::url('/',true).'relatorios/'.$action.'/'.$relatorio.'/\'+this.value;';
+    if(isset($relatorio) && $relatorio != '')
+        $combo['options']['onchange']						    = 'if (this.value) window.location.href=\''.Router::url('/',true).'relatorios/'.$action.'/'.$relatorio.'/\'+this.value;';
+    else
+        $combo['options']['onchange']							= 'if (this.value) window.location.href=\''.Router::url('/',true).'relatorios/'.$action.'/\'+this.value;';
+
 ?>
 <div class="lista" id="listaRelatorios" >
 <div id="topo">
