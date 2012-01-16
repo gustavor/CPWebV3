@@ -308,26 +308,26 @@ class ProcessosController extends AppController {
 			$parametros['conditions'] 	= 'Contato.'.$campo.' like "%'.$texto.'%"';
 			$parametros['order'] 		= $campo;
 			$parametros['fields'] 		= array($id,$campo);
-			$pesquisa 					= $this->Contato->find('list',$parametros);
-			foreach($pesquisa as $_id => $_nome) array_push($idContatos,$_id);
+			$pesquisa_contatos 			= $this->Contato->find('list',$parametros);
+			foreach($pesquisa_contatos as $_id => $_nome) array_push($idContatos,$_id);
 			$parametros = array();
-			$pesquisa	= array();
-			
+
 			// localizando os contatos processos
 			$this->loadModel('ContatoProcesso');
 			$idContatosProcessos = array();
 			$parametros['conditions']['ContatoProcesso.contato_id'] = $idContatos;
-			$pesquisa = $this->ContatoProcesso->find('all',$parametros);
-			foreach($pesquisa as $_linhas => $_arrModel)
+			$pesquisa_contatos_processo = $this->ContatoProcesso->find('all',$parametros);
+            //debug($pesquisa_contatos_processo);
+    		foreach($pesquisa_contatos_processo as $_linhas => $_arrModel)
 			{
-				array_push($idContatosProcessos,$_arrModel['ContatoProcesso']['processo_id']);
-			}
-			$parametros = array();
+                $pesquisa[$_arrModel['Processo']['id']] = $_arrModel['Contato']['nome'].' - '.$_arrModel['Processo']['numero'];
+            }
+			/*$parametros = array();
 			$pesquisa 	= array();
-			$parametros['conditions']['Processo.id'] 	= $idContatosProcessos;
-			$parametros['order'] 						= 'numero';
-			$parametros['fields'] 						= array($id,'numero');
-			$pesquisa 									= $this->Processo->find('list',$parametros);
+			$parametros['conditions']['Processo.id IN'] = $idContatosProcessos;
+			$parametros['order'] 						= 'Processo.id ASC';
+			$parametros['fields'] 						= array($id);
+			$pesquisa 									= $this->Processo->find('list',$parametros);*/
 		} else
 		{
 			if (!empty($campo)) $parametros['conditions'] 	= $campo.' like "%'.$texto.'%"';

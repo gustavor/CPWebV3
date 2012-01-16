@@ -315,7 +315,7 @@
 	{
 		$camposPesquisa['numero'] 				= 'Número';
 		$camposPesquisa['numero_auxiliar']      = 'N. Auxiliar';
-		$camposPesquisa['nome']			 	= 'Contato';
+		$camposPesquisa['nome']			 	    = 'Contato';
 		$this->set('camposPesquisa',$camposPesquisa);
 	}
 
