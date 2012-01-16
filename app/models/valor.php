@@ -88,7 +88,7 @@ class Valor extends AppModel {
                     $dados['data'] = date('Y-m-d');
                     $dados['valor'] = $valorAutorizado['Valor']['valor'] - $valor['Valor']['valor'];
                     $dados['tipo_valor_id'] = 3;
-                    $dados['usuario_id'] = 1;
+                    $dados['usuario_id'] = $valor['Valor']['usuario_id'];
                     $dados['processo_id'] = $valor['Valor']['processo_id'];
                     $dados['fase_id'] = $valor['Valor']['fase_id'];
                     //die(debug($dados));
