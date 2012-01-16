@@ -24,7 +24,7 @@ class Usuario extends AppModel {
 	public $name 			= 'Usuario';
 	public $useTable		= 'usuarios';
 	public $displayField 	= 'nome';
-	public $order		 	= 'Usuario.login';
+	//public $order		 	= 'nome';
 
 	public $validate = array(
             'login' => array

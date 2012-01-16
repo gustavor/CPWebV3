@@ -26,6 +26,11 @@
 	$campos[$modelClass]['usuario_id']['options']['style'] 							    = 'width:300px';
 	if (isset($advogados)) $campos[$modelClass]['usuario_id']['options']['options'] 	= $advogados;
 
+    $campos[$modelClass]['responsavel_acordo']['options']['label']['text'] 			                    = 'Resp. Acordo Trab.';
+    $campos[$modelClass]['responsavel_acordo']['options']['empty'] 					                    = '-- escolha uma opção --';
+    $campos[$modelClass]['responsavel_acordo']['options']['style'] 						                = 'width:300px';
+    if (isset($responsaveis_acordo)) $campos[$modelClass]['responsavel_acordo']['options']['options'] 	= $responsaveis_acordo;
+
 	$campos[$modelClass]['status_id']['options']['label']['text'] 						= 'Status do Processo';
 	$campos[$modelClass]['status_id']['options']['empty'] 								= '-- escolha uma opção --';
 	$campos[$modelClass]['status_id']['options']['style'] 								= 'width:300px';
@@ -131,6 +136,7 @@
 			$modelClass.'.gestao_id',
             $modelClass.'.segmento_id','#',
 			$modelClass.'.operacao_contrato','#',
+            $modelClass.'.responsavel_acordo','#',
             $modelClass.'.modified',
 			$modelClass.'.created'
 		);
@@ -157,6 +163,7 @@
 			$modelClass.'.gestao_id','#',
             $modelClass.'.segmento_id','#',
             $modelClass.'.operacao_contrato','#',
+            $modelClass.'.responsavel_acordo','#',
 			$modelClass.'.modified',
 			$modelClass.'.created'
 		);
@@ -225,6 +232,8 @@
         if (isset($processo_solicitacao))	$redirecionamentos['Contatos Telefônicos']['onclick']	= 'document.location.href=\''.Router::url('/',true).'contatos_telefonicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($testemunha))				$redirecionamentos['Testemunhas']['onclick']			= 'document.location.href=\''.Router::url('/',true).'testemunhas/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
         if (isset($historico))				$redirecionamentos['Arquivo']['onclick']				= 'document.location.href=\''.Router::url('/',true).'historicos/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
+        if ($this->Form->data['Processo']['tipo_processo_id'] == 2)
+            if (isset($valor))				    $redirecionamentos['Valores Envolvidos']['onclick']		= 'document.location.href=\''.Router::url('/',true).'valores/listar/processo/'.$this->Form->data['Processo']['id'].'\'';
 
         // dados do formulário
 		$subFormData = isset($contatos) ? $contatos : array();

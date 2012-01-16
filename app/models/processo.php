@@ -112,6 +112,11 @@ class Processo extends AppModel {
 			'foreignKey'	=> 'usuario_id',
 			'fields'		=> 'id, nome'
 		),
+        'Responsavel'   => array(
+            'className'     => 'Usuario',
+            'foreignKey'    => 'responsavel_acordo',
+            'fields'        => 'id, nome'
+        ),
 		'Comarca'  		=> array(
 			'className'		=> 'Comarca',
 			'foreignKey'	=> 'comarca_id',

@@ -106,7 +106,7 @@
 			$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.acessos','Usuario.trocasenha','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
 			$campos['Usuario']['trocasenha']['options']['disabled'] 	= 'disabled';
 		}
-        
+
 		// destancando administrador
 		if ($this->data['Usuario']['id']==1) 
 		{

@@ -138,8 +138,10 @@ class ProcessosController extends AppController {
 		$this->loadModel('TipoParte');			$this->set('tipo_parte',$this->TipoParte->find('list'));
 		$this->loadModel('Envolvimento');		$this->set('envolvimento',$this->Envolvimento->find('list',array('fields'=>array('id','nome'))));
 		$this->loadModel('Historico');			$this->set('historico',$this->Historico->find(array('processo_id'=>$id)));
+        $this->loadMOdel('Valor');              $this->set('valor', $this->Valor->find('list',array('conditions'=>array('Valor.processo_id' => $id))));
 		
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        $this->set('responsaveis_acordo',$this->Processo->Responsavel->find('list',array('conditions' => array('departamento_id' => 10))));
         
         // salvando os apensos
         if ( isset($this->data['subFormApenso']['id']) && !empty($this->data['subFormApenso']['id']) )
@@ -248,6 +250,7 @@ class ProcessosController extends AppController {
 	public function novo()
 	{
         $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        $this->set('responsaveis',$this->Processo->Usuario->find('list',array('conditions' => array('departamento_id' => 10))));
         $this->CpwebCrud->novo();
 	}
 	
