@@ -242,9 +242,7 @@
 		}
 
         //o botão finalizar aparece somente para usuários do grupo administrador
-        if ( !$this->Form->data['ProcessoSolicitacao']['finalizada'] &&
-             $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] &&
-             in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
+        if ( in_array('ADMINISTRADOR',$this->Session->read('perfis')) || $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] == $this->Session->read('Auth.Usuario.id') )
         {
             $redirecionamentos['Finalizar']['onclick'] 	= '';
 			$on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
