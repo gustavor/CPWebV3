@@ -42,7 +42,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @var array
 	 * @access public
 	 */
-	public $helpers = array('CakePtbr.Formatacao');
+	public $helpers = array('CakePtbr.Formatacao','Time');
 
 	/**
 	 * Componentes
@@ -50,7 +50,7 @@ class ProcessosSolicitacoesController extends AppController {
 	 * @var array Componentes
 	 * @access public
 	 */
-	public $components	= array('CpwebCrud','Session');
+	public $components	= array('CpwebCrud','Session','Email');
 
 	/**
 	 * Antes de tudo
@@ -513,5 +513,53 @@ class ProcessosSolicitacoesController extends AppController {
 			$this->render('../errors/erroCombo');
 		}
 	}
+
+    public function envianotificacao($id = null)
+    {
+        if( isset($id) && !empty($id) )
+        {
+            $this->ProcessoSolicitacao->recursive = 0;
+            $solicitacao = $this->ProcessoSolicitacao->read(null,$id);
+
+            //avisamos ao sistema que notificamos essa solicitacao.
+            $this->ProcessoSolicitacao->id = $id;
+            $this->ProcessoSolicitacao->set('notificada',1);
+            $this->ProcessoSolicitacao->save();
+
+            //lendo dados do usuario
+            $this->loadModel('Usuario');
+            $this->Usuario->recursive = -1;
+            $usuarioAtribuido = $this->Usuario->read(null,$solicitacao['ProcessoSolicitacao']['usuario_atribuido']);
+            $usuarioSolicitante = $this->Usuario->read(null,$solicitacao['ProcessoSolicitacao']['usuario_solicitante']);
+
+            //lendo dados do processo
+            $this->ProcessoSolicitacao->Processo->recursive = -1;
+            $processo = $this->ProcessoSolicitacao->Processo->read(null, $solicitacao['ProcessoSolicitacao']['processo_id']);
+
+            $this->Email->from = 'Sistema CPWeb <cpweb@veadvogados.com.br>';
+            $this->Email->to = $usuarioAtribuido['Usuario']['email'];
+            $this->Email->cc = array($usuarioSolicitante['Usuario']['email']);
+            $this->Email->subject = 'VEBH-'.str_repeat('0',5-strlen($processo['Processo']['id'])).$processo['Processo']['id'].' - NOTIFICAÇÃO DE SOLICITACÃO EM ABERTO';
+            $this->Email->template = 'notificacao';
+            $this->Email->sendAs = 'text';
+            $this->Email->delivery = 'smtp';
+            $this->Email->smtpOptions = array(
+                'port' => '465',
+                'timeout' => '10',
+                'host'  => 'ssl://smtp.gmail.com',
+                'username' => 'cpweb@veadvogados.com.br',
+                'password' => 'P0w3rCessn@BeechP0w3rCessn@'
+            );
+            $this->set(compact('usuarioAtribuido','usuarioSolicitante','solicitacao','processo'));
+            $this->Email->send();
+            if($this->Email->smtpError) die(debug($this->Email->smtpError));
+            $this->render = null;
+            $this->redirect(array('controller' => 'processos_solicitacoes','action' => 'editar', $id));
+        }
+        else
+        {
+            die('Erro ao enviar notificação! Favor contactar o suporte!');
+        }
+    }
 }
 ?>
