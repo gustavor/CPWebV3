@@ -241,6 +241,11 @@
 			!empty($this->Form->data['ProcessoSolicitacao']['usuario_atribuido'])
 			)
 		{
+            // se ainda não foi notificada, deixamos notificar
+            if ( ( $this->Form->data['ProcessoSolicitacao']['notificada'] == 0 ) && $this->Form->data['ProcessoSolicitacao']['finalizada'] == 0)
+            {
+                $redirecionamentos['Notificar']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/envianotificacao/'.$this->Form->data['ProcessoSolicitacao']['id'].'\'';
+            }
 			unset($redirecionamentos['Atribuir a Mim']);
 			unset($redirecionamentos['Atribuir a Adv. Resp.']);
 		}
@@ -290,11 +295,6 @@
                 $redirecionamentos['Finalizar']['onclick'] 	= '';
 			    $on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
             }
-        }
-        // se ainda não foi notificada, deixamos notificar
-        if ( ( $this->Form->data['ProcessoSolicitacao']['notificada'] == 0 ) && $this->Form->data['ProcessoSolicitacao']['finalizada'] == 0)
-        {
-            $redirecionamentos['Notificar']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/envianotificacao/'.$this->Form->data['ProcessoSolicitacao']['id'].'\'';
         }
 
    	}

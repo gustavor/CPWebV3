@@ -523,8 +523,7 @@ class ProcessosSolicitacoesController extends AppController {
 
             //avisamos ao sistema que notificamos essa solicitacao.
             $this->ProcessoSolicitacao->id = $id;
-            $this->ProcessoSolicitacao->set('notificada',1);
-            $this->ProcessoSolicitacao->save();
+            $this->ProcessoSolicitacao->saveField('notificada',1);
 
             //lendo dados do usuario
             $this->loadModel('Usuario');
