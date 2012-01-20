@@ -24,6 +24,7 @@ class TipoEventoAcordo extends AppModel {
 	public $name 		= 'TipoEventoAcordo';
 	public $useTable 	= 'tipos_eventos_acordos';
 	public $displayField= 'nome';
+    public $order = 'nome';
 
 	public $validate = array(
 		'nome' => array(
