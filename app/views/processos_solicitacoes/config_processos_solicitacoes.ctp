@@ -23,6 +23,10 @@
 	//$campos[$modelClass]['finalizada']['options']['default'] 								= 0;
 	$campos[$modelClass]['finalizada']['options']['options'] 								= array(1=>'Sim', 0=>'Não');
 
+    $campos[$modelClass]['notificada']['options']['label']['text'] 							= 'Notificada';
+    $campos[$modelClass]['notificada']['options']['type'] 									= 'hidden';
+    $campos[$modelClass]['notificada']['options']['options'] 								= array(1=>'Sim', 0=>'Não');
+
 	$campos[$modelClass]['obs']['options']['label']['text'] 								= 'Observações';
 	$campos[$modelClass]['obs']['options']['style'] 										= 'width: 600px; text-transform:uppercase;';
 
@@ -139,7 +143,7 @@
 
 	if ($action=='editar' || $action=='excluir')
 	{
-		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.finalizada',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','ProcessoSolicitacao.prazo_cliente','#','ProcessoSolicitacao.prazo_interno','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
+		$edicaoCampos = array($modelClass.'.solicitacao_id',$modelClass.'.notificada',$modelClass.'.finalizada',$modelClass.'.data_atendimento',$modelClass.'.data_fechamento','#',$modelClass.'.departamento_id','#',$modelClass.'.tipo_solicitacao_id','#',$modelClass.'.tipo_peticao_id',$modelClass.'.tipo_parecer_id',$modelClass.'.complexidade_id','#',$modelClass.'.obs','#','ProcessoSolicitacao.prazo_cliente','#','ProcessoSolicitacao.prazo_interno','#',$modelClass.'.modified','#',$modelClass.'.created',$modelClass.'.usuario_atribuido');
 	}
 
 	if ($action=='imprimir')
@@ -237,14 +241,17 @@
 			!empty($this->Form->data['ProcessoSolicitacao']['usuario_atribuido'])
 			)
 		{
+            // se ainda não foi notificada, deixamos notificar
+            if ( ( $this->Form->data['ProcessoSolicitacao']['notificada'] == 0 ) && $this->Form->data['ProcessoSolicitacao']['finalizada'] == 0)
+            {
+                $redirecionamentos['Notificar']['onclick'] 		= 'document.location.href=\''.Router::url('/',true).'processos_solicitacoes/envianotificacao/'.$this->Form->data['ProcessoSolicitacao']['id'].'\'';
+            }
 			unset($redirecionamentos['Atribuir a Mim']);
 			unset($redirecionamentos['Atribuir a Adv. Resp.']);
 		}
 
         //o botão finalizar aparece somente para usuários do grupo administrador
-        if ( !$this->Form->data['ProcessoSolicitacao']['finalizada'] &&
-             $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] &&
-             in_array('ADMINISTRADOR',$this->Session->read('perfis')) )
+        if ( in_array('ADMINISTRADOR',$this->Session->read('perfis')) || $this->Form->data['ProcessoSolicitacao']['usuario_atribuido'] == $this->Session->read('Auth.Usuario.id') )
         {
             $redirecionamentos['Finalizar']['onclick'] 	= '';
 			$on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
@@ -289,7 +296,6 @@
 			    $on_read_view .= "\n\t".'$("#re_finalizar").click(function() { $("#ProcessoSolicitacaoFinalizada").val("1"); this.form.submit(); });';
             }
         }
-
 
    	}
 
