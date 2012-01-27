@@ -109,7 +109,7 @@ class LoteProcessoSolicitacao extends AppModel {
             //criando dados da solicitacao
             $solicitacaoData['ProcessoSolicitacao'] = array();
             $solicitacaoData['ProcessoSolicitacao']['processo_id'] = $processo_solicitacao['ProcessoSolicitacao']['processo_id'];
-            $solicitacaoData['ProcessoSolicitacao']['departamento_id'] = ($tipo_processo['Processo']['tipo_processo_id']+7);
+            $solicitacaoData['ProcessoSolicitacao']['departamento_id'] = ($tipo_processo['Processo']['tipo_processo_id']+2);
             $solicitacaoData['ProcessoSolicitacao']['usuario_solicitante'] = 1;
             $solicitacaoData['ProcessoSolicitacao']['usuario_atribuido'] = 0;
             $solicitacaoData['ProcessoSolicitacao']['solicitacao_id'] = 8;
