@@ -116,9 +116,10 @@ class LoteProcessoSolicitacao extends AppModel {
             $solicitacaoData['ProcessoSolicitacao']['tipo_peticao_id'] = $processo_solicitacao['ProcessoSolicitacao']['tipo_peticao_id'];
             $solicitacaoData['ProcessoSolicitacao']['complexidade_id'] = $processo_solicitacao['ProcessoSolicitacao']['complexidade_id'];
             $solicitacaoData['ProcessoSolicitacao']['finalizada'] = 0;
+            $solicitacaoData['ProcessoSolicitacao']['prazo_cliente'] = $processo_solicitacao['ProcessoSolicitacao']['prazo_cliente'];
+            $solicitacaoData['ProcessoSolicitacao']['prazo_interno'] = $processo_solicitacao['ProcessoSolicitacao']['prazo_interno'];
             
             $this->ProcessoSolicitacao->create();
-
             if(!$this->ProcessoSolicitacao->save($solicitacaoData)) exit('Erro ao pedir atualização de sistema do cliente');
         }
 		$this->belongsTo['Lote']['fields'] = 'id, codigo';
