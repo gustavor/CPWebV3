@@ -60,9 +60,15 @@ class Processo extends AppModel {
 		),
 		'numero'	=> array
 		(
-			'rule'		=> 'notEmpty',
-			'required' 	=> true,
-            'message'	=> 'É necessário informar o número do processo !!!'
+			'notEmpty' => array(
+                'rule'		=> 'notEmpty',
+                'required' 	=> true,
+                'message'	=> 'É necessário informar um Número de Processo !!!'
+            ),
+            'isUnique' => array(
+                'rule'		=> 'isUnique',
+                'message'	=> 'Número de Processo já cadastrado na base !!!'
+            )
 		),
 		'numero_auxiliar'	=> array
 		(
