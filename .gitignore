@@ -1,3 +1,4 @@
+app/config/*
 app/tmp/cache/*
 app/tmp/logs/*
 app/tmp/sessions/*
