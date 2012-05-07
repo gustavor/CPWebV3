@@ -311,7 +311,7 @@
 		$on_read_view .= "\n\t".'$("#'.$modelClass.'TipoProcessoId").focus();';
 	}
 
-	if ($action=='editar' || $action=='listar')
+	if ($action=='editar' || $action=='listar' || $action=='filtrar')
 	{
 		$camposPesquisa['numero'] 				= 'Número';
 		$camposPesquisa['numero_auxiliar']      = 'N. Auxiliar';

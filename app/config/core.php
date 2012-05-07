@@ -177,7 +177,7 @@ Configure::write('Cache.check', true);
  * Session time out time (in minutes).
  * Actual value depends on 'Security.level' setting.
  */
-	Configure::write('Session.timeout', '72');
+	Configure::write('Session.timeout', '24');
 
 /**
  * If set to false, sessions are not automatically started.
@@ -202,7 +202,7 @@ Configure::write('Cache.check', true);
  * CakePHP session IDs are also regenerated between requests if
  * 'Security.level' is set to 'high'.
  */
-	Configure::write('Security.level', 'medium');
+	Configure::write('Security.level', 'low');
 
 /**
  * A random string used in security hashing methods.

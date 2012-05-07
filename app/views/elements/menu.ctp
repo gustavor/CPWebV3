@@ -43,6 +43,10 @@
 			<li><a href="<?php echo Router::url('/').'historicos'; ?>">Arquivo</a></li>
 			<?php endif; ?>
 
+            <?php if($this->Session->read('Auth.Usuario.isadvogado')) : ?>
+            <li><a href="<?php echo Router::url('/').'processos/filtrar/usuario_id:' . $this->Session->read('Auth.Usuario.id') . '/'; ?>">Meus Processos</a></li>
+            <?php endif; ?>
+
 		</ul>
 	</li>
 

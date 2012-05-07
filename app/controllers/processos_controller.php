@@ -118,6 +118,8 @@ class ProcessosController extends AppController {
 	 */
 	public function filtrar()
 	{
+        $this->loadModel('Contato');			$this->set('contato',$this->Contato->find('list'));
+        $this->loadModel('TipoParte');			$this->set('tipo_parte',$this->TipoParte->find('list'));
 		$this->CpwebCrud->filtrar();
 	}
 
