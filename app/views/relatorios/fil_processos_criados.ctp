@@ -2,10 +2,15 @@
 	$this->Html->css('listar.css', null, array('inline' => false));
 	$this->Html->css('relatorios.css', null, array('inline' => false));
 
+    $dataFiltro['contato']['options']['style'] 				= 'width: 320px;';
+    $dataFiltro['contato']['options']['empty']              = '-- escolha uma opção --';
+
+    $dataFiltro['usuario']['options']['empty']              = '-- escolha uma opção --';
+    $dataFiltro['usuario']['options']['label']['text']      = 'Adv. Responsável';
+
     $dataFiltro['tipoprocesso']['options']['label']['text'] = 'Tipo do Processo';
     $dataFiltro['tipoprocesso']['options']['default'] 		= 0;
     $dataFiltro['tipoprocesso']['options']['style'] 		= 'width: 320px;';
-    $dataFiltro['tipoprocesso']['options']['empty'] 	    = '-- escolha uma opção --';
 
 	$dataFiltro['data_ini']['options']['label']['text']		= 'Data Inicial';
 	$dataFiltro['data_ini']['options']['div'] 				= null;
@@ -42,6 +47,8 @@
 <div id="filtro">
 	<div id="campos">
 		<ul>
+            <li><?php echo $this->Form->input('contato',$dataFiltro['contato']['options']); ?></li>
+            <li><?php echo $this->Form->input('usuario',$dataFiltro['usuario']['options']); ?></li>
             <li><?php echo $this->Form->input('tipoprocesso',$dataFiltro['tipoprocesso']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_ini',$dataFiltro['data_ini']['options']); ?></li>
 			<li><?php echo $this->Form->input('data_fim',$dataFiltro['data_fim']['options']); ?></li>

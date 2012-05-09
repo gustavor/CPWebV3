@@ -967,13 +967,17 @@ class RelatoriosController extends AppController {
 
         // parametros do relatório
         $paramRelatorio['orientacao_pagina'] 	= 'L';
-        $paramRelatorio['titulo'] 				= 'Filtro de Processos por Data e Tipo';
+        $paramRelatorio['titulo'] 				= 'Filtro de Processos por Data, Tipo, Cliente e Advogado';
 
         // filtros
         $dataFiltro = array();
         $this->loadModel('TipoProcesso');
-        $dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list');
         $this->loadModel('Processo');
+        $this->loadModel('Contato');
+        $this->loadModel('Usuario');
+        $dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list');
+        $dataFiltro['contato']['options']['options'] = $this->Contato->find('list');
+        $dataFiltro['usuario']['options']['options'] = $this->Usuario->find('list', array('conditions' => array('Usuario.isadvogado' => 1, 'Usuario.ativo' => 1)));
 
         // dados da lista
         $dataLista		= array();
@@ -1017,7 +1021,13 @@ class RelatoriosController extends AppController {
             // filtrando pelo tipo de processo, serão localizados todos os processos com este tipo de processo
             if (!empty($this->data['fil_processos_criados']['tipoprocesso']))
             {
-                $condicoes['Processo.tipo_processo_id'] = $this->data['fil_processos_criados']['tipoprocesso'];
+                $processos = $this->Processo->find('list',array('conditions'=>array('Processo.tipo_processo_id'=>$this->data['fil_processos_criados']['tipoprocesso'])));
+                foreach($processos as $processo_id => $processo_numero) $processos_tipo[] = $processo_id; //populando o array com todos os processos desse tipo
+            }
+
+            if (!empty($this->data['fil_processos_criados']['usuario']))
+            {
+                $condicoes['Processo.usuario_id'] = $this->data['fil_processos_criados']['usuario'];
             }
 
             // filtrando data de criação
@@ -1029,6 +1039,23 @@ class RelatoriosController extends AppController {
                 $dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
                 $condicoes['Processo.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
             }
+
+            // filtrando pelo contato, serão localizados todos os processos com este contato
+            if (!empty($this->data['fil_processos_criados']['contato']))
+            {
+                $this->loadModel('ContatoProcesso');
+                $contatosprocessos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.contato_id' => $this->data['fil_processos_criados']['contato']),'fields'=>array('processo_id')));
+                foreach($contatosprocessos as $id_contatoprocesso => $processo_id) $processos_cliente[] = $processo_id;
+            }
+
+            //a intercessão dos dois arrays é a lista de processos que iremos procurar
+            sort($processos_cliente);
+            sort($processos_tipo);
+            if( !count($processos_cliente) )
+                $listaProcessos = $processos_tipo;
+            else
+                $listaProcessos = array_intersect($processos_tipo,$processos_cliente);
+            $condicoes['Processo.id'] = $listaProcessos;
 
             $this->paginate = array('order'=>array('Processo.id' => 'ASC'));
             $this->Session->write('ordemRelatorio','Processo.id ASC');
