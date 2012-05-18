@@ -223,7 +223,8 @@ class ProcessosSolicitacoesController extends AppController {
 				}
 			}
             $usuarios = $this->Usuario->find('list', array('conditions' => array('Usuario.departamento_id' => $this->data['ProcessoSolicitacao']['departamento_id'])));
-            $this->set('usuarios',$usuarios);
+            $assistentes = $this->Usuario->find('list', array('conditions' => array('Usuario.departamento_id' => $this->data['ProcessoSolicitacao']['departamento_id'], 'Usuario.isassistente' => 1)));
+            $this->set(compact('usuarios','assistentes'));
 		}
 	}
 

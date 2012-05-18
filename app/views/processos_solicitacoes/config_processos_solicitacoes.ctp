@@ -82,12 +82,21 @@
 	if (isset($tipossolicitacoes)) $campos[$modelClass]['tipo_solicitacao_id']['options']['options'] = $tipossolicitacoes;
 
 	$campos[$modelClass]['usuario_atribuido']['options']['label']['text']	 				= 'Usuário Atribuído';
-	if(!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
-        $campos[$modelClass]['usuario_atribuido']['options']['type']			 			= 'hidden';
-    else
+    if(in_array('ADMINISTRADOR',$this->Session->read('perfis')))
     {
         if (isset($usuarios)) $campos[$modelClass]['usuario_atribuido']['options']['options']   = $usuarios;
         $campos[$modelClass]['usuario_atribuido']['options']['empty']			 			= '-- escolha uma opção --';
+    }
+    elseif($this->Session->read('Auth.Usuario.isadvogado') && (isset($assistentes)))
+    {
+        if(!empty($assistentes))
+        {
+            $campos[$modelClass]['usuario_atribuido']['options']['options']   = $assistentes;
+            $campos[$modelClass]['usuario_atribuido']['options']['empty']	  = '-- escolha uma opção --';
+        }
+        elseif(!in_array('ADMINISTRADOR',$this->Session->read('perfis')))
+            $campos[$modelClass]['usuario_atribuido']['options']['type']	  = 'hidden';
+
     }
 	$campos[$modelClass]['usuario_atribuido']['estilo_td'] 									= 'style="text-align: center; "';
 	$campos[$modelClass]['usuario_atribuido']['estilo_th'] 									= 'width="210px"';

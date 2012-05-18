@@ -42,6 +42,13 @@
     $campos['Usuario']['isadvogado']['options']['default']              = 0;
 	$campos['Usuario']['isadvogado']['estilo_th'] 						= 'width="70px"';
 
+    $campos['Usuario']['isassistente']['options']['label']['text'] 		= 'Assistente';
+    $campos['Usuario']['isassistente']['estilo_td'] 					= 'style="text-align: center; "';
+    $campos['Usuario']['isassistente']['options']['style'] 				= 'width: 70px; text-align: center; ';
+    $campos['Usuario']['isassistente']['options']['options']	 		= array('1'=>'Sim','0'=>'Não');
+    $campos['Usuario']['isassistente']['options']['default']            = 0;
+    $campos['Usuario']['isassistente']['estilo_th'] 					= 'width="70px"';
+
 	$campos['Usuario']['trocasenha']['options']['label']['text'] 		= 'TrocaSenha';
 	$campos['Usuario']['trocasenha']['estilo_td'] 						= 'style="text-align: center; "';
 	$campos['Usuario']['trocasenha']['options']['style'] 				= 'width: 70px; text-align: center; ';
@@ -76,7 +83,7 @@
 	$campos[$modelClass]['departamento_id']['options']['empty'] 		= '-- escolha uma opção --';
 	if (isset($departamentos)) $campos[$modelClass]['departamento_id']['options']['options'] = $departamentos;
 
-	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.trocasenha','#','Perfil','#',$modelClass.'.departamento_id','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
+	$edicaoCampos 	= array('Usuario.login','Usuario.senha','Usuario.senha2','#','Usuario.nome','#','Usuario.email','#','Usuario.aniversario','Usuario.ativo','Usuario.acessos','#','Usuario.isadvogado','Usuario.isassistente','Usuario.trocasenha','#','Perfil','#',$modelClass.'.departamento_id','#','Usuario.ultimo_acesso','#','Usuario.modified','#','Usuario.created');
 	$listaCampos	= array('Usuario.login','Usuario.nome','Usuario.ativo','Usuario.acessos','Usuario.isadvogado','Usuario.ultimo_acesso');
 
 	// se estamos na edição
