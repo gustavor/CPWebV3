@@ -1037,7 +1037,7 @@ class RelatoriosController extends AppController {
             {
                 $dtIni = $this->data[$this->action]['data_ini']['year'].'-'.$this->data[$this->action]['data_ini']['month'].'-'.$this->data[$this->action]['data_ini']['day'];
                 $dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
-                $condicoes['Processo.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+                $condicoes['Processo.distribuicao BETWEEN ? AND ?'] = array($dtIni,$dtFim);
             }
 
             // filtrando pelo contato, serão localizados todos os processos com este contato
