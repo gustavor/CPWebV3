@@ -962,12 +962,20 @@ class RelatoriosController extends AppController {
 
     public function fil_processos_criados($relatorio = '',$layout = '')
     {
+        $campos['Processo']['cliente']['options']['label']['text']      = 'Cliente';
+        $campos['Processo']['cliente']['estilo_th'] 		            = 'width=150px';
+        $campos['Processo']['cliente']['estilo_td']                     = 'align="center"';
+
+        $campos['Processo']['contrario']['options']['label']['text']    = 'Parte Cont.';
+        $campos['Processo']['contrario']['estilo_th'] 		            = 'width=150px';
+        $campos['Processo']['contrario']['estilo_td']                   = 'align="center"';
+
         // nome do relatório, pode ser passado via formulário
         $relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
 
         // parametros do relatório
         $paramRelatorio['orientacao_pagina'] 	= 'L';
-        $paramRelatorio['titulo'] 				= 'Filtro de Processos por Data, Tipo, Cliente e Advogado';
+        $paramRelatorio['titulo'] 				= 'Filtro de Processos por Cadastro, Tipo, Cliente e Advogado';
 
         // filtros
         $dataFiltro = array();
@@ -983,7 +991,7 @@ class RelatoriosController extends AppController {
         $dataLista		= array();
 
         // campos que vão compor a lista
-        $camposLista	= array('Processo.id','Processo.created','Processo.numero','Usuario.nome','TipoProcesso.nome');
+        $camposLista	= array('Processo.id','Processo.created','Processo.cliente','Processo.contrario','Processo.numero','Usuario.nome','TipoProcesso.nome');
 
         // config view usados na lista
         $viewLista 		= array('processos'=>'Processo');
@@ -1037,7 +1045,7 @@ class RelatoriosController extends AppController {
             {
                 $dtIni = $this->data[$this->action]['data_ini']['year'].'-'.$this->data[$this->action]['data_ini']['month'].'-'.$this->data[$this->action]['data_ini']['day'];
                 $dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
-                $condicoes['Processo.distribuicao BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+                $condicoes['Processo.created BETWEEN ? AND ?'] = array($dtIni,$dtFim);
             }
 
             // filtrando pelo contato, serão localizados todos os processos com este contato
@@ -1063,12 +1071,13 @@ class RelatoriosController extends AppController {
             // Buscando processos com o filtro para Lista
             if (!empty($layout))
             {
-                $pagina 	= $this->Processo->find('all',array('limit' => 1000,'conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+                $pagina = $this->Processo->find('all',array('limit' => 1000,'conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
             } else
             {
                 $this->paginate['limit'] = 1000;
                 $pagina 	= $this->paginate('Processo',$condicoes);
                 $this->Session->write('filtroRelatorio',$condicoes);
+                //debug($pagina);
             }
 
             // atualizando o conteúdo do relatório somente por causa deste filtro específico
@@ -1085,7 +1094,193 @@ class RelatoriosController extends AppController {
                         {
                             $link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
                             $valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
+                            $arrContatosProcesso = $this->Processo->ContatoProcesso->find('all',array(
+                                'fields'=>array('ContatoProcesso.contato_id','ContatoProcesso.tipo_parte_id'),
+                                'conditions'=>array('ContatoProcesso.processo_id'=>$_valor)));
+                            foreach($arrContatosProcesso as $i => $arrContato)
+                            {
+                                switch($arrContato['ContatoProcesso']['tipo_parte_id'])
+                                {
+                                    case 1: //cliente
+                                        $cliente = $this->Processo->ContatoProcesso->Contato->read('nome',$arrContato['ContatoProcesso']['contato_id']);
+                                        break;
+                                    case 2: //parte contraria
+                                        $contrario = $this->Processo->ContatoProcesso->Contato->read('nome',$arrContato['ContatoProcesso']['contato_id']);
+                                }
+                            }
                         }
+                        $dataLista[$_linha]['Processo']['cliente'] = $cliente['Contato']['nome'];
+                        $dataLista[$_linha]['Processo']['contrario'] = $contrario['Contato']['nome'];
+                        $dataLista[$_linha][$_modelo][$_campo] = $valor;
+                    }
+                }
+            }
+
+            // definindo o que renderizar
+            $render = (!empty($layout)) ? $layout : 'listar';
+        } else
+        {
+            $render = $this->action;
+        }
+
+        // atualizando a view
+        $this->set(compact('dataFiltro','dataLista','camposLista','viewLista','paramRelatorio','link','campos'));
+        $this->set('modelo','Processo');
+        $this->set('relatorio','processo');
+        $this->render($render);
+    }
+
+    public function fil_processos_distribuidos($relatorio = '',$layout = '')
+    {
+        $campos['Processo']['cliente']['options']['label']['text']      = 'Cliente';
+        $campos['Processo']['cliente']['estilo_th'] 		            = 'width=150px';
+        $campos['Processo']['cliente']['estilo_td']                     = 'align="center"';
+
+        $campos['Processo']['contrario']['options']['label']['text']    = 'Parte Cont.';
+        $campos['Processo']['contrario']['estilo_th'] 		            = 'width=150px';
+        $campos['Processo']['contrario']['estilo_td']                   = 'align="center"';
+
+        // nome do relatório, pode ser passado via formulário
+        $relatorio = isset($this->data[$this->action]['relatorio']) ? $this->data[$this->action]['relatorio'] : $relatorio;
+
+        // parametros do relatório
+        $paramRelatorio['orientacao_pagina'] 	= 'L';
+        $paramRelatorio['titulo'] 				= 'Filtro de Processos por Distribuição, Tipo, Cliente e Advogado';
+
+        // filtros
+        $dataFiltro = array();
+        $this->loadModel('TipoProcesso');
+        $this->loadModel('Processo');
+        $this->loadModel('Contato');
+        $this->loadModel('Usuario');
+        $dataFiltro['tipoprocesso']['options']['options'] = $this->TipoProcesso->find('list');
+        $dataFiltro['contato']['options']['options'] = $this->Contato->find('list');
+        $dataFiltro['usuario']['options']['options'] = $this->Usuario->find('list', array('conditions' => array('Usuario.isadvogado' => 1, 'Usuario.ativo' => 1)));
+
+        // dados da lista
+        $dataLista		= array();
+
+        // campos que vão compor a lista
+        $camposLista	= array('Processo.id','Processo.distribuicao','Processo.cliente','Processo.contrario','Processo.numero','Usuario.nome','TipoProcesso.nome');
+
+        // config view usados na lista
+        $viewLista 		= array('processos'=>'Processo');
+
+        //configurando campos
+        $campos['Processo']['numero']['estilo_th'] 		                                    = 'width=180px';
+
+        $campos['Usuario']['nome']['options']['label']['text']                              = 'Adv. Responsável';
+        $campos['Usuario']['nome']['estilo_td'] 		                                    = 'align="center"';
+        $campos['Usuario']['nome']['estilo_th']                                             = 'width=300px';
+
+        $campos['TipoProcesso']['nome']['options']['label']['text']                         = 'Tipo do Processo';
+        $campos['TipoProcesso']['nome']['estilo_td'] 		                                = 'align="center"';
+        $campos['TipoProcesso']['nome']['estilo_th']                                        = 'width=150px';
+
+        $campos['Processo']['numero']['estilo_td'] 		                                    = 'align="center"';
+
+        // se o formulário foi postado ou o pedido de impressão para o layout
+        if 	(	(isset($this->data[$this->action])) || (!empty($layout)) )
+        {
+            // debug
+            //pr($this->data);
+
+            // carregando o modelo de processos
+            $this->loadModel('Processo');
+
+            // filtro
+            $condicoes = array();
+
+            $processos_tipo = array();
+
+            //queremos somente processos com numero, ou seja, que ja foram ajuizados
+            $condicoes['Processo.numero >'] = 0;
+
+            // filtrando pelo tipo de processo, serão localizados todos os processos com este tipo de processo
+            if (!empty($this->data['fil_processos_distribuidos']['tipoprocesso']))
+            {
+                $processos = $this->Processo->find('list',array('conditions'=>array('Processo.tipo_processo_id'=>$this->data['fil_processos_distribuidos']['tipoprocesso'])));
+                foreach($processos as $processo_id => $processo_numero) $processos_tipo[] = $processo_id; //populando o array com todos os processos desse tipo
+            }
+
+            if (!empty($this->data['fil_processos_distribuidos']['usuario']))
+            {
+                $condicoes['Processo.usuario_id'] = $this->data['fil_processos_distribuidos']['usuario'];
+            }
+
+            // filtrando data de criação
+            if (isset($this->data[$this->action]['data_ini']) && !(empty($this->data[$this->action]['data_ini'])) &&
+                isset($this->data[$this->action]['data_fim']) && !(empty($this->data[$this->action]['data_fim']))
+            )
+            {
+                $dtIni = $this->data[$this->action]['data_ini']['year'].'-'.$this->data[$this->action]['data_ini']['month'].'-'.$this->data[$this->action]['data_ini']['day'];
+                $dtFim = $this->data[$this->action]['data_fim']['year'].'-'.$this->data[$this->action]['data_fim']['month'].'-'.$this->data[$this->action]['data_fim']['day'];
+                $condicoes['Processo.distribuicao BETWEEN ? AND ?'] = array($dtIni,$dtFim);
+            }
+
+            // filtrando pelo contato, serão localizados todos os processos com este contato
+            if (!empty($this->data['fil_processos_distribuidos']['contato']))
+            {
+                $this->loadModel('ContatoProcesso');
+                $contatosprocessos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.contato_id' => $this->data['fil_processos_distribuidos']['contato']),'fields'=>array('processo_id')));
+                foreach($contatosprocessos as $id_contatoprocesso => $processo_id) $processos_cliente[] = $processo_id;
+            }
+
+            //a intercessão dos dois arrays é a lista de processos que iremos procurar
+            sort($processos_cliente);
+            sort($processos_tipo);
+            if( !count($processos_cliente) )
+                $listaProcessos = $processos_tipo;
+            else
+                $listaProcessos = array_intersect($processos_tipo,$processos_cliente);
+            $condicoes['Processo.id'] = $listaProcessos;
+
+            $this->paginate = array('order'=>array('Processo.distribuicao' => 'ASC'));
+            $this->Session->write('ordemRelatorio','Processo.distribuicao ASC');
+
+            // Buscando processos com o filtro para Lista
+            if (!empty($layout))
+            {
+                $pagina = $this->Processo->find('all',array('limit' => 1000,'conditions'=>$this->Session->read('filtroRelatorio'),null,'order'=>$this->Session->read('ordemRelatorio')));
+            } else
+            {
+                $this->paginate['limit'] = 1000;
+                $pagina 	= $this->paginate('Processo',$condicoes);
+                $this->Session->write('filtroRelatorio',$condicoes);
+                //debug($pagina);
+            }
+
+            // atualizando o conteúdo do relatório somente por causa deste filtro específico
+            $dataLista	= array();
+            $link		= array();
+            foreach($pagina as $_linha => $_arrModelos)
+            {
+                foreach($_arrModelos as $_modelo => $_arrCampos)
+                {
+                    foreach($_arrCampos as $_campo => $_valor)
+                    {
+                        $valor = $_valor;
+                        if ($_modelo == 'Processo' && $_campo == 'id')
+                        {
+                            $link[$_linha] = Router::url('/',true).'processos/editar/'.$_valor;
+                            $valor = 'VEBH-'.str_repeat('0',5-strlen(trim($valor))).trim($valor);
+                            $arrContatosProcesso = $this->Processo->ContatoProcesso->find('all',array(
+                                'fields'=>array('ContatoProcesso.contato_id','ContatoProcesso.tipo_parte_id'),
+                                'conditions'=>array('ContatoProcesso.processo_id'=>$_valor)));
+                            foreach($arrContatosProcesso as $i => $arrContato)
+                            {
+                                switch($arrContato['ContatoProcesso']['tipo_parte_id'])
+                                {
+                                    case 1: //cliente
+                                        $cliente = $this->Processo->ContatoProcesso->Contato->read('nome',$arrContato['ContatoProcesso']['contato_id']);
+                                        break;
+                                    case 2: //parte contraria
+                                        $contrario = $this->Processo->ContatoProcesso->Contato->read('nome',$arrContato['ContatoProcesso']['contato_id']);
+                                }
+                            }
+                        }
+                        $dataLista[$_linha]['Processo']['cliente'] = $cliente['Contato']['nome'];
+                        $dataLista[$_linha]['Processo']['contrario'] = $contrario['Contato']['nome'];
                         $dataLista[$_linha][$_modelo][$_campo] = $valor;
                     }
                 }

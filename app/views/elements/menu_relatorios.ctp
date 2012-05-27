@@ -4,6 +4,10 @@
     $listaRelatorio[0]['criados']['text'] 		    = 'Processos por Tipo e Data de Cadastro';
     $listaRelatorio[0]['criados']['url'] 			= Router::url('/',true).'relatorios/fil_processos_criados';
 
+    $listaRelatorio[0]['titulo'] 					= 'Processos';
+    $listaRelatorio[0]['distribuidos']['text'] 		= 'Processos por Tipo e Data de Distribuição';
+    $listaRelatorio[0]['distribuidos']['url'] 	    = Router::url('/',true).'relatorios/fil_processos_distribuidos';
+
     $listaRelatorio[1]['titulo'] 					= 'Audiências';
 	$listaRelatorio[1]['audiencia']['text'] 		= 'Audiências por Tipo, Advogado, Contato e Data';
 	$listaRelatorio[1]['audiencia']['url'] 			= Router::url('/',true).'relatorios/fil_audiencias/audiencias/';
