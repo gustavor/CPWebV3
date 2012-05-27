@@ -91,6 +91,7 @@
     {
         if(!empty($assistentes))
         {
+            $assistentes[$this->Session->read('Auth.Usuario.id')] = $this->Session->read('Auth.Usuario.nome');
             $campos[$modelClass]['usuario_atribuido']['options']['options']   = $assistentes;
             $campos[$modelClass]['usuario_atribuido']['options']['empty']	  = '-- escolha uma opção --';
         }
