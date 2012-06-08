@@ -661,22 +661,25 @@ class RelatoriosController extends AppController {
 			if (!empty($this->data['fil_audiencias']['tipoprocesso']))
 			{
 				$processos = $this->Processo->find('list',array('conditions'=>array('Processo.tipo_processo_id'=>$this->data['fil_audiencias']['tipoprocesso'])));
-				foreach($processos as $_id => $_numero)
-				{
-					if (!in_array($_id,$arrIdProcessos)) array_unshift($arrIdProcessos,$_id);
-				}
+				foreach($processos as $processo_id => $processo_numero) $processos_tipo[] = $processo_id; //populando o array com todos os processos desse tipo
 			}
 
-			// filtrando pelo contato, serão localizados todos os processos com este contato
-			if (!empty($this->data['fil_audiencias']['contato']))
-			{
-				$this->loadModel('ContatoProcesso');
-				$contatosprocessos = $this->ContatoProcesso->find('all',array('conditions'=>array('ContatoProcesso.contato_id'=>$this->data['fil_audiencias']['contato'])));
-				foreach($contatosprocessos as $_id => $_numero)
-				{
-					if (!in_array($_id,$arrIdProcessos)) array_unshift($arrIdProcessos,$_id);
-				}
-			}
+            // filtrando pelo contato, serão localizados todos os processos com este contato
+            if (!empty($this->data['fil_audiencias']['contato']))
+            {
+                $this->loadModel('ContatoProcesso');
+                $contatosprocessos = $this->ContatoProcesso->find('list',array('conditions'=>array('ContatoProcesso.contato_id' => $this->data['fil_audiencias']['contato']),'fields'=>array('processo_id')));
+                foreach($contatosprocessos as $id_contatoprocesso => $processo_id) $processos_cliente[] = $processo_id;
+            }
+
+            //a intercessão dos dois arrays é a lista de processos que iremos procurar
+            sort($processos_cliente);
+            sort($processos_tipo);
+            if( !count($processos_cliente) )
+                $listaProcessos = $processos_tipo;
+            else
+                $listaProcessos = array_intersect($processos_tipo,$processos_cliente);
+            $condicoes['Audiencia.processo_id'] = $listaProcessos;
 
 			// implementando o filtro pro processos
 			if (count($arrIdProcessos)) $condicoes['Audiencia.processo_id'] = $arrIdProcessos;
