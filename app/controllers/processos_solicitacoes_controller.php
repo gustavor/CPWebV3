@@ -222,9 +222,9 @@ class ProcessosSolicitacoesController extends AppController {
 					$this->set('atribuido',$usuario['Usuario']['nome']);
 				}
 			}
-            $usuarios = $this->Usuario->find('list', array('conditions' => array('Usuario.departamento_id' => $this->data['ProcessoSolicitacao']['departamento_id'])));
+            $usuarios = $this->Usuario->find('list', array('conditions' => array('Usuario.departamento_id' => $this->data['ProcessoSolicitacao']['departamento_id'], 'Usuario.ativo' => 1)));
             $responsavel = $this->Usuario->read(null,$this->data['Processo']['usuario_id']);
-            $assistentes = $this->Usuario->find('list', array('conditions' => array('Usuario.departamento_id' => $this->data['ProcessoSolicitacao']['departamento_id'], 'Usuario.isassistente' => 1)));
+            $assistentes = $this->Usuario->find('list', array('conditions' => array('Usuario.departamento_id' => $this->data['ProcessoSolicitacao']['departamento_id'], 'Usuario.isassistente' => 1, 'Usuario.ativo' => 1)));
             $assistentes[$responsavel['Usuario']['id']] = $responsavel['Usuario']['nome'];
             $this->set(compact('usuarios','assistentes'));
 		}

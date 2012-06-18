@@ -142,7 +142,7 @@ class ProcessosController extends AppController {
 		$this->loadModel('Historico');			$this->set('historico',$this->Historico->find(array('processo_id'=>$id)));
         $this->loadMOdel('Valor');              $this->set('valor', $this->Valor->find('list',array('conditions'=>array('Valor.processo_id' => $id))));
 		
-        $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1 ))));
+        $this->set('advogados',$this->Processo->Usuario->find( 'list', array( 'conditions' => array( 'isadvogado' => 1, 'ativo' => 1 ))));
         $this->set('responsaveis_acordo',$this->Processo->Responsavel->find('list',array('conditions' => array('departamento_id' => 10))));
         
         // salvando os apensos
