@@ -1,60 +1,6 @@
-########################################
-#        Sistema CPWeb Versão 3        #
-# Valéria Esteves Advogados Associados #
-#      Bem-Vindo ao Repositório!       #
-########################################
+This is an old project of mine.
+Well, you can call this abandonware.
 
-Para qualquer problema no repositório, entrar em contato via e-mail com gustavo [at] gustavo-ramos [dot] com
+So... serve yourself.
 
-O repositório é privado! Não revele seu keypair para ninguém!
-
-Branches utilizados no projeto:
-
-    1) cp-experimental #primeiro branch para novas implantações - instável
-    2) cp-testing #segundo branch para novas implantações - instável
-    3) cp-candidate #branch para candidatos de implantação (merging) no branch master - estável
-    4) cp-data #branch para implementos relacionados a controle de dados (models, controllers) - estável
-    5) cp-visual #branch para implementos relacionados à 3ª camada (V) - estável
-    6) master #branch principal da aplicação
-
-Ordem de merging natural dos branches:
-
-                                                      cp-data
-cp-experimental -> cp-testing -> cp-candidate   =>               =>   master
-                                                     cp-visual
-
-Crescimento de estabilidade de módulo nesta direção ==============>
-
-
-Design Patterns adotadas no projeto:
-
-    1)Todos os arquivos terão de ter o cabeçalho padrão após a tag de início do código
-    2)Não é preciso o fechamento das tags php no fim do código
-
-Abaixo o cabeçalho padrão para todos os arquivos, exceto vendors criados no projeto:
-
-/**
- * CPWeb - Controle Virtual de Processos
- * Versão 3.0 - Novembro de 2010
- *
- * /nome/completo/do/arquivo ( ex.: app/controllers/bars_controller.php ou app/models/foo.php )
- *
- * A reprodução de qualquer parte desse arquivo sem a prévia autorização
- * do detentor dos direitos autorais constitui crime de acordo com
- * a legislação brasileira.
- *
- * This product is protected by copyright and distributed under licenses restricting
- * copying, distribution, and non-allowed selling/trading
- *
- * @copyright   Copyright 2010, Valéria Esteves Advogados Associados ( www.veadvogados.com.br )
- * @copyright   Copyright 2010, Gustavo Dias Duarte Ramos ( gustavo at gustavo-ramos dot com )
- * @link http://cpweb.veadvogados.adv.br
- * @package cpweb
- * @subpackage cpweb.v3
- * @since CPWeb V3
- */
-
- Atenciosamente,
-
- Gustavo Ramos
- Gestor de Projeto/Desenvolvimento
+*Yeah.*
